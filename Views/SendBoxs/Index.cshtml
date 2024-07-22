@@ -1,0 +1,93 @@
+﻿@model IEnumerable<WebApplicationStoreAdmin.Models.SD_SendBoxs>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SendTypeTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FullName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MobileNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SendDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SendStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SendTrackingNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BD_Cities.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BD_SendProductsPrice.ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SD_ShoppingBasket.ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SD_Transactions.PaymentTrackingNo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SendTypeTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FullName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MobileNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SendDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SendStatus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SendTrackingNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BD_Cities.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BD_SendProductsPrice.ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SD_ShoppingBasket.ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SD_Transactions.PaymentTrackingNo)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

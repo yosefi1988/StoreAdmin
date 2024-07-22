@@ -1,0 +1,75 @@
+﻿@model IEnumerable<WebApplicationStoreAdmin.Models.SD_ProductCharges>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BuyInvoiceNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Charge)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BuyPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BuyCount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PercentInterest)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PercentWages)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BD_Tax.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SD_Product.Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.BuyInvoiceNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Charge)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BuyPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BuyCount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PercentInterest)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PercentWages)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BD_Tax.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SD_Product.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
