@@ -176,6 +176,7 @@
     <Compile Include="Controllers\Basedata\SizeTypesController.cs" />
     <Compile Include="Controllers\Basedata\StatesController.cs" />
     <Compile Include="Controllers\Basedata\TaxController.cs" />
+    <Compile Include="Controllers\Config\AdminsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\Config\StoreDetailsController.cs" />
@@ -470,6 +471,11 @@
     <Content Include="Views\SendBoxs\Details.cshtml" />
     <Content Include="Views\SendBoxs\Edit.cshtml" />
     <Content Include="Views\SendBoxs\Index.cshtml" />
+    <Content Include="Views\Admins\Create.cshtml" />
+    <Content Include="Views\Admins\Delete.cshtml" />
+    <Content Include="Views\Admins\Details.cshtml" />
+    <Content Include="Views\Admins\Edit.cshtml" />
+    <Content Include="Views\Admins\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
