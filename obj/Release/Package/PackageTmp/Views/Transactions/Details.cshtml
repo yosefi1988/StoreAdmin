@@ -1,0 +1,114 @@
+﻿@model WebApplicationStoreAdmin.Models.SD_Transactions
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>SD_Transactions</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SumTaxAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SumTaxAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiscountAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiscountAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SendAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SendAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SumShoppingBasketPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SumShoppingBasketPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SumShoppingBasketDiscount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SumShoppingBasketDiscount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AmountForPay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AmountForPay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PaymentStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PaymentStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PaymentTrackingNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PaymentTrackingNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PaymentDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PaymentDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BD_SendProductsPrice.ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BD_SendProductsPrice.ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SD_Coupons.Code)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SD_Coupons.Code)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SD_ShoppingBasket.ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SD_ShoppingBasket.ID)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

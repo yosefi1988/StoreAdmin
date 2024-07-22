@@ -1,0 +1,130 @@
+﻿@model WebApplicationStoreAdmin.Models.SC_StoreDetails
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>SC_StoreDetails</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.StoreName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StoreName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Logo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Logo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AboutStore)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AboutStore)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReturnConditions)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReturnConditions)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Instagram)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Instagram)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Telegram)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Telegram)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.twitter)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.twitter)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Facebook)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Facebook)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pinterest)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pinterest)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fax)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fax)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SupportNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SupportNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SupportHours)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SupportHours)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

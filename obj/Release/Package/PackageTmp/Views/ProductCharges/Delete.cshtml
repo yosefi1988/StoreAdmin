@@ -1,0 +1,88 @@
+﻿@model WebApplicationStoreAdmin.Models.SD_ProductCharges
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>SD_ProductCharges</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BuyInvoiceNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BuyInvoiceNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Charge)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Charge)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BuyPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BuyPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BuyCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BuyCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PercentInterest)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PercentInterest)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PercentWages)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PercentWages)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BD_Tax.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BD_Tax.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SD_Product.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SD_Product.Name)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

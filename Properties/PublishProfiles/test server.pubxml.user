@@ -1,0 +1,620 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword />
+    <_PublishTargetUrl>ftp://sajjadyosefi.ir</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="bin/Antlr3.Runtime.dll">
+      <publishTime>07/21/2024 22:19:47</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.dll">
+      <publishTime>07/21/2024 22:19:48</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.SqlServer.dll">
+      <publishTime>07/21/2024 22:19:48</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.Identity.Core.dll">
+      <publishTime>07/21/2024 22:19:49</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.Identity.EntityFramework.dll">
+      <publishTime>07/21/2024 22:19:49</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.Identity.Owin.dll">
+      <publishTime>07/21/2024 22:19:49</publishTime>
+    </File>
+    <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
+      <publishTime>07/21/2024 22:19:49</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.dll">
+      <publishTime>07/21/2024 22:19:49</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Host.SystemWeb.dll">
+      <publishTime>07/21/2024 22:19:49</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.Cookies.dll">
+      <publishTime>07/21/2024 22:19:49</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.dll">
+      <publishTime>07/21/2024 22:19:49</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.Facebook.dll">
+      <publishTime>07/21/2024 22:19:49</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.Google.dll">
+      <publishTime>07/21/2024 22:19:49</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.MicrosoftAccount.dll">
+      <publishTime>07/21/2024 22:19:49</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.OAuth.dll">
+      <publishTime>07/21/2024 22:19:49</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.Twitter.dll">
+      <publishTime>07/21/2024 22:19:49</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>07/21/2024 22:19:47</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>07/21/2024 22:19:48</publishTime>
+    </File>
+    <File Include="bin/Owin.dll">
+      <publishTime>07/21/2024 22:19:49</publishTime>
+    </File>
+    <File Include="bin/roslyn/csc.exe">
+      <publishTime>07/21/2024 22:19:49</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.Build.Tasks.CodeAnalysis.dll">
+      <publishTime>07/21/2024 22:19:49</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.CSharp.dll">
+      <publishTime>07/21/2024 22:19:49</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.dll">
+      <publishTime>07/21/2024 22:19:49</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.VisualBasic.dll">
+      <publishTime>07/21/2024 22:19:49</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CSharp.Core.targets">
+      <publishTime>07/21/2024 22:19:49</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.VisualBasic.Core.targets">
+      <publishTime>07/21/2024 22:19:49</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Collections.Immutable.dll">
+      <publishTime>07/21/2024 22:19:49</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Reflection.Metadata.dll">
+      <publishTime>07/21/2024 22:19:49</publishTime>
+    </File>
+    <File Include="bin/roslyn/vbc.exe">
+      <publishTime>07/21/2024 22:19:49</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe">
+      <publishTime>07/21/2024 22:19:49</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe.config">
+      <publishTime>07/21/2024 22:19:49</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.dll">
+      <publishTime>07/21/2024 22:19:47</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>07/21/2024 22:19:47</publishTime>
+    </File>
+    <File Include="bin/System.Web.Optimization.dll">
+      <publishTime>07/21/2024 22:19:47</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>07/21/2024 22:19:47</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Deployment.dll">
+      <publishTime>07/21/2024 22:19:47</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.dll">
+      <publishTime>07/21/2024 22:19:47</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Razor.dll">
+      <publishTime>07/21/2024 22:19:47</publishTime>
+    </File>
+    <File Include="bin/WebApplicationStoreAdmin.dll">
+      <publishTime>07/22/2024 02:09:24</publishTime>
+    </File>
+    <File Include="bin/WebGrease.dll">
+      <publishTime>07/21/2024 22:19:47</publishTime>
+    </File>
+    <File Include="Content/bootstrap.css">
+      <publishTime>07/21/2024 22:19:45</publishTime>
+    </File>
+    <File Include="Content/bootstrap.min.css">
+      <publishTime>07/21/2024 22:19:45</publishTime>
+    </File>
+    <File Include="Content/Site.css">
+      <publishTime>07/21/2024 22:19:45</publishTime>
+    </File>
+    <File Include="favicon.ico">
+      <publishTime>07/21/2024 22:19:45</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.eot">
+      <publishTime>07/21/2024 22:19:45</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.svg">
+      <publishTime>07/21/2024 22:19:45</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.ttf">
+      <publishTime>07/21/2024 22:19:45</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.woff">
+      <publishTime>07/21/2024 22:19:45</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>07/21/2024 22:19:45</publishTime>
+    </File>
+    <File Include="Models/ModelStoreDatabase.edmx.diagram">
+      <publishTime>07/22/2024 01:49:33</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>07/21/2024 22:19:49</publishTime>
+    </File>
+    <File Include="Scripts/bootstrap.js">
+      <publishTime>07/21/2024 22:19:45</publishTime>
+    </File>
+    <File Include="Scripts/bootstrap.min.js">
+      <publishTime>07/21/2024 22:19:45</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.js">
+      <publishTime>07/21/2024 22:19:46</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.min.js">
+      <publishTime>07/21/2024 22:19:46</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.min.map">
+      <publishTime>07/21/2024 22:19:46</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.js">
+      <publishTime>07/21/2024 22:19:47</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.min.js">
+      <publishTime>07/21/2024 22:19:47</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.unobtrusive.js">
+      <publishTime>07/21/2024 22:19:48</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.unobtrusive.min.js">
+      <publishTime>07/21/2024 22:19:48</publishTime>
+    </File>
+    <File Include="Scripts/modernizr-2.6.2.js">
+      <publishTime>07/21/2024 22:19:47</publishTime>
+    </File>
+    <File Include="Scripts/respond.js">
+      <publishTime>07/21/2024 22:19:47</publishTime>
+    </File>
+    <File Include="Scripts/respond.min.js">
+      <publishTime>07/21/2024 22:19:47</publishTime>
+    </File>
+    <File Include="Scripts/_references.js">
+      <publishTime>07/21/2024 22:19:47</publishTime>
+    </File>
+    <File Include="Views/Account/ConfirmEmail.cshtml">
+      <publishTime>07/21/2024 22:19:48</publishTime>
+    </File>
+    <File Include="Views/Account/ExternalLoginConfirmation.cshtml">
+      <publishTime>07/21/2024 22:19:48</publishTime>
+    </File>
+    <File Include="Views/Account/ExternalLoginFailure.cshtml">
+      <publishTime>07/21/2024 22:19:48</publishTime>
+    </File>
+    <File Include="Views/Account/ForgotPassword.cshtml">
+      <publishTime>07/21/2024 22:19:48</publishTime>
+    </File>
+    <File Include="Views/Account/ForgotPasswordConfirmation.cshtml">
+      <publishTime>07/21/2024 22:19:48</publishTime>
+    </File>
+    <File Include="Views/Account/Login.cshtml">
+      <publishTime>07/21/2024 22:19:48</publishTime>
+    </File>
+    <File Include="Views/Account/Register.cshtml">
+      <publishTime>07/21/2024 22:19:48</publishTime>
+    </File>
+    <File Include="Views/Account/ResetPassword.cshtml">
+      <publishTime>07/21/2024 22:19:48</publishTime>
+    </File>
+    <File Include="Views/Account/ResetPasswordConfirmation.cshtml">
+      <publishTime>07/21/2024 22:19:48</publishTime>
+    </File>
+    <File Include="Views/Account/SendCode.cshtml">
+      <publishTime>07/21/2024 22:19:48</publishTime>
+    </File>
+    <File Include="Views/Account/VerifyCode.cshtml">
+      <publishTime>07/21/2024 22:19:48</publishTime>
+    </File>
+    <File Include="Views/Account/_ExternalLoginsListPartial.cshtml">
+      <publishTime>07/21/2024 22:19:48</publishTime>
+    </File>
+    <File Include="Views/Addresses/Create.cshtml">
+      <publishTime>07/22/2024 01:28:46</publishTime>
+    </File>
+    <File Include="Views/Addresses/Delete.cshtml">
+      <publishTime>07/22/2024 01:28:47</publishTime>
+    </File>
+    <File Include="Views/Addresses/Details.cshtml">
+      <publishTime>07/22/2024 01:28:47</publishTime>
+    </File>
+    <File Include="Views/Addresses/Edit.cshtml">
+      <publishTime>07/22/2024 01:28:48</publishTime>
+    </File>
+    <File Include="Views/Addresses/Index.cshtml">
+      <publishTime>07/22/2024 01:28:48</publishTime>
+    </File>
+    <File Include="Views/Category/Create.cshtml">
+      <publishTime>07/22/2024 01:15:35</publishTime>
+    </File>
+    <File Include="Views/Category/Delete.cshtml">
+      <publishTime>07/22/2024 01:15:36</publishTime>
+    </File>
+    <File Include="Views/Category/Details.cshtml">
+      <publishTime>07/22/2024 01:15:36</publishTime>
+    </File>
+    <File Include="Views/Category/Edit.cshtml">
+      <publishTime>07/22/2024 01:15:37</publishTime>
+    </File>
+    <File Include="Views/Category/Index.cshtml">
+      <publishTime>07/22/2024 01:15:37</publishTime>
+    </File>
+    <File Include="Views/Cities/Create.cshtml">
+      <publishTime>07/22/2024 01:00:35</publishTime>
+    </File>
+    <File Include="Views/Cities/Delete.cshtml">
+      <publishTime>07/22/2024 01:00:36</publishTime>
+    </File>
+    <File Include="Views/Cities/Details.cshtml">
+      <publishTime>07/22/2024 01:00:36</publishTime>
+    </File>
+    <File Include="Views/Cities/Edit.cshtml">
+      <publishTime>07/22/2024 01:00:37</publishTime>
+    </File>
+    <File Include="Views/Cities/Index.cshtml">
+      <publishTime>07/22/2024 01:00:37</publishTime>
+    </File>
+    <File Include="Views/Color/Create.cshtml">
+      <publishTime>07/22/2024 01:21:03</publishTime>
+    </File>
+    <File Include="Views/Color/Delete.cshtml">
+      <publishTime>07/22/2024 01:21:03</publishTime>
+    </File>
+    <File Include="Views/Color/Details.cshtml">
+      <publishTime>07/22/2024 01:21:04</publishTime>
+    </File>
+    <File Include="Views/Color/Edit.cshtml">
+      <publishTime>07/22/2024 01:21:04</publishTime>
+    </File>
+    <File Include="Views/Color/Index.cshtml">
+      <publishTime>07/22/2024 01:21:05</publishTime>
+    </File>
+    <File Include="Views/Country/Create.cshtml">
+      <publishTime>07/22/2024 00:57:10</publishTime>
+    </File>
+    <File Include="Views/Country/Delete.cshtml">
+      <publishTime>07/22/2024 00:57:10</publishTime>
+    </File>
+    <File Include="Views/Country/Details.cshtml">
+      <publishTime>07/22/2024 00:57:10</publishTime>
+    </File>
+    <File Include="Views/Country/Edit.cshtml">
+      <publishTime>07/22/2024 00:57:11</publishTime>
+    </File>
+    <File Include="Views/Country/Index.cshtml">
+      <publishTime>07/22/2024 00:57:11</publishTime>
+    </File>
+    <File Include="Views/Coupons/Create.cshtml">
+      <publishTime>07/22/2024 01:29:31</publishTime>
+    </File>
+    <File Include="Views/Coupons/Delete.cshtml">
+      <publishTime>07/22/2024 01:29:32</publishTime>
+    </File>
+    <File Include="Views/Coupons/Details.cshtml">
+      <publishTime>07/22/2024 01:29:32</publishTime>
+    </File>
+    <File Include="Views/Coupons/Edit.cshtml">
+      <publishTime>07/22/2024 01:29:33</publishTime>
+    </File>
+    <File Include="Views/Coupons/Index.cshtml">
+      <publishTime>07/22/2024 01:29:33</publishTime>
+    </File>
+    <File Include="Views/Home/About.cshtml">
+      <publishTime>07/21/2024 22:19:45</publishTime>
+    </File>
+    <File Include="Views/Home/Contact.cshtml">
+      <publishTime>07/21/2024 22:19:45</publishTime>
+    </File>
+    <File Include="Views/Home/Index.cshtml">
+      <publishTime>07/21/2024 22:19:45</publishTime>
+    </File>
+    <File Include="Views/Images/Create.cshtml">
+      <publishTime>07/22/2024 01:26:13</publishTime>
+    </File>
+    <File Include="Views/Images/Delete.cshtml">
+      <publishTime>07/22/2024 01:26:14</publishTime>
+    </File>
+    <File Include="Views/Images/Details.cshtml">
+      <publishTime>07/22/2024 01:26:14</publishTime>
+    </File>
+    <File Include="Views/Images/Edit.cshtml">
+      <publishTime>07/22/2024 01:26:15</publishTime>
+    </File>
+    <File Include="Views/Images/Index.cshtml">
+      <publishTime>07/22/2024 01:26:15</publishTime>
+    </File>
+    <File Include="Views/Manage/AddPhoneNumber.cshtml">
+      <publishTime>07/21/2024 22:19:48</publishTime>
+    </File>
+    <File Include="Views/Manage/ChangePassword.cshtml">
+      <publishTime>07/21/2024 22:19:48</publishTime>
+    </File>
+    <File Include="Views/Manage/Index.cshtml">
+      <publishTime>07/21/2024 22:19:48</publishTime>
+    </File>
+    <File Include="Views/Manage/ManageLogins.cshtml">
+      <publishTime>07/21/2024 22:19:48</publishTime>
+    </File>
+    <File Include="Views/Manage/SetPassword.cshtml">
+      <publishTime>07/21/2024 22:19:48</publishTime>
+    </File>
+    <File Include="Views/Manage/VerifyPhoneNumber.cshtml">
+      <publishTime>07/21/2024 22:19:48</publishTime>
+    </File>
+    <File Include="Views/Product/Create.cshtml">
+      <publishTime>07/22/2024 01:19:43</publishTime>
+    </File>
+    <File Include="Views/Product/Delete.cshtml">
+      <publishTime>07/22/2024 01:19:43</publishTime>
+    </File>
+    <File Include="Views/Product/Details.cshtml">
+      <publishTime>07/22/2024 01:19:44</publishTime>
+    </File>
+    <File Include="Views/Product/Edit.cshtml">
+      <publishTime>07/22/2024 01:19:44</publishTime>
+    </File>
+    <File Include="Views/Product/Index.cshtml">
+      <publishTime>07/22/2024 01:19:44</publishTime>
+    </File>
+    <File Include="Views/ProductCharges/Create.cshtml">
+      <publishTime>07/22/2024 01:42:04</publishTime>
+    </File>
+    <File Include="Views/ProductCharges/Delete.cshtml">
+      <publishTime>07/22/2024 01:42:04</publishTime>
+    </File>
+    <File Include="Views/ProductCharges/Details.cshtml">
+      <publishTime>07/22/2024 01:42:05</publishTime>
+    </File>
+    <File Include="Views/ProductCharges/Edit.cshtml">
+      <publishTime>07/22/2024 01:42:05</publishTime>
+    </File>
+    <File Include="Views/ProductCharges/Index.cshtml">
+      <publishTime>07/22/2024 01:42:06</publishTime>
+    </File>
+    <File Include="Views/ProductChargesProperties/Create.cshtml">
+      <publishTime>07/22/2024 01:32:34</publishTime>
+    </File>
+    <File Include="Views/ProductChargesProperties/Delete.cshtml">
+      <publishTime>07/22/2024 01:32:35</publishTime>
+    </File>
+    <File Include="Views/ProductChargesProperties/Details.cshtml">
+      <publishTime>07/22/2024 01:32:35</publishTime>
+    </File>
+    <File Include="Views/ProductChargesProperties/Edit.cshtml">
+      <publishTime>07/22/2024 01:32:36</publishTime>
+    </File>
+    <File Include="Views/ProductChargesProperties/Index.cshtml">
+      <publishTime>07/22/2024 01:32:36</publishTime>
+    </File>
+    <File Include="Views/ProductSizes/Create.cshtml">
+      <publishTime>07/22/2024 01:27:09</publishTime>
+    </File>
+    <File Include="Views/ProductSizes/Delete.cshtml">
+      <publishTime>07/22/2024 01:27:10</publishTime>
+    </File>
+    <File Include="Views/ProductSizes/Details.cshtml">
+      <publishTime>07/22/2024 01:27:10</publishTime>
+    </File>
+    <File Include="Views/ProductSizes/Edit.cshtml">
+      <publishTime>07/22/2024 01:27:11</publishTime>
+    </File>
+    <File Include="Views/ProductSizes/Index.cshtml">
+      <publishTime>07/22/2024 01:27:11</publishTime>
+    </File>
+    <File Include="Views/SendBoxs/Create.cshtml">
+      <publishTime>07/22/2024 01:47:04</publishTime>
+    </File>
+    <File Include="Views/SendBoxs/Delete.cshtml">
+      <publishTime>07/22/2024 01:47:05</publishTime>
+    </File>
+    <File Include="Views/SendBoxs/Details.cshtml">
+      <publishTime>07/22/2024 01:47:06</publishTime>
+    </File>
+    <File Include="Views/SendBoxs/Edit.cshtml">
+      <publishTime>07/22/2024 01:47:06</publishTime>
+    </File>
+    <File Include="Views/SendBoxs/Index.cshtml">
+      <publishTime>07/22/2024 01:47:07</publishTime>
+    </File>
+    <File Include="Views/SendProductsPrice/Create.cshtml">
+      <publishTime>07/22/2024 01:02:13</publishTime>
+    </File>
+    <File Include="Views/SendProductsPrice/Delete.cshtml">
+      <publishTime>07/22/2024 01:02:13</publishTime>
+    </File>
+    <File Include="Views/SendProductsPrice/Details.cshtml">
+      <publishTime>07/22/2024 01:02:14</publishTime>
+    </File>
+    <File Include="Views/SendProductsPrice/Edit.cshtml">
+      <publishTime>07/22/2024 01:02:14</publishTime>
+    </File>
+    <File Include="Views/SendProductsPrice/Index.cshtml">
+      <publishTime>07/22/2024 01:02:14</publishTime>
+    </File>
+    <File Include="Views/Shared/Error.cshtml">
+      <publishTime>07/21/2024 22:19:48</publishTime>
+    </File>
+    <File Include="Views/Shared/Lockout.cshtml">
+      <publishTime>07/21/2024 22:19:48</publishTime>
+    </File>
+    <File Include="Views/Shared/_Layout.cshtml">
+      <publishTime>07/21/2024 22:19:48</publishTime>
+    </File>
+    <File Include="Views/Shared/_LoginPartial.cshtml">
+      <publishTime>07/21/2024 22:19:48</publishTime>
+    </File>
+    <File Include="Views/ShoppingBasket/Create.cshtml">
+      <publishTime>07/22/2024 01:44:38</publishTime>
+    </File>
+    <File Include="Views/ShoppingBasket/Delete.cshtml">
+      <publishTime>07/22/2024 01:44:39</publishTime>
+    </File>
+    <File Include="Views/ShoppingBasket/Details.cshtml">
+      <publishTime>07/22/2024 01:44:39</publishTime>
+    </File>
+    <File Include="Views/ShoppingBasket/Edit.cshtml">
+      <publishTime>07/22/2024 01:44:40</publishTime>
+    </File>
+    <File Include="Views/ShoppingBasket/Index.cshtml">
+      <publishTime>07/22/2024 01:44:40</publishTime>
+    </File>
+    <File Include="Views/ShoppingBasketObjects/Create.cshtml">
+      <publishTime>07/22/2024 01:45:38</publishTime>
+    </File>
+    <File Include="Views/ShoppingBasketObjects/Delete.cshtml">
+      <publishTime>07/22/2024 01:45:38</publishTime>
+    </File>
+    <File Include="Views/ShoppingBasketObjects/Details.cshtml">
+      <publishTime>07/22/2024 01:45:39</publishTime>
+    </File>
+    <File Include="Views/ShoppingBasketObjects/Edit.cshtml">
+      <publishTime>07/22/2024 01:45:39</publishTime>
+    </File>
+    <File Include="Views/ShoppingBasketObjects/Index.cshtml">
+      <publishTime>07/22/2024 01:45:40</publishTime>
+    </File>
+    <File Include="Views/SizeTypes/Create.cshtml">
+      <publishTime>07/22/2024 01:07:40</publishTime>
+    </File>
+    <File Include="Views/SizeTypes/Delete.cshtml">
+      <publishTime>07/22/2024 01:07:40</publishTime>
+    </File>
+    <File Include="Views/SizeTypes/Details.cshtml">
+      <publishTime>07/22/2024 01:07:40</publishTime>
+    </File>
+    <File Include="Views/SizeTypes/Edit.cshtml">
+      <publishTime>07/22/2024 01:07:41</publishTime>
+    </File>
+    <File Include="Views/SizeTypes/Index.cshtml">
+      <publishTime>07/22/2024 01:07:41</publishTime>
+    </File>
+    <File Include="Views/States/Create.cshtml">
+      <publishTime>07/22/2024 01:03:24</publishTime>
+    </File>
+    <File Include="Views/States/Delete.cshtml">
+      <publishTime>07/22/2024 01:03:25</publishTime>
+    </File>
+    <File Include="Views/States/Details.cshtml">
+      <publishTime>07/22/2024 01:03:25</publishTime>
+    </File>
+    <File Include="Views/States/Edit.cshtml">
+      <publishTime>07/22/2024 01:03:26</publishTime>
+    </File>
+    <File Include="Views/States/Index.cshtml">
+      <publishTime>07/22/2024 01:03:26</publishTime>
+    </File>
+    <File Include="Views/StoreDetails/Create.cshtml">
+      <publishTime>07/22/2024 00:26:39</publishTime>
+    </File>
+    <File Include="Views/StoreDetails/Delete.cshtml">
+      <publishTime>07/22/2024 00:26:40</publishTime>
+    </File>
+    <File Include="Views/StoreDetails/Details.cshtml">
+      <publishTime>07/22/2024 00:26:40</publishTime>
+    </File>
+    <File Include="Views/StoreDetails/Edit.cshtml">
+      <publishTime>07/22/2024 00:26:41</publishTime>
+    </File>
+    <File Include="Views/StoreDetails/Index.cshtml">
+      <publishTime>07/22/2024 00:26:41</publishTime>
+    </File>
+    <File Include="Views/Tax/Create.cshtml">
+      <publishTime>07/22/2024 01:08:26</publishTime>
+    </File>
+    <File Include="Views/Tax/Delete.cshtml">
+      <publishTime>07/22/2024 01:08:26</publishTime>
+    </File>
+    <File Include="Views/Tax/Details.cshtml">
+      <publishTime>07/22/2024 01:08:27</publishTime>
+    </File>
+    <File Include="Views/Tax/Edit.cshtml">
+      <publishTime>07/22/2024 01:08:27</publishTime>
+    </File>
+    <File Include="Views/Tax/Index.cshtml">
+      <publishTime>07/22/2024 01:08:27</publishTime>
+    </File>
+    <File Include="Views/Transactions/Create.cshtml">
+      <publishTime>07/22/2024 01:46:15</publishTime>
+    </File>
+    <File Include="Views/Transactions/Delete.cshtml">
+      <publishTime>07/22/2024 01:46:15</publishTime>
+    </File>
+    <File Include="Views/Transactions/Details.cshtml">
+      <publishTime>07/22/2024 01:46:16</publishTime>
+    </File>
+    <File Include="Views/Transactions/Edit.cshtml">
+      <publishTime>07/22/2024 01:46:17</publishTime>
+    </File>
+    <File Include="Views/Transactions/Index.cshtml">
+      <publishTime>07/22/2024 01:46:17</publishTime>
+    </File>
+    <File Include="Views/Users/Create.cshtml">
+      <publishTime>07/22/2024 01:31:18</publishTime>
+    </File>
+    <File Include="Views/Users/Delete.cshtml">
+      <publishTime>07/22/2024 01:31:19</publishTime>
+    </File>
+    <File Include="Views/Users/Details.cshtml">
+      <publishTime>07/22/2024 01:31:19</publishTime>
+    </File>
+    <File Include="Views/Users/Edit.cshtml">
+      <publishTime>07/22/2024 01:31:20</publishTime>
+    </File>
+    <File Include="Views/Users/Index.cshtml">
+      <publishTime>07/22/2024 01:31:20</publishTime>
+    </File>
+    <File Include="Views/Votes/Create.cshtml">
+      <publishTime>07/22/2024 01:33:20</publishTime>
+    </File>
+    <File Include="Views/Votes/Delete.cshtml">
+      <publishTime>07/22/2024 01:33:21</publishTime>
+    </File>
+    <File Include="Views/Votes/Details.cshtml">
+      <publishTime>07/22/2024 01:33:22</publishTime>
+    </File>
+    <File Include="Views/Votes/Edit.cshtml">
+      <publishTime>07/22/2024 01:33:22</publishTime>
+    </File>
+    <File Include="Views/Votes/Index.cshtml">
+      <publishTime>07/22/2024 01:33:23</publishTime>
+    </File>
+    <File Include="Views/Web.config">
+      <publishTime>07/21/2024 22:19:45</publishTime>
+    </File>
+    <File Include="Views/_ViewStart.cshtml">
+      <publishTime>07/21/2024 22:19:45</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>07/22/2024 02:09:25</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

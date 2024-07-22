@@ -1,0 +1,112 @@
+﻿@model WebApplicationStoreAdmin.Models.SD_SendBoxs
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>SD_SendBoxs</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SendTypeTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SendTypeTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FullName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MobileNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MobileNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SendDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SendDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SendStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SendStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SendTrackingNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SendTrackingNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BD_Cities.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BD_Cities.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BD_SendProductsPrice.ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BD_SendProductsPrice.ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SD_ShoppingBasket.ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SD_ShoppingBasket.ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SD_Transactions.PaymentTrackingNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SD_Transactions.PaymentTrackingNo)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

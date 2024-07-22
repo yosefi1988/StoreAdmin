@@ -1,0 +1,66 @@
+﻿@model WebApplicationStoreAdmin.Models.SD_ShoppingBasketObjects
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>SD_ShoppingBasketObjects</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OldPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OldPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Count)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Count)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AddDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AddDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SD_ProductCharges.BuyInvoiceNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SD_ProductCharges.BuyInvoiceNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SD_ShoppingBasket.ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SD_ShoppingBasket.ID)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

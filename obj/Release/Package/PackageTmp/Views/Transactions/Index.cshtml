@@ -1,0 +1,99 @@
+﻿@model IEnumerable<WebApplicationStoreAdmin.Models.SD_Transactions>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SumTaxAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiscountAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SendAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SumShoppingBasketPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SumShoppingBasketDiscount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AmountForPay)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PaymentStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PaymentTrackingNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PaymentDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BD_SendProductsPrice.ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SD_Coupons.Code)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SD_ShoppingBasket.ID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.SumTaxAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DiscountAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SendAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SumShoppingBasketPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SumShoppingBasketDiscount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AmountForPay)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PaymentStatus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PaymentTrackingNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PaymentDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BD_SendProductsPrice.ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SD_Coupons.Code)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SD_ShoppingBasket.ID)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
