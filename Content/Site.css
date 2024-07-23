@@ -1,5 +1,4 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap');
-@import 'product.css';
+﻿
 
 :root , [data-bs-theme=light]{
     --bs-body-font-size: 0.85rem;
@@ -8,16 +7,16 @@
 
 
 h1 {
-    font-family: 'Vazirmatn';
+    font-family: 'Vazir';
 }
 
 h2 {
-    font-family: 'Vazirmatn';
+    font-family: 'Vazir';
         background-color: lightgrey;
 }
 
 h3 {
-    font-family: 'Vazirmatn';
+    font-family: 'Vazir';
 }
 
 
@@ -30,7 +29,7 @@ p {
  
 body {
     padding-bottom: 20px;
-    font-family: 'Vazirmatn';
+    font-family: 'Vazir';
     /*font-family: Vazir;*/
 }
 

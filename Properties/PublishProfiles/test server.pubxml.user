@@ -125,40 +125,94 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/21/2024 22:19:47</publishTime>
     </File>
     <File Include="bin/WebApplicationStoreAdmin.dll">
-      <publishTime>07/22/2024 03:01:34</publishTime>
+      <publishTime>07/23/2024 03:07:42</publishTime>
     </File>
     <File Include="bin/WebGrease.dll">
       <publishTime>07/21/2024 22:19:47</publishTime>
     </File>
     <File Include="Content/bootstrap.css">
-      <publishTime>07/21/2024 22:19:45</publishTime>
+      <publishTime>07/23/2024 03:32:46</publishTime>
     </File>
     <File Include="Content/bootstrap.min.css">
-      <publishTime>07/21/2024 22:19:45</publishTime>
+      <publishTime>07/23/2024 03:34:54</publishTime>
+    </File>
+    <File Include="Content/product.css">
+      <publishTime>07/23/2024 02:15:04</publishTime>
     </File>
     <File Include="Content/Site.css">
-      <publishTime>07/21/2024 22:19:45</publishTime>
+      <publishTime>07/23/2024 03:36:44</publishTime>
+    </File>
+    <File Include="Content/vazir.css">
+      <publishTime>07/23/2024 02:15:56</publishTime>
     </File>
     <File Include="favicon.ico">
       <publishTime>07/21/2024 22:19:45</publishTime>
     </File>
+    <File Include="fonts/CALIBRI.TTF">
+      <publishTime>07/23/2024 02:17:08</publishTime>
+    </File>
+    <File Include="fonts/CALIBRIB.TTF">
+      <publishTime>07/23/2024 02:17:08</publishTime>
+    </File>
+    <File Include="fonts/CALIBRII.TTF">
+      <publishTime>07/23/2024 02:17:08</publishTime>
+    </File>
+    <File Include="fonts/CALIBRIL.TTF">
+      <publishTime>07/23/2024 02:17:08</publishTime>
+    </File>
+    <File Include="fonts/CALIBRILI.TTF">
+      <publishTime>07/23/2024 02:17:08</publishTime>
+    </File>
+    <File Include="fonts/CALIBRIZ.TTF">
+      <publishTime>07/23/2024 02:17:08</publishTime>
+    </File>
     <File Include="fonts/glyphicons-halflings-regular.eot">
-      <publishTime>07/21/2024 22:19:45</publishTime>
+      <publishTime>07/23/2024 02:17:09</publishTime>
     </File>
     <File Include="fonts/glyphicons-halflings-regular.svg">
-      <publishTime>07/21/2024 22:19:45</publishTime>
+      <publishTime>07/23/2024 02:17:10</publishTime>
     </File>
     <File Include="fonts/glyphicons-halflings-regular.ttf">
-      <publishTime>07/21/2024 22:19:45</publishTime>
+      <publishTime>07/23/2024 02:17:10</publishTime>
     </File>
     <File Include="fonts/glyphicons-halflings-regular.woff">
-      <publishTime>07/21/2024 22:19:45</publishTime>
+      <publishTime>07/23/2024 02:17:11</publishTime>
+    </File>
+    <File Include="fonts/tahoma.ttf">
+      <publishTime>07/23/2024 02:17:11</publishTime>
+    </File>
+    <File Include="fonts/tahomabd.ttf">
+      <publishTime>07/23/2024 02:17:11</publishTime>
+    </File>
+    <File Include="fonts/Vazir-Black-FD.woff2">
+      <publishTime>07/23/2024 02:17:11</publishTime>
+    </File>
+    <File Include="fonts/Vazir-Bold-FD.woff2">
+      <publishTime>07/23/2024 02:17:11</publishTime>
+    </File>
+    <File Include="fonts/Vazir-FD.woff2">
+      <publishTime>07/23/2024 02:17:11</publishTime>
+    </File>
+    <File Include="fonts/Vazir-Medium-FD.woff2">
+      <publishTime>07/23/2024 02:17:11</publishTime>
+    </File>
+    <File Include="fonts/Vazir.eot">
+      <publishTime>07/23/2024 02:17:11</publishTime>
+    </File>
+    <File Include="fonts/Vazir.ttf">
+      <publishTime>07/23/2024 02:17:11</publishTime>
+    </File>
+    <File Include="fonts/Vazir.woff">
+      <publishTime>07/23/2024 02:17:11</publishTime>
+    </File>
+    <File Include="fonts/Vazir.woff2">
+      <publishTime>07/23/2024 02:17:11</publishTime>
     </File>
     <File Include="Global.asax">
       <publishTime>07/21/2024 22:19:45</publishTime>
     </File>
     <File Include="Models/ModelStoreDatabase.edmx.diagram">
-      <publishTime>07/22/2024 01:49:33</publishTime>
+      <publishTime>07/23/2024 02:58:05</publishTime>
     </File>
     <File Include="packages.config">
       <publishTime>07/21/2024 22:19:49</publishTime>
@@ -350,7 +404,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/21/2024 22:19:45</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>07/21/2024 22:19:45</publishTime>
+      <publishTime>07/23/2024 02:09:12</publishTime>
     </File>
     <File Include="Views/Images/Create.cshtml">
       <publishTime>07/22/2024 01:26:13</publishTime>
@@ -401,79 +455,79 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/22/2024 01:19:44</publishTime>
     </File>
     <File Include="Views/ProductCharges/Create.cshtml">
-      <publishTime>07/22/2024 01:42:04</publishTime>
+      <publishTime>07/23/2024 01:29:36</publishTime>
     </File>
     <File Include="Views/ProductCharges/Delete.cshtml">
-      <publishTime>07/22/2024 01:42:04</publishTime>
+      <publishTime>07/23/2024 01:29:37</publishTime>
     </File>
     <File Include="Views/ProductCharges/Details.cshtml">
-      <publishTime>07/22/2024 01:42:05</publishTime>
+      <publishTime>07/23/2024 01:29:38</publishTime>
     </File>
     <File Include="Views/ProductCharges/Edit.cshtml">
-      <publishTime>07/22/2024 01:42:05</publishTime>
+      <publishTime>07/23/2024 01:29:39</publishTime>
     </File>
     <File Include="Views/ProductCharges/Index.cshtml">
-      <publishTime>07/22/2024 01:42:06</publishTime>
+      <publishTime>07/23/2024 01:29:40</publishTime>
     </File>
     <File Include="Views/ProductChargesProperties/Create.cshtml">
-      <publishTime>07/22/2024 01:32:34</publishTime>
+      <publishTime>07/23/2024 00:54:53</publishTime>
     </File>
     <File Include="Views/ProductChargesProperties/Delete.cshtml">
-      <publishTime>07/22/2024 01:32:35</publishTime>
+      <publishTime>07/23/2024 00:54:53</publishTime>
     </File>
     <File Include="Views/ProductChargesProperties/Details.cshtml">
-      <publishTime>07/22/2024 01:32:35</publishTime>
+      <publishTime>07/23/2024 00:54:54</publishTime>
     </File>
     <File Include="Views/ProductChargesProperties/Edit.cshtml">
-      <publishTime>07/22/2024 01:32:36</publishTime>
+      <publishTime>07/23/2024 00:54:54</publishTime>
     </File>
     <File Include="Views/ProductChargesProperties/Index.cshtml">
-      <publishTime>07/22/2024 01:32:36</publishTime>
+      <publishTime>07/23/2024 00:54:54</publishTime>
     </File>
     <File Include="Views/ProductSizes/Create.cshtml">
-      <publishTime>07/22/2024 01:27:09</publishTime>
+      <publishTime>07/23/2024 00:37:25</publishTime>
     </File>
     <File Include="Views/ProductSizes/Delete.cshtml">
-      <publishTime>07/22/2024 01:27:10</publishTime>
+      <publishTime>07/23/2024 00:37:26</publishTime>
     </File>
     <File Include="Views/ProductSizes/Details.cshtml">
-      <publishTime>07/22/2024 01:27:10</publishTime>
+      <publishTime>07/23/2024 00:37:26</publishTime>
     </File>
     <File Include="Views/ProductSizes/Edit.cshtml">
-      <publishTime>07/22/2024 01:27:11</publishTime>
+      <publishTime>07/23/2024 00:37:28</publishTime>
     </File>
     <File Include="Views/ProductSizes/Index.cshtml">
-      <publishTime>07/22/2024 01:27:11</publishTime>
+      <publishTime>07/23/2024 00:37:29</publishTime>
     </File>
     <File Include="Views/SendBoxs/Create.cshtml">
-      <publishTime>07/22/2024 01:47:04</publishTime>
+      <publishTime>07/23/2024 02:47:00</publishTime>
     </File>
     <File Include="Views/SendBoxs/Delete.cshtml">
-      <publishTime>07/22/2024 01:47:05</publishTime>
+      <publishTime>07/23/2024 02:47:00</publishTime>
     </File>
     <File Include="Views/SendBoxs/Details.cshtml">
-      <publishTime>07/22/2024 01:47:06</publishTime>
+      <publishTime>07/23/2024 02:47:01</publishTime>
     </File>
     <File Include="Views/SendBoxs/Edit.cshtml">
-      <publishTime>07/22/2024 01:47:06</publishTime>
+      <publishTime>07/23/2024 02:47:02</publishTime>
     </File>
     <File Include="Views/SendBoxs/Index.cshtml">
-      <publishTime>07/22/2024 01:47:07</publishTime>
+      <publishTime>07/23/2024 02:47:03</publishTime>
     </File>
     <File Include="Views/SendProductsPrice/Create.cshtml">
-      <publishTime>07/22/2024 01:02:13</publishTime>
+      <publishTime>07/23/2024 03:03:15</publishTime>
     </File>
     <File Include="Views/SendProductsPrice/Delete.cshtml">
-      <publishTime>07/22/2024 01:02:13</publishTime>
+      <publishTime>07/23/2024 03:03:15</publishTime>
     </File>
     <File Include="Views/SendProductsPrice/Details.cshtml">
-      <publishTime>07/22/2024 01:02:14</publishTime>
+      <publishTime>07/23/2024 03:03:16</publishTime>
     </File>
     <File Include="Views/SendProductsPrice/Edit.cshtml">
-      <publishTime>07/22/2024 01:02:14</publishTime>
+      <publishTime>07/23/2024 03:03:17</publishTime>
     </File>
     <File Include="Views/SendProductsPrice/Index.cshtml">
-      <publishTime>07/22/2024 01:02:14</publishTime>
+      <publishTime>07/23/2024 03:03:18</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>07/21/2024 22:19:48</publishTime>

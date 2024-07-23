@@ -1,7 +1,39 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿
+
+:root , [data-bs-theme=light]{
+    --bs-body-font-size: 0.85rem;
+
 }
+
+
+h1 {
+    font-family: 'Vazir';
+}
+
+h2 {
+    font-family: 'Vazir';
+        background-color: lightgrey;
+}
+
+h3 {
+    font-family: 'Vazir';
+}
+
+
+
+p {
+  margin-top: 0;
+  margin-bottom: 0rem;
+}
+
+ 
+body {
+    padding-bottom: 20px;
+    font-family: 'Vazir';
+    /*font-family: Vazir;*/
+}
+
+
 
 /* Set padding to keep content from hitting the edges */
 .body-content {

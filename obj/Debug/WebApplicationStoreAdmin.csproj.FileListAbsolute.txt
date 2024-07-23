@@ -66,3 +66,4 @@ D:\Projects\StoreAdmin\WebApplicationStoreAdmin\WebApplicationStoreAdmin\bin\Mic
 D:\Projects\StoreAdmin\WebApplicationStoreAdmin\WebApplicationStoreAdmin\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 D:\Projects\StoreAdmin\WebApplicationStoreAdmin\WebApplicationStoreAdmin\obj\Debug\WebApplicationStoreAdmin.dll
 D:\Projects\StoreAdmin\WebApplicationStoreAdmin\WebApplicationStoreAdmin\obj\Debug\WebApplicationStoreAdmin.pdb
+D:\Projects\StoreAdmin\WebApplicationStoreAdmin\WebApplicationStoreAdmin\obj\Debug\WebApplicationStoreAdmin.csprojResolveAssemblyReference.cache

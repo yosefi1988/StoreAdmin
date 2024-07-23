@@ -3,29 +3,194 @@
 }
 
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <h1>پنل ادمین</h1>
+    <p class="lead">صفحه مدیریت فروشگاه , محصولات , مشتریان و... در این صفحه فراهم شده است, همواره در استفاده از این صفحه دقت کنید ؛ تغییرات اعمالی روی فروشگاه موثر است..</p>
+    <p><a href="http://sajjadyosefi.ir" class="btn btn-primary btn-lg">بیشتر بدانید &raquo;</a></p>
 </div>
-
+<h2>محصولات</h2>
 <div class="row">
     <div class="col-md-4">
-        <h2>Getting started</h2>
+        <h3>شارژ موجودی</h3>
         <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
+            موجودی انبار را می توانید از این صفحه افزایش و یا خرید های قبلی را ویرایش کنید ؛ معمولا بعد از خرید به این صفحه احتیاج پیدا خواهید کرد.
         </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        <p><a class="btn btn-default" href="/ProductCharges">شارژ موجودی &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        <h3>ویژگی محصولات</h3>
+        <p>ویژگی محصولاتی که در انبار موجود است را میتوانید تعریف و یا تغییر دهید. معمولا بعد از ثبت شارژ موجودی به این صفحه احتیاج پیدا خواهید کرد.</p>
+        <p><a class="btn btn-default" href="/ProductChargesProperties">ویژگی محصولات &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        <h3>تصاویر</h3>
+        <p>تصاویر محصولات را مشاهده و یا تغییر دهید</p>
+        <p><a class="btn btn-default" href="/images">تصاویر &raquo;</a></p>
     </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <h3>اجناس انبار</h3>
+        <p>
+            تنها یک بار اجناس را تعریف کنید و با افزایش موجودی انبار احتیاجی به تعریف مجدد اجناس ندارد(شارژ موجودی).
+        </p>
+        <p><a class="btn btn-default" href="/Product">لیست اجناس &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h3>باکس های ارسالی</h3>
+        <p>باکس های ارسالی را مشاهده خواهید کرد</p>
+        <p><a class="btn btn-default" href="/SendBoxs">ویژگی محصولات &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h3>تراکنش ها</h3>
+        <p>وضعیت تراکنش ها را می توانید مشاهده کنید</p>
+        <p><a class="btn btn-default" href="/Transactions">تصاویر &raquo;</a></p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <h3>نظرات</h3>
+        <p>
+            نظرات ثبت شده روی محصولات را مشاهده خواهید کرد
+        </p>
+        <p><a class="btn btn-default" href="/Votes">آرا و نظرات &raquo;</a></p>
+    </div>
+    @*<div class="col-md-4">
+        <h3>باکس های ارسالی</h3>
+        <p>باکس های ارسالی را مشاهده خواهید کرد</p>
+        <p><a class="btn btn-default" href="/SendBoxs">ویژگی محصولات &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h3>تراکنش ها</h3>
+        <p>وضعیت تراکنش ها را می توانید مشاهده کنید</p>
+        <p><a class="btn btn-default" href="/Transactions">تصاویر &raquo;</a></p>
+    </div>*@
+</div>
+
+<h2>کاربران</h2>
+<div class="row">
+    <div class="col-md-4">
+        <h3>آدرس کاربران</h3>
+        <p>آدرس هایی که مشتریان ثبت کرده اند را می توانید مشاهده و یا تغییر دهید</p>
+        <p><a class="btn btn-default" href="/addresses">مشاهده آدرس ها &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h3>سبد خرید</h3>
+        <p>
+            سبد خرید کاربران را مشاهده خواهید کرد.
+        </p>
+        <p><a class="btn btn-default" href="/ShoppingBasket">سبد های خرید &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h3>اجناس سبد کاربران</h3>
+        <p>اجناسی که کاربر آن ها را در سبدهای خود قرار داده را مشاهده خواهید کرد.</p>
+        <p><a class="btn btn-default" href="/ShoppingBasketObjects">اجناس داخل سبد &raquo;</a></p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <h3>کاربران</h3>
+        <p>کاربران لاگین شده را می توانید مشاهده و یا ویرایش کنید</p>
+        <p><a class="btn btn-default" href="/Users">مشاهده کاربران &raquo;</a></p>
+    </div>
+    @*<div class="col-md-4">
+        <h3>سبد خرید</h3>
+        <p>
+            سبد خرید کاربران را مشاهده خواهید کرد.
+        </p>
+        <p><a class="btn btn-default" href="/ShoppingBasket">سبد های خرید &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h3>اجناس سبد کاربران</h3>
+        <p>اجناسی که کاربر آن ها را در سبدهای خود قرار داده را مشاهده خواهید کرد.</p>
+        <p><a class="btn btn-default" href="/ShoppingBasketObjects">اجناس داخل سبد &raquo;</a></p>
+    </div>*@
+</div>
+<h2>اطلاعات پایه</h2>
+<div class="row">
+    <div class="col-md-4">
+        <h3>دسته بندی</h3>
+        <p>
+            می توانید دسته بندی ایجاد و یا دسته بندی های موجود را ویرایش کنید
+        </p>
+        <p><a class="btn btn-default" href="/Category">دسته بندی ها &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h3>رنگ ها</h3>
+        <p>رنگ محصولات را می توانید تعریف کنید و یا رنگ های تعریف شده قبلی را ویرایش کنید.</p>
+        <p><a class="btn btn-default" href="/Color">رنگ ها &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h3>کپن های تخفیف</h3>
+        <p>کد های تخفیف و کپن هایی می توانید ایجاد کنید که مشتری بر اساس آن تخفیف دریافت کند</p>
+        <p><a class="btn btn-default" href="/Coupons">کپن ها &raquo;</a></p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <h3>هزینه ارسال</h3>
+        <p>
+            بر اسال محصولات انبار می توانید نحوه ارسال و هزینه آن ها را تعیین کنید
+        </p>
+        <p><a class="btn btn-default" href="/SendProductsPrice">هزینه ارسال &raquo;</a></p>
+    </div>
+
+    @*<div class="col-md-4">
+        <h3>کپن های تخفیف</h3>
+        <p>کد های تخفیف و کپن هایی می توانید ایجاد کنید که مشتری بر اساس آن تخفیف دریافت کند</p>
+        <p><a class="btn btn-default" href="/Coupons">کپن ها &raquo;</a></p>
+    </div>*@
+</div>
+<h2>تنظیمات</h2>
+<div class="row">
+    <div class="col-md-4">
+        <h3>کشور ها</h3>
+        <p>
+            کشور هایی که مقصد فروش شما هستند
+        </p>
+        <p><a class="btn btn-default" href="/Country">لیست کشور ها &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h3>استان یا ایالت ها</h3>
+        <p>استان ها و یا ایالت هایی که مقصد فروش شما هستند.</p>
+        <p><a class="btn btn-default" href="/States">استان ها &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h3>شهر ها</h3>
+        <p>شهر هایی که فروش در آن ها مورد پشتیبانی (ارسال ؛ خدمات پس از فروش و...) شما هستند.</p>
+        <p><a class="btn btn-default" href="/Cities">شهر ها &raquo;</a></p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <h3>سایز ها</h3>
+        <p>تمامی اندازه محصولات را می توانید تعریف کنید.</p>
+        <p><a class="btn btn-default" href="/SizeTypes">سایز ها &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h3>مالیات</h3>
+        <p>انواع مالیات هایی که به فروش اجناس اعمال می گردد را می توانید تعریف کنید.</p>
+        <p><a class="btn btn-default" href="/Taxs">مالیات ها &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h3>ادمین ها</h3>
+        <p>ادمین هایی که به پنل دسترسی دارند را می توانید تعریف کنید</p>
+        <p><a class="btn btn-default" href="/Admins">ادمین ها &raquo;</a></p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <h3>اطلاعات فروشگاه</h3>
+        <p>تمامی جزئیات فروشگاه را مشاهده و تغییر دهید.</p>
+        <p><a class="btn btn-default" href="/StoreDetails">اطلاعات فروشگاه &raquo;</a></p>
+    </div>
+    @*<div class="col-md-4">
+        <h3>مالیات</h3>
+        <p>انواع مالیات هایی که به فروش اجناس اعمال می گردد را می توانید تعریف کنید.</p>
+        <p><a class="btn btn-default" href="/Taxs">مالیات ها &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h3>ادمین ها</h3>
+        <p>ادمین هایی که به پنل دسترسی دارند را می توانید تعریف کنید</p>
+        <p><a class="btn btn-default" href="/Admins">ادمین ها &raquo;</a></p>
+    </div>*@
 </div>
