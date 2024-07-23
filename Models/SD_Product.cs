@@ -17,9 +17,9 @@ namespace WebApplicationStoreAdmin.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SD_Product()
         {
-            this.BD_SendProductsPrice = new HashSet<BD_SendProductsPrice>();
             this.SD_ProductCharges = new HashSet<SD_ProductCharges>();
             this.SD_Category = new HashSet<SD_Category>();
+            this.BD_SendProductsPrice = new HashSet<BD_SendProductsPrice>();
         }
     
         public int ID { get; set; }
@@ -28,10 +28,10 @@ namespace WebApplicationStoreAdmin.Models
         public Nullable<int> Code { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BD_SendProductsPrice> BD_SendProductsPrice { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SD_ProductCharges> SD_ProductCharges { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SD_Category> SD_Category { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BD_SendProductsPrice> BD_SendProductsPrice { get; set; }
     }
 }

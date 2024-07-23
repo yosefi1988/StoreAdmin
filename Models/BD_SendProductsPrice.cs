@@ -26,6 +26,7 @@ namespace WebApplicationStoreAdmin.Models
         public Nullable<int> CountryID { get; set; }
         public Nullable<int> StateID { get; set; }
         public Nullable<int> ProductID { get; set; }
+        public string Title { get; set; }
     
         public virtual BD_Country BD_Country { get; set; }
         public virtual BD_States BD_States { get; set; }

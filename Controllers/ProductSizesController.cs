@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebApplicationStoreAdmin.Models;
 
-namespace WebApplicationStoreAdmin.Controllers.Product
+namespace WebApplicationStoreAdmin.Controllers
 {
     public class ProductSizesController : Controller
     {

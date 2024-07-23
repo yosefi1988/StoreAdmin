@@ -19,12 +19,12 @@ namespace WebApplicationStoreAdmin.Models
         {
             this.SD_Images = new HashSet<SD_Images>();
             this.SD_ProductSizes = new HashSet<SD_ProductSizes>();
+            this.SD_Votes = new HashSet<SD_Votes>();
         }
     
         public int ID { get; set; }
         public Nullable<int> ProductChargeID { get; set; }
         public Nullable<int> ColorID { get; set; }
-        public Nullable<int> SizeID { get; set; }
         public Nullable<int> Discount { get; set; }
         public Nullable<int> RemainingCount { get; set; }
     
@@ -34,5 +34,7 @@ namespace WebApplicationStoreAdmin.Models
         public virtual SD_ProductCharges SD_ProductCharges { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SD_ProductSizes> SD_ProductSizes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SD_Votes> SD_Votes { get; set; }
     }
 }

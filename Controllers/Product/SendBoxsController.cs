@@ -40,7 +40,7 @@ namespace WebApplicationStoreAdmin.Controllers.Product
         public ActionResult Create()
         {
             ViewBag.CityID = new SelectList(db.BD_Cities, "ID", "Title");
-            ViewBag.SendTypeID = new SelectList(db.BD_SendProductsPrice, "ID", "ID");
+            ViewBag.SendTypeID = new SelectList(db.BD_SendProductsPrice, "ID", "Title");
             ViewBag.ShoppingBasketID = new SelectList(db.SD_ShoppingBasket, "ID", "ID");
             ViewBag.TransactionID = new SelectList(db.SD_Transactions, "ID", "PaymentTrackingNo");
             return View();
@@ -61,7 +61,7 @@ namespace WebApplicationStoreAdmin.Controllers.Product
             }
 
             ViewBag.CityID = new SelectList(db.BD_Cities, "ID", "Title", sD_SendBoxs.CityID);
-            ViewBag.SendTypeID = new SelectList(db.BD_SendProductsPrice, "ID", "ID", sD_SendBoxs.SendTypeID);
+            ViewBag.SendTypeID = new SelectList(db.BD_SendProductsPrice, "ID", "Title", sD_SendBoxs.SendTypeID);
             ViewBag.ShoppingBasketID = new SelectList(db.SD_ShoppingBasket, "ID", "ID", sD_SendBoxs.ShoppingBasketID);
             ViewBag.TransactionID = new SelectList(db.SD_Transactions, "ID", "PaymentTrackingNo", sD_SendBoxs.TransactionID);
             return View(sD_SendBoxs);
@@ -80,7 +80,7 @@ namespace WebApplicationStoreAdmin.Controllers.Product
                 return HttpNotFound();
             }
             ViewBag.CityID = new SelectList(db.BD_Cities, "ID", "Title", sD_SendBoxs.CityID);
-            ViewBag.SendTypeID = new SelectList(db.BD_SendProductsPrice, "ID", "ID", sD_SendBoxs.SendTypeID);
+            ViewBag.SendTypeID = new SelectList(db.BD_SendProductsPrice, "ID", "Title", sD_SendBoxs.SendTypeID);
             ViewBag.ShoppingBasketID = new SelectList(db.SD_ShoppingBasket, "ID", "ID", sD_SendBoxs.ShoppingBasketID);
             ViewBag.TransactionID = new SelectList(db.SD_Transactions, "ID", "PaymentTrackingNo", sD_SendBoxs.TransactionID);
             return View(sD_SendBoxs);
@@ -100,7 +100,7 @@ namespace WebApplicationStoreAdmin.Controllers.Product
                 return RedirectToAction("Index");
             }
             ViewBag.CityID = new SelectList(db.BD_Cities, "ID", "Title", sD_SendBoxs.CityID);
-            ViewBag.SendTypeID = new SelectList(db.BD_SendProductsPrice, "ID", "ID", sD_SendBoxs.SendTypeID);
+            ViewBag.SendTypeID = new SelectList(db.BD_SendProductsPrice, "ID", "Title", sD_SendBoxs.SendTypeID);
             ViewBag.ShoppingBasketID = new SelectList(db.SD_ShoppingBasket, "ID", "ID", sD_SendBoxs.ShoppingBasketID);
             ViewBag.TransactionID = new SelectList(db.SD_Transactions, "ID", "PaymentTrackingNo", sD_SendBoxs.TransactionID);
             return View(sD_SendBoxs);

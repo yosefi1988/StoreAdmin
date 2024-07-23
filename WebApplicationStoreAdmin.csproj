@@ -172,7 +172,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Basedata\CitiesController.cs" />
     <Compile Include="Controllers\Basedata\CountryController.cs" />
-    <Compile Include="Controllers\Basedata\SendProductsPriceController.cs" />
     <Compile Include="Controllers\Basedata\SizeTypesController.cs" />
     <Compile Include="Controllers\Basedata\StatesController.cs" />
     <Compile Include="Controllers\Basedata\TaxController.cs" />
@@ -180,15 +179,15 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\Config\StoreDetailsController.cs" />
+    <Compile Include="Controllers\ProductSizesController.cs" />
     <Compile Include="Controllers\Product\AddressesController.cs" />
     <Compile Include="Controllers\Product\CategoryController.cs" />
-    <Compile Include="Controllers\Product\ColorController.cs" />
+    <Compile Include="Controllers\Basedata\ColorController.cs" />
     <Compile Include="Controllers\Product\CouponsController.cs" />
     <Compile Include="Controllers\Product\ImagesController.cs" />
     <Compile Include="Controllers\Product\ProductChargesController.cs" />
     <Compile Include="Controllers\Product\ProductChargesPropertiesController.cs" />
     <Compile Include="Controllers\Product\ProductController.cs" />
-    <Compile Include="Controllers\Product\ProductSizesController.cs" />
     <Compile Include="Controllers\Product\SendBoxsController.cs" />
     <Compile Include="Controllers\Product\TransactionsController.cs" />
     <Compile Include="Controllers\Product\VotesController.cs" />
@@ -286,11 +285,14 @@
       <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SendProductsPriceController.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\product.css" />
+    <Content Include="Content\vazir.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -314,6 +316,22 @@
     <Content Include="Models\ModelStoreDatabase.edmx.diagram">
       <DependentUpon>ModelStoreDatabase.edmx</DependentUpon>
     </Content>
+    <Content Include="fonts\CALIBRI.TTF" />
+    <Content Include="fonts\CALIBRIB.TTF" />
+    <Content Include="fonts\CALIBRII.TTF" />
+    <Content Include="fonts\CALIBRIL.TTF" />
+    <Content Include="fonts\CALIBRILI.TTF" />
+    <Content Include="fonts\CALIBRIZ.TTF" />
+    <Content Include="fonts\tahoma.ttf" />
+    <Content Include="fonts\tahomabd.ttf" />
+    <Content Include="fonts\Vazir-Black-FD.woff2" />
+    <Content Include="fonts\Vazir-Bold-FD.woff2" />
+    <Content Include="fonts\Vazir-FD.woff2" />
+    <Content Include="fonts\Vazir-Medium-FD.woff2" />
+    <Content Include="fonts\Vazir.eot" />
+    <Content Include="fonts\Vazir.ttf" />
+    <Content Include="fonts\Vazir.woff" />
+    <Content Include="fonts\Vazir.woff2" />
     <None Include="Properties\PublishProfiles\test server.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -376,11 +394,6 @@
     <Content Include="Views\Cities\Details.cshtml" />
     <Content Include="Views\Cities\Edit.cshtml" />
     <Content Include="Views\Cities\Index.cshtml" />
-    <Content Include="Views\SendProductsPrice\Create.cshtml" />
-    <Content Include="Views\SendProductsPrice\Delete.cshtml" />
-    <Content Include="Views\SendProductsPrice\Details.cshtml" />
-    <Content Include="Views\SendProductsPrice\Edit.cshtml" />
-    <Content Include="Views\SendProductsPrice\Index.cshtml" />
     <Content Include="Views\States\Create.cshtml" />
     <Content Include="Views\States\Delete.cshtml" />
     <Content Include="Views\States\Details.cshtml" />
@@ -416,11 +429,6 @@
     <Content Include="Views\Images\Details.cshtml" />
     <Content Include="Views\Images\Edit.cshtml" />
     <Content Include="Views\Images\Index.cshtml" />
-    <Content Include="Views\ProductSizes\Create.cshtml" />
-    <Content Include="Views\ProductSizes\Delete.cshtml" />
-    <Content Include="Views\ProductSizes\Details.cshtml" />
-    <Content Include="Views\ProductSizes\Edit.cshtml" />
-    <Content Include="Views\ProductSizes\Index.cshtml" />
     <Content Include="Views\Addresses\Create.cshtml" />
     <Content Include="Views\Addresses\Delete.cshtml" />
     <Content Include="Views\Addresses\Details.cshtml" />
@@ -436,21 +444,11 @@
     <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
-    <Content Include="Views\ProductChargesProperties\Create.cshtml" />
-    <Content Include="Views\ProductChargesProperties\Delete.cshtml" />
-    <Content Include="Views\ProductChargesProperties\Details.cshtml" />
-    <Content Include="Views\ProductChargesProperties\Edit.cshtml" />
-    <Content Include="Views\ProductChargesProperties\Index.cshtml" />
     <Content Include="Views\Votes\Create.cshtml" />
     <Content Include="Views\Votes\Delete.cshtml" />
     <Content Include="Views\Votes\Details.cshtml" />
     <Content Include="Views\Votes\Edit.cshtml" />
     <Content Include="Views\Votes\Index.cshtml" />
-    <Content Include="Views\ProductCharges\Create.cshtml" />
-    <Content Include="Views\ProductCharges\Delete.cshtml" />
-    <Content Include="Views\ProductCharges\Details.cshtml" />
-    <Content Include="Views\ProductCharges\Edit.cshtml" />
-    <Content Include="Views\ProductCharges\Index.cshtml" />
     <Content Include="Views\ShoppingBasket\Create.cshtml" />
     <Content Include="Views\ShoppingBasket\Delete.cshtml" />
     <Content Include="Views\ShoppingBasket\Details.cshtml" />
@@ -466,16 +464,36 @@
     <Content Include="Views\Transactions\Details.cshtml" />
     <Content Include="Views\Transactions\Edit.cshtml" />
     <Content Include="Views\Transactions\Index.cshtml" />
-    <Content Include="Views\SendBoxs\Create.cshtml" />
-    <Content Include="Views\SendBoxs\Delete.cshtml" />
-    <Content Include="Views\SendBoxs\Details.cshtml" />
-    <Content Include="Views\SendBoxs\Edit.cshtml" />
-    <Content Include="Views\SendBoxs\Index.cshtml" />
     <Content Include="Views\Admins\Create.cshtml" />
     <Content Include="Views\Admins\Delete.cshtml" />
     <Content Include="Views\Admins\Details.cshtml" />
     <Content Include="Views\Admins\Edit.cshtml" />
     <Content Include="Views\Admins\Index.cshtml" />
+    <Content Include="Views\ProductSizes\Create.cshtml" />
+    <Content Include="Views\ProductSizes\Delete.cshtml" />
+    <Content Include="Views\ProductSizes\Details.cshtml" />
+    <Content Include="Views\ProductSizes\Edit.cshtml" />
+    <Content Include="Views\ProductSizes\Index.cshtml" />
+    <Content Include="Views\ProductChargesProperties\Create.cshtml" />
+    <Content Include="Views\ProductChargesProperties\Delete.cshtml" />
+    <Content Include="Views\ProductChargesProperties\Details.cshtml" />
+    <Content Include="Views\ProductChargesProperties\Edit.cshtml" />
+    <Content Include="Views\ProductChargesProperties\Index.cshtml" />
+    <Content Include="Views\ProductCharges\Create.cshtml" />
+    <Content Include="Views\ProductCharges\Delete.cshtml" />
+    <Content Include="Views\ProductCharges\Details.cshtml" />
+    <Content Include="Views\ProductCharges\Edit.cshtml" />
+    <Content Include="Views\ProductCharges\Index.cshtml" />
+    <Content Include="Views\SendBoxs\Create.cshtml" />
+    <Content Include="Views\SendBoxs\Delete.cshtml" />
+    <Content Include="Views\SendBoxs\Details.cshtml" />
+    <Content Include="Views\SendBoxs\Edit.cshtml" />
+    <Content Include="Views\SendBoxs\Index.cshtml" />
+    <Content Include="Views\SendProductsPrice\Create.cshtml" />
+    <Content Include="Views\SendProductsPrice\Delete.cshtml" />
+    <Content Include="Views\SendProductsPrice\Details.cshtml" />
+    <Content Include="Views\SendProductsPrice\Edit.cshtml" />
+    <Content Include="Views\SendProductsPrice\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

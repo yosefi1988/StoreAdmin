@@ -125,7 +125,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/21/2024 22:19:47</publishTime>
     </File>
     <File Include="bin/WebApplicationStoreAdmin.dll">
-      <publishTime>07/22/2024 02:09:24</publishTime>
+      <publishTime>07/22/2024 03:01:34</publishTime>
     </File>
     <File Include="bin/WebGrease.dll">
       <publishTime>07/21/2024 22:19:47</publishTime>
@@ -252,6 +252,21 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Views/Addresses/Index.cshtml">
       <publishTime>07/22/2024 01:28:48</publishTime>
+    </File>
+    <File Include="Views/Admins/Create.cshtml">
+      <publishTime>07/22/2024 03:00:27</publishTime>
+    </File>
+    <File Include="Views/Admins/Delete.cshtml">
+      <publishTime>07/22/2024 03:00:28</publishTime>
+    </File>
+    <File Include="Views/Admins/Details.cshtml">
+      <publishTime>07/22/2024 03:00:28</publishTime>
+    </File>
+    <File Include="Views/Admins/Edit.cshtml">
+      <publishTime>07/22/2024 03:00:29</publishTime>
+    </File>
+    <File Include="Views/Admins/Index.cshtml">
+      <publishTime>07/22/2024 03:00:30</publishTime>
     </File>
     <File Include="Views/Category/Create.cshtml">
       <publishTime>07/22/2024 01:15:35</publishTime>

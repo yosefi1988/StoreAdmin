@@ -49,7 +49,7 @@ namespace WebApplicationStoreAdmin.Controllers.Product
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,ProductID,SaleTaxID,BuyInvoiceNumber,Charge,BuyPrice,BuyCount,PercentInterest,PercentWages")] SD_ProductCharges sD_ProductCharges)
+        public ActionResult Create([Bind(Include = "ID,ProductID,SaleTaxID,BuyInvoiceNumber,ChargeDate,BuyPrice,BuyCount,PercentInterest,PercentWages")] SD_ProductCharges sD_ProductCharges)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +85,7 @@ namespace WebApplicationStoreAdmin.Controllers.Product
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,ProductID,SaleTaxID,BuyInvoiceNumber,Charge,BuyPrice,BuyCount,PercentInterest,PercentWages")] SD_ProductCharges sD_ProductCharges)
+        public ActionResult Edit([Bind(Include = "ID,ProductID,SaleTaxID,BuyInvoiceNumber,ChargeDate,BuyPrice,BuyCount,PercentInterest,PercentWages")] SD_ProductCharges sD_ProductCharges)
         {
             if (ModelState.IsValid)
             {

@@ -25,6 +25,7 @@
     <Property Name="CountryID" Type="int" />
     <Property Name="StateID" Type="int" />
     <Property Name="ProductID" Type="int" />
+    <Property Name="Title" Type="nvarchar" MaxLength="256" />
   </EntityType>
   <EntityType Name="BD_SizeTypes">
     <Key>
@@ -151,7 +152,7 @@
     <Property Name="ProductID" Type="int" />
     <Property Name="SaleTaxID" Type="int" />
     <Property Name="BuyInvoiceNumber" Type="nvarchar(max)" />
-    <Property Name="Charge" Type="datetime" />
+    <Property Name="ChargeDate" Type="datetime" />
     <Property Name="BuyPrice" Type="int" />
     <Property Name="BuyCount" Type="int" />
     <Property Name="PercentInterest" Type="int" />
@@ -164,7 +165,6 @@
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ProductChargeID" Type="int" />
     <Property Name="ColorID" Type="int" />
-    <Property Name="SizeID" Type="int" />
     <Property Name="Discount" Type="int" />
     <Property Name="RemainingCount" Type="int" />
   </EntityType>
@@ -175,6 +175,7 @@
     </Key>
     <Property Name="SizeID" Type="int" Nullable="false" />
     <Property Name="ProductChargePropertiesID" Type="int" Nullable="false" />
+    <Property Name="Value" Type="nchar" MaxLength="10" />
     <Property Name="Description" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="SD_SendBoxs">
@@ -607,6 +608,34 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_SD_Votes_SD_ProductChargesProperties">
+    <End Role="SD_ProductChargesProperties" Type="Self.SD_ProductChargesProperties" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="SD_Votes" Type="Self.SD_Votes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SD_ProductChargesProperties">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SD_Votes">
+        <PropertyRef Name="ProductChargePropertiesID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SD_Votes_SD_Users">
+    <End Role="SD_Users" Type="Self.SD_Users" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="SD_Votes" Type="Self.SD_Votes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SD_Users">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SD_Votes">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="officia1_StoreModelStoreContainer">
     <EntitySet Name="BD_Cities" EntityType="Self.BD_Cities" Schema="officia1_Dbadmin" store:Type="Tables" />
     <EntitySet Name="BD_Country" EntityType="Self.BD_Country" Schema="officia1_Dbadmin" store:Type="Tables" />
@@ -739,6 +768,14 @@
     <AssociationSet Name="FK_SD_Transactions_SD_ShoppingBasket" Association="Self.FK_SD_Transactions_SD_ShoppingBasket">
       <End Role="SD_ShoppingBasket" EntitySet="SD_ShoppingBasket" />
       <End Role="SD_Transactions" EntitySet="SD_Transactions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SD_Votes_SD_ProductChargesProperties" Association="Self.FK_SD_Votes_SD_ProductChargesProperties">
+      <End Role="SD_ProductChargesProperties" EntitySet="SD_ProductChargesProperties" />
+      <End Role="SD_Votes" EntitySet="SD_Votes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SD_Votes_SD_Users" Association="Self.FK_SD_Votes_SD_Users">
+      <End Role="SD_Users" EntitySet="SD_Users" />
+      <End Role="SD_Votes" EntitySet="SD_Votes" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebApplicationStoreAdmin.Models;
 
-namespace WebApplicationStoreAdmin.Controllers.Basedata
+namespace WebApplicationStoreAdmin
 {
     public class SendProductsPriceController : Controller
     {
@@ -50,7 +50,7 @@ namespace WebApplicationStoreAdmin.Controllers.Basedata
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Price,CountryID,StateID,ProductID")] BD_SendProductsPrice bD_SendProductsPrice)
+        public ActionResult Create([Bind(Include = "ID,Price,CountryID,StateID,ProductID,Title")] BD_SendProductsPrice bD_SendProductsPrice)
         {
             if (ModelState.IsValid)
             {
@@ -88,7 +88,7 @@ namespace WebApplicationStoreAdmin.Controllers.Basedata
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Price,CountryID,StateID,ProductID")] BD_SendProductsPrice bD_SendProductsPrice)
+        public ActionResult Edit([Bind(Include = "ID,Price,CountryID,StateID,ProductID,Title")] BD_SendProductsPrice bD_SendProductsPrice)
         {
             if (ModelState.IsValid)
             {

@@ -1,7 +1,40 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import 'product.css';
+
+:root , [data-bs-theme=light]{
+    --bs-body-font-size: 0.85rem;
+
 }
+
+
+h1 {
+    font-family: 'Vazirmatn';
+}
+
+h2 {
+    font-family: 'Vazirmatn';
+        background-color: lightgrey;
+}
+
+h3 {
+    font-family: 'Vazirmatn';
+}
+
+
+
+p {
+  margin-top: 0;
+  margin-bottom: 0rem;
+}
+
+ 
+body {
+    padding-bottom: 20px;
+    font-family: 'Vazirmatn';
+    /*font-family: Vazir;*/
+}
+
+
 
 /* Set padding to keep content from hitting the edges */
 .body-content {

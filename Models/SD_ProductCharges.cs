@@ -25,7 +25,7 @@ namespace WebApplicationStoreAdmin.Models
         public Nullable<int> ProductID { get; set; }
         public Nullable<int> SaleTaxID { get; set; }
         public string BuyInvoiceNumber { get; set; }
-        public Nullable<System.DateTime> Charge { get; set; }
+        public Nullable<System.DateTime> ChargeDate { get; set; }
         public Nullable<int> BuyPrice { get; set; }
         public Nullable<int> BuyCount { get; set; }
         public Nullable<int> PercentInterest { get; set; }

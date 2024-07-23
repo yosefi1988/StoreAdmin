@@ -28,8 +28,8 @@ namespace WebApplicationStoreAdmin.Models
         public string SendTrackingNo { get; set; }
     
         public virtual BD_Cities BD_Cities { get; set; }
-        public virtual BD_SendProductsPrice BD_SendProductsPrice { get; set; }
         public virtual SD_ShoppingBasket SD_ShoppingBasket { get; set; }
         public virtual SD_Transactions SD_Transactions { get; set; }
+        public virtual BD_SendProductsPrice BD_SendProductsPrice { get; set; }
     }
 }

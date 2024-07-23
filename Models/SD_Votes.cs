@@ -19,5 +19,8 @@ namespace WebApplicationStoreAdmin.Models
         public Nullable<int> ProductChargePropertiesID { get; set; }
         public Nullable<int> Star { get; set; }
         public string Comment { get; set; }
+    
+        public virtual SD_ProductChargesProperties SD_ProductChargesProperties { get; set; }
+        public virtual SD_Users SD_Users { get; set; }
     }
 }
