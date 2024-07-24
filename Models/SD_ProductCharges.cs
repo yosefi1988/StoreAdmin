@@ -30,6 +30,7 @@ namespace WebApplicationStoreAdmin.Models
         public Nullable<int> BuyCount { get; set; }
         public Nullable<int> PercentInterest { get; set; }
         public Nullable<int> PercentWages { get; set; }
+        public string IDDDL { get; set; }
     
         public virtual BD_Tax BD_Tax { get; set; }
         public virtual SD_Product SD_Product { get; set; }

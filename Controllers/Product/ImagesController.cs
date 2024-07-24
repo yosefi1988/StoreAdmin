@@ -14,12 +14,26 @@ namespace WebApplicationStoreAdmin.Controllers.Product
     {
         private officia1_StoreEntities db = new officia1_StoreEntities();
 
-        // GET: Images
-        public ActionResult Index()
-        {
-            var sD_Images = db.SD_Images.Include(s => s.SD_ProductChargesProperties);
-            return View(sD_Images.ToList());
+        // GET: Images or Images Of id
+        public ActionResult Index(int? id)
+        { 
+            if (id == null)
+            {
+                var sD_Images_all = db.SD_Images.Include(s => s.SD_ProductChargesProperties);
+                return View(sD_Images_all.ToList());
+            }
+             
+            var sD_Images_id = db.SD_Images
+                       .Include(s => s.SD_ProductChargesProperties)
+                       .Where(s => s.ProductChargePropertiesID == id);
+
+            if (sD_Images_id == null)
+            {
+                return HttpNotFound();
+            }
+            return View(sD_Images_id.ToList());
         }
+
 
         // GET: Images/Details/5
         public ActionResult Details(int? id)

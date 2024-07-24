@@ -27,6 +27,7 @@ namespace WebApplicationStoreAdmin.Models
     
         public virtual DbSet<BD_Cities> BD_Cities { get; set; }
         public virtual DbSet<BD_Country> BD_Country { get; set; }
+        public virtual DbSet<BD_SendProductsPrice> BD_SendProductsPrice { get; set; }
         public virtual DbSet<BD_SizeTypes> BD_SizeTypes { get; set; }
         public virtual DbSet<BD_States> BD_States { get; set; }
         public virtual DbSet<BD_Tax> BD_Tax { get; set; }
@@ -41,12 +42,11 @@ namespace WebApplicationStoreAdmin.Models
         public virtual DbSet<SD_ProductCharges> SD_ProductCharges { get; set; }
         public virtual DbSet<SD_ProductChargesProperties> SD_ProductChargesProperties { get; set; }
         public virtual DbSet<SD_ProductSizes> SD_ProductSizes { get; set; }
+        public virtual DbSet<SD_SendBoxs> SD_SendBoxs { get; set; }
         public virtual DbSet<SD_ShoppingBasket> SD_ShoppingBasket { get; set; }
         public virtual DbSet<SD_ShoppingBasketObjects> SD_ShoppingBasketObjects { get; set; }
         public virtual DbSet<SD_Transactions> SD_Transactions { get; set; }
         public virtual DbSet<SD_Users> SD_Users { get; set; }
         public virtual DbSet<SD_Votes> SD_Votes { get; set; }
-        public virtual DbSet<SD_SendBoxs> SD_SendBoxs { get; set; }
-        public virtual DbSet<BD_SendProductsPrice> BD_SendProductsPrice { get; set; }
     }
 }

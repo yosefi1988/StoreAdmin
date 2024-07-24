@@ -34,10 +34,10 @@ namespace WebApplicationStoreAdmin.Models
         public string PaymentTrackingNo { get; set; }
         public Nullable<System.DateTime> PaymentDate { get; set; }
     
+        public virtual BD_SendProductsPrice BD_SendProductsPrice { get; set; }
         public virtual SD_Coupons SD_Coupons { get; set; }
-        public virtual SD_ShoppingBasket SD_ShoppingBasket { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SD_SendBoxs> SD_SendBoxs { get; set; }
-        public virtual BD_SendProductsPrice BD_SendProductsPrice { get; set; }
+        public virtual SD_ShoppingBasket SD_ShoppingBasket { get; set; }
     }
 }

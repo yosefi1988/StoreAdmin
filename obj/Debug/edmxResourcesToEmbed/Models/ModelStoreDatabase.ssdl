@@ -157,6 +157,7 @@
     <Property Name="BuyCount" Type="int" />
     <Property Name="PercentInterest" Type="int" />
     <Property Name="PercentWages" Type="int" />
+    <Property Name="IDDDL" Type="varchar" MaxLength="29" StoreGeneratedPattern="Computed" />
   </EntityType>
   <EntityType Name="SD_ProductChargesProperties">
     <Key>

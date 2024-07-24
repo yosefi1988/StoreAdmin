@@ -17,7 +17,9 @@ namespace WebApplicationStoreAdmin.Controllers.Product
         // GET: ProductChargesProperties
         public ActionResult Index()
         {
-            var sD_ProductChargesProperties = db.SD_ProductChargesProperties.Include(s => s.SD_Color).Include(s => s.SD_ProductCharges);
+            var sD_ProductChargesProperties = db.SD_ProductChargesProperties
+                .Include(s => s.SD_Color)
+                .Include(s => s.SD_ProductCharges);
             return View(sD_ProductChargesProperties.ToList());
         }
 
@@ -40,7 +42,9 @@ namespace WebApplicationStoreAdmin.Controllers.Product
         public ActionResult Create()
         {
             ViewBag.ColorID = new SelectList(db.SD_Color, "ID", "Title");
-            ViewBag.ProductChargeID = new SelectList(db.SD_ProductCharges, "ID", "BuyInvoiceNumber");
+            //ViewBag.ProductChargeID = new SelectList(db.SD_ProductCharges, "ID", "BuyInvoiceNumber");
+            //xxx1
+            ViewBag.ProductChargeID = new SelectList(db.SD_ProductCharges, "ID", "IDDDL");
             return View();
         }
 
@@ -49,7 +53,9 @@ namespace WebApplicationStoreAdmin.Controllers.Product
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,ProductChargeID,ColorID,SizeID,Discount,RemainingCount")] SD_ProductChargesProperties sD_ProductChargesProperties)
+        public ActionResult Create(
+            [Bind(Include = "ID,ProductChargeID,ColorID,Discount,RemainingCount")]
+            SD_ProductChargesProperties sD_ProductChargesProperties)
         {
             if (ModelState.IsValid)
             {
@@ -59,7 +65,9 @@ namespace WebApplicationStoreAdmin.Controllers.Product
             }
 
             ViewBag.ColorID = new SelectList(db.SD_Color, "ID", "Title", sD_ProductChargesProperties.ColorID);
-            ViewBag.ProductChargeID = new SelectList(db.SD_ProductCharges, "ID", "BuyInvoiceNumber", sD_ProductChargesProperties.ProductChargeID);
+            //ViewBag.ProductChargeID = new SelectList(db.SD_ProductCharges, "ID", "BuyInvoiceNumber", sD_ProductChargesProperties.ProductChargeID);
+            //xxx2
+            ViewBag.ProductChargeID = new SelectList(db.SD_ProductCharges, "ID", "IDDDL", sD_ProductChargesProperties.ProductChargeID);
             return View(sD_ProductChargesProperties);
         }
 
@@ -76,7 +84,9 @@ namespace WebApplicationStoreAdmin.Controllers.Product
                 return HttpNotFound();
             }
             ViewBag.ColorID = new SelectList(db.SD_Color, "ID", "Title", sD_ProductChargesProperties.ColorID);
-            ViewBag.ProductChargeID = new SelectList(db.SD_ProductCharges, "ID", "BuyInvoiceNumber", sD_ProductChargesProperties.ProductChargeID);
+            //ViewBag.ProductChargeID = new SelectList(db.SD_ProductCharges, "ID", "BuyInvoiceNumber", sD_ProductChargesProperties.ProductChargeID);
+            //xxx3
+            ViewBag.ProductChargeID = new SelectList(db.SD_ProductCharges, "ID", "IDDDL", sD_ProductChargesProperties.ProductChargeID);
             return View(sD_ProductChargesProperties);
         }
 
@@ -85,7 +95,7 @@ namespace WebApplicationStoreAdmin.Controllers.Product
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,ProductChargeID,ColorID,SizeID,Discount,RemainingCount")] SD_ProductChargesProperties sD_ProductChargesProperties)
+        public ActionResult Edit([Bind(Include = "ID,ProductChargeID,ColorID,Discount,RemainingCount")] SD_ProductChargesProperties sD_ProductChargesProperties)
         {
             if (ModelState.IsValid)
             {
@@ -94,7 +104,9 @@ namespace WebApplicationStoreAdmin.Controllers.Product
                 return RedirectToAction("Index");
             }
             ViewBag.ColorID = new SelectList(db.SD_Color, "ID", "Title", sD_ProductChargesProperties.ColorID);
-            ViewBag.ProductChargeID = new SelectList(db.SD_ProductCharges, "ID", "BuyInvoiceNumber", sD_ProductChargesProperties.ProductChargeID);
+            //ViewBag.ProductChargeID = new SelectList(db.SD_ProductCharges, "ID", "BuyInvoiceNumber", sD_ProductChargesProperties.ProductChargeID);
+            //xxx4
+            ViewBag.ProductChargeID = new SelectList(db.SD_ProductCharges, "ID", "IDDDL", sD_ProductChargesProperties.ProductChargeID);
             return View(sD_ProductChargesProperties);
         }
 
@@ -132,5 +144,23 @@ namespace WebApplicationStoreAdmin.Controllers.Product
             }
             base.Dispose(disposing);
         }
+
+
+
+
+        ////Redirect
+        //public ActionResult Pictures()
+        //{
+        //    return RedirectToAction("Index" ,"ProductSizes" ,"12");
+        //}
+        //public ActionResult Sizes()
+        //{
+        //    return RedirectToAction("Index");
+        //}
+        //public ActionResult Votes()
+        //{
+        //    return RedirectToAction("Index");
+        //}
+
     }
 }
