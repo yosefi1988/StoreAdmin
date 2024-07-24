@@ -51,12 +51,11 @@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
             @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ID }) -
 
             @Html.ActionLink("Pictures" , "index" , "Images", new { id = item.ID },null) | 
-            @Html.ActionLink("Sizes", "Sizes",  new { id = item.ID }) |
-            @Html.ActionLink("Votes" , "Votes",  new { id = item.ID })
-
+            @Html.ActionLink("Sizes", "index", "ProductSizes", new { id = item.ID }, null) |
+            @Html.ActionLink("Votes", "index", "Votes", new { id = item.ID }, null)  
         </td>
     </tr>
 }

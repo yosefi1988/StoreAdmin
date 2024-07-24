@@ -19,6 +19,18 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="BD_SendProductsPrice">
+      <EntityTypeMapping TypeName="officia1_StoreModel.BD_SendProductsPrice">
+        <MappingFragment StoreEntitySet="BD_SendProductsPrice">
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="StateID" ColumnName="StateID" />
+          <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="BD_SizeTypes">
       <EntityTypeMapping TypeName="officia1_StoreModel.BD_SizeTypes">
         <MappingFragment StoreEntitySet="BD_SizeTypes">
@@ -139,9 +151,20 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="SD_ProductCategories">
+      <EntityTypeMapping TypeName="officia1_StoreModel.SD_ProductCategories">
+        <MappingFragment StoreEntitySet="SD_ProductCategories">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="SD_ProductCharges">
       <EntityTypeMapping TypeName="officia1_StoreModel.SD_ProductCharges">
         <MappingFragment StoreEntitySet="SD_ProductCharges">
+          <ScalarProperty Name="IDDDL" ColumnName="IDDDL" />
           <ScalarProperty Name="PercentWages" ColumnName="PercentWages" />
           <ScalarProperty Name="PercentInterest" ColumnName="PercentInterest" />
           <ScalarProperty Name="BuyCount" ColumnName="BuyCount" />
@@ -172,6 +195,25 @@
           <ScalarProperty Name="Value" ColumnName="Value" />
           <ScalarProperty Name="ProductChargePropertiesID" ColumnName="ProductChargePropertiesID" />
           <ScalarProperty Name="SizeID" ColumnName="SizeID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SD_SendBoxs">
+      <EntityTypeMapping TypeName="officia1_StoreModel.SD_SendBoxs">
+        <MappingFragment StoreEntitySet="SD_SendBoxs">
+          <ScalarProperty Name="SendTrackingNo" ColumnName="SendTrackingNo" />
+          <ScalarProperty Name="SendStatus" ColumnName="SendStatus" />
+          <ScalarProperty Name="SendDate" ColumnName="SendDate" />
+          <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="CityID" ColumnName="CityID" />
+          <ScalarProperty Name="SendTypeTitle" ColumnName="SendTypeTitle" />
+          <ScalarProperty Name="SendTypeID" ColumnName="SendTypeID" />
+          <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+          <ScalarProperty Name="ShoppingBasketID" ColumnName="ShoppingBasketID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -237,44 +279,6 @@
           <ScalarProperty Name="Star" ColumnName="Star" />
           <ScalarProperty Name="ProductChargePropertiesID" ColumnName="ProductChargePropertiesID" />
           <ScalarProperty Name="UserID" ColumnName="UserID" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <AssociationSetMapping Name="SD_ProductCategories" TypeName="officia1_StoreModel.SD_ProductCategories" StoreEntitySet="SD_ProductCategories">
-      <EndProperty Name="SD_Product">
-        <ScalarProperty Name="ID" ColumnName="ProductID" />
-      </EndProperty>
-      <EndProperty Name="SD_Category">
-        <ScalarProperty Name="ID" ColumnName="CategoryID" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <EntitySetMapping Name="SD_SendBoxs">
-      <EntityTypeMapping TypeName="officia1_StoreModel.SD_SendBoxs">
-        <MappingFragment StoreEntitySet="SD_SendBoxs">
-          <ScalarProperty Name="SendTrackingNo" ColumnName="SendTrackingNo" />
-          <ScalarProperty Name="SendStatus" ColumnName="SendStatus" />
-          <ScalarProperty Name="SendDate" ColumnName="SendDate" />
-          <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
-          <ScalarProperty Name="FullName" ColumnName="FullName" />
-          <ScalarProperty Name="Address" ColumnName="Address" />
-          <ScalarProperty Name="CityID" ColumnName="CityID" />
-          <ScalarProperty Name="SendTypeTitle" ColumnName="SendTypeTitle" />
-          <ScalarProperty Name="SendTypeID" ColumnName="SendTypeID" />
-          <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
-          <ScalarProperty Name="ShoppingBasketID" ColumnName="ShoppingBasketID" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="BD_SendProductsPrice">
-      <EntityTypeMapping TypeName="officia1_StoreModel.BD_SendProductsPrice">
-        <MappingFragment StoreEntitySet="BD_SendProductsPrice">
-          <ScalarProperty Name="Title" ColumnName="Title" />
-          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-          <ScalarProperty Name="StateID" ColumnName="StateID" />
-          <ScalarProperty Name="CountryID" ColumnName="CountryID" />
-          <ScalarProperty Name="Price" ColumnName="Price" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>

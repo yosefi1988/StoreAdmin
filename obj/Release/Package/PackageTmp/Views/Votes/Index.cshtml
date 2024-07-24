@@ -12,10 +12,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.UserID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductChargePropertiesID)
+            @Html.DisplayNameFor(model => model.ID)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Star)
@@ -23,16 +20,19 @@
         <th>
             @Html.DisplayNameFor(model => model.Comment)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SD_ProductChargesProperties.ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SD_Users.Name)
+        </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.UserID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductChargePropertiesID)
+            @Html.DisplayFor(modelItem => item.ID)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Star)
@@ -41,9 +41,15 @@
             @Html.DisplayFor(modelItem => item.Comment)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.DisplayFor(modelItem => item.SD_ProductChargesProperties.ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SD_Users.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new {  id=item.ID  }) |
+            @Html.ActionLink("Details", "Details", new {  id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new {  id=item.ID })
         </td>
     </tr>
 }

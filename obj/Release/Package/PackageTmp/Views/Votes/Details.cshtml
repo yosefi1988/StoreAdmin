@@ -11,19 +11,11 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.UserID)
+            @Html.DisplayNameFor(model => model.ID)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.UserID)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductChargePropertiesID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ProductChargePropertiesID)
+            @Html.DisplayFor(model => model.ID)
         </dd>
 
         <dt>
@@ -40,6 +32,22 @@
 
         <dd>
             @Html.DisplayFor(model => model.Comment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SD_ProductChargesProperties.ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SD_ProductChargesProperties.ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SD_Users.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SD_Users.Name)
         </dd>
 
     </dl>

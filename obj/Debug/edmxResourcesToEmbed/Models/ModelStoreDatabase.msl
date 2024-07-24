@@ -151,6 +151,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="SD_ProductCategories">
+      <EntityTypeMapping TypeName="officia1_StoreModel.SD_ProductCategories">
+        <MappingFragment StoreEntitySet="SD_ProductCategories">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="SD_ProductCharges">
       <EntityTypeMapping TypeName="officia1_StoreModel.SD_ProductCharges">
         <MappingFragment StoreEntitySet="SD_ProductCharges">
@@ -185,6 +195,7 @@
           <ScalarProperty Name="Value" ColumnName="Value" />
           <ScalarProperty Name="ProductChargePropertiesID" ColumnName="ProductChargePropertiesID" />
           <ScalarProperty Name="SizeID" ColumnName="SizeID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -272,13 +283,5 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="SD_ProductCategories" TypeName="officia1_StoreModel.SD_ProductCategories" StoreEntitySet="SD_ProductCategories">
-      <EndProperty Name="SD_Product">
-        <ScalarProperty Name="ID" ColumnName="ProductID" />
-      </EndProperty>
-      <EndProperty Name="SD_Category">
-        <ScalarProperty Name="ID" ColumnName="CategoryID" />
-      </EndProperty>
-    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping>

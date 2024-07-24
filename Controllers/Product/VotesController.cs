@@ -15,9 +15,22 @@ namespace WebApplicationStoreAdmin.Controllers.Product
         private officia1_StoreEntities db = new officia1_StoreEntities();
 
         // GET: Votes
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
-            return View(db.SD_Votes.ToList());
+            if (id == null)
+            {
+                var sD_Votes = db.SD_Votes.Include(s => s.SD_ProductChargesProperties).Include(s => s.SD_Users);
+                return View(sD_Votes.ToList());
+            }
+            var sD_Votes_id = db.SD_Votes
+                                   .Include(s => s.SD_ProductChargesProperties)
+                                   .Where(s => s.ProductChargePropertiesID == id);
+
+            if (sD_Votes_id == null)
+            {
+                return HttpNotFound();
+            }
+            return View(sD_Votes_id.ToList());
         }
 
         // GET: Votes/Details/5
@@ -27,7 +40,9 @@ namespace WebApplicationStoreAdmin.Controllers.Product
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SD_Votes sD_Votes = db.SD_Votes.Find(id);
+            //SD_Votes sD_Votes = db.SD_Votes.Find(id);
+            SD_Votes sD_Votes = db.SD_Votes.FirstOrDefault(ps => ps.ID == id);
+
             if (sD_Votes == null)
             {
                 return HttpNotFound();
@@ -38,6 +53,8 @@ namespace WebApplicationStoreAdmin.Controllers.Product
         // GET: Votes/Create
         public ActionResult Create()
         {
+            ViewBag.ProductChargePropertiesID = new SelectList(db.SD_ProductChargesProperties, "ID", "ID");
+            ViewBag.UserID = new SelectList(db.SD_Users, "ID", "Name");
             return View();
         }
 
@@ -55,6 +72,8 @@ namespace WebApplicationStoreAdmin.Controllers.Product
                 return RedirectToAction("Index");
             }
 
+            ViewBag.ProductChargePropertiesID = new SelectList(db.SD_ProductChargesProperties, "ID", "ID", sD_Votes.ProductChargePropertiesID);
+            ViewBag.UserID = new SelectList(db.SD_Users, "ID", "Name", sD_Votes.UserID);
             return View(sD_Votes);
         }
 
@@ -65,11 +84,15 @@ namespace WebApplicationStoreAdmin.Controllers.Product
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SD_Votes sD_Votes = db.SD_Votes.Find(id);
+            //SD_Votes sD_Votes = db.SD_Votes.Find(id);
+            SD_Votes sD_Votes = db.SD_Votes.FirstOrDefault(ps => ps.ID == id);
+
             if (sD_Votes == null)
             {
                 return HttpNotFound();
             }
+            ViewBag.ProductChargePropertiesID = new SelectList(db.SD_ProductChargesProperties, "ID", "ID", sD_Votes.ProductChargePropertiesID);
+            ViewBag.UserID = new SelectList(db.SD_Users, "ID", "Name", sD_Votes.UserID);
             return View(sD_Votes);
         }
 
@@ -86,6 +109,8 @@ namespace WebApplicationStoreAdmin.Controllers.Product
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.ProductChargePropertiesID = new SelectList(db.SD_ProductChargesProperties, "ID", "ID", sD_Votes.ProductChargePropertiesID);
+            ViewBag.UserID = new SelectList(db.SD_Users, "ID", "Name", sD_Votes.UserID);
             return View(sD_Votes);
         }
 
@@ -96,7 +121,9 @@ namespace WebApplicationStoreAdmin.Controllers.Product
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SD_Votes sD_Votes = db.SD_Votes.Find(id);
+            //SD_Votes sD_Votes = db.SD_Votes.Find(id);
+            SD_Votes sD_Votes = db.SD_Votes.FirstOrDefault(ps => ps.ID == id);
+
             if (sD_Votes == null)
             {
                 return HttpNotFound();
@@ -109,7 +136,9 @@ namespace WebApplicationStoreAdmin.Controllers.Product
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            SD_Votes sD_Votes = db.SD_Votes.Find(id);
+            //SD_Votes sD_Votes = db.SD_Votes.Find(id);
+            SD_Votes sD_Votes = db.SD_Votes.FirstOrDefault(ps => ps.ID == id);
+
             db.SD_Votes.Remove(sD_Votes);
             db.SaveChanges();
             return RedirectToAction("Index");

@@ -14,6 +14,7 @@ namespace WebApplicationStoreAdmin.Models
     
     public partial class SD_ProductSizes
     {
+        public int ID { get; set; }
         public int SizeID { get; set; }
         public int ProductChargePropertiesID { get; set; }
         public string Value { get; set; }

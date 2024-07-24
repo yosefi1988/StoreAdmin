@@ -141,8 +141,10 @@
       <PropertyRef Name="ProductID" />
       <PropertyRef Name="CategoryID" />
     </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ProductID" Type="int" Nullable="false" />
     <Property Name="CategoryID" Type="int" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="SD_ProductCharges">
     <Key>
@@ -171,9 +173,9 @@
   </EntityType>
   <EntityType Name="SD_ProductSizes">
     <Key>
-      <PropertyRef Name="SizeID" />
-      <PropertyRef Name="ProductChargePropertiesID" />
+      <PropertyRef Name="ID" />
     </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="SizeID" Type="int" Nullable="false" />
     <Property Name="ProductChargePropertiesID" Type="int" Nullable="false" />
     <Property Name="Value" Type="nchar" MaxLength="10" />
@@ -249,12 +251,13 @@
   </EntityType>
   <EntityType Name="SD_Votes">
     <Key>
-      <PropertyRef Name="ID" />
+      <PropertyRef Name="UserID" />
+      <PropertyRef Name="ProductChargePropertiesID" />
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="UserID" Type="int" />
-    <Property Name="ProductChargePropertiesID" Type="int" />
-    <Property Name="Star" Type="int" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="ProductChargePropertiesID" Type="int" Nullable="false" />
+    <Property Name="Star" Type="tinyint" />
     <Property Name="Comment" Type="nvarchar(max)" />
   </EntityType>
   <Association Name="FK_BD_Cities_BD_States">
@@ -610,7 +613,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_SD_Votes_SD_ProductChargesProperties">
-    <End Role="SD_ProductChargesProperties" Type="Self.SD_ProductChargesProperties" Multiplicity="0..1">
+    <End Role="SD_ProductChargesProperties" Type="Self.SD_ProductChargesProperties" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
     <End Role="SD_Votes" Type="Self.SD_Votes" Multiplicity="*" />
@@ -624,7 +627,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_SD_Votes_SD_Users">
-    <End Role="SD_Users" Type="Self.SD_Users" Multiplicity="0..1">
+    <End Role="SD_Users" Type="Self.SD_Users" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
     <End Role="SD_Votes" Type="Self.SD_Votes" Multiplicity="*" />

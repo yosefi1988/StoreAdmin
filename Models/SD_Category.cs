@@ -17,7 +17,7 @@ namespace WebApplicationStoreAdmin.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SD_Category()
         {
-            this.SD_Product = new HashSet<SD_Product>();
+            this.SD_ProductCategories = new HashSet<SD_ProductCategories>();
         }
     
         public int ID { get; set; }
@@ -25,6 +25,6 @@ namespace WebApplicationStoreAdmin.Models
         public Nullable<int> Code { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SD_Product> SD_Product { get; set; }
+        public virtual ICollection<SD_ProductCategories> SD_ProductCategories { get; set; }
     }
 }

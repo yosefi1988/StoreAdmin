@@ -39,6 +39,7 @@ namespace WebApplicationStoreAdmin.Models
         public virtual DbSet<SD_Coupons> SD_Coupons { get; set; }
         public virtual DbSet<SD_Images> SD_Images { get; set; }
         public virtual DbSet<SD_Product> SD_Product { get; set; }
+        public virtual DbSet<SD_ProductCategories> SD_ProductCategories { get; set; }
         public virtual DbSet<SD_ProductCharges> SD_ProductCharges { get; set; }
         public virtual DbSet<SD_ProductChargesProperties> SD_ProductChargesProperties { get; set; }
         public virtual DbSet<SD_ProductSizes> SD_ProductSizes { get; set; }

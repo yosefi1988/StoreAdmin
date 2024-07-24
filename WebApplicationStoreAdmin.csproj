@@ -179,8 +179,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\Config\StoreDetailsController.cs" />
+    <Compile Include="Controllers\Product\ProductCategoriesController.cs" />
     <Compile Include="Controllers\Product\ProductChargesPropertiesController.cs" />
-    <Compile Include="Controllers\Product\ProductSizesController.cs" />
     <Compile Include="Controllers\Product\AddressesController.cs" />
     <Compile Include="Controllers\Product\CategoryController.cs" />
     <Compile Include="Controllers\Basedata\ColorController.cs" />
@@ -188,6 +188,7 @@
     <Compile Include="Controllers\Product\ImagesController.cs" />
     <Compile Include="Controllers\Product\ProductChargesController.cs" />
     <Compile Include="Controllers\Product\ProductController.cs" />
+    <Compile Include="Controllers\Product\ProductSizesController.cs" />
     <Compile Include="Controllers\Product\SendBoxsController.cs" />
     <Compile Include="Controllers\Product\TransactionsController.cs" />
     <Compile Include="Controllers\Product\VotesController.cs" />
@@ -255,6 +256,9 @@
       <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SD_Product.cs">
+      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SD_ProductCategories.cs">
       <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SD_ProductCharges.cs">
@@ -405,11 +409,6 @@
     <Content Include="Views\SizeTypes\Details.cshtml" />
     <Content Include="Views\SizeTypes\Edit.cshtml" />
     <Content Include="Views\SizeTypes\Index.cshtml" />
-    <Content Include="Views\Tax\Create.cshtml" />
-    <Content Include="Views\Tax\Delete.cshtml" />
-    <Content Include="Views\Tax\Details.cshtml" />
-    <Content Include="Views\Tax\Edit.cshtml" />
-    <Content Include="Views\Tax\Index.cshtml" />
     <Content Include="Views\Category\Create.cshtml" />
     <Content Include="Views\Category\Delete.cshtml" />
     <Content Include="Views\Category\Details.cshtml" />
@@ -445,11 +444,6 @@
     <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
-    <Content Include="Views\Votes\Create.cshtml" />
-    <Content Include="Views\Votes\Delete.cshtml" />
-    <Content Include="Views\Votes\Details.cshtml" />
-    <Content Include="Views\Votes\Edit.cshtml" />
-    <Content Include="Views\Votes\Index.cshtml" />
     <Content Include="Views\ShoppingBasket\Create.cshtml" />
     <Content Include="Views\ShoppingBasket\Delete.cshtml" />
     <Content Include="Views\ShoppingBasket\Details.cshtml" />
@@ -470,11 +464,6 @@
     <Content Include="Views\Admins\Details.cshtml" />
     <Content Include="Views\Admins\Edit.cshtml" />
     <Content Include="Views\Admins\Index.cshtml" />
-    <Content Include="Views\ProductSizes\Create.cshtml" />
-    <Content Include="Views\ProductSizes\Delete.cshtml" />
-    <Content Include="Views\ProductSizes\Details.cshtml" />
-    <Content Include="Views\ProductSizes\Edit.cshtml" />
-    <Content Include="Views\ProductSizes\Index.cshtml" />
     <Content Include="Views\ProductCharges\Create.cshtml" />
     <Content Include="Views\ProductCharges\Delete.cshtml" />
     <Content Include="Views\ProductCharges\Details.cshtml" />
@@ -495,6 +484,26 @@
     <Content Include="Views\ProductChargesProperties\Details.cshtml" />
     <Content Include="Views\ProductChargesProperties\Edit.cshtml" />
     <Content Include="Views\ProductChargesProperties\Index.cshtml" />
+    <Content Include="Views\ProductSizes\Create.cshtml" />
+    <Content Include="Views\ProductSizes\Delete.cshtml" />
+    <Content Include="Views\ProductSizes\Details.cshtml" />
+    <Content Include="Views\ProductSizes\Edit.cshtml" />
+    <Content Include="Views\ProductSizes\Index.cshtml" />
+    <Content Include="Views\Votes\Create.cshtml" />
+    <Content Include="Views\Votes\Delete.cshtml" />
+    <Content Include="Views\Votes\Details.cshtml" />
+    <Content Include="Views\Votes\Edit.cshtml" />
+    <Content Include="Views\Votes\Index.cshtml" />
+    <Content Include="Views\ProductCategories\Create.cshtml" />
+    <Content Include="Views\ProductCategories\Delete.cshtml" />
+    <Content Include="Views\ProductCategories\Details.cshtml" />
+    <Content Include="Views\ProductCategories\Edit.cshtml" />
+    <Content Include="Views\ProductCategories\Index.cshtml" />
+    <Content Include="Views\Tax\Create.cshtml" />
+    <Content Include="Views\Tax\Delete.cshtml" />
+    <Content Include="Views\Tax\Details.cshtml" />
+    <Content Include="Views\Tax\Edit.cshtml" />
+    <Content Include="Views\Tax\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

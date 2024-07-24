@@ -4,58 +4,60 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="3e379177ef4345ee90be72bf4366a2f3" Name="Diagram1" ZoomLevel="116">
-        <EntityTypeShape EntityType="officia1_StoreModel.BD_Cities" Width="1.5" PointX="10.5" PointY="21" />
-        <EntityTypeShape EntityType="officia1_StoreModel.BD_Country" Width="1.5" PointX="3" PointY="9.25" />
-        <EntityTypeShape EntityType="officia1_StoreModel.BD_SizeTypes" Width="1.5" PointX="10.5" PointY="0.75" />
-        <EntityTypeShape EntityType="officia1_StoreModel.BD_States" Width="1.5" PointX="3" PointY="15.875" />
-        <EntityTypeShape EntityType="officia1_StoreModel.BD_Tax" Width="1.5" PointX="6" PointY="8.75" />
-        <EntityTypeShape EntityType="officia1_StoreModel.SC_Admins" Width="1.5" PointX="10.5" PointY="24.25" />
-        <EntityTypeShape EntityType="officia1_StoreModel.SC_StoreDetails" Width="1.5" PointX="0.75" PointY="1.75" />
-        <EntityTypeShape EntityType="officia1_StoreModel.SD_Addresses" Width="1.5" PointX="15.75" PointY="11.75" />
-        <EntityTypeShape EntityType="officia1_StoreModel.SD_Category" Width="1.5" PointX="0.75" PointY="12.75" />
-        <EntityTypeShape EntityType="officia1_StoreModel.SD_Color" Width="1.5" PointX="8.25" PointY="16.75" />
-        <EntityTypeShape EntityType="officia1_StoreModel.SD_Coupons" Width="1.5" PointX="8.25" PointY="8.5" />
-        <EntityTypeShape EntityType="officia1_StoreModel.SD_Images" Width="1.5" PointX="12.75" PointY="16.75" />
-        <EntityTypeShape EntityType="officia1_StoreModel.SD_Product" Width="1.5" PointX="3" PointY="12.5" />
-        <EntityTypeShape EntityType="officia1_StoreModel.SD_ProductCharges" Width="2.25" PointX="8" PointY="11.375" />
-        <EntityTypeShape EntityType="officia1_StoreModel.SD_ProductChargesProperties" Width="2" PointX="10.5" PointY="7.125" />
-        <EntityTypeShape EntityType="officia1_StoreModel.SD_ProductSizes" Width="1.5" PointX="12.75" PointY="7.5" />
-        <EntityTypeShape EntityType="officia1_StoreModel.SD_ShoppingBasket" Width="1.5" PointX="10.5" PointY="3.5" />
-        <EntityTypeShape EntityType="officia1_StoreModel.SD_ShoppingBasketObjects" Width="1.5" PointX="10.5" PointY="17.25" />
-        <EntityTypeShape EntityType="officia1_StoreModel.SD_Transactions" Width="1.5" PointX="10.5" PointY="11.5" />
-        <EntityTypeShape EntityType="officia1_StoreModel.SD_Users" Width="1.5" PointX="8.25" PointY="3.125" />
-        <EntityTypeShape EntityType="officia1_StoreModel.SD_Votes" Width="1.5" PointX="12.75" PointY="4.5" />
+      <Diagram DiagramId="3e379177ef4345ee90be72bf4366a2f3" Name="Diagram1" ZoomLevel="100">
+        <EntityTypeShape EntityType="officia1_StoreModel.BD_Cities" Width="1.5" PointX="8.25" PointY="18.5" />
+        <EntityTypeShape EntityType="officia1_StoreModel.BD_Country" Width="1.5" PointX="0.75" PointY="9.875" />
+        <EntityTypeShape EntityType="officia1_StoreModel.BD_SendProductsPrice" Width="1.5" PointX="3" PointY="12.75" />
+        <EntityTypeShape EntityType="officia1_StoreModel.BD_SizeTypes" Width="1.5" PointX="11.25" PointY="2.375" />
+        <EntityTypeShape EntityType="officia1_StoreModel.BD_States" Width="1.5" PointX="0.75" PointY="16.625" />
+        <EntityTypeShape EntityType="officia1_StoreModel.BD_Tax" Width="1.5" PointX="3.75" PointY="9.375" />
+        <EntityTypeShape EntityType="officia1_StoreModel.SC_Admins" Width="1.5" PointX="10.5" PointY="21.875" />
+        <EntityTypeShape EntityType="officia1_StoreModel.SC_StoreDetails" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="officia1_StoreModel.SD_Addresses" Width="1.5" PointX="13.5" PointY="12.375" />
+        <EntityTypeShape EntityType="officia1_StoreModel.SD_Category" Width="1.5" PointX="3.75" PointY="17.375" />
+        <EntityTypeShape EntityType="officia1_StoreModel.SD_Color" Width="1.5" PointX="6" PointY="5.375" />
+        <EntityTypeShape EntityType="officia1_StoreModel.SD_Coupons" Width="1.5" PointX="6" PointY="16.25" />
+        <EntityTypeShape EntityType="officia1_StoreModel.SD_Images" Width="1.5" PointX="10.5" PointY="18.5" />
+        <EntityTypeShape EntityType="officia1_StoreModel.SD_Product" Width="1.5" PointX="0.75" PointY="13.125" />
+        <EntityTypeShape EntityType="officia1_StoreModel.SD_ProductCategories" Width="1.5" PointX="6" PointY="13.25" />
+        <EntityTypeShape EntityType="officia1_StoreModel.SD_ProductCharges" Width="1.5" PointX="6" PointY="8.5" />
+        <EntityTypeShape EntityType="officia1_StoreModel.SD_ProductChargesProperties" Width="1.5" PointX="8.25" PointY="8.875" />
+        <EntityTypeShape EntityType="officia1_StoreModel.SD_ProductSizes" Width="1.5" PointX="13.5" PointY="9.125" />
+        <EntityTypeShape EntityType="officia1_StoreModel.SD_SendBoxs" Width="1.5" PointX="10.5" PointY="13" />
+        <EntityTypeShape EntityType="officia1_StoreModel.SD_ShoppingBasket" Width="1.5" PointX="9" PointY="1" />
+        <EntityTypeShape EntityType="officia1_StoreModel.SD_ShoppingBasketObjects" Width="1.5" PointX="11.25" PointY="8.875" />
+        <EntityTypeShape EntityType="officia1_StoreModel.SD_Transactions" Width="1.5" PointX="8.25" PointY="13.125" />
+        <EntityTypeShape EntityType="officia1_StoreModel.SD_Users" Width="1.5" PointX="8.25" PointY="4.75" />
+        <EntityTypeShape EntityType="officia1_StoreModel.SD_Votes" Width="1.5" PointX="10.5" PointY="5.125" />
         <AssociationConnector Association="officia1_StoreModel.FK_BD_Cities_BD_States" />
         <AssociationConnector Association="officia1_StoreModel.FK_SD_Addresses_BD_Cities" />
+        <AssociationConnector Association="officia1_StoreModel.FK_SD_SendBoxs_BD_Cities" />
+        <AssociationConnector Association="officia1_StoreModel.FK_BD_SendProductsPrice_BD_Country" />
         <AssociationConnector Association="officia1_StoreModel.FK_BD_States_BD_Country" />
+        <AssociationConnector Association="officia1_StoreModel.FK_BD_SendProductsPrice_BD_States" />
+        <AssociationConnector Association="officia1_StoreModel.FK_BD_SendProductsPrice_SD_Product" />
+        <AssociationConnector Association="officia1_StoreModel.FK_SD_SendBoxs_BD_SendProductsPrice" />
+        <AssociationConnector Association="officia1_StoreModel.FK_SD_Transactions_BD_SendProductsPrice" />
         <AssociationConnector Association="officia1_StoreModel.FK_SD_ProductSizes_BD_SizeTypes" />
         <AssociationConnector Association="officia1_StoreModel.FK_SD_ProductCharges_BD_Tax" />
         <AssociationConnector Association="officia1_StoreModel.FK_SC_Admins_SD_Users" />
         <AssociationConnector Association="officia1_StoreModel.FK_SD_Addresses_SD_Users" />
+        <AssociationConnector Association="officia1_StoreModel.FK_SD_ProductCategories_SD_Category" />
         <AssociationConnector Association="officia1_StoreModel.FK_SD_ProductChargesProperties_SD_Color" />
         <AssociationConnector Association="officia1_StoreModel.FK_SD_Transactions_SD_Coupons" />
         <AssociationConnector Association="officia1_StoreModel.FK_SD_Images_SD_ProductChargesProperties" />
+        <AssociationConnector Association="officia1_StoreModel.FK_SD_ProductCategories_SD_Product" />
         <AssociationConnector Association="officia1_StoreModel.FK_SD_ProductCharges_SD_Product" />
         <AssociationConnector Association="officia1_StoreModel.FK_SD_ProductChargesProperties_SD_ProductCharges" />
         <AssociationConnector Association="officia1_StoreModel.FK_SD_ShoppingBasketObjects_SD_ProductCharges" />
         <AssociationConnector Association="officia1_StoreModel.FK_SD_ProductSizes_SD_ProductChargesProperties" />
         <AssociationConnector Association="officia1_StoreModel.FK_SD_Votes_SD_ProductChargesProperties" />
+        <AssociationConnector Association="officia1_StoreModel.FK_SD_SendBoxs_SD_ShoppingBasket" />
+        <AssociationConnector Association="officia1_StoreModel.FK_SD_SendBoxs_SD_Transactions" />
         <AssociationConnector Association="officia1_StoreModel.FK_SD_ShoppingBasket_SD_Users" />
         <AssociationConnector Association="officia1_StoreModel.FK_SD_ShoppingBasketObjects_SD_ShoppingBasket" />
         <AssociationConnector Association="officia1_StoreModel.FK_SD_Transactions_SD_ShoppingBasket" />
         <AssociationConnector Association="officia1_StoreModel.FK_SD_Votes_SD_Users" />
-        <AssociationConnector Association="officia1_StoreModel.SD_ProductCategories" />
-        <EntityTypeShape EntityType="officia1_StoreModel.SD_SendBoxs" Width="1.5" PointX="12.75" PointY="11.25" />
-        <AssociationConnector Association="officia1_StoreModel.FK_SD_SendBoxs_BD_Cities" />
-        <AssociationConnector Association="officia1_StoreModel.FK_SD_SendBoxs_SD_ShoppingBasket" />
-        <AssociationConnector Association="officia1_StoreModel.FK_SD_SendBoxs_SD_Transactions" />
-        <EntityTypeShape EntityType="officia1_StoreModel.BD_SendProductsPrice" Width="1.5" PointX="5.25" PointY="12.125" />
-        <AssociationConnector Association="officia1_StoreModel.FK_BD_SendProductsPrice_BD_Country" />
-        <AssociationConnector Association="officia1_StoreModel.FK_BD_SendProductsPrice_BD_States" />
-        <AssociationConnector Association="officia1_StoreModel.FK_BD_SendProductsPrice_SD_Product" />
-        <AssociationConnector Association="officia1_StoreModel.FK_SD_SendBoxs_BD_SendProductsPrice" />
-        <AssociationConnector Association="officia1_StoreModel.FK_SD_Transactions_BD_SendProductsPrice" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

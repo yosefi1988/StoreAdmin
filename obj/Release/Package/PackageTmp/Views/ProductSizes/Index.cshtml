@@ -10,21 +10,35 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
-    <tr>
+    <tr> 
+        <th>
+            @Html.DisplayNameFor(model => model.ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Value)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.Description)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.BD_SizeTypes.Title)
+            SizeTypes
+            @*@Html.DisplayNameFor(model => model.BD_SizeTypes.Title)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SD_ProductChargesProperties.ID)
+            ProductChargesProperties
+            @*@Html.DisplayNameFor(model => model.SD_ProductChargesProperties.ID)*@
         </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Value)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Description)
         </td>
@@ -35,9 +49,9 @@
             @Html.DisplayFor(modelItem => item.SD_ProductChargesProperties.ID)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.ActionLink("Edit", "Edit", new {  id=item.ID  }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
         </td>
     </tr>
 }

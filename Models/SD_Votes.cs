@@ -15,9 +15,9 @@ namespace WebApplicationStoreAdmin.Models
     public partial class SD_Votes
     {
         public int ID { get; set; }
-        public Nullable<int> UserID { get; set; }
-        public Nullable<int> ProductChargePropertiesID { get; set; }
-        public Nullable<int> Star { get; set; }
+        public int UserID { get; set; }
+        public int ProductChargePropertiesID { get; set; }
+        public Nullable<byte> Star { get; set; }
         public string Comment { get; set; }
     
         public virtual SD_ProductChargesProperties SD_ProductChargesProperties { get; set; }
