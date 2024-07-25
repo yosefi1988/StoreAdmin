@@ -103,7 +103,7 @@ namespace WebApplicationStoreAdmin.Controllers.Product
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SizeID,ProductChargePropertiesID,Value,Description")] SD_ProductSizes sD_ProductSizes)
+        public ActionResult Edit([Bind(Include = "ID,SizeID,ProductChargePropertiesID,Value,Description")] SD_ProductSizes sD_ProductSizes)
         {
             if (ModelState.IsValid)
             {
