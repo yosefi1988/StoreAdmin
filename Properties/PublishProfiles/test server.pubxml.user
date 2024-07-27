@@ -125,10 +125,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/21/2024 22:19:47</publishTime>
     </File>
     <File Include="bin/WebApplicationStoreAdmin.dll">
-      <publishTime>07/23/2024 03:07:42</publishTime>
+      <publishTime>07/24/2024 06:19:50</publishTime>
     </File>
     <File Include="bin/WebGrease.dll">
       <publishTime>07/21/2024 22:19:47</publishTime>
+    </File>
+    <File Include="Content/bootstrap-rtl.min.css">
+      <publishTime>07/23/2024 05:02:54</publishTime>
     </File>
     <File Include="Content/bootstrap.css">
       <publishTime>07/23/2024 03:32:46</publishTime>
@@ -212,7 +215,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/21/2024 22:19:45</publishTime>
     </File>
     <File Include="Models/ModelStoreDatabase.edmx.diagram">
-      <publishTime>07/23/2024 02:58:05</publishTime>
+      <publishTime>07/24/2024 04:55:15</publishTime>
     </File>
     <File Include="packages.config">
       <publishTime>07/21/2024 22:19:49</publishTime>
@@ -404,7 +407,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/21/2024 22:19:45</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>07/23/2024 02:09:12</publishTime>
+      <publishTime>07/24/2024 06:07:36</publishTime>
     </File>
     <File Include="Views/Images/Create.cshtml">
       <publishTime>07/22/2024 01:26:13</publishTime>
@@ -452,7 +455,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/22/2024 01:19:44</publishTime>
     </File>
     <File Include="Views/Product/Index.cshtml">
-      <publishTime>07/22/2024 01:19:44</publishTime>
+      <publishTime>07/24/2024 05:27:08</publishTime>
+    </File>
+    <File Include="Views/ProductCategories/Create.cshtml">
+      <publishTime>07/24/2024 04:56:23</publishTime>
+    </File>
+    <File Include="Views/ProductCategories/Delete.cshtml">
+      <publishTime>07/24/2024 04:56:24</publishTime>
+    </File>
+    <File Include="Views/ProductCategories/Details.cshtml">
+      <publishTime>07/24/2024 05:18:38</publishTime>
+    </File>
+    <File Include="Views/ProductCategories/Edit.cshtml">
+      <publishTime>07/24/2024 04:56:26</publishTime>
+    </File>
+    <File Include="Views/ProductCategories/Index.cshtml">
+      <publishTime>07/24/2024 05:20:35</publishTime>
     </File>
     <File Include="Views/ProductCharges/Create.cshtml">
       <publishTime>07/23/2024 01:29:36</publishTime>
@@ -470,34 +488,34 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/23/2024 01:29:40</publishTime>
     </File>
     <File Include="Views/ProductChargesProperties/Create.cshtml">
-      <publishTime>07/23/2024 00:54:53</publishTime>
+      <publishTime>07/24/2024 00:51:39</publishTime>
     </File>
     <File Include="Views/ProductChargesProperties/Delete.cshtml">
-      <publishTime>07/23/2024 00:54:53</publishTime>
+      <publishTime>07/24/2024 00:51:40</publishTime>
     </File>
     <File Include="Views/ProductChargesProperties/Details.cshtml">
-      <publishTime>07/23/2024 00:54:54</publishTime>
+      <publishTime>07/24/2024 00:51:40</publishTime>
     </File>
     <File Include="Views/ProductChargesProperties/Edit.cshtml">
-      <publishTime>07/23/2024 00:54:54</publishTime>
+      <publishTime>07/24/2024 00:51:41</publishTime>
     </File>
     <File Include="Views/ProductChargesProperties/Index.cshtml">
-      <publishTime>07/23/2024 00:54:54</publishTime>
+      <publishTime>07/24/2024 02:46:19</publishTime>
     </File>
     <File Include="Views/ProductSizes/Create.cshtml">
-      <publishTime>07/23/2024 00:37:25</publishTime>
+      <publishTime>07/24/2024 03:31:07</publishTime>
     </File>
     <File Include="Views/ProductSizes/Delete.cshtml">
-      <publishTime>07/23/2024 00:37:26</publishTime>
+      <publishTime>07/24/2024 04:07:55</publishTime>
     </File>
     <File Include="Views/ProductSizes/Details.cshtml">
-      <publishTime>07/23/2024 00:37:26</publishTime>
+      <publishTime>07/24/2024 04:07:50</publishTime>
     </File>
     <File Include="Views/ProductSizes/Edit.cshtml">
-      <publishTime>07/23/2024 00:37:28</publishTime>
+      <publishTime>07/24/2024 03:31:09</publishTime>
     </File>
     <File Include="Views/ProductSizes/Index.cshtml">
-      <publishTime>07/23/2024 00:37:29</publishTime>
+      <publishTime>07/24/2024 03:55:53</publishTime>
     </File>
     <File Include="Views/SendBoxs/Create.cshtml">
       <publishTime>07/23/2024 02:47:00</publishTime>
@@ -617,19 +635,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/22/2024 00:26:41</publishTime>
     </File>
     <File Include="Views/Tax/Create.cshtml">
-      <publishTime>07/22/2024 01:08:26</publishTime>
+      <publishTime>07/24/2024 05:45:40</publishTime>
     </File>
     <File Include="Views/Tax/Delete.cshtml">
-      <publishTime>07/22/2024 01:08:26</publishTime>
+      <publishTime>07/24/2024 05:45:40</publishTime>
     </File>
     <File Include="Views/Tax/Details.cshtml">
-      <publishTime>07/22/2024 01:08:27</publishTime>
+      <publishTime>07/24/2024 05:45:40</publishTime>
     </File>
     <File Include="Views/Tax/Edit.cshtml">
-      <publishTime>07/22/2024 01:08:27</publishTime>
+      <publishTime>07/24/2024 05:45:40</publishTime>
     </File>
     <File Include="Views/Tax/Index.cshtml">
-      <publishTime>07/22/2024 01:08:27</publishTime>
+      <publishTime>07/24/2024 05:45:41</publishTime>
     </File>
     <File Include="Views/Transactions/Create.cshtml">
       <publishTime>07/22/2024 01:46:15</publishTime>
@@ -662,19 +680,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/22/2024 01:31:20</publishTime>
     </File>
     <File Include="Views/Votes/Create.cshtml">
-      <publishTime>07/22/2024 01:33:20</publishTime>
+      <publishTime>07/24/2024 04:33:56</publishTime>
     </File>
     <File Include="Views/Votes/Delete.cshtml">
-      <publishTime>07/22/2024 01:33:21</publishTime>
+      <publishTime>07/24/2024 04:33:56</publishTime>
     </File>
     <File Include="Views/Votes/Details.cshtml">
-      <publishTime>07/22/2024 01:33:22</publishTime>
+      <publishTime>07/24/2024 05:18:19</publishTime>
     </File>
     <File Include="Views/Votes/Edit.cshtml">
-      <publishTime>07/22/2024 01:33:22</publishTime>
+      <publishTime>07/24/2024 04:33:58</publishTime>
     </File>
     <File Include="Views/Votes/Index.cshtml">
-      <publishTime>07/22/2024 01:33:23</publishTime>
+      <publishTime>07/24/2024 04:35:26</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>07/21/2024 22:19:45</publishTime>
