@@ -1,6 +1,6 @@
 ﻿25/07/2024
 
-
+ 
 
 SELECT        officia1_Dbadmin.SD_ProductChargesProperties.ID, officia1_Dbadmin.SD_Product.Name, officia1_Dbadmin.SD_ProductCharges.BuyInvoiceNumber, officia1_Dbadmin.SD_ProductCharges.PercentInterest, 
                          officia1_Dbadmin.SD_ProductCharges.PercentWages, officia1_Dbadmin.SD_ProductChargesProperties.Discount, officia1_Dbadmin.SD_ProductChargesProperties.RemainingCount, officia1_Dbadmin.SD_Color.Title, 
