@@ -17,7 +17,6 @@ namespace WebApplicationStoreAdmin.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public BD_Country()
         {
-            this.BD_SendProductsPrice = new HashSet<BD_SendProductsPrice>();
             this.BD_States = new HashSet<BD_States>();
         }
     
@@ -25,8 +24,6 @@ namespace WebApplicationStoreAdmin.Models
         public string Title { get; set; }
         public string Logo { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BD_SendProductsPrice> BD_SendProductsPrice { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BD_States> BD_States { get; set; }
     }

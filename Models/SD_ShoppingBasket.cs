@@ -24,9 +24,10 @@ namespace WebApplicationStoreAdmin.Models
     
         public int ID { get; set; }
         public Nullable<int> UserID { get; set; }
-        public Nullable<int> Status { get; set; }
+        public Nullable<int> StatusID { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
     
+        public virtual BD_ShoppingBasketTypes BD_ShoppingBasketTypes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SD_SendBoxs> SD_SendBoxs { get; set; }
         public virtual SD_Users SD_Users { get; set; }

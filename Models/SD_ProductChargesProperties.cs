@@ -19,6 +19,7 @@ namespace WebApplicationStoreAdmin.Models
         {
             this.SD_Images = new HashSet<SD_Images>();
             this.SD_ProductSizes = new HashSet<SD_ProductSizes>();
+            this.SD_ShoppingBasketObjects = new HashSet<SD_ShoppingBasketObjects>();
             this.SD_Votes = new HashSet<SD_Votes>();
         }
     
@@ -34,6 +35,8 @@ namespace WebApplicationStoreAdmin.Models
         public virtual SD_ProductCharges SD_ProductCharges { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SD_ProductSizes> SD_ProductSizes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SD_ShoppingBasketObjects> SD_ShoppingBasketObjects { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SD_Votes> SD_Votes { get; set; }
     }
