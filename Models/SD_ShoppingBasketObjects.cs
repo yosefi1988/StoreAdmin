@@ -15,14 +15,14 @@ namespace WebApplicationStoreAdmin.Models
     public partial class SD_ShoppingBasketObjects
     {
         public int ID { get; set; }
-        public Nullable<int> ShoppingBasketID { get; set; }
-        public Nullable<int> ProductChargeID { get; set; }
+        public int ShoppingBasketID { get; set; }
+        public int ProductChargePropertiesID { get; set; }
         public Nullable<int> Price { get; set; }
         public Nullable<int> OldPrice { get; set; }
         public Nullable<int> Count { get; set; }
         public Nullable<System.DateTime> AddDate { get; set; }
     
-        public virtual SD_ProductCharges SD_ProductCharges { get; set; }
+        public virtual SD_ProductChargesProperties SD_ProductChargesProperties { get; set; }
         public virtual SD_ShoppingBasket SD_ShoppingBasket { get; set; }
     }
 }

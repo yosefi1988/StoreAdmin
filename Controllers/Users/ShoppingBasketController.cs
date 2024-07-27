@@ -17,7 +17,7 @@ namespace WebApplicationStoreAdmin.Controllers.Users
         // GET: ShoppingBasket
         public ActionResult Index()
         {
-            var sD_ShoppingBasket = db.SD_ShoppingBasket.Include(s => s.SD_Users);
+            var sD_ShoppingBasket = db.SD_ShoppingBasket.Include(s => s.BD_ShoppingBasketTypes).Include(s => s.SD_Users);
             return View(sD_ShoppingBasket.ToList());
         }
 
@@ -39,6 +39,7 @@ namespace WebApplicationStoreAdmin.Controllers.Users
         // GET: ShoppingBasket/Create
         public ActionResult Create()
         {
+            ViewBag.StatusID = new SelectList(db.BD_ShoppingBasketTypes, "ID", "Status");
             ViewBag.UserID = new SelectList(db.SD_Users, "ID", "Name");
             return View();
         }
@@ -48,7 +49,7 @@ namespace WebApplicationStoreAdmin.Controllers.Users
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,UserID,Status,CreatedOn")] SD_ShoppingBasket sD_ShoppingBasket)
+        public ActionResult Create([Bind(Include = "ID,UserID,StatusID,CreatedOn")] SD_ShoppingBasket sD_ShoppingBasket)
         {
             if (ModelState.IsValid)
             {
@@ -57,6 +58,7 @@ namespace WebApplicationStoreAdmin.Controllers.Users
                 return RedirectToAction("Index");
             }
 
+            ViewBag.StatusID = new SelectList(db.BD_ShoppingBasketTypes, "ID", "Status", sD_ShoppingBasket.StatusID);
             ViewBag.UserID = new SelectList(db.SD_Users, "ID", "Name", sD_ShoppingBasket.UserID);
             return View(sD_ShoppingBasket);
         }
@@ -73,6 +75,7 @@ namespace WebApplicationStoreAdmin.Controllers.Users
             {
                 return HttpNotFound();
             }
+            ViewBag.StatusID = new SelectList(db.BD_ShoppingBasketTypes, "ID", "Status", sD_ShoppingBasket.StatusID);
             ViewBag.UserID = new SelectList(db.SD_Users, "ID", "Name", sD_ShoppingBasket.UserID);
             return View(sD_ShoppingBasket);
         }
@@ -82,7 +85,7 @@ namespace WebApplicationStoreAdmin.Controllers.Users
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,UserID,Status,CreatedOn")] SD_ShoppingBasket sD_ShoppingBasket)
+        public ActionResult Edit([Bind(Include = "ID,UserID,StatusID,CreatedOn")] SD_ShoppingBasket sD_ShoppingBasket)
         {
             if (ModelState.IsValid)
             {
@@ -90,6 +93,7 @@ namespace WebApplicationStoreAdmin.Controllers.Users
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.StatusID = new SelectList(db.BD_ShoppingBasketTypes, "ID", "Status", sD_ShoppingBasket.StatusID);
             ViewBag.UserID = new SelectList(db.SD_Users, "ID", "Name", sD_ShoppingBasket.UserID);
             return View(sD_ShoppingBasket);
         }

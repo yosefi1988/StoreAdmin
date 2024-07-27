@@ -25,7 +25,6 @@ namespace WebApplicationStoreAdmin.Models
         public Nullable<int> SumTaxAmount { get; set; }
         public Nullable<int> DiscountCodeID { get; set; }
         public Nullable<int> DiscountAmount { get; set; }
-        public Nullable<int> SendTypeID { get; set; }
         public Nullable<int> SendAmount { get; set; }
         public Nullable<int> SumShoppingBasketPrice { get; set; }
         public Nullable<int> SumShoppingBasketDiscount { get; set; }
@@ -34,7 +33,6 @@ namespace WebApplicationStoreAdmin.Models
         public string PaymentTrackingNo { get; set; }
         public Nullable<System.DateTime> PaymentDate { get; set; }
     
-        public virtual BD_SendProductsPrice BD_SendProductsPrice { get; set; }
         public virtual SD_Coupons SD_Coupons { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SD_SendBoxs> SD_SendBoxs { get; set; }

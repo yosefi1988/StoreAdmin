@@ -19,6 +19,7 @@ namespace WebApplicationStoreAdmin.Models
         {
             this.BD_Cities = new HashSet<BD_Cities>();
             this.BD_SendProductsPrice = new HashSet<BD_SendProductsPrice>();
+            this.BD_SendBoxPrices = new HashSet<BD_SendBoxPrices>();
         }
     
         public int ID { get; set; }
@@ -30,5 +31,7 @@ namespace WebApplicationStoreAdmin.Models
         public virtual BD_Country BD_Country { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BD_SendProductsPrice> BD_SendProductsPrice { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<BD_SendBoxPrices> BD_SendBoxPrices { get; set; }
     }
 }

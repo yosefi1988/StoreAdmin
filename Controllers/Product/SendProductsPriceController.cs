@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebApplicationStoreAdmin.Models;
 
-namespace WebApplicationStoreAdmin
+namespace WebApplicationStoreAdmin.Controllers.Product
 {
     public class SendProductsPriceController : Controller
     {
@@ -17,7 +17,7 @@ namespace WebApplicationStoreAdmin
         // GET: SendProductsPrice
         public ActionResult Index()
         {
-            var bD_SendProductsPrice = db.BD_SendProductsPrice.Include(b => b.BD_Country).Include(b => b.BD_States).Include(b => b.SD_Product);
+            var bD_SendProductsPrice = db.BD_SendProductsPrice.Include(b => b.BD_States).Include(b => b.SD_Product);
             return View(bD_SendProductsPrice.ToList());
         }
 
@@ -39,7 +39,6 @@ namespace WebApplicationStoreAdmin
         // GET: SendProductsPrice/Create
         public ActionResult Create()
         {
-            ViewBag.CountryID = new SelectList(db.BD_Country, "ID", "Title");
             ViewBag.StateID = new SelectList(db.BD_States, "ID", "Title");
             ViewBag.ProductID = new SelectList(db.SD_Product, "ID", "Name");
             return View();
@@ -50,7 +49,7 @@ namespace WebApplicationStoreAdmin
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Price,CountryID,StateID,ProductID,Title")] BD_SendProductsPrice bD_SendProductsPrice)
+        public ActionResult Create([Bind(Include = "ID,Price,StateID,ProductID,Title")] BD_SendProductsPrice bD_SendProductsPrice)
         {
             if (ModelState.IsValid)
             {
@@ -59,7 +58,6 @@ namespace WebApplicationStoreAdmin
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CountryID = new SelectList(db.BD_Country, "ID", "Title", bD_SendProductsPrice.CountryID);
             ViewBag.StateID = new SelectList(db.BD_States, "ID", "Title", bD_SendProductsPrice.StateID);
             ViewBag.ProductID = new SelectList(db.SD_Product, "ID", "Name", bD_SendProductsPrice.ProductID);
             return View(bD_SendProductsPrice);
@@ -77,7 +75,6 @@ namespace WebApplicationStoreAdmin
             {
                 return HttpNotFound();
             }
-            ViewBag.CountryID = new SelectList(db.BD_Country, "ID", "Title", bD_SendProductsPrice.CountryID);
             ViewBag.StateID = new SelectList(db.BD_States, "ID", "Title", bD_SendProductsPrice.StateID);
             ViewBag.ProductID = new SelectList(db.SD_Product, "ID", "Name", bD_SendProductsPrice.ProductID);
             return View(bD_SendProductsPrice);
@@ -88,7 +85,7 @@ namespace WebApplicationStoreAdmin
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Price,CountryID,StateID,ProductID,Title")] BD_SendProductsPrice bD_SendProductsPrice)
+        public ActionResult Edit([Bind(Include = "ID,Price,StateID,ProductID,Title")] BD_SendProductsPrice bD_SendProductsPrice)
         {
             if (ModelState.IsValid)
             {
@@ -96,7 +93,6 @@ namespace WebApplicationStoreAdmin
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CountryID = new SelectList(db.BD_Country, "ID", "Title", bD_SendProductsPrice.CountryID);
             ViewBag.StateID = new SelectList(db.BD_States, "ID", "Title", bD_SendProductsPrice.StateID);
             ViewBag.ProductID = new SelectList(db.SD_Product, "ID", "Name", bD_SendProductsPrice.ProductID);
             return View(bD_SendProductsPrice);

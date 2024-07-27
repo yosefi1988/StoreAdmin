@@ -14,26 +14,13 @@ namespace WebApplicationStoreAdmin.Models
     
     public partial class BD_SendProductsPrice
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public BD_SendProductsPrice()
-        {
-            this.SD_SendBoxs = new HashSet<SD_SendBoxs>();
-            this.SD_Transactions = new HashSet<SD_Transactions>();
-        }
-    
         public int ID { get; set; }
         public Nullable<int> Price { get; set; }
-        public Nullable<int> CountryID { get; set; }
         public Nullable<int> StateID { get; set; }
         public Nullable<int> ProductID { get; set; }
         public string Title { get; set; }
     
-        public virtual BD_Country BD_Country { get; set; }
         public virtual BD_States BD_States { get; set; }
         public virtual SD_Product SD_Product { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SD_SendBoxs> SD_SendBoxs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SD_Transactions> SD_Transactions { get; set; }
     }
 }

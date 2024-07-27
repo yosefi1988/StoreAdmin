@@ -17,7 +17,7 @@ namespace WebApplicationStoreAdmin.Controllers.Users
         // GET: ShoppingBasketObjects
         public ActionResult Index()
         {
-            var sD_ShoppingBasketObjects = db.SD_ShoppingBasketObjects.Include(s => s.SD_ProductCharges).Include(s => s.SD_ShoppingBasket);
+            var sD_ShoppingBasketObjects = db.SD_ShoppingBasketObjects.Include(s => s.SD_ProductChargesProperties).Include(s => s.SD_ShoppingBasket);
             return View(sD_ShoppingBasketObjects.ToList());
         }
 
@@ -28,7 +28,10 @@ namespace WebApplicationStoreAdmin.Controllers.Users
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SD_ShoppingBasketObjects sD_ShoppingBasketObjects = db.SD_ShoppingBasketObjects.Find(id);
+            //SD_ShoppingBasketObjects sD_ShoppingBasketObjects = db.SD_ShoppingBasketObjects.Find(id);
+            SD_ShoppingBasketObjects sD_ShoppingBasketObjects = db.SD_ShoppingBasketObjects.FirstOrDefault(ps => ps.ID == id);
+
+
             if (sD_ShoppingBasketObjects == null)
             {
                 return HttpNotFound();
@@ -39,7 +42,7 @@ namespace WebApplicationStoreAdmin.Controllers.Users
         // GET: ShoppingBasketObjects/Create
         public ActionResult Create()
         {
-            ViewBag.ProductChargeID = new SelectList(db.SD_ProductCharges, "ID", "BuyInvoiceNumber");
+            ViewBag.ProductChargePropertiesID = new SelectList(db.SD_ProductChargesProperties, "ID", "ID");
             ViewBag.ShoppingBasketID = new SelectList(db.SD_ShoppingBasket, "ID", "ID");
             return View();
         }
@@ -49,7 +52,7 @@ namespace WebApplicationStoreAdmin.Controllers.Users
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,ShoppingBasketID,ProductChargeID,Price,OldPrice,Count,AddDate")] SD_ShoppingBasketObjects sD_ShoppingBasketObjects)
+        public ActionResult Create([Bind(Include = "ID,ShoppingBasketID,ProductChargePropertiesID,Price,OldPrice,Count,AddDate")] SD_ShoppingBasketObjects sD_ShoppingBasketObjects)
         {
             if (ModelState.IsValid)
             {
@@ -58,7 +61,7 @@ namespace WebApplicationStoreAdmin.Controllers.Users
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ProductChargeID = new SelectList(db.SD_ProductCharges, "ID", "BuyInvoiceNumber", sD_ShoppingBasketObjects.ProductChargeID);
+            ViewBag.ProductChargePropertiesID = new SelectList(db.SD_ProductChargesProperties, "ID", "ID", sD_ShoppingBasketObjects.ProductChargePropertiesID);
             ViewBag.ShoppingBasketID = new SelectList(db.SD_ShoppingBasket, "ID", "ID", sD_ShoppingBasketObjects.ShoppingBasketID);
             return View(sD_ShoppingBasketObjects);
         }
@@ -70,12 +73,14 @@ namespace WebApplicationStoreAdmin.Controllers.Users
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SD_ShoppingBasketObjects sD_ShoppingBasketObjects = db.SD_ShoppingBasketObjects.Find(id);
+            //SD_ShoppingBasketObjects sD_ShoppingBasketObjects = db.SD_ShoppingBasketObjects.Find(id);
+            SD_ShoppingBasketObjects sD_ShoppingBasketObjects = db.SD_ShoppingBasketObjects.FirstOrDefault(ps => ps.ID == id);
+
             if (sD_ShoppingBasketObjects == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.ProductChargeID = new SelectList(db.SD_ProductCharges, "ID", "BuyInvoiceNumber", sD_ShoppingBasketObjects.ProductChargeID);
+            ViewBag.ProductChargePropertiesID = new SelectList(db.SD_ProductChargesProperties, "ID", "ID", sD_ShoppingBasketObjects.ProductChargePropertiesID);
             ViewBag.ShoppingBasketID = new SelectList(db.SD_ShoppingBasket, "ID", "ID", sD_ShoppingBasketObjects.ShoppingBasketID);
             return View(sD_ShoppingBasketObjects);
         }
@@ -85,7 +90,7 @@ namespace WebApplicationStoreAdmin.Controllers.Users
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,ShoppingBasketID,ProductChargeID,Price,OldPrice,Count,AddDate")] SD_ShoppingBasketObjects sD_ShoppingBasketObjects)
+        public ActionResult Edit([Bind(Include = "ID,ShoppingBasketID,ProductChargePropertiesID,Price,OldPrice,Count,AddDate")] SD_ShoppingBasketObjects sD_ShoppingBasketObjects)
         {
             if (ModelState.IsValid)
             {
@@ -93,7 +98,7 @@ namespace WebApplicationStoreAdmin.Controllers.Users
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.ProductChargeID = new SelectList(db.SD_ProductCharges, "ID", "BuyInvoiceNumber", sD_ShoppingBasketObjects.ProductChargeID);
+            ViewBag.ProductChargePropertiesID = new SelectList(db.SD_ProductChargesProperties, "ID", "ID", sD_ShoppingBasketObjects.ProductChargePropertiesID);
             ViewBag.ShoppingBasketID = new SelectList(db.SD_ShoppingBasket, "ID", "ID", sD_ShoppingBasketObjects.ShoppingBasketID);
             return View(sD_ShoppingBasketObjects);
         }
@@ -105,7 +110,9 @@ namespace WebApplicationStoreAdmin.Controllers.Users
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SD_ShoppingBasketObjects sD_ShoppingBasketObjects = db.SD_ShoppingBasketObjects.Find(id);
+            //SD_ShoppingBasketObjects sD_ShoppingBasketObjects = db.SD_ShoppingBasketObjects.Find(id);
+            SD_ShoppingBasketObjects sD_ShoppingBasketObjects = db.SD_ShoppingBasketObjects.FirstOrDefault(ps => ps.ID == id);
+
             if (sD_ShoppingBasketObjects == null)
             {
                 return HttpNotFound();
@@ -118,7 +125,10 @@ namespace WebApplicationStoreAdmin.Controllers.Users
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            SD_ShoppingBasketObjects sD_ShoppingBasketObjects = db.SD_ShoppingBasketObjects.Find(id);
+            //SD_ShoppingBasketObjects sD_ShoppingBasketObjects = db.SD_ShoppingBasketObjects.Find(id);
+            SD_ShoppingBasketObjects sD_ShoppingBasketObjects = db.SD_ShoppingBasketObjects.FirstOrDefault(ps => ps.ID == id);
+
+
             db.SD_ShoppingBasketObjects.Remove(sD_ShoppingBasketObjects);
             db.SaveChanges();
             return RedirectToAction("Index");
