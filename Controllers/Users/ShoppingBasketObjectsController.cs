@@ -17,7 +17,18 @@ namespace WebApplicationStoreAdmin.Controllers.Users
         // GET: ShoppingBasketObjects
         public ActionResult Index()
         {
-            var sD_ShoppingBasketObjects = db.SD_ShoppingBasketObjects.Include(s => s.SD_ProductChargesProperties).Include(s => s.SD_ShoppingBasket);
+
+            var sD_ShoppingBasketObjects = db.SD_ShoppingBasketObjects
+                .Include(s => s.SD_ProductChargesProperties)
+                .Include(s => s.SD_ShoppingBasket);
+
+
+            var sD_ShoppingBaskets = db.SD_ShoppingBasket
+                .Include(s => s.BD_ShoppingBasketTypes);
+             
+
+            var shoppingBaskets = sD_ShoppingBaskets.ToList(); 
+
             return View(sD_ShoppingBasketObjects.ToList());
         }
 

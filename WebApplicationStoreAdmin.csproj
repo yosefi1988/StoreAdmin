@@ -507,11 +507,6 @@
     <Content Include="Views\ShoppingBasket\Details.cshtml" />
     <Content Include="Views\ShoppingBasket\Edit.cshtml" />
     <Content Include="Views\ShoppingBasket\Index.cshtml" />
-    <Content Include="Views\ShoppingBasketObjects\Create.cshtml" />
-    <Content Include="Views\ShoppingBasketObjects\Delete.cshtml" />
-    <Content Include="Views\ShoppingBasketObjects\Details.cshtml" />
-    <Content Include="Views\ShoppingBasketObjects\Edit.cshtml" />
-    <Content Include="Views\ShoppingBasketObjects\Index.cshtml" />
     <Content Include="Views\Transactions\Create.cshtml" />
     <Content Include="Views\Transactions\Delete.cshtml" />
     <Content Include="Views\Transactions\Details.cshtml" />
@@ -532,6 +527,11 @@
     <Content Include="Views\SendBoxPrices\Details.cshtml" />
     <Content Include="Views\SendBoxPrices\Edit.cshtml" />
     <Content Include="Views\SendBoxPrices\Index.cshtml" />
+    <Content Include="Views\ShoppingBasketObjects\Create.cshtml" />
+    <Content Include="Views\ShoppingBasketObjects\Delete.cshtml" />
+    <Content Include="Views\ShoppingBasketObjects\Details.cshtml" />
+    <Content Include="Views\ShoppingBasketObjects\Edit.cshtml" />
+    <Content Include="Views\ShoppingBasketObjects\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
