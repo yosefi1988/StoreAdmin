@@ -52,5 +52,9 @@ namespace WebApplicationStoreAdmin.Models
         public virtual DbSet<SD_Users> SD_Users { get; set; }
         public virtual DbSet<SD_Votes> SD_Votes { get; set; }
         public virtual DbSet<BD_SendBoxPrices> BD_SendBoxPrices { get; set; }
+        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
     }
 }

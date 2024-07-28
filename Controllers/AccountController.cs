@@ -18,6 +18,14 @@ namespace WebApplicationStoreAdmin.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
+        //private readonly UserManager<ApplicationUser> _userManager;
+
+        //public AccountController(UserManager<ApplicationUser> userManager)
+        //{
+        //    _userManager = userManager;
+        //}
+
+
         public AccountController()
         {
         }

@@ -203,6 +203,18 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AspNetRole.cs">
+      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUser.cs">
+      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserClaim.cs">
+      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserLogin.cs">
+      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\BD_Cities.cs">
       <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
     </Compile>
