@@ -12,13 +12,13 @@ namespace WebApplicationStoreAdmin.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class AspNetUserLogin
+    public partial class AspNetRoleClaim
     {
-        public string LoginProvider { get; set; }
-        public string ProviderKey { get; set; }
-        public string ProviderDisplayName { get; set; }
-        public string UserId { get; set; }
+        public int Id { get; set; }
+        public string RoleId { get; set; }
+        public string ClaimType { get; set; }
+        public string ClaimValue { get; set; }
     
-        public virtual AspNetUser AspNetUser { get; set; }
+        public virtual AspNetRole AspNetRole { get; set; }
     }
 }

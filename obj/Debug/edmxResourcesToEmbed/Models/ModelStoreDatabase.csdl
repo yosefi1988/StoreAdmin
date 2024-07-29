@@ -3,7 +3,10 @@
   <EntityContainer Name="officia1_StoreEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="BD_Cities" EntityType="officia1_StoreModel.BD_Cities" />
     <EntitySet Name="BD_Country" EntityType="officia1_StoreModel.BD_Country" />
+    <EntitySet Name="BD_PaymentStatusTypes" EntityType="officia1_StoreModel.BD_PaymentStatusTypes" />
     <EntitySet Name="BD_SendProductsPrice" EntityType="officia1_StoreModel.BD_SendProductsPrice" />
+    <EntitySet Name="BD_SendStatusTypes" EntityType="officia1_StoreModel.BD_SendStatusTypes" />
+    <EntitySet Name="BD_ShoppingBasketTypes" EntityType="officia1_StoreModel.BD_ShoppingBasketTypes" />
     <EntitySet Name="BD_SizeTypes" EntityType="officia1_StoreModel.BD_SizeTypes" />
     <EntitySet Name="BD_States" EntityType="officia1_StoreModel.BD_States" />
     <EntitySet Name="BD_Tax" EntityType="officia1_StoreModel.BD_Tax" />
@@ -25,6 +28,14 @@
     <EntitySet Name="SD_Transactions" EntityType="officia1_StoreModel.SD_Transactions" />
     <EntitySet Name="SD_Users" EntityType="officia1_StoreModel.SD_Users" />
     <EntitySet Name="SD_Votes" EntityType="officia1_StoreModel.SD_Votes" />
+    <EntitySet Name="BD_SendBoxPrices" EntityType="officia1_StoreModel.BD_SendBoxPrices" />
+    <EntitySet Name="C__EFMigrationsHistory" EntityType="officia1_StoreModel.C__EFMigrationsHistory" />
+    <EntitySet Name="AspNetRoleClaims" EntityType="officia1_StoreModel.AspNetRoleClaim" />
+    <EntitySet Name="AspNetRoles" EntityType="officia1_StoreModel.AspNetRole" />
+    <EntitySet Name="AspNetUserClaims" EntityType="officia1_StoreModel.AspNetUserClaim" />
+    <EntitySet Name="AspNetUserLogins" EntityType="officia1_StoreModel.AspNetUserLogin" />
+    <EntitySet Name="AspNetUsers" EntityType="officia1_StoreModel.AspNetUser" />
+    <EntitySet Name="AspNetUserTokens" EntityType="officia1_StoreModel.AspNetUserToken" />
     <AssociationSet Name="FK_BD_Cities_BD_States" Association="officia1_StoreModel.FK_BD_Cities_BD_States">
       <End Role="BD_States" EntitySet="BD_States" />
       <End Role="BD_Cities" EntitySet="BD_Cities" />
@@ -37,13 +48,13 @@
       <End Role="BD_Cities" EntitySet="BD_Cities" />
       <End Role="SD_SendBoxs" EntitySet="SD_SendBoxs" />
     </AssociationSet>
-    <AssociationSet Name="FK_BD_SendProductsPrice_BD_Country" Association="officia1_StoreModel.FK_BD_SendProductsPrice_BD_Country">
-      <End Role="BD_Country" EntitySet="BD_Country" />
-      <End Role="BD_SendProductsPrice" EntitySet="BD_SendProductsPrice" />
-    </AssociationSet>
     <AssociationSet Name="FK_BD_States_BD_Country" Association="officia1_StoreModel.FK_BD_States_BD_Country">
       <End Role="BD_Country" EntitySet="BD_Country" />
       <End Role="BD_States" EntitySet="BD_States" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SD_Transactions_BD_PaymentStatusTypes" Association="officia1_StoreModel.FK_SD_Transactions_BD_PaymentStatusTypes">
+      <End Role="BD_PaymentStatusTypes" EntitySet="BD_PaymentStatusTypes" />
+      <End Role="SD_Transactions" EntitySet="SD_Transactions" />
     </AssociationSet>
     <AssociationSet Name="FK_BD_SendProductsPrice_BD_States" Association="officia1_StoreModel.FK_BD_SendProductsPrice_BD_States">
       <End Role="BD_States" EntitySet="BD_States" />
@@ -53,17 +64,21 @@
       <End Role="SD_Product" EntitySet="SD_Product" />
       <End Role="BD_SendProductsPrice" EntitySet="BD_SendProductsPrice" />
     </AssociationSet>
-    <AssociationSet Name="FK_SD_SendBoxs_BD_SendProductsPrice" Association="officia1_StoreModel.FK_SD_SendBoxs_BD_SendProductsPrice">
-      <End Role="BD_SendProductsPrice" EntitySet="BD_SendProductsPrice" />
+    <AssociationSet Name="FK_SD_SendBoxs_BD_SendStatusTypes" Association="officia1_StoreModel.FK_SD_SendBoxs_BD_SendStatusTypes">
+      <End Role="BD_SendStatusTypes" EntitySet="BD_SendStatusTypes" />
       <End Role="SD_SendBoxs" EntitySet="SD_SendBoxs" />
     </AssociationSet>
-    <AssociationSet Name="FK_SD_Transactions_BD_SendProductsPrice" Association="officia1_StoreModel.FK_SD_Transactions_BD_SendProductsPrice">
-      <End Role="BD_SendProductsPrice" EntitySet="BD_SendProductsPrice" />
-      <End Role="SD_Transactions" EntitySet="SD_Transactions" />
+    <AssociationSet Name="FK_SD_ShoppingBasket_BD_ShoppingBasketTypes" Association="officia1_StoreModel.FK_SD_ShoppingBasket_BD_ShoppingBasketTypes">
+      <End Role="BD_ShoppingBasketTypes" EntitySet="BD_ShoppingBasketTypes" />
+      <End Role="SD_ShoppingBasket" EntitySet="SD_ShoppingBasket" />
     </AssociationSet>
     <AssociationSet Name="FK_SD_ProductSizes_BD_SizeTypes" Association="officia1_StoreModel.FK_SD_ProductSizes_BD_SizeTypes">
       <End Role="BD_SizeTypes" EntitySet="BD_SizeTypes" />
       <End Role="SD_ProductSizes" EntitySet="SD_ProductSizes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BD_SendBoxPrices_BD_States" Association="officia1_StoreModel.FK_BD_SendBoxPrices_BD_States">
+      <End Role="BD_States" EntitySet="BD_States" />
+      <End Role="BD_SendBoxPrices" EntitySet="BD_SendBoxPrices" />
     </AssociationSet>
     <AssociationSet Name="FK_SD_ProductCharges_BD_Tax" Association="officia1_StoreModel.FK_SD_ProductCharges_BD_Tax">
       <End Role="BD_Tax" EntitySet="BD_Tax" />
@@ -105,17 +120,21 @@
       <End Role="SD_ProductCharges" EntitySet="SD_ProductCharges" />
       <End Role="SD_ProductChargesProperties" EntitySet="SD_ProductChargesProperties" />
     </AssociationSet>
-    <AssociationSet Name="FK_SD_ShoppingBasketObjects_SD_ProductCharges" Association="officia1_StoreModel.FK_SD_ShoppingBasketObjects_SD_ProductCharges">
-      <End Role="SD_ProductCharges" EntitySet="SD_ProductCharges" />
-      <End Role="SD_ShoppingBasketObjects" EntitySet="SD_ShoppingBasketObjects" />
-    </AssociationSet>
     <AssociationSet Name="FK_SD_ProductSizes_SD_ProductChargesProperties" Association="officia1_StoreModel.FK_SD_ProductSizes_SD_ProductChargesProperties">
       <End Role="SD_ProductChargesProperties" EntitySet="SD_ProductChargesProperties" />
       <End Role="SD_ProductSizes" EntitySet="SD_ProductSizes" />
     </AssociationSet>
+    <AssociationSet Name="FK_SD_ShoppingBasketObjects_SD_ProductChargesProperties" Association="officia1_StoreModel.FK_SD_ShoppingBasketObjects_SD_ProductChargesProperties">
+      <End Role="SD_ProductChargesProperties" EntitySet="SD_ProductChargesProperties" />
+      <End Role="SD_ShoppingBasketObjects" EntitySet="SD_ShoppingBasketObjects" />
+    </AssociationSet>
     <AssociationSet Name="FK_SD_Votes_SD_ProductChargesProperties" Association="officia1_StoreModel.FK_SD_Votes_SD_ProductChargesProperties">
       <End Role="SD_ProductChargesProperties" EntitySet="SD_ProductChargesProperties" />
       <End Role="SD_Votes" EntitySet="SD_Votes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SD_SendBoxs_BD_SendBoxPrices" Association="officia1_StoreModel.FK_SD_SendBoxs_BD_SendBoxPrices">
+      <End Role="BD_SendBoxPrices" EntitySet="BD_SendBoxPrices" />
+      <End Role="SD_SendBoxs" EntitySet="SD_SendBoxs" />
     </AssociationSet>
     <AssociationSet Name="FK_SD_SendBoxs_SD_ShoppingBasket" Association="officia1_StoreModel.FK_SD_SendBoxs_SD_ShoppingBasket">
       <End Role="SD_ShoppingBasket" EntitySet="SD_ShoppingBasket" />
@@ -141,6 +160,26 @@
       <End Role="SD_Users" EntitySet="SD_Users" />
       <End Role="SD_Votes" EntitySet="SD_Votes" />
     </AssociationSet>
+    <AssociationSet Name="FK_AspNetRoleClaims_AspNetRoles_RoleId" Association="officia1_StoreModel.FK_AspNetRoleClaims_AspNetRoles_RoleId">
+      <End Role="AspNetRole" EntitySet="AspNetRoles" />
+      <End Role="AspNetRoleClaim" EntitySet="AspNetRoleClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetUserClaims_AspNetUsers_UserId" Association="officia1_StoreModel.FK_AspNetUserClaims_AspNetUsers_UserId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetUserLogins_AspNetUsers_UserId" Association="officia1_StoreModel.FK_AspNetUserLogins_AspNetUsers_UserId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetUserTokens_AspNetUsers_UserId" Association="officia1_StoreModel.FK_AspNetUserTokens_AspNetUsers_UserId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserToken" EntitySet="AspNetUserTokens" />
+    </AssociationSet>
+    <AssociationSet Name="AspNetUserRoles" Association="officia1_StoreModel.AspNetUserRoles">
+      <End Role="AspNetRole" EntitySet="AspNetRoles" />
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="BD_Cities">
     <Key>
@@ -160,8 +199,16 @@
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Title" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
     <Property Name="Logo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="BD_SendProductsPrice" Relationship="officia1_StoreModel.FK_BD_SendProductsPrice_BD_Country" FromRole="BD_Country" ToRole="BD_SendProductsPrice" />
     <NavigationProperty Name="BD_States" Relationship="officia1_StoreModel.FK_BD_States_BD_Country" FromRole="BD_Country" ToRole="BD_States" />
+  </EntityType>
+  <EntityType Name="BD_PaymentStatusTypes">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="SD_Transactions" Relationship="officia1_StoreModel.FK_SD_Transactions_BD_PaymentStatusTypes" FromRole="BD_PaymentStatusTypes" ToRole="SD_Transactions" />
   </EntityType>
   <EntityType Name="BD_SendProductsPrice">
     <Key>
@@ -169,15 +216,29 @@
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Price" Type="Int32" />
-    <Property Name="CountryID" Type="Int32" />
     <Property Name="StateID" Type="Int32" />
     <Property Name="ProductID" Type="Int32" />
     <Property Name="Title" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-    <NavigationProperty Name="BD_Country" Relationship="officia1_StoreModel.FK_BD_SendProductsPrice_BD_Country" FromRole="BD_SendProductsPrice" ToRole="BD_Country" />
     <NavigationProperty Name="BD_States" Relationship="officia1_StoreModel.FK_BD_SendProductsPrice_BD_States" FromRole="BD_SendProductsPrice" ToRole="BD_States" />
     <NavigationProperty Name="SD_Product" Relationship="officia1_StoreModel.FK_BD_SendProductsPrice_SD_Product" FromRole="BD_SendProductsPrice" ToRole="SD_Product" />
-    <NavigationProperty Name="SD_SendBoxs" Relationship="officia1_StoreModel.FK_SD_SendBoxs_BD_SendProductsPrice" FromRole="BD_SendProductsPrice" ToRole="SD_SendBoxs" />
-    <NavigationProperty Name="SD_Transactions" Relationship="officia1_StoreModel.FK_SD_Transactions_BD_SendProductsPrice" FromRole="BD_SendProductsPrice" ToRole="SD_Transactions" />
+  </EntityType>
+  <EntityType Name="BD_SendStatusTypes">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="SD_SendBoxs" Relationship="officia1_StoreModel.FK_SD_SendBoxs_BD_SendStatusTypes" FromRole="BD_SendStatusTypes" ToRole="SD_SendBoxs" />
+  </EntityType>
+  <EntityType Name="BD_ShoppingBasketTypes">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="SD_ShoppingBasket" Relationship="officia1_StoreModel.FK_SD_ShoppingBasket_BD_ShoppingBasketTypes" FromRole="BD_ShoppingBasketTypes" ToRole="SD_ShoppingBasket" />
   </EntityType>
   <EntityType Name="BD_SizeTypes">
     <Key>
@@ -198,6 +259,7 @@
     <NavigationProperty Name="BD_Cities" Relationship="officia1_StoreModel.FK_BD_Cities_BD_States" FromRole="BD_States" ToRole="BD_Cities" />
     <NavigationProperty Name="BD_Country" Relationship="officia1_StoreModel.FK_BD_States_BD_Country" FromRole="BD_States" ToRole="BD_Country" />
     <NavigationProperty Name="BD_SendProductsPrice" Relationship="officia1_StoreModel.FK_BD_SendProductsPrice_BD_States" FromRole="BD_States" ToRole="BD_SendProductsPrice" />
+    <NavigationProperty Name="BD_SendBoxPrices" Relationship="officia1_StoreModel.FK_BD_SendBoxPrices_BD_States" FromRole="BD_States" ToRole="BD_SendBoxPrices" />
   </EntityType>
   <EntityType Name="BD_Tax">
     <Key>
@@ -332,7 +394,6 @@
     <NavigationProperty Name="BD_Tax" Relationship="officia1_StoreModel.FK_SD_ProductCharges_BD_Tax" FromRole="SD_ProductCharges" ToRole="BD_Tax" />
     <NavigationProperty Name="SD_Product" Relationship="officia1_StoreModel.FK_SD_ProductCharges_SD_Product" FromRole="SD_ProductCharges" ToRole="SD_Product" />
     <NavigationProperty Name="SD_ProductChargesProperties" Relationship="officia1_StoreModel.FK_SD_ProductChargesProperties_SD_ProductCharges" FromRole="SD_ProductCharges" ToRole="SD_ProductChargesProperties" />
-    <NavigationProperty Name="SD_ShoppingBasketObjects" Relationship="officia1_StoreModel.FK_SD_ShoppingBasketObjects_SD_ProductCharges" FromRole="SD_ProductCharges" ToRole="SD_ShoppingBasketObjects" />
   </EntityType>
   <EntityType Name="SD_ProductChargesProperties">
     <Key>
@@ -347,6 +408,7 @@
     <NavigationProperty Name="SD_Images" Relationship="officia1_StoreModel.FK_SD_Images_SD_ProductChargesProperties" FromRole="SD_ProductChargesProperties" ToRole="SD_Images" />
     <NavigationProperty Name="SD_ProductCharges" Relationship="officia1_StoreModel.FK_SD_ProductChargesProperties_SD_ProductCharges" FromRole="SD_ProductChargesProperties" ToRole="SD_ProductCharges" />
     <NavigationProperty Name="SD_ProductSizes" Relationship="officia1_StoreModel.FK_SD_ProductSizes_SD_ProductChargesProperties" FromRole="SD_ProductChargesProperties" ToRole="SD_ProductSizes" />
+    <NavigationProperty Name="SD_ShoppingBasketObjects" Relationship="officia1_StoreModel.FK_SD_ShoppingBasketObjects_SD_ProductChargesProperties" FromRole="SD_ProductChargesProperties" ToRole="SD_ShoppingBasketObjects" />
     <NavigationProperty Name="SD_Votes" Relationship="officia1_StoreModel.FK_SD_Votes_SD_ProductChargesProperties" FromRole="SD_ProductChargesProperties" ToRole="SD_Votes" />
   </EntityType>
   <EntityType Name="SD_ProductSizes">
@@ -368,17 +430,18 @@
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="ShoppingBasketID" Type="Int32" />
     <Property Name="TransactionID" Type="Int32" />
-    <Property Name="SendTypeID" Type="Int32" />
+    <Property Name="SendPriceID" Type="Int32" />
     <Property Name="SendTypeTitle" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
     <Property Name="CityID" Type="Int32" />
     <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="FullName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
     <Property Name="MobileNo" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
     <Property Name="SendDate" Type="DateTime" Precision="3" />
-    <Property Name="SendStatus" Type="Int32" />
+    <Property Name="SendStatusID" Type="Int32" />
     <Property Name="SendTrackingNo" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
     <NavigationProperty Name="BD_Cities" Relationship="officia1_StoreModel.FK_SD_SendBoxs_BD_Cities" FromRole="SD_SendBoxs" ToRole="BD_Cities" />
-    <NavigationProperty Name="BD_SendProductsPrice" Relationship="officia1_StoreModel.FK_SD_SendBoxs_BD_SendProductsPrice" FromRole="SD_SendBoxs" ToRole="BD_SendProductsPrice" />
+    <NavigationProperty Name="BD_SendStatusTypes" Relationship="officia1_StoreModel.FK_SD_SendBoxs_BD_SendStatusTypes" FromRole="SD_SendBoxs" ToRole="BD_SendStatusTypes" />
+    <NavigationProperty Name="BD_SendBoxPrices" Relationship="officia1_StoreModel.FK_SD_SendBoxs_BD_SendBoxPrices" FromRole="SD_SendBoxs" ToRole="BD_SendBoxPrices" />
     <NavigationProperty Name="SD_ShoppingBasket" Relationship="officia1_StoreModel.FK_SD_SendBoxs_SD_ShoppingBasket" FromRole="SD_SendBoxs" ToRole="SD_ShoppingBasket" />
     <NavigationProperty Name="SD_Transactions" Relationship="officia1_StoreModel.FK_SD_SendBoxs_SD_Transactions" FromRole="SD_SendBoxs" ToRole="SD_Transactions" />
   </EntityType>
@@ -388,8 +451,9 @@
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="UserID" Type="Int32" />
-    <Property Name="Status" Type="Int32" />
+    <Property Name="StatusID" Type="Int32" />
     <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="BD_ShoppingBasketTypes" Relationship="officia1_StoreModel.FK_SD_ShoppingBasket_BD_ShoppingBasketTypes" FromRole="SD_ShoppingBasket" ToRole="BD_ShoppingBasketTypes" />
     <NavigationProperty Name="SD_SendBoxs" Relationship="officia1_StoreModel.FK_SD_SendBoxs_SD_ShoppingBasket" FromRole="SD_ShoppingBasket" ToRole="SD_SendBoxs" />
     <NavigationProperty Name="SD_Users" Relationship="officia1_StoreModel.FK_SD_ShoppingBasket_SD_Users" FromRole="SD_ShoppingBasket" ToRole="SD_Users" />
     <NavigationProperty Name="SD_ShoppingBasketObjects" Relationship="officia1_StoreModel.FK_SD_ShoppingBasketObjects_SD_ShoppingBasket" FromRole="SD_ShoppingBasket" ToRole="SD_ShoppingBasketObjects" />
@@ -397,16 +461,17 @@
   </EntityType>
   <EntityType Name="SD_ShoppingBasketObjects">
     <Key>
-      <PropertyRef Name="ID" />
+      <PropertyRef Name="ShoppingBasketID" />
+      <PropertyRef Name="ProductChargePropertiesID" />
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ShoppingBasketID" Type="Int32" />
-    <Property Name="ProductChargeID" Type="Int32" />
+    <Property Name="ShoppingBasketID" Type="Int32" Nullable="false" />
+    <Property Name="ProductChargePropertiesID" Type="Int32" Nullable="false" />
     <Property Name="Price" Type="Int32" />
     <Property Name="OldPrice" Type="Int32" />
     <Property Name="Count" Type="Int32" />
     <Property Name="AddDate" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="SD_ProductCharges" Relationship="officia1_StoreModel.FK_SD_ShoppingBasketObjects_SD_ProductCharges" FromRole="SD_ShoppingBasketObjects" ToRole="SD_ProductCharges" />
+    <NavigationProperty Name="SD_ProductChargesProperties" Relationship="officia1_StoreModel.FK_SD_ShoppingBasketObjects_SD_ProductChargesProperties" FromRole="SD_ShoppingBasketObjects" ToRole="SD_ProductChargesProperties" />
     <NavigationProperty Name="SD_ShoppingBasket" Relationship="officia1_StoreModel.FK_SD_ShoppingBasketObjects_SD_ShoppingBasket" FromRole="SD_ShoppingBasketObjects" ToRole="SD_ShoppingBasket" />
   </EntityType>
   <EntityType Name="SD_Transactions">
@@ -418,15 +483,14 @@
     <Property Name="SumTaxAmount" Type="Int32" />
     <Property Name="DiscountCodeID" Type="Int32" />
     <Property Name="DiscountAmount" Type="Int32" />
-    <Property Name="SendTypeID" Type="Int32" />
     <Property Name="SendAmount" Type="Int32" />
     <Property Name="SumShoppingBasketPrice" Type="Int32" />
     <Property Name="SumShoppingBasketDiscount" Type="Int32" />
     <Property Name="AmountForPay" Type="Int32" />
-    <Property Name="PaymentStatus" Type="Int32" />
+    <Property Name="PaymentStatusID" Type="Int32" />
     <Property Name="PaymentTrackingNo" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
     <Property Name="PaymentDate" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="BD_SendProductsPrice" Relationship="officia1_StoreModel.FK_SD_Transactions_BD_SendProductsPrice" FromRole="SD_Transactions" ToRole="BD_SendProductsPrice" />
+    <NavigationProperty Name="BD_PaymentStatusTypes" Relationship="officia1_StoreModel.FK_SD_Transactions_BD_PaymentStatusTypes" FromRole="SD_Transactions" ToRole="BD_PaymentStatusTypes" />
     <NavigationProperty Name="SD_Coupons" Relationship="officia1_StoreModel.FK_SD_Transactions_SD_Coupons" FromRole="SD_Transactions" ToRole="SD_Coupons" />
     <NavigationProperty Name="SD_SendBoxs" Relationship="officia1_StoreModel.FK_SD_SendBoxs_SD_Transactions" FromRole="SD_Transactions" ToRole="SD_SendBoxs" />
     <NavigationProperty Name="SD_ShoppingBasket" Relationship="officia1_StoreModel.FK_SD_Transactions_SD_ShoppingBasket" FromRole="SD_Transactions" ToRole="SD_ShoppingBasket" />
@@ -459,6 +523,102 @@
     <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="SD_ProductChargesProperties" Relationship="officia1_StoreModel.FK_SD_Votes_SD_ProductChargesProperties" FromRole="SD_Votes" ToRole="SD_ProductChargesProperties" />
     <NavigationProperty Name="SD_Users" Relationship="officia1_StoreModel.FK_SD_Votes_SD_Users" FromRole="SD_Votes" ToRole="SD_Users" />
+  </EntityType>
+  <EntityType Name="BD_SendBoxPrices">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Price" Type="Int32" />
+    <Property Name="StateID" Type="Int32" />
+    <Property Name="Title" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="BD_States" Relationship="officia1_StoreModel.FK_BD_SendBoxPrices_BD_States" FromRole="BD_SendBoxPrices" ToRole="BD_States" />
+    <NavigationProperty Name="SD_SendBoxs" Relationship="officia1_StoreModel.FK_SD_SendBoxs_BD_SendBoxPrices" FromRole="BD_SendBoxPrices" ToRole="SD_SendBoxs" />
+  </EntityType>
+  <EntityType Name="C__EFMigrationsHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+    </Key>
+    <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="AspNetRoleClaim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleId" Type="String" Nullable="false" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetRole" Relationship="officia1_StoreModel.FK_AspNetRoleClaims_AspNetRoles_RoleId" FromRole="AspNetRoleClaim" ToRole="AspNetRole" />
+  </EntityType>
+  <EntityType Name="AspNetRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="NormalizedName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="ConcurrencyStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetRoleClaims" Relationship="officia1_StoreModel.FK_AspNetRoleClaims_AspNetRoles_RoleId" FromRole="AspNetRole" ToRole="AspNetRoleClaim" />
+    <NavigationProperty Name="AspNetUsers" Relationship="officia1_StoreModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="officia1_StoreModel.FK_AspNetUserClaims_AspNetUsers_UserId" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogin">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+    </Key>
+    <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ProviderDisplayName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="450" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="officia1_StoreModel.FK_AspNetUserLogins_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="NormalizedUserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="NormalizedEmail" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ConcurrencyStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="LockoutEnd" Type="DateTimeOffset" Precision="7" />
+    <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="AspNetUserClaims" Relationship="officia1_StoreModel.FK_AspNetUserClaims_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
+    <NavigationProperty Name="AspNetUserLogins" Relationship="officia1_StoreModel.FK_AspNetUserLogins_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
+    <NavigationProperty Name="AspNetUserTokens" Relationship="officia1_StoreModel.FK_AspNetUserTokens_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserToken" />
+    <NavigationProperty Name="AspNetRoles" Relationship="officia1_StoreModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+  </EntityType>
+  <EntityType Name="AspNetUserToken">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="Name" />
+    </Key>
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="officia1_StoreModel.FK_AspNetUserTokens_AspNetUsers_UserId" FromRole="AspNetUserToken" ToRole="AspNetUser" />
   </EntityType>
   <Association Name="FK_BD_Cities_BD_States">
     <End Type="officia1_StoreModel.BD_States" Role="BD_States" Multiplicity="0..1">
@@ -500,18 +660,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_BD_SendProductsPrice_BD_Country">
-    <End Type="officia1_StoreModel.BD_Country" Role="BD_Country" Multiplicity="0..1" />
-    <End Type="officia1_StoreModel.BD_SendProductsPrice" Role="BD_SendProductsPrice" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="BD_Country">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="BD_SendProductsPrice">
-        <PropertyRef Name="CountryID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_BD_States_BD_Country">
     <End Type="officia1_StoreModel.BD_Country" Role="BD_Country" Multiplicity="0..1">
       <OnDelete Action="Cascade" />
@@ -523,6 +671,18 @@
       </Principal>
       <Dependent Role="BD_States">
         <PropertyRef Name="CountryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SD_Transactions_BD_PaymentStatusTypes">
+    <End Type="officia1_StoreModel.BD_PaymentStatusTypes" Role="BD_PaymentStatusTypes" Multiplicity="0..1" />
+    <End Type="officia1_StoreModel.SD_Transactions" Role="SD_Transactions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BD_PaymentStatusTypes">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SD_Transactions">
+        <PropertyRef Name="PaymentStatusID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -550,27 +710,29 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_SD_SendBoxs_BD_SendProductsPrice">
-    <End Type="officia1_StoreModel.BD_SendProductsPrice" Role="BD_SendProductsPrice" Multiplicity="0..1" />
+  <Association Name="FK_SD_SendBoxs_BD_SendStatusTypes">
+    <End Type="officia1_StoreModel.BD_SendStatusTypes" Role="BD_SendStatusTypes" Multiplicity="0..1" />
     <End Type="officia1_StoreModel.SD_SendBoxs" Role="SD_SendBoxs" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="BD_SendProductsPrice">
+      <Principal Role="BD_SendStatusTypes">
         <PropertyRef Name="ID" />
       </Principal>
       <Dependent Role="SD_SendBoxs">
-        <PropertyRef Name="SendTypeID" />
+        <PropertyRef Name="SendStatusID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_SD_Transactions_BD_SendProductsPrice">
-    <End Type="officia1_StoreModel.BD_SendProductsPrice" Role="BD_SendProductsPrice" Multiplicity="0..1" />
-    <End Type="officia1_StoreModel.SD_Transactions" Role="SD_Transactions" Multiplicity="*" />
+  <Association Name="FK_SD_ShoppingBasket_BD_ShoppingBasketTypes">
+    <End Type="officia1_StoreModel.BD_ShoppingBasketTypes" Role="BD_ShoppingBasketTypes" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="officia1_StoreModel.SD_ShoppingBasket" Role="SD_ShoppingBasket" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="BD_SendProductsPrice">
+      <Principal Role="BD_ShoppingBasketTypes">
         <PropertyRef Name="ID" />
       </Principal>
-      <Dependent Role="SD_Transactions">
-        <PropertyRef Name="SendTypeID" />
+      <Dependent Role="SD_ShoppingBasket">
+        <PropertyRef Name="StatusID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -583,6 +745,18 @@
       </Principal>
       <Dependent Role="SD_ProductSizes">
         <PropertyRef Name="SizeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BD_SendBoxPrices_BD_States">
+    <End Type="officia1_StoreModel.BD_States" Role="BD_States" Multiplicity="0..1" />
+    <End Type="officia1_StoreModel.BD_SendBoxPrices" Role="BD_SendBoxPrices" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BD_States">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="BD_SendBoxPrices">
+        <PropertyRef Name="StateID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -716,20 +890,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_SD_ShoppingBasketObjects_SD_ProductCharges">
-    <End Type="officia1_StoreModel.SD_ProductCharges" Role="SD_ProductCharges" Multiplicity="0..1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Type="officia1_StoreModel.SD_ShoppingBasketObjects" Role="SD_ShoppingBasketObjects" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="SD_ProductCharges">
-        <PropertyRef Name="ID" />
-      </Principal>
-      <Dependent Role="SD_ShoppingBasketObjects">
-        <PropertyRef Name="ProductChargeID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_SD_ProductSizes_SD_ProductChargesProperties">
     <End Type="officia1_StoreModel.SD_ProductChargesProperties" Role="SD_ProductChargesProperties" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -740,6 +900,20 @@
         <PropertyRef Name="ID" />
       </Principal>
       <Dependent Role="SD_ProductSizes">
+        <PropertyRef Name="ProductChargePropertiesID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SD_ShoppingBasketObjects_SD_ProductChargesProperties">
+    <End Type="officia1_StoreModel.SD_ProductChargesProperties" Role="SD_ProductChargesProperties" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="officia1_StoreModel.SD_ShoppingBasketObjects" Role="SD_ShoppingBasketObjects" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SD_ProductChargesProperties">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SD_ShoppingBasketObjects">
         <PropertyRef Name="ProductChargePropertiesID" />
       </Dependent>
     </ReferentialConstraint>
@@ -755,6 +929,18 @@
       </Principal>
       <Dependent Role="SD_Votes">
         <PropertyRef Name="ProductChargePropertiesID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SD_SendBoxs_BD_SendBoxPrices">
+    <End Type="officia1_StoreModel.BD_SendBoxPrices" Role="BD_SendBoxPrices" Multiplicity="0..1" />
+    <End Type="officia1_StoreModel.SD_SendBoxs" Role="SD_SendBoxs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BD_SendBoxPrices">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SD_SendBoxs">
+        <PropertyRef Name="SendPriceID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -799,7 +985,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_SD_ShoppingBasketObjects_SD_ShoppingBasket">
-    <End Type="officia1_StoreModel.SD_ShoppingBasket" Role="SD_ShoppingBasket" Multiplicity="0..1">
+    <End Type="officia1_StoreModel.SD_ShoppingBasket" Role="SD_ShoppingBasket" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
     <End Type="officia1_StoreModel.SD_ShoppingBasketObjects" Role="SD_ShoppingBasketObjects" Multiplicity="*" />
@@ -839,5 +1025,65 @@
         <PropertyRef Name="UserID" />
       </Dependent>
     </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetRoleClaims_AspNetRoles_RoleId">
+    <End Type="officia1_StoreModel.AspNetRole" Role="AspNetRole" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="officia1_StoreModel.AspNetRoleClaim" Role="AspNetRoleClaim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetRole">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetRoleClaim">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetUserClaims_AspNetUsers_UserId">
+    <End Type="officia1_StoreModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="officia1_StoreModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaim">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetUserLogins_AspNetUsers_UserId">
+    <End Type="officia1_StoreModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="officia1_StoreModel.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogin">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetUserTokens_AspNetUsers_UserId">
+    <End Type="officia1_StoreModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="officia1_StoreModel.AspNetUserToken" Role="AspNetUserToken" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserToken">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AspNetUserRoles">
+    <End Type="officia1_StoreModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+    <End Type="officia1_StoreModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
   </Association>
 </Schema>
