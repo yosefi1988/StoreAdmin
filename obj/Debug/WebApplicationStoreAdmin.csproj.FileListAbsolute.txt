@@ -155,11 +155,11 @@ D:\Projects\Source\Repos\yosefi1988\StoreAdmin\bin\Newtonsoft.Json.dll
 D:\Projects\Source\Repos\yosefi1988\StoreAdmin\bin\Owin.dll
 D:\Projects\Source\Repos\yosefi1988\StoreAdmin\bin\System.Web.Optimization.dll
 D:\Projects\Source\Repos\yosefi1988\StoreAdmin\bin\WebGrease.dll
+D:\Projects\Source\Repos\yosefi1988\StoreAdmin\bin\EntityFramework.xml
+D:\Projects\Source\Repos\yosefi1988\StoreAdmin\bin\EntityFramework.SqlServer.xml
 D:\Projects\Source\Repos\yosefi1988\StoreAdmin\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 D:\Projects\Source\Repos\yosefi1988\StoreAdmin\bin\System.Web.Optimization.xml
 D:\Projects\Source\Repos\yosefi1988\StoreAdmin\bin\Antlr3.Runtime.pdb
-D:\Projects\Source\Repos\yosefi1988\StoreAdmin\bin\EntityFramework.xml
-D:\Projects\Source\Repos\yosefi1988\StoreAdmin\bin\EntityFramework.SqlServer.xml
 D:\Projects\Source\Repos\yosefi1988\StoreAdmin\bin\Microsoft.AspNet.Identity.Core.xml
 D:\Projects\Source\Repos\yosefi1988\StoreAdmin\bin\Microsoft.AspNet.Identity.Owin.xml
 D:\Projects\Source\Repos\yosefi1988\StoreAdmin\bin\Microsoft.AspNet.Identity.EntityFramework.xml
@@ -171,8 +171,5 @@ D:\Projects\Source\Repos\yosefi1988\StoreAdmin\bin\Microsoft.Owin.Security.OAuth
 D:\Projects\Source\Repos\yosefi1988\StoreAdmin\bin\Microsoft.Owin.Security.Google.xml
 D:\Projects\Source\Repos\yosefi1988\StoreAdmin\bin\Microsoft.Owin.Security.Twitter.xml
 D:\Projects\Source\Repos\yosefi1988\StoreAdmin\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-D:\Projects\Source\Repos\yosefi1988\StoreAdmin\obj\Debug\WebApplicationStoreAdmin.csproj.AssemblyReference.cache
-D:\Projects\Source\Repos\yosefi1988\StoreAdmin\obj\Debug\WebApplicationStoreAdmin.csproj.CoreCompileInputs.cache
-D:\Projects\Source\Repos\yosefi1988\StoreAdmin\obj\Debug\WebAppli.F1598F07.Up2Date
 D:\Projects\Source\Repos\yosefi1988\StoreAdmin\obj\Debug\WebApplicationStoreAdmin.dll
 D:\Projects\Source\Repos\yosefi1988\StoreAdmin\obj\Debug\WebApplicationStoreAdmin.pdb
