@@ -17,7 +17,7 @@ namespace WebApplicationStoreAdmin.Controllers.Product
         // GET: Transactions
         public ActionResult Index()
         {
-            var sD_Transactions = db.SD_Transactions.Include(s => s.SD_Coupons).Include(s => s.SD_ShoppingBasket);
+            var sD_Transactions = db.SD_Transactions.Include(s => s.BD_PaymentStatusTypes).Include(s => s.SD_Coupons).Include(s => s.SD_ShoppingBasket);
             return View(sD_Transactions.ToList());
         }
 
@@ -39,6 +39,7 @@ namespace WebApplicationStoreAdmin.Controllers.Product
         // GET: Transactions/Create
         public ActionResult Create()
         {
+            ViewBag.PaymentStatusID = new SelectList(db.BD_PaymentStatusTypes, "ID", "Status");
             ViewBag.DiscountCodeID = new SelectList(db.SD_Coupons, "ID", "Code");
             ViewBag.ShoppingBasketID = new SelectList(db.SD_ShoppingBasket, "ID", "ID");
             return View();
@@ -49,7 +50,7 @@ namespace WebApplicationStoreAdmin.Controllers.Product
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,ShoppingBasketID,SumTaxAmount,DiscountCodeID,DiscountAmount,SendAmount,SumShoppingBasketPrice,SumShoppingBasketDiscount,AmountForPay,PaymentStatus,PaymentTrackingNo,PaymentDate")] SD_Transactions sD_Transactions)
+        public ActionResult Create([Bind(Include = "ID,ShoppingBasketID,SumTaxAmount,DiscountCodeID,DiscountAmount,SendAmount,SumShoppingBasketPrice,SumShoppingBasketDiscount,AmountForPay,PaymentStatusID,PaymentTrackingNo,PaymentDate")] SD_Transactions sD_Transactions)
         {
             if (ModelState.IsValid)
             {
@@ -58,6 +59,7 @@ namespace WebApplicationStoreAdmin.Controllers.Product
                 return RedirectToAction("Index");
             }
 
+            ViewBag.PaymentStatusID = new SelectList(db.BD_PaymentStatusTypes, "ID", "Status", sD_Transactions.PaymentStatusID);
             ViewBag.DiscountCodeID = new SelectList(db.SD_Coupons, "ID", "Code", sD_Transactions.DiscountCodeID);
             ViewBag.ShoppingBasketID = new SelectList(db.SD_ShoppingBasket, "ID", "ID", sD_Transactions.ShoppingBasketID);
             return View(sD_Transactions);
@@ -75,6 +77,7 @@ namespace WebApplicationStoreAdmin.Controllers.Product
             {
                 return HttpNotFound();
             }
+            ViewBag.PaymentStatusID = new SelectList(db.BD_PaymentStatusTypes, "ID", "Status", sD_Transactions.PaymentStatusID);
             ViewBag.DiscountCodeID = new SelectList(db.SD_Coupons, "ID", "Code", sD_Transactions.DiscountCodeID);
             ViewBag.ShoppingBasketID = new SelectList(db.SD_ShoppingBasket, "ID", "ID", sD_Transactions.ShoppingBasketID);
             return View(sD_Transactions);
@@ -85,7 +88,7 @@ namespace WebApplicationStoreAdmin.Controllers.Product
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,ShoppingBasketID,SumTaxAmount,DiscountCodeID,DiscountAmount,SendAmount,SumShoppingBasketPrice,SumShoppingBasketDiscount,AmountForPay,PaymentStatus,PaymentTrackingNo,PaymentDate")] SD_Transactions sD_Transactions)
+        public ActionResult Edit([Bind(Include = "ID,ShoppingBasketID,SumTaxAmount,DiscountCodeID,DiscountAmount,SendAmount,SumShoppingBasketPrice,SumShoppingBasketDiscount,AmountForPay,PaymentStatusID,PaymentTrackingNo,PaymentDate")] SD_Transactions sD_Transactions)
         {
             if (ModelState.IsValid)
             {
@@ -93,6 +96,7 @@ namespace WebApplicationStoreAdmin.Controllers.Product
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.PaymentStatusID = new SelectList(db.BD_PaymentStatusTypes, "ID", "Status", sD_Transactions.PaymentStatusID);
             ViewBag.DiscountCodeID = new SelectList(db.SD_Coupons, "ID", "Code", sD_Transactions.DiscountCodeID);
             ViewBag.ShoppingBasketID = new SelectList(db.SD_ShoppingBasket, "ID", "ID", sD_Transactions.ShoppingBasketID);
             return View(sD_Transactions);

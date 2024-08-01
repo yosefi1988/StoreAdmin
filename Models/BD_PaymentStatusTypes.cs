@@ -12,23 +12,19 @@ namespace WebApplicationStoreAdmin.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class AspNetRole
+    public partial class BD_PaymentStatusTypes
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public AspNetRole()
+        public BD_PaymentStatusTypes()
         {
-            this.AspNetRoleClaims = new HashSet<AspNetRoleClaim>();
-            this.AspNetUsers = new HashSet<AspNetUser>();
+            this.SD_Transactions = new HashSet<SD_Transactions>();
         }
     
-        public string Id { get; set; }
-        public string Name { get; set; }
-        public string NormalizedName { get; set; }
-        public string ConcurrencyStamp { get; set; }
+        public int ID { get; set; }
+        public string Status { get; set; }
+        public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AspNetRoleClaim> AspNetRoleClaims { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AspNetUser> AspNetUsers { get; set; }
+        public virtual ICollection<SD_Transactions> SD_Transactions { get; set; }
     }
 }

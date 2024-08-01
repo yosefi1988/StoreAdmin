@@ -182,6 +182,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\Config\StoreDetailsController.cs" />
+    <Compile Include="Controllers\Basedata\PaymentStatusTypesController.cs" />
     <Compile Include="Controllers\Product\ProductCategoriesController.cs" />
     <Compile Include="Controllers\Product\ProductChargesPropertiesController.cs" />
     <Compile Include="Controllers\Product\AddressesController.cs" />
@@ -207,6 +208,9 @@
     <Compile Include="Models\AspNetRole.cs">
       <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AspNetRoleClaim.cs">
+      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AspNetUser.cs">
       <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
     </Compile>
@@ -216,10 +220,16 @@
     <Compile Include="Models\AspNetUserLogin.cs">
       <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AspNetUserToken.cs">
+      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\BD_Cities.cs">
       <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\BD_Country.cs">
+      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BD_PaymentStatusTypes.cs">
       <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\BD_SendBoxPrices.cs">
@@ -241,6 +251,9 @@
       <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\BD_Tax.cs">
+      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\C__EFMigrationsHistory.cs">
       <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
@@ -520,11 +533,6 @@
     <Content Include="Views\ShoppingBasket\Details.cshtml" />
     <Content Include="Views\ShoppingBasket\Edit.cshtml" />
     <Content Include="Views\ShoppingBasket\Index.cshtml" />
-    <Content Include="Views\Transactions\Create.cshtml" />
-    <Content Include="Views\Transactions\Delete.cshtml" />
-    <Content Include="Views\Transactions\Details.cshtml" />
-    <Content Include="Views\Transactions\Edit.cshtml" />
-    <Content Include="Views\Transactions\Index.cshtml" />
     <Content Include="Views\SendBoxs\Create.cshtml" />
     <Content Include="Views\SendBoxs\Delete.cshtml" />
     <Content Include="Views\SendBoxs\Details.cshtml" />
@@ -545,6 +553,16 @@
     <Content Include="Views\ShoppingBasketObjects\Details.cshtml" />
     <Content Include="Views\ShoppingBasketObjects\Edit.cshtml" />
     <Content Include="Views\ShoppingBasketObjects\Index.cshtml" />
+    <Content Include="Views\PaymentStatusTypes\Create.cshtml" />
+    <Content Include="Views\PaymentStatusTypes\Delete.cshtml" />
+    <Content Include="Views\PaymentStatusTypes\Details.cshtml" />
+    <Content Include="Views\PaymentStatusTypes\Edit.cshtml" />
+    <Content Include="Views\PaymentStatusTypes\Index.cshtml" />
+    <Content Include="Views\Transactions\Create.cshtml" />
+    <Content Include="Views\Transactions\Delete.cshtml" />
+    <Content Include="Views\Transactions\Details.cshtml" />
+    <Content Include="Views\Transactions\Edit.cshtml" />
+    <Content Include="Views\Transactions\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
