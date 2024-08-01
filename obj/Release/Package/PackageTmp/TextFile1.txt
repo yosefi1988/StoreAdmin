@@ -1,12 +1,3 @@
-﻿25/07/2024
+﻿27/07/2024
 
 
-
-SELECT        officia1_Dbadmin.SD_ProductChargesProperties.ID, officia1_Dbadmin.SD_Product.Name, officia1_Dbadmin.SD_ProductCharges.BuyInvoiceNumber, officia1_Dbadmin.SD_ProductCharges.PercentInterest, 
-                         officia1_Dbadmin.SD_ProductCharges.PercentWages, officia1_Dbadmin.SD_ProductChargesProperties.Discount, officia1_Dbadmin.SD_ProductChargesProperties.RemainingCount, officia1_Dbadmin.SD_Color.Title, 
-                         officia1_Dbadmin.SD_Images.ImageUrl
-FROM            officia1_Dbadmin.SD_Product INNER JOIN
-                         officia1_Dbadmin.SD_ProductCharges ON officia1_Dbadmin.SD_Product.ID = officia1_Dbadmin.SD_ProductCharges.ProductID INNER JOIN
-                         officia1_Dbadmin.SD_ProductChargesProperties ON officia1_Dbadmin.SD_ProductCharges.ID = officia1_Dbadmin.SD_ProductChargesProperties.ProductChargeID INNER JOIN
-                         officia1_Dbadmin.SD_Color ON officia1_Dbadmin.SD_ProductChargesProperties.ColorID = officia1_Dbadmin.SD_Color.ID INNER JOIN
-                         officia1_Dbadmin.SD_Images ON officia1_Dbadmin.SD_ProductChargesProperties.ID = officia1_Dbadmin.SD_Images.ProductChargePropertiesID
