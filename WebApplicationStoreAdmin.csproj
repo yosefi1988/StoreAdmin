@@ -334,7 +334,69 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\product.css" />
+    <Content Include="Content\adminProduction\calendar.html" />
+    <Content Include="Content\adminProduction\chartjs.html" />
+    <Content Include="Content\adminProduction\chartjs2.html" />
+    <Content Include="Content\adminProduction\contacts.html" />
+    <Content Include="Content\adminProduction\css\maps\jquery-jvectormap-2.0.3.css" />
+    <Content Include="Content\adminProduction\echarts.html" />
+    <Content Include="Content\adminProduction\e_commerce.html" />
+    <Content Include="Content\adminProduction\fixed_footer.html" />
+    <Content Include="Content\adminProduction\fixed_sidebar.html" />
+    <Content Include="Content\adminProduction\form.html" />
+    <Content Include="Content\adminProduction\form_advanced.html" />
+    <Content Include="Content\adminProduction\form_buttons.html" />
+    <Content Include="Content\adminProduction\form_upload.html" />
+    <Content Include="Content\adminProduction\form_validation.html" />
+    <Content Include="Content\adminProduction\form_wizards.html" />
+    <Content Include="Content\adminProduction\general_elements.html" />
+    <Content Include="Content\adminProduction\glyphicons.html" />
+    <Content Include="Content\adminProduction\icons.html" />
+    <Content Include="Content\adminProduction\images\american-express.png" />
+    <Content Include="Content\adminProduction\images\cropper.jpg" />
+    <Content Include="Content\adminProduction\images\img.jpg" />
+    <Content Include="Content\adminProduction\images\inbox.png" />
+    <Content Include="Content\adminProduction\images\mastercard.png" />
+    <Content Include="Content\adminProduction\images\media.jpg" />
+    <Content Include="Content\adminProduction\images\paypal.png" />
+    <Content Include="Content\adminProduction\images\picture.jpg" />
+    <Content Include="Content\adminProduction\images\prod-1.jpg" />
+    <Content Include="Content\adminProduction\images\prod-2.jpg" />
+    <Content Include="Content\adminProduction\images\prod-3.jpg" />
+    <Content Include="Content\adminProduction\images\prod-4.jpg" />
+    <Content Include="Content\adminProduction\images\prod-5.jpg" />
+    <Content Include="Content\adminProduction\images\user.png" />
+    <Content Include="Content\adminProduction\images\visa.png" />
+    <Content Include="Content\adminProduction\inbox.html" />
+    <Content Include="Content\adminProduction\index.html" />
+    <Content Include="Content\adminProduction\index2.html" />
+    <Content Include="Content\adminProduction\index3.html" />
+    <Content Include="Content\adminProduction\invoice.html" />
+    <Content Include="Content\adminProduction\js\datepicker\daterangepicker.js" />
+    <Content Include="Content\adminProduction\js\moment\moment.min.js" />
+    <Content Include="Content\adminProduction\level2.html" />
+    <Content Include="Content\adminProduction\login.html" />
+    <Content Include="Content\adminProduction\map.html" />
+    <Content Include="Content\adminProduction\media_gallery.html" />
+    <Content Include="Content\adminProduction\morisjs.html" />
+    <Content Include="Content\adminProduction\other_charts.html" />
+    <Content Include="Content\adminProduction\page_403.html" />
+    <Content Include="Content\adminProduction\page_404.html" />
+    <Content Include="Content\adminProduction\page_500.html" />
+    <Content Include="Content\adminProduction\plain_page.html" />
+    <Content Include="Content\adminProduction\pricing_tables.html" />
+    <Content Include="Content\adminProduction\profile.html" />
+    <Content Include="Content\adminProduction\projects.html" />
+    <Content Include="Content\adminProduction\project_detail.html" />
+    <Content Include="Content\adminProduction\tables.html" />
+    <Content Include="Content\adminProduction\tables_dynamic.html" />
+    <Content Include="Content\adminProduction\typography.html" />
+    <Content Include="Content\adminProduction\widgets.html" />
+    <Content Include="Content\adminProduction\xx.html" />
     <Content Include="Content\vazir.css" />
+    <Content Include="Content\w3css\font-awesome.min.css" />
+    <Content Include="Content\w3css\w3-theme-black.css" />
+    <Content Include="Content\w3css\w3.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -374,6 +436,7 @@
     <Content Include="fonts\Vazir.ttf" />
     <Content Include="fonts\Vazir.woff" />
     <Content Include="fonts\Vazir.woff2" />
+    <Content Include="Content\w3css\css" />
     <None Include="Properties\PublishProfiles\test server.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -388,6 +451,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="TextFile1.txt" />
+    <Content Include="w3\W3CSS Template.htm" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -565,6 +629,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\build\" />
+    <Folder Include="Content\vendors\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
