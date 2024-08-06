@@ -1,12 +1,50 @@
-﻿25/07/2024
+﻿29/07/2024 on msi
 
 
+------------------------------------------in product details page
 
-SELECT        officia1_Dbadmin.SD_ProductChargesProperties.ID, officia1_Dbadmin.SD_Product.Name, officia1_Dbadmin.SD_ProductCharges.BuyInvoiceNumber, officia1_Dbadmin.SD_ProductCharges.PercentInterest, 
-                         officia1_Dbadmin.SD_ProductCharges.PercentWages, officia1_Dbadmin.SD_ProductChargesProperties.Discount, officia1_Dbadmin.SD_ProductChargesProperties.RemainingCount, officia1_Dbadmin.SD_Color.Title, 
-                         officia1_Dbadmin.SD_Images.ImageUrl
-FROM            officia1_Dbadmin.SD_Product INNER JOIN
-                         officia1_Dbadmin.SD_ProductCharges ON officia1_Dbadmin.SD_Product.ID = officia1_Dbadmin.SD_ProductCharges.ProductID INNER JOIN
-                         officia1_Dbadmin.SD_ProductChargesProperties ON officia1_Dbadmin.SD_ProductCharges.ID = officia1_Dbadmin.SD_ProductChargesProperties.ProductChargeID INNER JOIN
-                         officia1_Dbadmin.SD_Color ON officia1_Dbadmin.SD_ProductChargesProperties.ColorID = officia1_Dbadmin.SD_Color.ID INNER JOIN
-                         officia1_Dbadmin.SD_Images ON officia1_Dbadmin.SD_ProductChargesProperties.ID = officia1_Dbadmin.SD_Images.ProductChargePropertiesID
+Main:
+SELECT *
+  FROM [officia1_Store].[officia1_DbadminMsi].[View_home\]
+  where id = 908
+
+------------------------------------------سایز ها:
+SELECT        officia1_Dbadmin.SD_ProductSizes.ProductChargePropertiesID, officia1_Dbadmin.BD_SizeTypes.Title AS SizeTitle, officia1_Dbadmin.BD_SizeTypes.Description AS SizeDescription, 
+                         officia1_Dbadmin.SD_ProductSizes.Value AS SizeValue, officia1_Dbadmin.SD_ProductSizes.Description AS SizeValueDescription
+FROM            officia1_Dbadmin.SD_ProductSizes INNER JOIN
+                         officia1_Dbadmin.BD_SizeTypes ON officia1_Dbadmin.SD_ProductSizes.SizeID = officia1_Dbadmin.BD_SizeTypes.ID INNER JOIN
+                         officia1_Dbadmin.SD_ProductChargesProperties ON officia1_Dbadmin.SD_ProductSizes.ProductChargePropertiesID = officia1_Dbadmin.SD_ProductChargesProperties.ID
+WHERE        (officia1_Dbadmin.SD_ProductSizes.ProductChargePropertiesID = 908)
+
+
+------------------------------------------سایر رنگ ها:
+SELECT        SD_ProductChargesProperties_1.ID, officia1_Dbadmin.SD_Color.Title, officia1_Dbadmin.SD_Color.ColorCode
+FROM            officia1_Dbadmin.SD_ProductChargesProperties INNER JOIN
+                         officia1_Dbadmin.SD_ProductChargesProperties SD_ProductChargesProperties_1 ON officia1_Dbadmin.SD_ProductChargesProperties.ProductChargeID = SD_ProductChargesProperties_1.ProductChargeID INNER JOIN
+                         officia1_Dbadmin.SD_Color ON SD_ProductChargesProperties_1.ColorID = officia1_Dbadmin.SD_Color.ID
+WHERE        (officia1_Dbadmin.SD_ProductChargesProperties.ID = 908)
+
+------------------------------------------سایر محصولات هم سایز این محصول :
+select *  
+  FROM [officia1_Store].[officia1_DbadminMsi].[View_home\]
+  where id in (
+select ProductChargePropertiesID from 
+(
+	SELECT        officia1_Dbadmin.BD_SizeTypes.ID, officia1_Dbadmin.BD_SizeTypes.Title, officia1_Dbadmin.SD_ProductSizes.Value
+	FROM            officia1_Dbadmin.SD_ProductSizes INNER JOIN
+							 officia1_Dbadmin.BD_SizeTypes ON officia1_Dbadmin.SD_ProductSizes.SizeID = officia1_Dbadmin.BD_SizeTypes.ID
+	WHERE        (officia1_Dbadmin.SD_ProductSizes.ProductChargePropertiesID = 908)
+)as tableA
+inner join 
+(
+	SELECT        officia1_Dbadmin.SD_ProductSizes.ProductChargePropertiesID, officia1_Dbadmin.BD_SizeTypes.ID, officia1_Dbadmin.BD_SizeTypes.Title, officia1_Dbadmin.SD_ProductSizes.Value
+	FROM            officia1_Dbadmin.SD_ProductSizes INNER JOIN
+                         officia1_Dbadmin.BD_SizeTypes ON officia1_Dbadmin.SD_ProductSizes.SizeID = officia1_Dbadmin.BD_SizeTypes.ID
+)as tableB
+
+	on tableA.ID = tableB.ID and tableA.Value = tableB.Value
+	)
+
+------------------------------------------
+
+
