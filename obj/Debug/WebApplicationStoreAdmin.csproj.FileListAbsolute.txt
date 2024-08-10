@@ -138,6 +138,7 @@ D:\Projects\StoreAdmin\WebApplicationStoreAdmin\WebApplicationStoreAdmin\bin\Mic
 D:\Projects\StoreAdmin\WebApplicationStoreAdmin\WebApplicationStoreAdmin\bin\Microsoft.Owin.Security.Twitter.dll
 D:\Projects\StoreAdmin\WebApplicationStoreAdmin\WebApplicationStoreAdmin\bin\Microsoft.Web.Infrastructure.dll
 D:\Projects\StoreAdmin\WebApplicationStoreAdmin\WebApplicationStoreAdmin\bin\Newtonsoft.Json.dll
+D:\Projects\StoreAdmin\WebApplicationStoreAdmin\WebApplicationStoreAdmin\bin\nunit.framework.dll
 D:\Projects\StoreAdmin\WebApplicationStoreAdmin\WebApplicationStoreAdmin\bin\Owin.dll
 D:\Projects\StoreAdmin\WebApplicationStoreAdmin\WebApplicationStoreAdmin\bin\System.Web.Helpers.dll
 D:\Projects\StoreAdmin\WebApplicationStoreAdmin\WebApplicationStoreAdmin\bin\System.Web.Mvc.dll
@@ -150,6 +151,7 @@ D:\Projects\StoreAdmin\WebApplicationStoreAdmin\WebApplicationStoreAdmin\bin\Web
 D:\Projects\StoreAdmin\WebApplicationStoreAdmin\WebApplicationStoreAdmin\bin\EntityFramework.xml
 D:\Projects\StoreAdmin\WebApplicationStoreAdmin\WebApplicationStoreAdmin\bin\EntityFramework.SqlServer.xml
 D:\Projects\StoreAdmin\WebApplicationStoreAdmin\WebApplicationStoreAdmin\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Projects\StoreAdmin\WebApplicationStoreAdmin\WebApplicationStoreAdmin\bin\nunit.framework.xml
 D:\Projects\StoreAdmin\WebApplicationStoreAdmin\WebApplicationStoreAdmin\bin\System.Web.Helpers.xml
 D:\Projects\StoreAdmin\WebApplicationStoreAdmin\WebApplicationStoreAdmin\bin\System.Web.Mvc.xml
 D:\Projects\StoreAdmin\WebApplicationStoreAdmin\WebApplicationStoreAdmin\bin\System.Web.Optimization.xml
@@ -171,6 +173,6 @@ D:\Projects\StoreAdmin\WebApplicationStoreAdmin\WebApplicationStoreAdmin\bin\Mic
 D:\Projects\StoreAdmin\WebApplicationStoreAdmin\WebApplicationStoreAdmin\bin\Microsoft.Owin.Security.Google.xml
 D:\Projects\StoreAdmin\WebApplicationStoreAdmin\WebApplicationStoreAdmin\bin\Microsoft.Owin.Security.Twitter.xml
 D:\Projects\StoreAdmin\WebApplicationStoreAdmin\WebApplicationStoreAdmin\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-D:\Projects\StoreAdmin\WebApplicationStoreAdmin\WebApplicationStoreAdmin\obj\Debug\WebApplicationStoreAdmin.csprojResolveAssemblyReference.cache
 D:\Projects\StoreAdmin\WebApplicationStoreAdmin\WebApplicationStoreAdmin\obj\Debug\WebApplicationStoreAdmin.dll
 D:\Projects\StoreAdmin\WebApplicationStoreAdmin\WebApplicationStoreAdmin\obj\Debug\WebApplicationStoreAdmin.pdb
+D:\Projects\StoreAdmin\WebApplicationStoreAdmin\WebApplicationStoreAdmin\obj\Debug\WebApplicationStoreAdmin.csprojResolveAssemblyReference.cache

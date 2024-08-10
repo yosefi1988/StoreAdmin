@@ -1,0 +1,19 @@
+﻿<html>
+<head>
+    <title>JQVMap - World Map</title>
+    <link href="../Content/vendors/jqvmap/dist/jqvmap.css" rel="stylesheet" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+    <script type="text/javascript">
+    jQuery(document).ready(function() {
+      jQuery('#vmap').vectorMap({ map: 'world_en' });
+    });
+    </script>
+</head>
+<body>
+    <div id="vmap" style="width: 600px; height: 400px;"></div>
+</body>
+</html>
