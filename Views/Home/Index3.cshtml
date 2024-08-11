@@ -1,0 +1,241 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+ 
+
+ 
+<h2>سفارشات</h2>
+<div class="row">
+    <div class="col-md-4">
+        <h3>تراکنش ها</h3>
+        <p>وضعیت تراکنش ها را می توانید مشاهده کنید</p>
+        <p><a class="btn btn-default" href="/Transactions">تراکنش ها &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h3>باکس های ارسالی</h3>
+        <p>باکس های ارسالی را مشاهده خواهید کرد</p>
+        <p><a class="btn btn-default" href="/SendBoxs">باکس های ارسالی &raquo;</a></p>
+    </div>
+</div>
+
+<h2>محصولات</h2>
+<div class="row">
+    <div class="col-md-4">
+        <h3>شارژ موجودی</h3>
+        <p>
+            موجودی انبار را می توانید از این صفحه افزایش و یا خرید های قبلی را ویرایش کنید ؛ معمولا بعد از خرید به این صفحه احتیاج پیدا خواهید کرد.
+        </p>
+        <p><a class="btn btn-default" href="/ProductCharges">شارژ موجودی &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h3>ویژگی محصولات</h3>
+        <p>ویژگی محصولاتی که در انبار موجود است را میتوانید تعریف و یا تغییر دهید. معمولا بعد از ثبت شارژ موجودی به این صفحه احتیاج پیدا خواهید کرد.</p>
+        <p><a class="btn btn-default" href="/ProductChargesProperties">ویژگی محصولات &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h3>اجناس انبار</h3>
+        <p>
+            تنها یک بار اجناس را تعریف کنید و با افزایش موجودی انبار احتیاجی به تعریف مجدد اجناس ندارد(شارژ موجودی).
+        </p>
+        <p><a class="btn btn-default" href="/Product">لیست اجناس &raquo;</a></p>
+    </div>
+</div> 
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <h3>نظرات</h3>
+        <p>
+            نظرات ثبت شده روی محصولات را مشاهده خواهید کرد
+        </p>
+        <p><a class="btn btn-default" href="/Votes">آرا و نظرات &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h3>اندازه های محصولات</h3>
+        <p>
+            جزئی از مشخصات محصول است
+            ابتدا ویژگی محصولات را ایجاد و پس از آن سایز برای آن مشخص کنید
+        </p>
+        <p><a class="btn btn-default" href="/ProductSizes">اندازه ها &raquo;</a></p>
+    </div>
+
+    <div class="col-md-4">
+        <h3>تصاویر</h3>
+        <p>تصاویر محصولات را مشاهده و یا تغییر دهید</p>
+        <p><a class="btn btn-default" href="/images">تصاویر &raquo;</a></p>
+    </div>
+    @*<div class="col-md-4">
+        <h3>تراکنش ها</h3>
+        <p>وضعیت تراکنش ها را می توانید مشاهده کنید</p>
+        <p><a class="btn btn-default" href="/Transactions">تصاویر &raquo;</a></p>
+    </div>*@
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <h3>دسته بندی محصولات</h3>
+        <p>
+            محصولات دارای دسته بندی هایی می باشند که از این منو به آن دسترسی خواهید داشت.
+        </p>
+        <p><a class="btn btn-default" href="/ProductCategories">دسته بندی محصولات &raquo;</a></p>
+    </div>
+    @*<div class="col-md-4">
+            <h3>ویژگی محصولات</h3>
+            <p>ویژگی محصولاتی که در انبار موجود است را میتوانید تعریف و یا تغییر دهید. معمولا بعد از ثبت شارژ موجودی به این صفحه احتیاج پیدا خواهید کرد.</p>
+            <p><a class="btn btn-default" href="/ProductChargesProperties">ویژگی محصولات &raquo;</a></p>
+        </div>
+
+        <div class="col-md-4">
+            <h3>تراکنش ها</h3>
+            <p>وضعیت تراکنش ها را می توانید مشاهده کنید</p>
+            <p><a class="btn btn-default" href="/Transactions">تصاویر &raquo;</a></p>
+        </div>*@
+</div>
+
+<h2>کاربران</h2>
+<div class="row">
+    <div class="col-md-4">
+        <h3>آدرس کاربران</h3>
+        <p>آدرس هایی که مشتریان ثبت کرده اند را می توانید مشاهده و یا تغییر دهید</p>
+        <p><a class="btn btn-default" href="/addresses">مشاهده آدرس ها &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h3>سبد خرید</h3>
+        <p>
+            سبد خرید کاربران را مشاهده خواهید کرد.
+        </p>
+        <p><a class="btn btn-default" href="/ShoppingBasket">سبد های خرید &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h3>اجناس سبد کاربران</h3>
+        <p>اجناسی که کاربر آن ها را در سبدهای خود قرار داده را مشاهده خواهید کرد.</p>
+        <p><a class="btn btn-default" href="/ShoppingBasketObjects">اجناس داخل سبد &raquo;</a></p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <h3>کاربران</h3>
+        <p>کاربران لاگین شده را می توانید مشاهده و یا ویرایش کنید</p>
+        <p><a class="btn btn-default" href="/Users">مشاهده کاربران &raquo;</a></p>
+    </div>
+    @*<div class="col-md-4">
+        <h3>سبد خرید</h3>
+        <p>
+            سبد خرید کاربران را مشاهده خواهید کرد.
+        </p>
+        <p><a class="btn btn-default" href="/ShoppingBasket">سبد های خرید &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h3>اجناس سبد کاربران</h3>
+        <p>اجناسی که کاربر آن ها را در سبدهای خود قرار داده را مشاهده خواهید کرد.</p>
+        <p><a class="btn btn-default" href="/ShoppingBasketObjects">اجناس داخل سبد &raquo;</a></p>
+    </div>*@
+</div>
+<h2>اطلاعات پایه</h2>
+<div class="row">
+    <div class="col-md-4">
+        <h3>دسته بندی</h3>
+        <p>
+            می توانید دسته بندی ایجاد و یا دسته بندی های موجود را ویرایش کنید
+        </p>
+        <p><a class="btn btn-default" href="/Category">دسته بندی ها &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h3>رنگ ها</h3>
+        <p>رنگ محصولات را می توانید تعریف کنید و یا رنگ های تعریف شده قبلی را ویرایش کنید.</p>
+        <p><a class="btn btn-default" href="/Color">رنگ ها &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h3>کپن های تخفیف</h3>
+        <p>کد های تخفیف و کپن هایی می توانید ایجاد کنید که مشتری بر اساس آن تخفیف دریافت کند</p>
+        <p><a class="btn btn-default" href="/Coupons">کپن ها &raquo;</a></p>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <h3>مالیات</h3>
+        <p>انواع مالیات هایی که به فروش اجناس اعمال می گردد را می توانید تعریف کنید.</p>
+        <p><a class="btn btn-default" href="/Tax">مالیات ها &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h3>ادمین ها</h3>
+        <p>ادمین هایی که به پنل دسترسی دارند را می توانید تعریف کنید</p>
+        <p><a class="btn btn-default" href="/Admins">ادمین ها &raquo;</a></p>
+    </div>
+
+    <div class="col-md-4">
+        <h3>اطلاعات فروشگاه</h3>
+        <p>تمامی جزئیات فروشگاه را مشاهده و تغییر دهید.</p>
+        <p><a class="btn btn-default" href="/StoreDetails">اطلاعات فروشگاه &raquo;</a></p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <h3>هزینه ارسال - خاص</h3>
+        <p>
+            بر اسال محصولات انبار می توانید نحوه ارسال و هزینه آن ها را تعیین کنید
+        </p>
+        <p><a class="btn btn-default" href="/SendProductsPrice">هزینه ارسال &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h3>هزینه های ارسال</h3>
+        <p>
+            هزینه ارسال باکس ها
+        </p>
+        <p><a class="btn btn-default" href="/SendboxPrices"> هزینه های ارسال باکس &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h3>سایز ها</h3>
+        <p>تمامی اندازه محصولات را می توانید تعریف کنید.</p>
+        <p><a class="btn btn-default" href="/SizeTypes">سایز ها &raquo;</a></p>
+    </div>
+
+</div>
+<h2>تنظیمات</h2>
+<div class="row">
+    <div class="col-md-4">
+        <h3>کشور ها</h3>
+        <p>
+            کشور هایی که مقصد فروش شما هستند
+        </p>
+        <p><a class="btn btn-default" href="/Country">لیست کشور ها &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h3>استان یا ایالت ها</h3>
+        <p>استان ها و یا ایالت هایی که مقصد فروش شما هستند.</p>
+        <p><a class="btn btn-default" href="/States">استان ها &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h3>شهر ها</h3>
+        <p>شهر هایی که فروش در آن ها مورد پشتیبانی (ارسال ؛ خدمات پس از فروش و...) شما هستند.</p>
+        <p><a class="btn btn-default" href="/Cities">شهر ها &raquo;</a></p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <h3>وضعیت باکس ها</h3>
+        <p>سفارشات مشتریان در غالب باکس ارسال می شوند و هر زمان این باکس ها در یک وضعیت خاص قرار دارند</p>
+        <p><a class="btn btn-default" href="/SendStatusTypes">وضعیت باکس ها &raquo;</a></p>
+    </div> 
+    <div class="col-md-4">
+        <h3>وضعیت و نوع سبد خرید</h3>
+        <p>امکان تعریف سبد های خرید مختلف</p>
+        <p><a class="btn btn-default" href="/ShoppingBasketTypes">سبد ها &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h3>وضعیت پرداخت</h3>
+        <p>وضضعیت پرداخت های مشتری</p>
+        <p><a class="btn btn-default" href="/PaymentStatusTypes">وضعیت پرداخت ها &raquo;</a></p>
+    </div>
+
+
+
+    
+</div>
+<div class="row">
+
+   @* <div class="col-md-4">
+        <h3>ادمین ها</h3>
+        <p>ادمین هایی که به پنل دسترسی دارند را می توانید تعریف کنید</p>
+        <p><a class="btn btn-default" href="/Admins">ادمین ها &raquo;</a></p>
+    </div>*@
+</div>

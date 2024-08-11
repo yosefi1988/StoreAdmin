@@ -4704,7 +4704,7 @@
     <Content Include="Content\vendors\validator\validator.jquery.json" />
     <None Include="Properties\PublishProfiles\test server.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\0jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -4715,6 +4715,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="test\examples.css" />
+    <Content Include="test\IndexChart2.html" />
+    <Content Include="test\IndexChart.html" />
     <Content Include="test\IndexDatePicker.html" />
     <Content Include="TextFile1.txt" />
     <Content Include="w3\W3CSS Template.htm" />
@@ -4892,7 +4895,8 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="test\Index.html" />
+    <Content Include="test\IndexJQVMap.html" />
+    <Content Include="Views\Home\Index3.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

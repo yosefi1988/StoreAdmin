@@ -1,19 +1,25 @@
 ﻿<html>
 <head>
-    <title>JQVMap - World Map</title>
-    <link href="../Content/vendors/jqvmap/dist/jqvmap.css" rel="stylesheet" />
+    <title>JQVMap - World Map</title> 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-
+ 
     <script type="text/javascript">
-    jQuery(document).ready(function() {
-      jQuery('#vmap').vectorMap({ map: 'world_en' });
-    });
+        $(function () {
+            $('input[name="datetimes"]').daterangepicker({
+                timePicker: true,
+                startDate: moment().startOf('hour'),
+                endDate: moment().startOf('hour').add(32, 'hour'),
+                locale: {
+                    format: 'M/DD hh:mm A'
+                }
+            });
+        });
     </script>
 </head>
 <body>
-    <div id="vmap" style="width: 600px; height: 400px;"></div>
+    <input type="text" name="datetimes" />
 </body>
 </html>
