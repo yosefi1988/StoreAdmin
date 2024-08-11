@@ -128,3 +128,5 @@ C:\Users\sajjad\Source\Repos\yosefi1988\StoreAdmin\bin\Microsoft.Owin.Security.M
 C:\Users\sajjad\Source\Repos\yosefi1988\StoreAdmin\obj\Release\WebApplicationStoreAdmin.csprojResolveAssemblyReference.cache
 C:\Users\sajjad\Source\Repos\yosefi1988\StoreAdmin\obj\Release\WebApplicationStoreAdmin.dll
 C:\Users\sajjad\Source\Repos\yosefi1988\StoreAdmin\obj\Release\WebApplicationStoreAdmin.pdb
+D:\Projects\StoreAdmin\WebApplicationStoreAdmin\WebApplicationStoreAdmin\bin\nunit.framework.dll
+D:\Projects\StoreAdmin\WebApplicationStoreAdmin\WebApplicationStoreAdmin\bin\nunit.framework.xml

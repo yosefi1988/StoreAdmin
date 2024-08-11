@@ -4702,6 +4702,7 @@
     <Content Include="Content\vendors\validator\.bower.json" />
     <Content Include="Content\vendors\validator\README.md" />
     <Content Include="Content\vendors\validator\validator.jquery.json" />
+    <None Include="Properties\PublishProfiles\file.pubxml" />
     <None Include="Properties\PublishProfiles\test server.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\0jquery-1.10.2.js" />
