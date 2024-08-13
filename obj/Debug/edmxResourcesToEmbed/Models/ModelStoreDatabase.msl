@@ -1,6 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="officia1_StoreModelStoreContainer" CdmEntityContainer="officia1_StoreEntities">
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="officia1_StoreModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="definition" ColumnName="definition" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="BD_Cities">
       <EntityTypeMapping TypeName="officia1_StoreModel.BD_Cities">
         <MappingFragment StoreEntitySet="BD_Cities">
@@ -78,6 +89,7 @@
     <EntitySetMapping Name="BD_Tax">
       <EntityTypeMapping TypeName="officia1_StoreModel.BD_Tax">
         <MappingFragment StoreEntitySet="BD_Tax">
+          <ScalarProperty Name="CountryId" ColumnName="CountryId" />
           <ScalarProperty Name="TaxPercentage" ColumnName="TaxPercentage" />
           <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="ID" ColumnName="ID" />
@@ -287,6 +299,7 @@
     <EntitySetMapping Name="SD_Users">
       <EntityTypeMapping TypeName="officia1_StoreModel.SD_Users">
         <MappingFragment StoreEntitySet="SD_Users">
+          <ScalarProperty Name="AspNetUserId" ColumnName="AspNetUserId" />
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="Password" ColumnName="Password" />
@@ -369,6 +382,7 @@
     <EntitySetMapping Name="AspNetUsers">
       <EntityTypeMapping TypeName="officia1_StoreModel.AspNetUser">
         <MappingFragment StoreEntitySet="AspNetUsers">
+          <ScalarProperty Name="Age" ColumnName="Age" />
           <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
           <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
           <ScalarProperty Name="LockoutEnd" ColumnName="LockoutEnd" />
@@ -394,6 +408,68 @@
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="employees">
+      <EntityTypeMapping TypeName="officia1_StoreModel.employee">
+        <MappingFragment StoreEntitySet="employees">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
+          <ScalarProperty Name="Family" ColumnName="Family" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="View_home_">
+      <EntityTypeMapping TypeName="officia1_StoreModel.View_home_">
+        <MappingFragment StoreEntitySet="View_home\">
+          <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="RemainingCount" ColumnName="RemainingCount" />
+          <ScalarProperty Name="Discount" ColumnName="Discount" />
+          <ScalarProperty Name="PercentWages" ColumnName="PercentWages" />
+          <ScalarProperty Name="PercentInterest" ColumnName="PercentInterest" />
+          <ScalarProperty Name="BuyInvoiceNumber" ColumnName="BuyInvoiceNumber" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="View_ProductDetailsPage_Colors">
+      <EntityTypeMapping TypeName="officia1_StoreModel.View_ProductDetailsPage_Colors">
+        <MappingFragment StoreEntitySet="View_ProductDetailsPage_Colors">
+          <ScalarProperty Name="ColorCode" ColumnName="ColorCode" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="View_ProductDetailsPage_SimilarProductInSize">
+      <EntityTypeMapping TypeName="officia1_StoreModel.View_ProductDetailsPage_SimilarProductInSize">
+        <MappingFragment StoreEntitySet="View_ProductDetailsPage_SimilarProductInSize">
+          <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="RemainingCount" ColumnName="RemainingCount" />
+          <ScalarProperty Name="Discount" ColumnName="Discount" />
+          <ScalarProperty Name="PercentWages" ColumnName="PercentWages" />
+          <ScalarProperty Name="PercentInterest" ColumnName="PercentInterest" />
+          <ScalarProperty Name="BuyInvoiceNumber" ColumnName="BuyInvoiceNumber" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="View_ProductDetailsPage_Sizes">
+      <EntityTypeMapping TypeName="officia1_StoreModel.View_ProductDetailsPage_Sizes">
+        <MappingFragment StoreEntitySet="View_ProductDetailsPage_Sizes">
+          <ScalarProperty Name="SizeValueDescription" ColumnName="SizeValueDescription" />
+          <ScalarProperty Name="SizeValue" ColumnName="SizeValue" />
+          <ScalarProperty Name="SizeDescription" ColumnName="SizeDescription" />
+          <ScalarProperty Name="SizeTitle" ColumnName="SizeTitle" />
+          <ScalarProperty Name="ProductChargePropertiesID" ColumnName="ProductChargePropertiesID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

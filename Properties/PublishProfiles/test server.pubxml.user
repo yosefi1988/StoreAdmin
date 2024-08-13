@@ -128,7 +128,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/21/2024 22:19:47</publishTime>
     </File>
     <File Include="bin/WebApplicationStoreAdmin.dll">
-      <publishTime>08/11/2024 02:51:14</publishTime>
+      <publishTime>08/13/2024 04:40:35</publishTime>
     </File>
     <File Include="bin/WebGrease.dll">
       <publishTime>07/21/2024 22:19:47</publishTime>
@@ -13172,7 +13172,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/21/2024 22:19:45</publishTime>
     </File>
     <File Include="Models/ModelStoreDatabase.edmx.diagram">
-      <publishTime>08/06/2024 03:02:01</publishTime>
+      <publishTime>08/11/2024 22:05:21</publishTime>
     </File>
     <File Include="packages.config">
       <publishTime>08/10/2024 02:25:51</publishTime>
@@ -13580,7 +13580,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/21/2024 22:19:48</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>08/11/2024 02:51:00</publishTime>
+      <publishTime>08/13/2024 03:27:57</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
       <publishTime>07/21/2024 22:19:48</publishTime>
@@ -13706,19 +13706,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/06/2024 03:02:01</publishTime>
     </File>
     <File Include="Views/Users/Create.cshtml">
-      <publishTime>07/22/2024 01:31:18</publishTime>
+      <publishTime>08/12/2024 00:56:25</publishTime>
     </File>
     <File Include="Views/Users/Delete.cshtml">
-      <publishTime>07/22/2024 01:31:19</publishTime>
+      <publishTime>08/12/2024 00:56:26</publishTime>
     </File>
     <File Include="Views/Users/Details.cshtml">
-      <publishTime>07/22/2024 01:31:19</publishTime>
+      <publishTime>08/12/2024 00:56:27</publishTime>
     </File>
     <File Include="Views/Users/Edit.cshtml">
-      <publishTime>07/22/2024 01:31:20</publishTime>
+      <publishTime>08/12/2024 00:56:29</publishTime>
     </File>
     <File Include="Views/Users/Index.cshtml">
-      <publishTime>07/22/2024 01:31:20</publishTime>
+      <publishTime>08/12/2024 00:56:30</publishTime>
     </File>
     <File Include="Views/Votes/Create.cshtml">
       <publishTime>07/24/2024 04:33:56</publishTime>

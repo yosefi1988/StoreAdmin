@@ -265,6 +265,9 @@
     <Compile Include="Models\C__EFMigrationsHistory.cs">
       <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\employee.cs">
+      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ModelStoreDatabase.Context.cs">
@@ -334,6 +337,21 @@
       <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SD_Votes.cs">
+      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\View_home_.cs">
+      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\View_ProductDetailsPage_Colors.cs">
+      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\View_ProductDetailsPage_SimilarProductInSize.cs">
+      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\View_ProductDetailsPage_Sizes.cs">
       <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -4808,11 +4826,6 @@
     <Content Include="Views\Coupons\Details.cshtml" />
     <Content Include="Views\Coupons\Edit.cshtml" />
     <Content Include="Views\Coupons\Index.cshtml" />
-    <Content Include="Views\Users\Create.cshtml" />
-    <Content Include="Views\Users\Delete.cshtml" />
-    <Content Include="Views\Users\Details.cshtml" />
-    <Content Include="Views\Users\Edit.cshtml" />
-    <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Admins\Create.cshtml" />
     <Content Include="Views\Admins\Delete.cshtml" />
     <Content Include="Views\Admins\Details.cshtml" />
@@ -4898,6 +4911,11 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="test\IndexJQVMap.html" />
     <Content Include="Views\Home\Index3.cshtml" />
+    <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\Users\Delete.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

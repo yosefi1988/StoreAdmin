@@ -25,6 +25,7 @@ namespace WebApplicationStoreAdmin.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<BD_Cities> BD_Cities { get; set; }
         public virtual DbSet<BD_Country> BD_Country { get; set; }
         public virtual DbSet<BD_PaymentStatusTypes> BD_PaymentStatusTypes { get; set; }
@@ -60,5 +61,10 @@ namespace WebApplicationStoreAdmin.Models
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<AspNetUserToken> AspNetUserTokens { get; set; }
+        public virtual DbSet<employee> employees { get; set; }
+        public virtual DbSet<View_home_> View_home_ { get; set; }
+        public virtual DbSet<View_ProductDetailsPage_Colors> View_ProductDetailsPage_Colors { get; set; }
+        public virtual DbSet<View_ProductDetailsPage_SimilarProductInSize> View_ProductDetailsPage_SimilarProductInSize { get; set; }
+        public virtual DbSet<View_ProductDetailsPage_Sizes> View_ProductDetailsPage_Sizes { get; set; }
     }
 }

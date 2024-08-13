@@ -1,5 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="officia1_StoreModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
   <EntityType Name="BD_Cities">
     <Key>
       <PropertyRef Name="ID" />
@@ -73,6 +83,7 @@
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Title" Type="nvarchar" MaxLength="255" />
     <Property Name="TaxPercentage" Type="int" />
+    <Property Name="CountryId" Type="int" />
   </EntityType>
   <EntityType Name="SC_Admins">
     <Key>
@@ -271,6 +282,7 @@
     <Property Name="Password" Type="nvarchar(max)" />
     <Property Name="Email" Type="nvarchar(max)" />
     <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="AspNetUserId" Type="nvarchar" MaxLength="450" />
   </EntityType>
   <EntityType Name="SD_Votes">
     <Key>
@@ -331,8 +343,8 @@
       <PropertyRef Name="LoginProvider" />
       <PropertyRef Name="ProviderKey" />
     </Key>
-    <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="LoginProvider" Type="nvarchar" MaxLength="450" Nullable="false" />
+    <Property Name="ProviderKey" Type="nvarchar" MaxLength="450" Nullable="false" />
     <Property Name="ProviderDisplayName" Type="nvarchar(max)" />
     <Property Name="UserId" Type="nvarchar" MaxLength="450" Nullable="false" />
   </EntityType>
@@ -363,6 +375,7 @@
     <Property Name="LockoutEnd" Type="datetimeoffset" Precision="7" />
     <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
     <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+    <Property Name="Age" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="AspNetUserTokens">
     <Key>
@@ -371,9 +384,74 @@
       <PropertyRef Name="Name" />
     </Key>
     <Property Name="UserId" Type="nvarchar" MaxLength="450" Nullable="false" />
-    <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="LoginProvider" Type="nvarchar" MaxLength="450" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="450" Nullable="false" />
     <Property Name="Value" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="employees">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" />
+    <Property Name="Family" Type="nvarchar(max)" />
+    <Property Name="Company" Type="nvarchar(max)" />
+    <Property Name="Email" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'officia1_Store.officia1_DbadminMsi.View_home\' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="View_home\">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="255" />
+    <Property Name="BuyInvoiceNumber" Type="nvarchar(max)" />
+    <Property Name="PercentInterest" Type="int" />
+    <Property Name="PercentWages" Type="int" />
+    <Property Name="Discount" Type="int" />
+    <Property Name="RemainingCount" Type="int" />
+    <Property Name="Title" Type="nvarchar" MaxLength="255" />
+    <Property Name="ImageUrl" Type="nvarchar(max)" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'officia1_Store.officia1_DbadminMsi.View_ProductDetailsPage_Colors' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="View_ProductDetailsPage_Colors">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="255" />
+    <Property Name="ColorCode" Type="char" MaxLength="15" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'officia1_Store.officia1_DbadminMsi.View_ProductDetailsPage_SimilarProductInSize' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="View_ProductDetailsPage_SimilarProductInSize">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="255" />
+    <Property Name="BuyInvoiceNumber" Type="nvarchar(max)" />
+    <Property Name="PercentInterest" Type="int" />
+    <Property Name="PercentWages" Type="int" />
+    <Property Name="Discount" Type="int" />
+    <Property Name="RemainingCount" Type="int" />
+    <Property Name="Title" Type="nvarchar" MaxLength="255" />
+    <Property Name="ImageUrl" Type="nvarchar(max)" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'officia1_Store.officia1_DbadminMsi.View_ProductDetailsPage_Sizes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="View_ProductDetailsPage_Sizes">
+    <Key>
+      <PropertyRef Name="ProductChargePropertiesID" />
+    </Key>
+    <Property Name="ProductChargePropertiesID" Type="int" Nullable="false" />
+    <Property Name="SizeTitle" Type="nvarchar" MaxLength="256" />
+    <Property Name="SizeDescription" Type="nvarchar(max)" />
+    <Property Name="SizeValue" Type="nchar" MaxLength="10" />
+    <Property Name="SizeValueDescription" Type="nvarchar(max)" />
   </EntityType>
   <Association Name="FK_AspNetRoleClaims_AspNetRoles_RoleId">
     <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
@@ -837,6 +915,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_SD_Users_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="SD_Users" Type="Self.SD_Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SD_Users">
+        <PropertyRef Name="AspNetUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_SD_Votes_SD_ProductChargesProperties">
     <End Role="SD_ProductChargesProperties" Type="Self.SD_ProductChargesProperties" Multiplicity="1">
       <OnDelete Action="Cascade" />
@@ -866,6 +956,7 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="officia1_StoreModelStoreContainer">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BD_Cities" EntityType="Self.BD_Cities" Schema="officia1_Dbadmin" store:Type="Tables" />
     <EntitySet Name="BD_Country" EntityType="Self.BD_Country" Schema="officia1_Dbadmin" store:Type="Tables" />
     <EntitySet Name="BD_PaymentStatusTypes" EntityType="Self.BD_PaymentStatusTypes" Schema="officia1_Dbadmin" store:Type="Tables" />
@@ -902,6 +993,49 @@
     <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="officia1_VS_msi" store:Type="Tables" />
     <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="officia1_VS_msi" store:Type="Tables" />
     <EntitySet Name="AspNetUserTokens" EntityType="Self.AspNetUserTokens" Schema="officia1_VS_msi" store:Type="Tables" />
+    <EntitySet Name="employees" EntityType="Self.employees" Schema="officia1_VS_msi" store:Type="Tables" />
+    <EntitySet Name="View_home\" EntityType="Self.View_home\" store:Type="Views" store:Schema="officia1_DbadminMsi">
+      <DefiningQuery>SELECT 
+    [View_home\].[ID] AS [ID], 
+    [View_home\].[Name] AS [Name], 
+    [View_home\].[BuyInvoiceNumber] AS [BuyInvoiceNumber], 
+    [View_home\].[PercentInterest] AS [PercentInterest], 
+    [View_home\].[PercentWages] AS [PercentWages], 
+    [View_home\].[Discount] AS [Discount], 
+    [View_home\].[RemainingCount] AS [RemainingCount], 
+    [View_home\].[Title] AS [Title], 
+    [View_home\].[ImageUrl] AS [ImageUrl]
+    FROM [officia1_DbadminMsi].[View_home\] AS [View_home\]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="View_ProductDetailsPage_Colors" EntityType="Self.View_ProductDetailsPage_Colors" store:Type="Views" store:Schema="officia1_DbadminMsi">
+      <DefiningQuery>SELECT 
+    [View_ProductDetailsPage_Colors].[ID] AS [ID], 
+    [View_ProductDetailsPage_Colors].[Title] AS [Title], 
+    [View_ProductDetailsPage_Colors].[ColorCode] AS [ColorCode]
+    FROM [officia1_DbadminMsi].[View_ProductDetailsPage_Colors] AS [View_ProductDetailsPage_Colors]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="View_ProductDetailsPage_SimilarProductInSize" EntityType="Self.View_ProductDetailsPage_SimilarProductInSize" store:Type="Views" store:Schema="officia1_DbadminMsi">
+      <DefiningQuery>SELECT 
+    [View_ProductDetailsPage_SimilarProductInSize].[ID] AS [ID], 
+    [View_ProductDetailsPage_SimilarProductInSize].[Name] AS [Name], 
+    [View_ProductDetailsPage_SimilarProductInSize].[BuyInvoiceNumber] AS [BuyInvoiceNumber], 
+    [View_ProductDetailsPage_SimilarProductInSize].[PercentInterest] AS [PercentInterest], 
+    [View_ProductDetailsPage_SimilarProductInSize].[PercentWages] AS [PercentWages], 
+    [View_ProductDetailsPage_SimilarProductInSize].[Discount] AS [Discount], 
+    [View_ProductDetailsPage_SimilarProductInSize].[RemainingCount] AS [RemainingCount], 
+    [View_ProductDetailsPage_SimilarProductInSize].[Title] AS [Title], 
+    [View_ProductDetailsPage_SimilarProductInSize].[ImageUrl] AS [ImageUrl]
+    FROM [officia1_DbadminMsi].[View_ProductDetailsPage_SimilarProductInSize] AS [View_ProductDetailsPage_SimilarProductInSize]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="View_ProductDetailsPage_Sizes" EntityType="Self.View_ProductDetailsPage_Sizes" store:Type="Views" store:Schema="officia1_DbadminMsi">
+      <DefiningQuery>SELECT 
+    [View_ProductDetailsPage_Sizes].[ProductChargePropertiesID] AS [ProductChargePropertiesID], 
+    [View_ProductDetailsPage_Sizes].[SizeTitle] AS [SizeTitle], 
+    [View_ProductDetailsPage_Sizes].[SizeDescription] AS [SizeDescription], 
+    [View_ProductDetailsPage_Sizes].[SizeValue] AS [SizeValue], 
+    [View_ProductDetailsPage_Sizes].[SizeValueDescription] AS [SizeValueDescription]
+    FROM [officia1_DbadminMsi].[View_ProductDetailsPage_Sizes] AS [View_ProductDetailsPage_Sizes]</DefiningQuery>
+    </EntitySet>
     <AssociationSet Name="FK_AspNetRoleClaims_AspNetRoles_RoleId" Association="Self.FK_AspNetRoleClaims_AspNetRoles_RoleId">
       <End Role="AspNetRoles" EntitySet="AspNetRoles" />
       <End Role="AspNetRoleClaims" EntitySet="AspNetRoleClaims" />
@@ -1041,6 +1175,10 @@
     <AssociationSet Name="FK_SD_Transactions_SD_ShoppingBasket" Association="Self.FK_SD_Transactions_SD_ShoppingBasket">
       <End Role="SD_ShoppingBasket" EntitySet="SD_ShoppingBasket" />
       <End Role="SD_Transactions" EntitySet="SD_Transactions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SD_Users_AspNetUsers" Association="Self.FK_SD_Users_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="SD_Users" EntitySet="SD_Users" />
     </AssociationSet>
     <AssociationSet Name="FK_SD_Votes_SD_ProductChargesProperties" Association="Self.FK_SD_Votes_SD_ProductChargesProperties">
       <End Role="SD_ProductChargesProperties" EntitySet="SD_ProductChargesProperties" />

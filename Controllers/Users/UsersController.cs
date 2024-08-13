@@ -17,7 +17,8 @@ namespace WebApplicationStoreAdmin.Controllers.Users
         // GET: Users
         public ActionResult Index()
         {
-            return View(db.SD_Users.ToList());
+            var sD_Users = db.SD_Users.Include(s => s.AspNetUser);
+            return View(sD_Users.ToList());
         }
 
         // GET: Users/Details/5
@@ -38,6 +39,7 @@ namespace WebApplicationStoreAdmin.Controllers.Users
         // GET: Users/Create
         public ActionResult Create()
         {
+            ViewBag.AspNetUserId = new SelectList(db.AspNetUsers, "Id", "UserName");
             return View();
         }
 
@@ -46,7 +48,7 @@ namespace WebApplicationStoreAdmin.Controllers.Users
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,Family,Mobile,Password,Email,Description")] SD_Users sD_Users)
+        public ActionResult Create([Bind(Include = "ID,Name,Family,Mobile,Password,Email,Description,AspNetUserId")] SD_Users sD_Users)
         {
             if (ModelState.IsValid)
             {
@@ -55,6 +57,7 @@ namespace WebApplicationStoreAdmin.Controllers.Users
                 return RedirectToAction("Index");
             }
 
+            ViewBag.AspNetUserId = new SelectList(db.AspNetUsers, "Id", "UserName", sD_Users.AspNetUserId);
             return View(sD_Users);
         }
 
@@ -70,6 +73,7 @@ namespace WebApplicationStoreAdmin.Controllers.Users
             {
                 return HttpNotFound();
             }
+            ViewBag.AspNetUserId = new SelectList(db.AspNetUsers, "Id", "UserName", sD_Users.AspNetUserId);
             return View(sD_Users);
         }
 
@@ -78,7 +82,7 @@ namespace WebApplicationStoreAdmin.Controllers.Users
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Family,Mobile,Password,Email,Description")] SD_Users sD_Users)
+        public ActionResult Edit([Bind(Include = "ID,Name,Family,Mobile,Password,Email,Description,AspNetUserId")] SD_Users sD_Users)
         {
             if (ModelState.IsValid)
             {
@@ -86,6 +90,7 @@ namespace WebApplicationStoreAdmin.Controllers.Users
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.AspNetUserId = new SelectList(db.AspNetUsers, "Id", "UserName", sD_Users.AspNetUserId);
             return View(sD_Users);
         }
 

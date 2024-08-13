@@ -12,20 +12,16 @@ namespace WebApplicationStoreAdmin.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class BD_Tax
+    public partial class View_ProductDetailsPage_SimilarProductInSize
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public BD_Tax()
-        {
-            this.SD_ProductCharges = new HashSet<SD_ProductCharges>();
-        }
-    
         public int ID { get; set; }
+        public string Name { get; set; }
+        public string BuyInvoiceNumber { get; set; }
+        public Nullable<int> PercentInterest { get; set; }
+        public Nullable<int> PercentWages { get; set; }
+        public Nullable<int> Discount { get; set; }
+        public Nullable<int> RemainingCount { get; set; }
         public string Title { get; set; }
-        public Nullable<int> TaxPercentage { get; set; }
-        public Nullable<int> CountryId { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SD_ProductCharges> SD_ProductCharges { get; set; }
+        public string ImageUrl { get; set; }
     }
 }
