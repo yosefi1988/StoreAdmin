@@ -4802,7 +4802,6 @@
     <Content Include="Views\StoreDetails\Delete.cshtml" />
     <Content Include="Views\StoreDetails\Details.cshtml" />
     <Content Include="Views\StoreDetails\Edit.cshtml" />
-    <Content Include="Views\StoreDetails\Index.cshtml" />
     <Content Include="Views\Country\Create.cshtml" />
     <Content Include="Views\Country\Delete.cshtml" />
     <Content Include="Views\Country\Details.cshtml" />

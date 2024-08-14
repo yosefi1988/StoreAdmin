@@ -128,7 +128,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/21/2024 22:19:47</publishTime>
     </File>
     <File Include="bin/WebApplicationStoreAdmin.dll">
-      <publishTime>08/13/2024 04:40:35</publishTime>
+      <publishTime>08/14/2024 04:36:38</publishTime>
     </File>
     <File Include="bin/WebGrease.dll">
       <publishTime>07/21/2024 22:19:47</publishTime>
@@ -13172,7 +13172,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/21/2024 22:19:45</publishTime>
     </File>
     <File Include="Models/ModelStoreDatabase.edmx.diagram">
-      <publishTime>08/11/2024 22:05:21</publishTime>
+      <publishTime>08/13/2024 22:07:07</publishTime>
     </File>
     <File Include="packages.config">
       <publishTime>08/10/2024 02:25:51</publishTime>
@@ -13388,10 +13388,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/11/2024 01:34:47</publishTime>
     </File>
     <File Include="Views/Home/Index3.cshtml">
-      <publishTime>08/11/2024 01:34:53</publishTime>
+      <publishTime>08/14/2024 01:11:40</publishTime>
     </File>
     <File Include="Views/Images/Create.cshtml">
-      <publishTime>07/22/2024 01:26:13</publishTime>
+      <publishTime>08/14/2024 00:48:05</publishTime>
     </File>
     <File Include="Views/Images/Delete.cshtml">
       <publishTime>07/22/2024 01:26:14</publishTime>
@@ -13439,7 +13439,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/29/2024 00:44:19</publishTime>
     </File>
     <File Include="Views/Product/Create.cshtml">
-      <publishTime>07/22/2024 01:19:43</publishTime>
+      <publishTime>08/13/2024 23:25:51</publishTime>
     </File>
     <File Include="Views/Product/Delete.cshtml">
       <publishTime>07/22/2024 01:19:43</publishTime>
@@ -13484,7 +13484,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/23/2024 01:29:40</publishTime>
     </File>
     <File Include="Views/ProductChargesProperties/Create.cshtml">
-      <publishTime>07/24/2024 00:51:39</publishTime>
+      <publishTime>08/13/2024 23:27:02</publishTime>
     </File>
     <File Include="Views/ProductChargesProperties/Delete.cshtml">
       <publishTime>07/24/2024 00:51:40</publishTime>
@@ -13499,7 +13499,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/24/2024 02:46:19</publishTime>
     </File>
     <File Include="Views/ProductSizes/Create.cshtml">
-      <publishTime>07/24/2024 03:31:07</publishTime>
+      <publishTime>08/14/2024 00:46:06</publishTime>
     </File>
     <File Include="Views/ProductSizes/Delete.cshtml">
       <publishTime>07/24/2024 04:07:55</publishTime>
@@ -13601,7 +13601,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/26/2024 23:11:04</publishTime>
     </File>
     <File Include="Views/ShoppingBasketObjects/Create.cshtml">
-      <publishTime>07/26/2024 23:11:52</publishTime>
+      <publishTime>08/14/2024 01:04:48</publishTime>
     </File>
     <File Include="Views/ShoppingBasketObjects/Delete.cshtml">
       <publishTime>07/26/2024 23:11:52</publishTime>
@@ -13721,7 +13721,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/12/2024 00:56:30</publishTime>
     </File>
     <File Include="Views/Votes/Create.cshtml">
-      <publishTime>07/24/2024 04:33:56</publishTime>
+      <publishTime>08/14/2024 00:46:22</publishTime>
     </File>
     <File Include="Views/Votes/Delete.cshtml">
       <publishTime>07/24/2024 04:33:56</publishTime>

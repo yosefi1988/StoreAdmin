@@ -41,7 +41,20 @@ namespace WebApplicationStoreAdmin.Controllers.Product
         {
             ViewBag.PaymentStatusID = new SelectList(db.BD_PaymentStatusTypes, "ID", "Status");
             ViewBag.DiscountCodeID = new SelectList(db.SD_Coupons, "ID", "Code");
-            ViewBag.ShoppingBasketID = new SelectList(db.SD_ShoppingBasket, "ID", "ID");
+
+
+            //ViewBag.ShoppingBasketID = new SelectList(db.SD_ShoppingBasket, "ID", "ID");
+
+            var shoppingBasketForDDL = db.View_Admin_ShoppingBasketID.Select(p => new
+            {
+                ProductChargePropertiesID = p.ShoppingBasketID,
+                CombinedText = p.Name + " " + p.Family + "  (type:" + p.BasketType + ") mobile:" + p.Mobile + " Email:" + p.Email
+            }).OrderByDescending(x => x.ProductChargePropertiesID)
+                                                        .ToList();
+            ViewBag.ShoppingBasketForDDL = new SelectList(shoppingBasketForDDL, "ProductChargePropertiesID", "CombinedText");
+
+
+
             return View();
         }
 

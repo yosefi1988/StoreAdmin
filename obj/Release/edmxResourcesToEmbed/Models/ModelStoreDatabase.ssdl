@@ -113,6 +113,7 @@
     <Property Name="Fax" Type="nvarchar" MaxLength="15" />
     <Property Name="SupportNo" Type="nvarchar" MaxLength="15" />
     <Property Name="SupportHours" Type="nvarchar(max)" />
+    <Property Name="PaymentToken" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="SD_Addresses">
     <Key>
@@ -400,8 +401,8 @@
     <Property Name="Description" Type="nvarchar(max)" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'officia1_Store.officia1_DbadminMsi.View_home\' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-  <EntityType Name="View_home\">
+warning 6002: The table/view 'officia1_Store.officia1_DbadminMsi.View_Site_Home' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="View_Site_Home">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
@@ -414,10 +415,11 @@ warning 6002: The table/view 'officia1_Store.officia1_DbadminMsi.View_home\' doe
     <Property Name="RemainingCount" Type="int" />
     <Property Name="Title" Type="nvarchar" MaxLength="255" />
     <Property Name="ImageUrl" Type="nvarchar(max)" />
+    <Property Name="ColorCode" Type="char" MaxLength="15" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'officia1_Store.officia1_DbadminMsi.View_ProductDetailsPage_Colors' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-  <EntityType Name="View_ProductDetailsPage_Colors">
+warning 6002: The table/view 'officia1_Store.officia1_DbadminMsi.View_Site_ProductDetails_Colors' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="View_Site_ProductDetails_Colors">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
@@ -426,8 +428,8 @@ warning 6002: The table/view 'officia1_Store.officia1_DbadminMsi.View_ProductDet
     <Property Name="ColorCode" Type="char" MaxLength="15" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'officia1_Store.officia1_DbadminMsi.View_ProductDetailsPage_SimilarProductInSize' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-  <EntityType Name="View_ProductDetailsPage_SimilarProductInSize">
+warning 6002: The table/view 'officia1_Store.officia1_DbadminMsi.View_Site_ProductDetails_SimilarProductInSize' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="View_Site_ProductDetails_SimilarProductInSize">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
@@ -442,8 +444,8 @@ warning 6002: The table/view 'officia1_Store.officia1_DbadminMsi.View_ProductDet
     <Property Name="ImageUrl" Type="nvarchar(max)" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'officia1_Store.officia1_DbadminMsi.View_ProductDetailsPage_Sizes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-  <EntityType Name="View_ProductDetailsPage_Sizes">
+warning 6002: The table/view 'officia1_Store.officia1_DbadminMsi.View_Site_ProductDetails_Sizes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="View_Site_ProductDetails_Sizes">
     <Key>
       <PropertyRef Name="ProductChargePropertiesID" />
     </Key>
@@ -452,6 +454,155 @@ warning 6002: The table/view 'officia1_Store.officia1_DbadminMsi.View_ProductDet
     <Property Name="SizeDescription" Type="nvarchar(max)" />
     <Property Name="SizeValue" Type="nchar" MaxLength="10" />
     <Property Name="SizeValueDescription" Type="nvarchar(max)" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'officia1_Store.officia1_DbadminMsi.View_User_BasketsObjects' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="View_User_BasketsObjects">
+    <Key>
+      <PropertyRef Name="ShoppingBasketID" />
+      <PropertyRef Name="ProductChargePropertiesID" />
+    </Key>
+    <Property Name="ShoppingBasketID" Type="int" Nullable="false" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="ProductName" Type="nvarchar" MaxLength="255" />
+    <Property Name="ProductCode" Type="int" />
+    <Property Name="Tax" Type="nvarchar" MaxLength="255" />
+    <Property Name="TaxPercentage" Type="int" />
+    <Property Name="PercentInterest" Type="int" />
+    <Property Name="PercentWages" Type="int" />
+    <Property Name="Color" Type="nvarchar" MaxLength="255" />
+    <Property Name="ColorCode" Type="char" MaxLength="15" />
+    <Property Name="Discount" Type="int" />
+    <Property Name="RemainingCount" Type="int" />
+    <Property Name="ProductChargePropertiesID" Type="int" Nullable="false" />
+    <Property Name="ProductChargeID" Type="int" />
+    <Property Name="ProductID" Type="int" />
+    <Property Name="Price" Type="int" />
+    <Property Name="OldPrice" Type="int" />
+    <Property Name="Count" Type="int" />
+    <Property Name="AddInToBasketDate" Type="datetime" />
+    <Property Name="BasketStatusID" Type="int" />
+    <Property Name="BasketStatus" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_Admin_ProductChargeID' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="View_Admin_ProductChargeID">
+    <Key>
+      <PropertyRef Name="ProductChargeID" />
+    </Key>
+    <Property Name="ProductChargeID" Type="int" Nullable="false" />
+    <Property Name="Product" Type="nvarchar" MaxLength="255" />
+    <Property Name="ProductCode" Type="int" />
+    <Property Name="BuyInvoiceNumber" Type="nvarchar(max)" />
+    <Property Name="ChargeDate" Type="datetime" />
+    <Property Name="BuyCount" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_Admin_ProductChargePropertiesID' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="View_Admin_ProductChargePropertiesID">
+    <Key>
+      <PropertyRef Name="ProductChargePropertiesID" />
+    </Key>
+    <Property Name="ProductChargePropertiesID" Type="int" Nullable="false" />
+    <Property Name="ProductName" Type="nvarchar" MaxLength="255" />
+    <Property Name="ProductCode" Type="int" />
+    <Property Name="BuyInvoiceNumber" Type="nvarchar(max)" />
+    <Property Name="ChargeDate" Type="datetime" />
+    <Property Name="BuyPrice" Type="int" />
+    <Property Name="Color" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_Admin_ShoppingBasketID' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="View_Admin_ShoppingBasketID">
+    <Key>
+      <PropertyRef Name="ShoppingBasketID" />
+    </Key>
+    <Property Name="ShoppingBasketID" Type="int" Nullable="false" />
+    <Property Name="BasketType" Type="nvarchar" MaxLength="50" />
+    <Property Name="Name" Type="nvarchar" MaxLength="256" />
+    <Property Name="Family" Type="nvarchar" MaxLength="256" />
+    <Property Name="Mobile" Type="nvarchar" MaxLength="15" />
+    <Property Name="Email" Type="nvarchar(max)" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_Admin_TransactionID' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="View_Admin_TransactionID">
+    <Key>
+      <PropertyRef Name="TransactionID" />
+      <PropertyRef Name="ShoppingBasketID" />
+    </Key>
+    <Property Name="TransactionID" Type="int" Nullable="false" />
+    <Property Name="ShoppingBasketID" Type="int" Nullable="false" />
+    <Property Name="BasketType" Type="nvarchar" MaxLength="50" />
+    <Property Name="Name" Type="nvarchar" MaxLength="256" />
+    <Property Name="Family" Type="nvarchar" MaxLength="256" />
+    <Property Name="Mobile" Type="nvarchar" MaxLength="15" />
+    <Property Name="Email" Type="nvarchar(max)" />
+    <Property Name="SumShoppingBasketPrice" Type="int" />
+    <Property Name="PaymentDate" Type="datetime" />
+    <Property Name="PaymentTrackingNo" Type="char" MaxLength="30" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_Admin_UserID' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="View_Admin_UserID">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="256" />
+    <Property Name="Family" Type="nvarchar" MaxLength="256" />
+    <Property Name="Mobile" Type="nvarchar" MaxLength="15" />
+    <Property Name="Email" Type="nvarchar(max)" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_Site_ProductDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="View_Site_ProductDetails">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="255" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Code" Type="int" />
+    <Property Name="BuyPrice" Type="int" />
+    <Property Name="PercentInterest" Type="int" />
+    <Property Name="PercentWages" Type="int" />
+    <Property Name="Discount" Type="int" />
+    <Property Name="RemainingCount" Type="int" />
+    <Property Name="Title" Type="nvarchar" MaxLength="255" />
+    <Property Name="ColorCode" Type="char" MaxLength="15" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_Site_ProductDetails_SendPrices' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="View_Site_ProductDetails_SendPrices">
+    <Key>
+      <PropertyRef Name="SendID" />
+    </Key>
+    <Property Name="ProductID" Type="int" />
+    <Property Name="Product" Type="nvarchar" MaxLength="255" />
+    <Property Name="ProductCode" Type="int" />
+    <Property Name="ProductDescription" Type="nvarchar(max)" />
+    <Property Name="SendID" Type="int" Nullable="false" />
+    <Property Name="Send" Type="nvarchar" MaxLength="256" />
+    <Property Name="CountryID" Type="int" />
+    <Property Name="Country" Type="nvarchar" MaxLength="256" />
+    <Property Name="StateID" Type="int" />
+    <Property Name="State" Type="nvarchar" MaxLength="256" />
+    <Property Name="Price" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="View_User_Baskets">
+    <Key>
+      <PropertyRef Name="ShoppingBasketID" />
+    </Key>
+    <Property Name="ShoppingBasketID" Type="int" Nullable="false" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="BasketStatusID" Type="int" />
+    <Property Name="BasketStatus" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <Association Name="FK_AspNetRoleClaims_AspNetRoles_RoleId">
     <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
@@ -994,47 +1145,168 @@ warning 6002: The table/view 'officia1_Store.officia1_DbadminMsi.View_ProductDet
     <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="officia1_VS_msi" store:Type="Tables" />
     <EntitySet Name="AspNetUserTokens" EntityType="Self.AspNetUserTokens" Schema="officia1_VS_msi" store:Type="Tables" />
     <EntitySet Name="employees" EntityType="Self.employees" Schema="officia1_VS_msi" store:Type="Tables" />
-    <EntitySet Name="View_home\" EntityType="Self.View_home\" store:Type="Views" store:Schema="officia1_DbadminMsi">
+    <EntitySet Name="View_Site_Home" EntityType="Self.View_Site_Home" store:Type="Views" store:Schema="officia1_DbadminMsi">
       <DefiningQuery>SELECT 
-    [View_home\].[ID] AS [ID], 
-    [View_home\].[Name] AS [Name], 
-    [View_home\].[BuyInvoiceNumber] AS [BuyInvoiceNumber], 
-    [View_home\].[PercentInterest] AS [PercentInterest], 
-    [View_home\].[PercentWages] AS [PercentWages], 
-    [View_home\].[Discount] AS [Discount], 
-    [View_home\].[RemainingCount] AS [RemainingCount], 
-    [View_home\].[Title] AS [Title], 
-    [View_home\].[ImageUrl] AS [ImageUrl]
-    FROM [officia1_DbadminMsi].[View_home\] AS [View_home\]</DefiningQuery>
+    [View_Site_Home].[ID] AS [ID], 
+    [View_Site_Home].[Name] AS [Name], 
+    [View_Site_Home].[BuyInvoiceNumber] AS [BuyInvoiceNumber], 
+    [View_Site_Home].[PercentInterest] AS [PercentInterest], 
+    [View_Site_Home].[PercentWages] AS [PercentWages], 
+    [View_Site_Home].[Discount] AS [Discount], 
+    [View_Site_Home].[RemainingCount] AS [RemainingCount], 
+    [View_Site_Home].[Title] AS [Title], 
+    [View_Site_Home].[ImageUrl] AS [ImageUrl], 
+    [View_Site_Home].[ColorCode] AS [ColorCode]
+    FROM [officia1_DbadminMsi].[View_Site_Home] AS [View_Site_Home]</DefiningQuery>
     </EntitySet>
-    <EntitySet Name="View_ProductDetailsPage_Colors" EntityType="Self.View_ProductDetailsPage_Colors" store:Type="Views" store:Schema="officia1_DbadminMsi">
+    <EntitySet Name="View_Site_ProductDetails_Colors" EntityType="Self.View_Site_ProductDetails_Colors" store:Type="Views" store:Schema="officia1_DbadminMsi">
       <DefiningQuery>SELECT 
-    [View_ProductDetailsPage_Colors].[ID] AS [ID], 
-    [View_ProductDetailsPage_Colors].[Title] AS [Title], 
-    [View_ProductDetailsPage_Colors].[ColorCode] AS [ColorCode]
-    FROM [officia1_DbadminMsi].[View_ProductDetailsPage_Colors] AS [View_ProductDetailsPage_Colors]</DefiningQuery>
+    [View_Site_ProductDetails_Colors].[ID] AS [ID], 
+    [View_Site_ProductDetails_Colors].[Title] AS [Title], 
+    [View_Site_ProductDetails_Colors].[ColorCode] AS [ColorCode]
+    FROM [officia1_DbadminMsi].[View_Site_ProductDetails_Colors] AS [View_Site_ProductDetails_Colors]</DefiningQuery>
     </EntitySet>
-    <EntitySet Name="View_ProductDetailsPage_SimilarProductInSize" EntityType="Self.View_ProductDetailsPage_SimilarProductInSize" store:Type="Views" store:Schema="officia1_DbadminMsi">
+    <EntitySet Name="View_Site_ProductDetails_SimilarProductInSize" EntityType="Self.View_Site_ProductDetails_SimilarProductInSize" store:Type="Views" store:Schema="officia1_DbadminMsi">
       <DefiningQuery>SELECT 
-    [View_ProductDetailsPage_SimilarProductInSize].[ID] AS [ID], 
-    [View_ProductDetailsPage_SimilarProductInSize].[Name] AS [Name], 
-    [View_ProductDetailsPage_SimilarProductInSize].[BuyInvoiceNumber] AS [BuyInvoiceNumber], 
-    [View_ProductDetailsPage_SimilarProductInSize].[PercentInterest] AS [PercentInterest], 
-    [View_ProductDetailsPage_SimilarProductInSize].[PercentWages] AS [PercentWages], 
-    [View_ProductDetailsPage_SimilarProductInSize].[Discount] AS [Discount], 
-    [View_ProductDetailsPage_SimilarProductInSize].[RemainingCount] AS [RemainingCount], 
-    [View_ProductDetailsPage_SimilarProductInSize].[Title] AS [Title], 
-    [View_ProductDetailsPage_SimilarProductInSize].[ImageUrl] AS [ImageUrl]
-    FROM [officia1_DbadminMsi].[View_ProductDetailsPage_SimilarProductInSize] AS [View_ProductDetailsPage_SimilarProductInSize]</DefiningQuery>
+    [View_Site_ProductDetails_SimilarProductInSize].[ID] AS [ID], 
+    [View_Site_ProductDetails_SimilarProductInSize].[Name] AS [Name], 
+    [View_Site_ProductDetails_SimilarProductInSize].[BuyInvoiceNumber] AS [BuyInvoiceNumber], 
+    [View_Site_ProductDetails_SimilarProductInSize].[PercentInterest] AS [PercentInterest], 
+    [View_Site_ProductDetails_SimilarProductInSize].[PercentWages] AS [PercentWages], 
+    [View_Site_ProductDetails_SimilarProductInSize].[Discount] AS [Discount], 
+    [View_Site_ProductDetails_SimilarProductInSize].[RemainingCount] AS [RemainingCount], 
+    [View_Site_ProductDetails_SimilarProductInSize].[Title] AS [Title], 
+    [View_Site_ProductDetails_SimilarProductInSize].[ImageUrl] AS [ImageUrl]
+    FROM [officia1_DbadminMsi].[View_Site_ProductDetails_SimilarProductInSize] AS [View_Site_ProductDetails_SimilarProductInSize]</DefiningQuery>
     </EntitySet>
-    <EntitySet Name="View_ProductDetailsPage_Sizes" EntityType="Self.View_ProductDetailsPage_Sizes" store:Type="Views" store:Schema="officia1_DbadminMsi">
+    <EntitySet Name="View_Site_ProductDetails_Sizes" EntityType="Self.View_Site_ProductDetails_Sizes" store:Type="Views" store:Schema="officia1_DbadminMsi">
       <DefiningQuery>SELECT 
-    [View_ProductDetailsPage_Sizes].[ProductChargePropertiesID] AS [ProductChargePropertiesID], 
-    [View_ProductDetailsPage_Sizes].[SizeTitle] AS [SizeTitle], 
-    [View_ProductDetailsPage_Sizes].[SizeDescription] AS [SizeDescription], 
-    [View_ProductDetailsPage_Sizes].[SizeValue] AS [SizeValue], 
-    [View_ProductDetailsPage_Sizes].[SizeValueDescription] AS [SizeValueDescription]
-    FROM [officia1_DbadminMsi].[View_ProductDetailsPage_Sizes] AS [View_ProductDetailsPage_Sizes]</DefiningQuery>
+    [View_Site_ProductDetails_Sizes].[ProductChargePropertiesID] AS [ProductChargePropertiesID], 
+    [View_Site_ProductDetails_Sizes].[SizeTitle] AS [SizeTitle], 
+    [View_Site_ProductDetails_Sizes].[SizeDescription] AS [SizeDescription], 
+    [View_Site_ProductDetails_Sizes].[SizeValue] AS [SizeValue], 
+    [View_Site_ProductDetails_Sizes].[SizeValueDescription] AS [SizeValueDescription]
+    FROM [officia1_DbadminMsi].[View_Site_ProductDetails_Sizes] AS [View_Site_ProductDetails_Sizes]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="View_User_BasketsObjects" EntityType="Self.View_User_BasketsObjects" store:Type="Views" store:Schema="officia1_DbadminMsi">
+      <DefiningQuery>SELECT 
+    [View_User_BasketsObjects].[ShoppingBasketID] AS [ShoppingBasketID], 
+    [View_User_BasketsObjects].[UserID] AS [UserID], 
+    [View_User_BasketsObjects].[ProductName] AS [ProductName], 
+    [View_User_BasketsObjects].[ProductCode] AS [ProductCode], 
+    [View_User_BasketsObjects].[Tax] AS [Tax], 
+    [View_User_BasketsObjects].[TaxPercentage] AS [TaxPercentage], 
+    [View_User_BasketsObjects].[PercentInterest] AS [PercentInterest], 
+    [View_User_BasketsObjects].[PercentWages] AS [PercentWages], 
+    [View_User_BasketsObjects].[Color] AS [Color], 
+    [View_User_BasketsObjects].[ColorCode] AS [ColorCode], 
+    [View_User_BasketsObjects].[Discount] AS [Discount], 
+    [View_User_BasketsObjects].[RemainingCount] AS [RemainingCount], 
+    [View_User_BasketsObjects].[ProductChargePropertiesID] AS [ProductChargePropertiesID], 
+    [View_User_BasketsObjects].[ProductChargeID] AS [ProductChargeID], 
+    [View_User_BasketsObjects].[ProductID] AS [ProductID], 
+    [View_User_BasketsObjects].[Price] AS [Price], 
+    [View_User_BasketsObjects].[OldPrice] AS [OldPrice], 
+    [View_User_BasketsObjects].[Count] AS [Count], 
+    [View_User_BasketsObjects].[AddInToBasketDate] AS [AddInToBasketDate], 
+    [View_User_BasketsObjects].[BasketStatusID] AS [BasketStatusID], 
+    [View_User_BasketsObjects].[BasketStatus] AS [BasketStatus]
+    FROM [officia1_DbadminMsi].[View_User_BasketsObjects] AS [View_User_BasketsObjects]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="View_Admin_ProductChargeID" EntityType="Self.View_Admin_ProductChargeID" store:Type="Views" store:Schema="officia1_VS_msi">
+      <DefiningQuery>SELECT 
+    [View_Admin_ProductChargeID].[ProductChargeID] AS [ProductChargeID], 
+    [View_Admin_ProductChargeID].[Product] AS [Product], 
+    [View_Admin_ProductChargeID].[ProductCode] AS [ProductCode], 
+    [View_Admin_ProductChargeID].[BuyInvoiceNumber] AS [BuyInvoiceNumber], 
+    [View_Admin_ProductChargeID].[ChargeDate] AS [ChargeDate], 
+    [View_Admin_ProductChargeID].[BuyCount] AS [BuyCount]
+    FROM [officia1_VS_msi].[View_Admin_ProductChargeID] AS [View_Admin_ProductChargeID]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="View_Admin_ProductChargePropertiesID" EntityType="Self.View_Admin_ProductChargePropertiesID" store:Type="Views" store:Schema="officia1_VS_msi">
+      <DefiningQuery>SELECT 
+    [View_Admin_ProductChargePropertiesID].[ProductChargePropertiesID] AS [ProductChargePropertiesID], 
+    [View_Admin_ProductChargePropertiesID].[ProductName] AS [ProductName], 
+    [View_Admin_ProductChargePropertiesID].[ProductCode] AS [ProductCode], 
+    [View_Admin_ProductChargePropertiesID].[BuyInvoiceNumber] AS [BuyInvoiceNumber], 
+    [View_Admin_ProductChargePropertiesID].[ChargeDate] AS [ChargeDate], 
+    [View_Admin_ProductChargePropertiesID].[BuyPrice] AS [BuyPrice], 
+    [View_Admin_ProductChargePropertiesID].[Color] AS [Color]
+    FROM [officia1_VS_msi].[View_Admin_ProductChargePropertiesID] AS [View_Admin_ProductChargePropertiesID]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="View_Admin_ShoppingBasketID" EntityType="Self.View_Admin_ShoppingBasketID" store:Type="Views" store:Schema="officia1_VS_msi">
+      <DefiningQuery>SELECT 
+    [View_Admin_ShoppingBasketID].[ShoppingBasketID] AS [ShoppingBasketID], 
+    [View_Admin_ShoppingBasketID].[BasketType] AS [BasketType], 
+    [View_Admin_ShoppingBasketID].[Name] AS [Name], 
+    [View_Admin_ShoppingBasketID].[Family] AS [Family], 
+    [View_Admin_ShoppingBasketID].[Mobile] AS [Mobile], 
+    [View_Admin_ShoppingBasketID].[Email] AS [Email]
+    FROM [officia1_VS_msi].[View_Admin_ShoppingBasketID] AS [View_Admin_ShoppingBasketID]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="View_Admin_TransactionID" EntityType="Self.View_Admin_TransactionID" store:Type="Views" store:Schema="officia1_VS_msi">
+      <DefiningQuery>SELECT 
+    [View_Admin_TransactionID].[TransactionID] AS [TransactionID], 
+    [View_Admin_TransactionID].[ShoppingBasketID] AS [ShoppingBasketID], 
+    [View_Admin_TransactionID].[BasketType] AS [BasketType], 
+    [View_Admin_TransactionID].[Name] AS [Name], 
+    [View_Admin_TransactionID].[Family] AS [Family], 
+    [View_Admin_TransactionID].[Mobile] AS [Mobile], 
+    [View_Admin_TransactionID].[Email] AS [Email], 
+    [View_Admin_TransactionID].[SumShoppingBasketPrice] AS [SumShoppingBasketPrice], 
+    [View_Admin_TransactionID].[PaymentDate] AS [PaymentDate], 
+    [View_Admin_TransactionID].[PaymentTrackingNo] AS [PaymentTrackingNo], 
+    [View_Admin_TransactionID].[Status] AS [Status]
+    FROM [officia1_VS_msi].[View_Admin_TransactionID] AS [View_Admin_TransactionID]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="View_Admin_UserID" EntityType="Self.View_Admin_UserID" store:Type="Views" store:Schema="officia1_VS_msi">
+      <DefiningQuery>SELECT 
+    [View_Admin_UserID].[ID] AS [ID], 
+    [View_Admin_UserID].[Name] AS [Name], 
+    [View_Admin_UserID].[Family] AS [Family], 
+    [View_Admin_UserID].[Mobile] AS [Mobile], 
+    [View_Admin_UserID].[Email] AS [Email], 
+    [View_Admin_UserID].[UserName] AS [UserName], 
+    [View_Admin_UserID].[PhoneNumber] AS [PhoneNumber]
+    FROM [officia1_VS_msi].[View_Admin_UserID] AS [View_Admin_UserID]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="View_Site_ProductDetails" EntityType="Self.View_Site_ProductDetails" store:Type="Views" store:Schema="officia1_VS_msi">
+      <DefiningQuery>SELECT 
+    [View_Site_ProductDetails].[ID] AS [ID], 
+    [View_Site_ProductDetails].[Name] AS [Name], 
+    [View_Site_ProductDetails].[Description] AS [Description], 
+    [View_Site_ProductDetails].[Code] AS [Code], 
+    [View_Site_ProductDetails].[BuyPrice] AS [BuyPrice], 
+    [View_Site_ProductDetails].[PercentInterest] AS [PercentInterest], 
+    [View_Site_ProductDetails].[PercentWages] AS [PercentWages], 
+    [View_Site_ProductDetails].[Discount] AS [Discount], 
+    [View_Site_ProductDetails].[RemainingCount] AS [RemainingCount], 
+    [View_Site_ProductDetails].[Title] AS [Title], 
+    [View_Site_ProductDetails].[ColorCode] AS [ColorCode]
+    FROM [officia1_VS_msi].[View_Site_ProductDetails] AS [View_Site_ProductDetails]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="View_Site_ProductDetails_SendPrices" EntityType="Self.View_Site_ProductDetails_SendPrices" store:Type="Views" store:Schema="officia1_VS_msi">
+      <DefiningQuery>SELECT 
+    [View_Site_ProductDetails_SendPrices].[ProductID] AS [ProductID], 
+    [View_Site_ProductDetails_SendPrices].[Product] AS [Product], 
+    [View_Site_ProductDetails_SendPrices].[ProductCode] AS [ProductCode], 
+    [View_Site_ProductDetails_SendPrices].[ProductDescription] AS [ProductDescription], 
+    [View_Site_ProductDetails_SendPrices].[SendID] AS [SendID], 
+    [View_Site_ProductDetails_SendPrices].[Send] AS [Send], 
+    [View_Site_ProductDetails_SendPrices].[CountryID] AS [CountryID], 
+    [View_Site_ProductDetails_SendPrices].[Country] AS [Country], 
+    [View_Site_ProductDetails_SendPrices].[StateID] AS [StateID], 
+    [View_Site_ProductDetails_SendPrices].[State] AS [State], 
+    [View_Site_ProductDetails_SendPrices].[Price] AS [Price]
+    FROM [officia1_VS_msi].[View_Site_ProductDetails_SendPrices] AS [View_Site_ProductDetails_SendPrices]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="View_User_Baskets" EntityType="Self.View_User_Baskets" store:Type="Views" store:Schema="officia1_VS_msi">
+      <DefiningQuery>SELECT 
+    [View_User_Baskets].[ShoppingBasketID] AS [ShoppingBasketID], 
+    [View_User_Baskets].[UserID] AS [UserID], 
+    [View_User_Baskets].[BasketStatusID] AS [BasketStatusID], 
+    [View_User_Baskets].[BasketStatus] AS [BasketStatus]
+    FROM [officia1_VS_msi].[View_User_Baskets] AS [View_User_Baskets]</DefiningQuery>
     </EntitySet>
     <AssociationSet Name="FK_AspNetRoleClaims_AspNetRoles_RoleId" Association="Self.FK_AspNetRoleClaims_AspNetRoles_RoleId">
       <End Role="AspNetRoles" EntitySet="AspNetRoles" />
