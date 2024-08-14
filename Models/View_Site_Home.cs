@@ -12,7 +12,7 @@ namespace WebApplicationStoreAdmin.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class View_home_
+    public partial class View_Site_Home
     {
         public int ID { get; set; }
         public string Name { get; set; }
@@ -23,5 +23,6 @@ namespace WebApplicationStoreAdmin.Models
         public Nullable<int> RemainingCount { get; set; }
         public string Title { get; set; }
         public string ImageUrl { get; set; }
+        public string ColorCode { get; set; }
     }
 }

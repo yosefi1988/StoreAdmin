@@ -62,9 +62,18 @@ namespace WebApplicationStoreAdmin.Models
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<AspNetUserToken> AspNetUserTokens { get; set; }
         public virtual DbSet<employee> employees { get; set; }
-        public virtual DbSet<View_home_> View_home_ { get; set; }
-        public virtual DbSet<View_ProductDetailsPage_Colors> View_ProductDetailsPage_Colors { get; set; }
-        public virtual DbSet<View_ProductDetailsPage_SimilarProductInSize> View_ProductDetailsPage_SimilarProductInSize { get; set; }
-        public virtual DbSet<View_ProductDetailsPage_Sizes> View_ProductDetailsPage_Sizes { get; set; }
+        public virtual DbSet<View_Site_Home> View_Site_Home { get; set; }
+        public virtual DbSet<View_Site_ProductDetails_Colors> View_Site_ProductDetails_Colors { get; set; }
+        public virtual DbSet<View_Site_ProductDetails_SimilarProductInSize> View_Site_ProductDetails_SimilarProductInSize { get; set; }
+        public virtual DbSet<View_Site_ProductDetails_Sizes> View_Site_ProductDetails_Sizes { get; set; }
+        public virtual DbSet<View_User_BasketsObjects> View_User_BasketsObjects { get; set; }
+        public virtual DbSet<View_Admin_ProductChargeID> View_Admin_ProductChargeID { get; set; }
+        public virtual DbSet<View_Admin_ProductChargePropertiesID> View_Admin_ProductChargePropertiesID { get; set; }
+        public virtual DbSet<View_Admin_ShoppingBasketID> View_Admin_ShoppingBasketID { get; set; }
+        public virtual DbSet<View_Admin_TransactionID> View_Admin_TransactionID { get; set; }
+        public virtual DbSet<View_Admin_UserID> View_Admin_UserID { get; set; }
+        public virtual DbSet<View_Site_ProductDetails> View_Site_ProductDetails { get; set; }
+        public virtual DbSet<View_Site_ProductDetails_SendPrices> View_Site_ProductDetails_SendPrices { get; set; }
+        public virtual DbSet<View_User_Baskets> View_User_Baskets { get; set; }
     }
 }

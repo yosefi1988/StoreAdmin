@@ -42,9 +42,22 @@ namespace WebApplicationStoreAdmin.Controllers.Product
         public ActionResult Create()
         {
             ViewBag.ColorID = new SelectList(db.SD_Color, "ID", "Title");
+
+            //v1
             //ViewBag.ProductChargeID = new SelectList(db.SD_ProductCharges, "ID", "BuyInvoiceNumber");
-            //xxx1
-            ViewBag.ProductChargeID = new SelectList(db.SD_ProductCharges, "ID", "IDDDL");
+            //v2
+            //ViewBag.ProductChargeID = new SelectList(db.SD_ProductCharges, "ID", "IDDDL");
+            
+            //v3
+            var productChargesForDDL = db.View_Admin_ProductChargeID.Select(p => new
+                                                                                {
+                                                                                    ProductChargeID = p.ProductChargeID,
+                                                                                    CombinedText = p.Product + " (code:" + p.ProductCode + ") Invoice Number:" + p.BuyInvoiceNumber + " (buy count:" + p.BuyCount +")"
+                                                                        }).OrderByDescending(x => x.ProductChargeID)
+                                                                        .ToList();
+            ViewBag.ProductChargeDDL = new SelectList(productChargesForDDL, "ProductChargeID", "CombinedText");
+            // end v3
+
             return View();
         }
 

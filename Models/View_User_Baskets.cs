@@ -12,10 +12,11 @@ namespace WebApplicationStoreAdmin.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class View_ProductDetailsPage_Colors
+    public partial class View_User_Baskets
     {
-        public int ID { get; set; }
-        public string Title { get; set; }
-        public string ColorCode { get; set; }
+        public int ShoppingBasketID { get; set; }
+        public Nullable<int> UserID { get; set; }
+        public Nullable<int> BasketStatusID { get; set; }
+        public string BasketStatus { get; set; }
     }
 }

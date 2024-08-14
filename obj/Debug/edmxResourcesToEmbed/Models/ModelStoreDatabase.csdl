@@ -38,10 +38,19 @@
     <EntitySet Name="AspNetUsers" EntityType="officia1_StoreModel.AspNetUser" />
     <EntitySet Name="AspNetUserTokens" EntityType="officia1_StoreModel.AspNetUserToken" />
     <EntitySet Name="employees" EntityType="officia1_StoreModel.employee" />
-    <EntitySet Name="View_home_" EntityType="officia1_StoreModel.View_home_" />
-    <EntitySet Name="View_ProductDetailsPage_Colors" EntityType="officia1_StoreModel.View_ProductDetailsPage_Colors" />
-    <EntitySet Name="View_ProductDetailsPage_SimilarProductInSize" EntityType="officia1_StoreModel.View_ProductDetailsPage_SimilarProductInSize" />
-    <EntitySet Name="View_ProductDetailsPage_Sizes" EntityType="officia1_StoreModel.View_ProductDetailsPage_Sizes" />
+    <EntitySet Name="View_Site_Home" EntityType="officia1_StoreModel.View_Site_Home" />
+    <EntitySet Name="View_Site_ProductDetails_Colors" EntityType="officia1_StoreModel.View_Site_ProductDetails_Colors" />
+    <EntitySet Name="View_Site_ProductDetails_SimilarProductInSize" EntityType="officia1_StoreModel.View_Site_ProductDetails_SimilarProductInSize" />
+    <EntitySet Name="View_Site_ProductDetails_Sizes" EntityType="officia1_StoreModel.View_Site_ProductDetails_Sizes" />
+    <EntitySet Name="View_User_BasketsObjects" EntityType="officia1_StoreModel.View_User_BasketsObjects" />
+    <EntitySet Name="View_Admin_ProductChargeID" EntityType="officia1_StoreModel.View_Admin_ProductChargeID" />
+    <EntitySet Name="View_Admin_ProductChargePropertiesID" EntityType="officia1_StoreModel.View_Admin_ProductChargePropertiesID" />
+    <EntitySet Name="View_Admin_ShoppingBasketID" EntityType="officia1_StoreModel.View_Admin_ShoppingBasketID" />
+    <EntitySet Name="View_Admin_TransactionID" EntityType="officia1_StoreModel.View_Admin_TransactionID" />
+    <EntitySet Name="View_Admin_UserID" EntityType="officia1_StoreModel.View_Admin_UserID" />
+    <EntitySet Name="View_Site_ProductDetails" EntityType="officia1_StoreModel.View_Site_ProductDetails" />
+    <EntitySet Name="View_Site_ProductDetails_SendPrices" EntityType="officia1_StoreModel.View_Site_ProductDetails_SendPrices" />
+    <EntitySet Name="View_User_Baskets" EntityType="officia1_StoreModel.View_User_Baskets" />
     <AssociationSet Name="FK_BD_Cities_BD_States" Association="officia1_StoreModel.FK_BD_Cities_BD_States">
       <End Role="BD_States" EntitySet="BD_States" />
       <End Role="BD_Cities" EntitySet="BD_Cities" />
@@ -320,6 +329,7 @@
     <Property Name="Fax" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
     <Property Name="SupportNo" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
     <Property Name="SupportHours" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PaymentToken" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="SD_Addresses">
     <Key>
@@ -656,7 +666,7 @@
     <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
-  <EntityType Name="View_home_">
+  <EntityType Name="View_Site_Home">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
@@ -669,8 +679,9 @@
     <Property Name="RemainingCount" Type="Int32" />
     <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="ImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ColorCode" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
   </EntityType>
-  <EntityType Name="View_ProductDetailsPage_Colors">
+  <EntityType Name="View_Site_ProductDetails_Colors">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
@@ -678,7 +689,7 @@
     <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="ColorCode" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
   </EntityType>
-  <EntityType Name="View_ProductDetailsPage_SimilarProductInSize">
+  <EntityType Name="View_Site_ProductDetails_SimilarProductInSize">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
@@ -692,7 +703,7 @@
     <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="ImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
-  <EntityType Name="View_ProductDetailsPage_Sizes">
+  <EntityType Name="View_Site_ProductDetails_Sizes">
     <Key>
       <PropertyRef Name="ProductChargePropertiesID" />
     </Key>
@@ -701,6 +712,137 @@
     <Property Name="SizeDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="SizeValue" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
     <Property Name="SizeValueDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="View_User_BasketsObjects">
+    <Key>
+      <PropertyRef Name="ShoppingBasketID" />
+      <PropertyRef Name="ProductChargePropertiesID" />
+    </Key>
+    <Property Name="ShoppingBasketID" Type="Int32" Nullable="false" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="ProductName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ProductCode" Type="Int32" />
+    <Property Name="Tax" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="TaxPercentage" Type="Int32" />
+    <Property Name="PercentInterest" Type="Int32" />
+    <Property Name="PercentWages" Type="Int32" />
+    <Property Name="Color" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ColorCode" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+    <Property Name="Discount" Type="Int32" />
+    <Property Name="RemainingCount" Type="Int32" />
+    <Property Name="ProductChargePropertiesID" Type="Int32" Nullable="false" />
+    <Property Name="ProductChargeID" Type="Int32" />
+    <Property Name="ProductID" Type="Int32" />
+    <Property Name="Price" Type="Int32" />
+    <Property Name="OldPrice" Type="Int32" />
+    <Property Name="Count" Type="Int32" />
+    <Property Name="AddInToBasketDate" Type="DateTime" Precision="3" />
+    <Property Name="BasketStatusID" Type="Int32" />
+    <Property Name="BasketStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="View_Admin_ProductChargeID">
+    <Key>
+      <PropertyRef Name="ProductChargeID" />
+    </Key>
+    <Property Name="ProductChargeID" Type="Int32" Nullable="false" />
+    <Property Name="Product" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ProductCode" Type="Int32" />
+    <Property Name="BuyInvoiceNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ChargeDate" Type="DateTime" Precision="3" />
+    <Property Name="BuyCount" Type="Int32" />
+  </EntityType>
+  <EntityType Name="View_Admin_ProductChargePropertiesID">
+    <Key>
+      <PropertyRef Name="ProductChargePropertiesID" />
+    </Key>
+    <Property Name="ProductChargePropertiesID" Type="Int32" Nullable="false" />
+    <Property Name="ProductName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ProductCode" Type="Int32" />
+    <Property Name="BuyInvoiceNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ChargeDate" Type="DateTime" Precision="3" />
+    <Property Name="BuyPrice" Type="Int32" />
+    <Property Name="Color" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="View_Admin_ShoppingBasketID">
+    <Key>
+      <PropertyRef Name="ShoppingBasketID" />
+    </Key>
+    <Property Name="ShoppingBasketID" Type="Int32" Nullable="false" />
+    <Property Name="BasketType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Family" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Mobile" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="View_Admin_TransactionID">
+    <Key>
+      <PropertyRef Name="TransactionID" />
+      <PropertyRef Name="ShoppingBasketID" />
+    </Key>
+    <Property Name="TransactionID" Type="Int32" Nullable="false" />
+    <Property Name="ShoppingBasketID" Type="Int32" Nullable="false" />
+    <Property Name="BasketType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Family" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Mobile" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SumShoppingBasketPrice" Type="Int32" />
+    <Property Name="PaymentDate" Type="DateTime" Precision="3" />
+    <Property Name="PaymentTrackingNo" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="View_Admin_UserID">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Family" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Mobile" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="View_Site_ProductDetails">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Code" Type="Int32" />
+    <Property Name="BuyPrice" Type="Int32" />
+    <Property Name="PercentInterest" Type="Int32" />
+    <Property Name="PercentWages" Type="Int32" />
+    <Property Name="Discount" Type="Int32" />
+    <Property Name="RemainingCount" Type="Int32" />
+    <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ColorCode" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="View_Site_ProductDetails_SendPrices">
+    <Key>
+      <PropertyRef Name="SendID" />
+    </Key>
+    <Property Name="ProductID" Type="Int32" />
+    <Property Name="Product" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ProductCode" Type="Int32" />
+    <Property Name="ProductDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SendID" Type="Int32" Nullable="false" />
+    <Property Name="Send" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="CountryID" Type="Int32" />
+    <Property Name="Country" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="StateID" Type="Int32" />
+    <Property Name="State" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Int32" />
+  </EntityType>
+  <EntityType Name="View_User_Baskets">
+    <Key>
+      <PropertyRef Name="ShoppingBasketID" />
+    </Key>
+    <Property Name="ShoppingBasketID" Type="Int32" Nullable="false" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="BasketStatusID" Type="Int32" />
+    <Property Name="BasketStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
   <Association Name="FK_BD_Cities_BD_States">
     <End Type="officia1_StoreModel.BD_States" Role="BD_States" Multiplicity="0..1">

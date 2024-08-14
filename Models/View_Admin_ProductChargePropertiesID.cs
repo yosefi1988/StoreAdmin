@@ -12,12 +12,14 @@ namespace WebApplicationStoreAdmin.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class View_ProductDetailsPage_Sizes
+    public partial class View_Admin_ProductChargePropertiesID
     {
         public int ProductChargePropertiesID { get; set; }
-        public string SizeTitle { get; set; }
-        public string SizeDescription { get; set; }
-        public string SizeValue { get; set; }
-        public string SizeValueDescription { get; set; }
+        public string ProductName { get; set; }
+        public Nullable<int> ProductCode { get; set; }
+        public string BuyInvoiceNumber { get; set; }
+        public Nullable<System.DateTime> ChargeDate { get; set; }
+        public Nullable<int> BuyPrice { get; set; }
+        public string Color { get; set; }
     }
 }

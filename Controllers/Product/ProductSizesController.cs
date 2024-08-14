@@ -57,6 +57,17 @@ namespace WebApplicationStoreAdmin.Controllers.Product
         {
             ViewBag.SizeID = new SelectList(db.BD_SizeTypes, "ID", "Title");
             ViewBag.ProductChargePropertiesID = new SelectList(db.SD_ProductChargesProperties, "ID", "ID");
+
+
+            var productChargePropertiesForDDL = db.View_Admin_ProductChargePropertiesID.Select(p => new
+            {
+                ProductChargePropertiesID = p.ProductChargePropertiesID,
+                CombinedText = p.ProductName + " (code:" + p.ProductCode + ") Invoice Number:" + p.BuyInvoiceNumber + " Buy Price:" + p.BuyPrice + " - color:" + p.Color
+            }).OrderByDescending(x => x.ProductChargePropertiesID)
+                                                                    .ToList();
+            ViewBag.ProductChargePropertiesDDL = new SelectList(productChargePropertiesForDDL, "ProductChargePropertiesID", "CombinedText");
+
+
             return View();
         }
 

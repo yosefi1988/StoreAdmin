@@ -12,16 +12,18 @@ namespace WebApplicationStoreAdmin.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class View_ProductDetailsPage_SimilarProductInSize
+    public partial class View_Site_ProductDetails
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public string BuyInvoiceNumber { get; set; }
+        public string Description { get; set; }
+        public Nullable<int> Code { get; set; }
+        public Nullable<int> BuyPrice { get; set; }
         public Nullable<int> PercentInterest { get; set; }
         public Nullable<int> PercentWages { get; set; }
         public Nullable<int> Discount { get; set; }
         public Nullable<int> RemainingCount { get; set; }
         public string Title { get; set; }
-        public string ImageUrl { get; set; }
+        public string ColorCode { get; set; }
     }
 }

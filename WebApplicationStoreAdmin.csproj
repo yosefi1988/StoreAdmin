@@ -342,16 +342,43 @@
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\View_home_.cs">
+    <Compile Include="Models\View_Admin_ProductChargeID.cs">
       <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\View_ProductDetailsPage_Colors.cs">
+    <Compile Include="Models\View_Admin_ProductChargePropertiesID.cs">
       <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\View_ProductDetailsPage_SimilarProductInSize.cs">
+    <Compile Include="Models\View_Admin_ShoppingBasketID.cs">
       <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\View_ProductDetailsPage_Sizes.cs">
+    <Compile Include="Models\View_Admin_TransactionID.cs">
+      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\View_Admin_UserID.cs">
+      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\View_Site_Home.cs">
+      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\View_Site_ProductDetails.cs">
+      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\View_Site_ProductDetails_Colors.cs">
+      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\View_Site_ProductDetails_SendPrices.cs">
+      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\View_Site_ProductDetails_SimilarProductInSize.cs">
+      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\View_Site_ProductDetails_Sizes.cs">
+      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\View_User_Baskets.cs">
+      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\View_User_BasketsObjects.cs">
       <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
