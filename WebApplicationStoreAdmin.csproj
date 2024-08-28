@@ -3886,6 +3886,7 @@
     <Content Include="Content\w3css\w3.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\Vazir.ttf" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Models\ModelStoreDatabase.Context.tt">
@@ -3920,7 +3921,6 @@
     <Content Include="fonts\Vazir-FD.woff2" />
     <Content Include="fonts\Vazir-Medium-FD.woff2" />
     <Content Include="fonts\Vazir.eot" />
-    <Content Include="fonts\Vazir.ttf" />
     <Content Include="fonts\Vazir.woff" />
     <Content Include="fonts\Vazir.woff2" />
     <Content Include="Content\w3css\css" />
