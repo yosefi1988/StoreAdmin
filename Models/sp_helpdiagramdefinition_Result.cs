@@ -10,15 +10,10 @@
 namespace WebApplicationStoreAdmin.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class View_Site_ProductDetails_Sizes
+    public partial class sp_helpdiagramdefinition_Result
     {
-        public int ID { get; set; }
-        public int ProductChargePropertiesID { get; set; }
-        public string SizeTitle { get; set; }
-        public string SizeDescription { get; set; }
-        public string SizeValue { get; set; }
-        public string SizeValueDescription { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

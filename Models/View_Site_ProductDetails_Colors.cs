@@ -15,6 +15,8 @@ namespace WebApplicationStoreAdmin.Models
     public partial class View_Site_ProductDetails_Colors
     {
         public int ID { get; set; }
+        public int ProductChargePropertiesID { get; set; }
+        public int OtherProductChargePropertiesID { get; set; }
         public string Title { get; set; }
         public string ColorCode { get; set; }
     }

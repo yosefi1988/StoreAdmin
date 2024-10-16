@@ -285,6 +285,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelStoreDatabase.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\RequestParameters.cs" />
     <Compile Include="Models\SC_Admins.cs">
       <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
     </Compile>
@@ -339,6 +340,12 @@
     <Compile Include="Models\SD_Votes.cs">
       <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagrams_Result.cs">
+      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
     </Compile>
@@ -354,7 +361,7 @@
     <Compile Include="Models\View_Admin_TransactionID.cs">
       <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\View_Admin_UserID.cs">
+    <Compile Include="Models\View_Admin_Users.cs">
       <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\View_Site_Home.cs">
@@ -4936,12 +4943,14 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="test\IndexJQVMap.html" />
-    <Content Include="Views\Home\Index3.cshtml" />
+    <Content Include="Views\Home\indexLinks.cshtml" />
     <Content Include="Views\Users\Create.cshtml" />
     <Content Include="Views\Users\Delete.cshtml" />
     <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Home\IndexUsers.cshtml" />
+    <Content Include="Views\Users\IndexUsersList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

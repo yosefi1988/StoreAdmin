@@ -14,6 +14,7 @@ namespace WebApplicationStoreAdmin.Models
     
     public partial class View_Admin_ProductChargePropertiesID
     {
+        public int ID { get; set; }
         public int ProductChargePropertiesID { get; set; }
         public string ProductName { get; set; }
         public Nullable<int> ProductCode { get; set; }

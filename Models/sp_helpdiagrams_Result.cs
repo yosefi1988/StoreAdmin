@@ -10,16 +10,13 @@
 namespace WebApplicationStoreAdmin.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class View_Admin_UserID
+    public partial class sp_helpdiagrams_Result
     {
-        public int ID { get; set; }
+        public string Database { get; set; }
         public string Name { get; set; }
-        public string Family { get; set; }
-        public string Mobile { get; set; }
-        public string Email { get; set; }
-        public string UserName { get; set; }
-        public string PhoneNumber { get; set; }
+        public int ID { get; set; }
+        public string Owner { get; set; }
+        public int OwnerID { get; set; }
     }
 }

@@ -22,6 +22,7 @@ namespace WebApplicationStoreAdmin.Models
     
         public int ID { get; set; }
         public string Status { get; set; }
+        public Nullable<bool> IsDefault { get; set; }
         public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

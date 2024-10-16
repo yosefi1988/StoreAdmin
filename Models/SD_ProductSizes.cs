@@ -18,6 +18,7 @@ namespace WebApplicationStoreAdmin.Models
         public int SizeID { get; set; }
         public int ProductChargePropertiesID { get; set; }
         public string Value { get; set; }
+        public bool CommonInProductCharge { get; set; }
         public string Description { get; set; }
     
         public virtual BD_SizeTypes BD_SizeTypes { get; set; }

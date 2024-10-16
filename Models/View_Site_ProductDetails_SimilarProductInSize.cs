@@ -15,6 +15,7 @@ namespace WebApplicationStoreAdmin.Models
     public partial class View_Site_ProductDetails_SimilarProductInSize
     {
         public int ID { get; set; }
+        public int ProductChargePropertiesID { get; set; }
         public string Name { get; set; }
         public string BuyInvoiceNumber { get; set; }
         public Nullable<int> PercentInterest { get; set; }

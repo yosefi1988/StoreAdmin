@@ -63,6 +63,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsDefault" Type="bit" />
           <Property Name="Description" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="BD_SizeTypes">
@@ -125,12 +126,12 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserID" Type="int" />
-          <Property Name="CityID" Type="int" />
-          <Property Name="Address" Type="nvarchar(max)" />
-          <Property Name="IsDefault" Type="bit" />
-          <Property Name="FullName" Type="nvarchar" MaxLength="256" />
-          <Property Name="MobileNo" Type="char" MaxLength="15" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="CityID" Type="int" Nullable="false" />
+          <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IsDefault" Type="bit" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="MobileNo" Type="char" MaxLength="15" Nullable="false" />
         </EntityType>
         <EntityType Name="SD_Category">
           <Key>
@@ -219,6 +220,7 @@
           <Property Name="SizeID" Type="int" Nullable="false" />
           <Property Name="ProductChargePropertiesID" Type="int" Nullable="false" />
           <Property Name="Value" Type="nchar" MaxLength="10" />
+          <Property Name="CommonInProductCharge" Type="bit" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="SD_SendBoxs">
@@ -274,7 +276,7 @@
           <Property Name="SumShoppingBasketDiscount" Type="int" />
           <Property Name="AmountForPay" Type="int" />
           <Property Name="PaymentStatusID" Type="int" />
-          <Property Name="PaymentTrackingNo" Type="char" MaxLength="30" />
+          <Property Name="PaymentTrackingNo" Type="nvarchar" MaxLength="50" />
           <Property Name="PaymentDate" Type="datetime" />
         </EntityType>
         <EntityType Name="SD_Users">
@@ -289,6 +291,7 @@
           <Property Name="Email" Type="nvarchar(max)" />
           <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="AspNetUserId" Type="nvarchar" MaxLength="450" />
+          <Property Name="JoinDate" Type="date" />
         </EntityType>
         <EntityType Name="SD_Votes">
           <Key>
@@ -427,8 +430,12 @@ warning 6002: The table/view 'officia1_Store.officia1_DbadminMsi.View_Site_Produ
         <EntityType Name="View_Site_ProductDetails_Colors">
           <Key>
             <PropertyRef Name="ID" />
+            <PropertyRef Name="ProductChargePropertiesID" />
+            <PropertyRef Name="OtherProductChargePropertiesID" />
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ProductChargePropertiesID" Type="int" Nullable="false" />
+          <Property Name="OtherProductChargePropertiesID" Type="int" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="255" />
           <Property Name="ColorCode" Type="char" MaxLength="15" />
         </EntityType>
@@ -437,8 +444,10 @@ warning 6002: The table/view 'officia1_Store.officia1_DbadminMsi.View_Site_Produ
         <EntityType Name="View_Site_ProductDetails_SimilarProductInSize">
           <Key>
             <PropertyRef Name="ID" />
+            <PropertyRef Name="ProductChargePropertiesID" />
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ProductChargePropertiesID" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="255" />
           <Property Name="BuyInvoiceNumber" Type="nvarchar(max)" />
           <Property Name="PercentInterest" Type="int" />
@@ -452,8 +461,10 @@ warning 6002: The table/view 'officia1_Store.officia1_DbadminMsi.View_Site_Produ
 warning 6002: The table/view 'officia1_Store.officia1_DbadminMsi.View_Site_ProductDetails_Sizes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="View_Site_ProductDetails_Sizes">
           <Key>
+            <PropertyRef Name="ID" />
             <PropertyRef Name="ProductChargePropertiesID" />
           </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="ProductChargePropertiesID" Type="int" Nullable="false" />
           <Property Name="SizeTitle" Type="nvarchar" MaxLength="256" />
           <Property Name="SizeDescription" Type="nvarchar(max)" />
@@ -464,10 +475,14 @@ warning 6002: The table/view 'officia1_Store.officia1_DbadminMsi.View_Site_Produ
 warning 6002: The table/view 'officia1_Store.officia1_DbadminMsi.View_User_BasketsObjects' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="View_User_BasketsObjects">
           <Key>
+            <PropertyRef Name="ID" />
             <PropertyRef Name="ShoppingBasketID" />
+            <PropertyRef Name="ShoppingBasketObjectsID" />
             <PropertyRef Name="ProductChargePropertiesID" />
           </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="ShoppingBasketID" Type="int" Nullable="false" />
+          <Property Name="ShoppingBasketObjectsID" Type="int" Nullable="false" />
           <Property Name="UserID" Type="int" />
           <Property Name="ProductName" Type="nvarchar" MaxLength="255" />
           <Property Name="ProductCode" Type="int" />
@@ -488,13 +503,16 @@ warning 6002: The table/view 'officia1_Store.officia1_DbadminMsi.View_User_Baske
           <Property Name="AddInToBasketDate" Type="datetime" />
           <Property Name="BasketStatusID" Type="int" />
           <Property Name="BasketStatus" Type="nvarchar" MaxLength="50" />
+          <Property Name="TotalPriceWithTax" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_Admin_ProductChargeID' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="View_Admin_ProductChargeID">
           <Key>
+            <PropertyRef Name="ID" />
             <PropertyRef Name="ProductChargeID" />
           </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="ProductChargeID" Type="int" Nullable="false" />
           <Property Name="Product" Type="nvarchar" MaxLength="255" />
           <Property Name="ProductCode" Type="int" />
@@ -506,8 +524,10 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_Admin_ProductC
 warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_Admin_ProductChargePropertiesID' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="View_Admin_ProductChargePropertiesID">
           <Key>
+            <PropertyRef Name="ID" />
             <PropertyRef Name="ProductChargePropertiesID" />
           </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="ProductChargePropertiesID" Type="int" Nullable="false" />
           <Property Name="ProductName" Type="nvarchar" MaxLength="255" />
           <Property Name="ProductCode" Type="int" />
@@ -520,8 +540,10 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_Admin_ProductC
 warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_Admin_ShoppingBasketID' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="View_Admin_ShoppingBasketID">
           <Key>
+            <PropertyRef Name="ID" />
             <PropertyRef Name="ShoppingBasketID" />
           </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="ShoppingBasketID" Type="int" Nullable="false" />
           <Property Name="BasketType" Type="nvarchar" MaxLength="50" />
           <Property Name="Name" Type="nvarchar" MaxLength="256" />
@@ -533,9 +555,11 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_Admin_Shopping
 warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_Admin_TransactionID' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="View_Admin_TransactionID">
           <Key>
+            <PropertyRef Name="ID" />
             <PropertyRef Name="TransactionID" />
             <PropertyRef Name="ShoppingBasketID" />
           </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="TransactionID" Type="int" Nullable="false" />
           <Property Name="ShoppingBasketID" Type="int" Nullable="false" />
           <Property Name="BasketType" Type="nvarchar" MaxLength="50" />
@@ -549,18 +573,23 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_Admin_Transact
           <Property Name="Status" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_Admin_UserID' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="View_Admin_UserID">
+warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_Admin_Users' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="View_Admin_Users">
           <Key>
             <PropertyRef Name="ID" />
+            <PropertyRef Name="GUID" />
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="GUID" Type="nvarchar" MaxLength="450" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
           <Property Name="Name" Type="nvarchar" MaxLength="256" />
           <Property Name="Family" Type="nvarchar" MaxLength="256" />
           <Property Name="Mobile" Type="nvarchar" MaxLength="15" />
-          <Property Name="Email" Type="nvarchar(max)" />
-          <Property Name="UserName" Type="nvarchar" MaxLength="256" />
-          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="Mail" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="JoinDate" Type="date" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_Site_ProductDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -584,8 +613,10 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_Site_ProductDe
 warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_Site_ProductDetails_SendPrices' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="View_Site_ProductDetails_SendPrices">
           <Key>
+            <PropertyRef Name="ID" />
             <PropertyRef Name="SendID" />
           </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="ProductID" Type="int" />
           <Property Name="Product" Type="nvarchar" MaxLength="255" />
           <Property Name="ProductCode" Type="int" />
@@ -602,13 +633,27 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_Site_ProductDe
 warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="View_User_Baskets">
           <Key>
+            <PropertyRef Name="ID" />
             <PropertyRef Name="ShoppingBasketID" />
           </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="ShoppingBasketID" Type="int" Nullable="false" />
           <Property Name="UserID" Type="int" />
           <Property Name="BasketStatusID" Type="int" />
           <Property Name="BasketStatus" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'officia1_Store.officia1_VS_msi.View_User_ProductSend_Price' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="View_User_ProductSend_Price">
+          <Property Name="ProductID" Type="int" />
+          <Property Name="ProductCode" Type="int" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="255" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="StateID" Type="int" />
+          <Property Name="StateTitle" Type="nvarchar" MaxLength="256" />
+          <Property Name="SendTitle" Type="nvarchar" MaxLength="256" />
+          <Property Name="SendPrice" Type="int" />
+        </EntityType>-->
         <Association Name="FK_AspNetRoleClaims_AspNetRoles_RoleId">
           <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -772,7 +817,7 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SD_Addresses_BD_Cities">
-          <End Role="BD_Cities" Type="Self.BD_Cities" Multiplicity="0..1" />
+          <End Role="BD_Cities" Type="Self.BD_Cities" Multiplicity="1" />
           <End Role="SD_Addresses" Type="Self.SD_Addresses" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="BD_Cities">
@@ -784,7 +829,7 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SD_Addresses_SD_Users">
-          <End Role="SD_Users" Type="Self.SD_Users" Multiplicity="0..1">
+          <End Role="SD_Users" Type="Self.SD_Users" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="SD_Addresses" Type="Self.SD_Addresses" Multiplicity="*" />
@@ -1111,6 +1156,37 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="officia1_StoreModelStoreContainer">
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BD_Cities" EntityType="Self.BD_Cities" Schema="officia1_Dbadmin" store:Type="Tables" />
@@ -1167,6 +1243,8 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
           <EntitySet Name="View_Site_ProductDetails_Colors" EntityType="Self.View_Site_ProductDetails_Colors" store:Type="Views" store:Schema="officia1_DbadminMsi">
             <DefiningQuery>SELECT 
     [View_Site_ProductDetails_Colors].[ID] AS [ID], 
+    [View_Site_ProductDetails_Colors].[ProductChargePropertiesID] AS [ProductChargePropertiesID], 
+    [View_Site_ProductDetails_Colors].[OtherProductChargePropertiesID] AS [OtherProductChargePropertiesID], 
     [View_Site_ProductDetails_Colors].[Title] AS [Title], 
     [View_Site_ProductDetails_Colors].[ColorCode] AS [ColorCode]
     FROM [officia1_DbadminMsi].[View_Site_ProductDetails_Colors] AS [View_Site_ProductDetails_Colors]</DefiningQuery>
@@ -1174,6 +1252,7 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
           <EntitySet Name="View_Site_ProductDetails_SimilarProductInSize" EntityType="Self.View_Site_ProductDetails_SimilarProductInSize" store:Type="Views" store:Schema="officia1_DbadminMsi">
             <DefiningQuery>SELECT 
     [View_Site_ProductDetails_SimilarProductInSize].[ID] AS [ID], 
+    [View_Site_ProductDetails_SimilarProductInSize].[ProductChargePropertiesID] AS [ProductChargePropertiesID], 
     [View_Site_ProductDetails_SimilarProductInSize].[Name] AS [Name], 
     [View_Site_ProductDetails_SimilarProductInSize].[BuyInvoiceNumber] AS [BuyInvoiceNumber], 
     [View_Site_ProductDetails_SimilarProductInSize].[PercentInterest] AS [PercentInterest], 
@@ -1186,6 +1265,7 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
           </EntitySet>
           <EntitySet Name="View_Site_ProductDetails_Sizes" EntityType="Self.View_Site_ProductDetails_Sizes" store:Type="Views" store:Schema="officia1_DbadminMsi">
             <DefiningQuery>SELECT 
+    [View_Site_ProductDetails_Sizes].[ID] AS [ID], 
     [View_Site_ProductDetails_Sizes].[ProductChargePropertiesID] AS [ProductChargePropertiesID], 
     [View_Site_ProductDetails_Sizes].[SizeTitle] AS [SizeTitle], 
     [View_Site_ProductDetails_Sizes].[SizeDescription] AS [SizeDescription], 
@@ -1195,7 +1275,9 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
           </EntitySet>
           <EntitySet Name="View_User_BasketsObjects" EntityType="Self.View_User_BasketsObjects" store:Type="Views" store:Schema="officia1_DbadminMsi">
             <DefiningQuery>SELECT 
+    [View_User_BasketsObjects].[ID] AS [ID], 
     [View_User_BasketsObjects].[ShoppingBasketID] AS [ShoppingBasketID], 
+    [View_User_BasketsObjects].[ShoppingBasketObjectsID] AS [ShoppingBasketObjectsID], 
     [View_User_BasketsObjects].[UserID] AS [UserID], 
     [View_User_BasketsObjects].[ProductName] AS [ProductName], 
     [View_User_BasketsObjects].[ProductCode] AS [ProductCode], 
@@ -1215,11 +1297,13 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
     [View_User_BasketsObjects].[Count] AS [Count], 
     [View_User_BasketsObjects].[AddInToBasketDate] AS [AddInToBasketDate], 
     [View_User_BasketsObjects].[BasketStatusID] AS [BasketStatusID], 
-    [View_User_BasketsObjects].[BasketStatus] AS [BasketStatus]
+    [View_User_BasketsObjects].[BasketStatus] AS [BasketStatus], 
+    [View_User_BasketsObjects].[TotalPriceWithTax] AS [TotalPriceWithTax]
     FROM [officia1_DbadminMsi].[View_User_BasketsObjects] AS [View_User_BasketsObjects]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="View_Admin_ProductChargeID" EntityType="Self.View_Admin_ProductChargeID" store:Type="Views" store:Schema="officia1_VS_msi">
             <DefiningQuery>SELECT 
+    [View_Admin_ProductChargeID].[ID] AS [ID], 
     [View_Admin_ProductChargeID].[ProductChargeID] AS [ProductChargeID], 
     [View_Admin_ProductChargeID].[Product] AS [Product], 
     [View_Admin_ProductChargeID].[ProductCode] AS [ProductCode], 
@@ -1230,6 +1314,7 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
           </EntitySet>
           <EntitySet Name="View_Admin_ProductChargePropertiesID" EntityType="Self.View_Admin_ProductChargePropertiesID" store:Type="Views" store:Schema="officia1_VS_msi">
             <DefiningQuery>SELECT 
+    [View_Admin_ProductChargePropertiesID].[ID] AS [ID], 
     [View_Admin_ProductChargePropertiesID].[ProductChargePropertiesID] AS [ProductChargePropertiesID], 
     [View_Admin_ProductChargePropertiesID].[ProductName] AS [ProductName], 
     [View_Admin_ProductChargePropertiesID].[ProductCode] AS [ProductCode], 
@@ -1241,6 +1326,7 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
           </EntitySet>
           <EntitySet Name="View_Admin_ShoppingBasketID" EntityType="Self.View_Admin_ShoppingBasketID" store:Type="Views" store:Schema="officia1_VS_msi">
             <DefiningQuery>SELECT 
+    [View_Admin_ShoppingBasketID].[ID] AS [ID], 
     [View_Admin_ShoppingBasketID].[ShoppingBasketID] AS [ShoppingBasketID], 
     [View_Admin_ShoppingBasketID].[BasketType] AS [BasketType], 
     [View_Admin_ShoppingBasketID].[Name] AS [Name], 
@@ -1251,6 +1337,7 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
           </EntitySet>
           <EntitySet Name="View_Admin_TransactionID" EntityType="Self.View_Admin_TransactionID" store:Type="Views" store:Schema="officia1_VS_msi">
             <DefiningQuery>SELECT 
+    [View_Admin_TransactionID].[ID] AS [ID], 
     [View_Admin_TransactionID].[TransactionID] AS [TransactionID], 
     [View_Admin_TransactionID].[ShoppingBasketID] AS [ShoppingBasketID], 
     [View_Admin_TransactionID].[BasketType] AS [BasketType], 
@@ -1264,16 +1351,20 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
     [View_Admin_TransactionID].[Status] AS [Status]
     FROM [officia1_VS_msi].[View_Admin_TransactionID] AS [View_Admin_TransactionID]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="View_Admin_UserID" EntityType="Self.View_Admin_UserID" store:Type="Views" store:Schema="officia1_VS_msi">
+          <EntitySet Name="View_Admin_Users" EntityType="Self.View_Admin_Users" store:Type="Views" store:Schema="officia1_VS_msi">
             <DefiningQuery>SELECT 
-    [View_Admin_UserID].[ID] AS [ID], 
-    [View_Admin_UserID].[Name] AS [Name], 
-    [View_Admin_UserID].[Family] AS [Family], 
-    [View_Admin_UserID].[Mobile] AS [Mobile], 
-    [View_Admin_UserID].[Email] AS [Email], 
-    [View_Admin_UserID].[UserName] AS [UserName], 
-    [View_Admin_UserID].[PhoneNumber] AS [PhoneNumber]
-    FROM [officia1_VS_msi].[View_Admin_UserID] AS [View_Admin_UserID]</DefiningQuery>
+    [View_Admin_Users].[ID] AS [ID], 
+    [View_Admin_Users].[GUID] AS [GUID], 
+    [View_Admin_Users].[UserName] AS [UserName], 
+    [View_Admin_Users].[Email] AS [Email], 
+    [View_Admin_Users].[PhoneNumber] AS [PhoneNumber], 
+    [View_Admin_Users].[Name] AS [Name], 
+    [View_Admin_Users].[Family] AS [Family], 
+    [View_Admin_Users].[Mobile] AS [Mobile], 
+    [View_Admin_Users].[Mail] AS [Mail], 
+    [View_Admin_Users].[Description] AS [Description], 
+    [View_Admin_Users].[JoinDate] AS [JoinDate]
+    FROM [officia1_VS_msi].[View_Admin_Users] AS [View_Admin_Users]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="View_Site_ProductDetails" EntityType="Self.View_Site_ProductDetails" store:Type="Views" store:Schema="officia1_VS_msi">
             <DefiningQuery>SELECT 
@@ -1292,6 +1383,7 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
           </EntitySet>
           <EntitySet Name="View_Site_ProductDetails_SendPrices" EntityType="Self.View_Site_ProductDetails_SendPrices" store:Type="Views" store:Schema="officia1_VS_msi">
             <DefiningQuery>SELECT 
+    [View_Site_ProductDetails_SendPrices].[ID] AS [ID], 
     [View_Site_ProductDetails_SendPrices].[ProductID] AS [ProductID], 
     [View_Site_ProductDetails_SendPrices].[Product] AS [Product], 
     [View_Site_ProductDetails_SendPrices].[ProductCode] AS [ProductCode], 
@@ -1307,6 +1399,7 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
           </EntitySet>
           <EntitySet Name="View_User_Baskets" EntityType="Self.View_User_Baskets" store:Type="Views" store:Schema="officia1_VS_msi">
             <DefiningQuery>SELECT 
+    [View_User_Baskets].[ID] AS [ID], 
     [View_User_Baskets].[ShoppingBasketID] AS [ShoppingBasketID], 
     [View_User_Baskets].[UserID] AS [UserID], 
     [View_User_Baskets].[BasketStatusID] AS [BasketStatusID], 
@@ -1471,6 +1564,36 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
     <edmx:ConceptualModels>
       <Schema Namespace="officia1_StoreModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="officia1_StoreEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(officia1_StoreModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(officia1_StoreModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
           <EntitySet Name="sysdiagrams" EntityType="officia1_StoreModel.sysdiagram" />
           <EntitySet Name="BD_Cities" EntityType="officia1_StoreModel.BD_Cities" />
           <EntitySet Name="BD_Country" EntityType="officia1_StoreModel.BD_Country" />
@@ -1517,7 +1640,7 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
           <EntitySet Name="View_Admin_ProductChargePropertiesID" EntityType="officia1_StoreModel.View_Admin_ProductChargePropertiesID" />
           <EntitySet Name="View_Admin_ShoppingBasketID" EntityType="officia1_StoreModel.View_Admin_ShoppingBasketID" />
           <EntitySet Name="View_Admin_TransactionID" EntityType="officia1_StoreModel.View_Admin_TransactionID" />
-          <EntitySet Name="View_Admin_UserID" EntityType="officia1_StoreModel.View_Admin_UserID" />
+          <EntitySet Name="View_Admin_Users" EntityType="officia1_StoreModel.View_Admin_Users" />
           <EntitySet Name="View_Site_ProductDetails" EntityType="officia1_StoreModel.View_Site_ProductDetails" />
           <EntitySet Name="View_Site_ProductDetails_SendPrices" EntityType="officia1_StoreModel.View_Site_ProductDetails_SendPrices" />
           <EntitySet Name="View_User_Baskets" EntityType="officia1_StoreModel.View_User_Baskets" />
@@ -1670,6 +1793,17 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
           </AssociationSet>
         </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
         <EntityType Name="sysdiagram">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -1736,6 +1870,7 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsDefault" Type="Boolean" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="SD_ShoppingBasket" Relationship="officia1_StoreModel.FK_SD_ShoppingBasket_BD_ShoppingBasketTypes" FromRole="BD_ShoppingBasketTypes" ToRole="SD_ShoppingBasket" />
         </EntityType>
@@ -1806,12 +1941,12 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserID" Type="Int32" />
-          <Property Name="CityID" Type="Int32" />
-          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IsDefault" Type="Boolean" />
-          <Property Name="FullName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="MobileNo" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="CityID" Type="Int32" Nullable="false" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsDefault" Type="Boolean" Nullable="false" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNo" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="false" />
           <NavigationProperty Name="BD_Cities" Relationship="officia1_StoreModel.FK_SD_Addresses_BD_Cities" FromRole="SD_Addresses" ToRole="BD_Cities" />
           <NavigationProperty Name="SD_Users" Relationship="officia1_StoreModel.FK_SD_Addresses_SD_Users" FromRole="SD_Addresses" ToRole="SD_Users" />
         </EntityType>
@@ -1920,6 +2055,7 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
           <Property Name="SizeID" Type="Int32" Nullable="false" />
           <Property Name="ProductChargePropertiesID" Type="Int32" Nullable="false" />
           <Property Name="Value" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="CommonInProductCharge" Type="Boolean" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="BD_SizeTypes" Relationship="officia1_StoreModel.FK_SD_ProductSizes_BD_SizeTypes" FromRole="SD_ProductSizes" ToRole="BD_SizeTypes" />
           <NavigationProperty Name="SD_ProductChargesProperties" Relationship="officia1_StoreModel.FK_SD_ProductSizes_SD_ProductChargesProperties" FromRole="SD_ProductSizes" ToRole="SD_ProductChargesProperties" />
@@ -1989,7 +2125,7 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
           <Property Name="SumShoppingBasketDiscount" Type="Int32" />
           <Property Name="AmountForPay" Type="Int32" />
           <Property Name="PaymentStatusID" Type="Int32" />
-          <Property Name="PaymentTrackingNo" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+          <Property Name="PaymentTrackingNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PaymentDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="BD_PaymentStatusTypes" Relationship="officia1_StoreModel.FK_SD_Transactions_BD_PaymentStatusTypes" FromRole="SD_Transactions" ToRole="BD_PaymentStatusTypes" />
           <NavigationProperty Name="SD_Coupons" Relationship="officia1_StoreModel.FK_SD_Transactions_SD_Coupons" FromRole="SD_Transactions" ToRole="SD_Coupons" />
@@ -2008,6 +2144,7 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
           <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="AspNetUserId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+          <Property Name="JoinDate" Type="DateTime" Precision="0" />
           <NavigationProperty Name="SC_Admins" Relationship="officia1_StoreModel.FK_SC_Admins_SD_Users" FromRole="SD_Users" ToRole="SC_Admins" />
           <NavigationProperty Name="SD_Addresses" Relationship="officia1_StoreModel.FK_SD_Addresses_SD_Users" FromRole="SD_Users" ToRole="SD_Addresses" />
           <NavigationProperty Name="SD_ShoppingBasket" Relationship="officia1_StoreModel.FK_SD_ShoppingBasket_SD_Users" FromRole="SD_Users" ToRole="SD_ShoppingBasket" />
@@ -2154,16 +2291,22 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
         <EntityType Name="View_Site_ProductDetails_Colors">
           <Key>
             <PropertyRef Name="ID" />
+            <PropertyRef Name="ProductChargePropertiesID" />
+            <PropertyRef Name="OtherProductChargePropertiesID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ProductChargePropertiesID" Type="Int32" Nullable="false" />
+          <Property Name="OtherProductChargePropertiesID" Type="Int32" Nullable="false" />
           <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ColorCode" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
         </EntityType>
         <EntityType Name="View_Site_ProductDetails_SimilarProductInSize">
           <Key>
             <PropertyRef Name="ID" />
+            <PropertyRef Name="ProductChargePropertiesID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ProductChargePropertiesID" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="BuyInvoiceNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="PercentInterest" Type="Int32" />
@@ -2175,8 +2318,10 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
         </EntityType>
         <EntityType Name="View_Site_ProductDetails_Sizes">
           <Key>
+            <PropertyRef Name="ID" />
             <PropertyRef Name="ProductChargePropertiesID" />
           </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="ProductChargePropertiesID" Type="Int32" Nullable="false" />
           <Property Name="SizeTitle" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="SizeDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -2185,10 +2330,14 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
         </EntityType>
         <EntityType Name="View_User_BasketsObjects">
           <Key>
+            <PropertyRef Name="ID" />
             <PropertyRef Name="ShoppingBasketID" />
+            <PropertyRef Name="ShoppingBasketObjectsID" />
             <PropertyRef Name="ProductChargePropertiesID" />
           </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="ShoppingBasketID" Type="Int32" Nullable="false" />
+          <Property Name="ShoppingBasketObjectsID" Type="Int32" Nullable="false" />
           <Property Name="UserID" Type="Int32" />
           <Property Name="ProductName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ProductCode" Type="Int32" />
@@ -2209,11 +2358,14 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
           <Property Name="AddInToBasketDate" Type="DateTime" Precision="3" />
           <Property Name="BasketStatusID" Type="Int32" />
           <Property Name="BasketStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TotalPriceWithTax" Type="Int32" />
         </EntityType>
         <EntityType Name="View_Admin_ProductChargeID">
           <Key>
+            <PropertyRef Name="ID" />
             <PropertyRef Name="ProductChargeID" />
           </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="ProductChargeID" Type="Int32" Nullable="false" />
           <Property Name="Product" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ProductCode" Type="Int32" />
@@ -2223,8 +2375,10 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
         </EntityType>
         <EntityType Name="View_Admin_ProductChargePropertiesID">
           <Key>
+            <PropertyRef Name="ID" />
             <PropertyRef Name="ProductChargePropertiesID" />
           </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="ProductChargePropertiesID" Type="Int32" Nullable="false" />
           <Property Name="ProductName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ProductCode" Type="Int32" />
@@ -2235,8 +2389,10 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
         </EntityType>
         <EntityType Name="View_Admin_ShoppingBasketID">
           <Key>
+            <PropertyRef Name="ID" />
             <PropertyRef Name="ShoppingBasketID" />
           </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="ShoppingBasketID" Type="Int32" Nullable="false" />
           <Property Name="BasketType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
@@ -2246,9 +2402,11 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
         </EntityType>
         <EntityType Name="View_Admin_TransactionID">
           <Key>
+            <PropertyRef Name="ID" />
             <PropertyRef Name="TransactionID" />
             <PropertyRef Name="ShoppingBasketID" />
           </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="TransactionID" Type="Int32" Nullable="false" />
           <Property Name="ShoppingBasketID" Type="Int32" Nullable="false" />
           <Property Name="BasketType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -2261,17 +2419,22 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
           <Property Name="PaymentTrackingNo" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="View_Admin_UserID">
+        <EntityType Name="View_Admin_Users">
           <Key>
             <PropertyRef Name="ID" />
+            <PropertyRef Name="GUID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="GUID" Type="String" Nullable="false" MaxLength="450" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="Family" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="Mobile" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Mail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="JoinDate" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="View_Site_ProductDetails">
           <Key>
@@ -2291,8 +2454,10 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
         </EntityType>
         <EntityType Name="View_Site_ProductDetails_SendPrices">
           <Key>
+            <PropertyRef Name="ID" />
             <PropertyRef Name="SendID" />
           </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="ProductID" Type="Int32" />
           <Property Name="Product" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ProductCode" Type="Int32" />
@@ -2307,8 +2472,10 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
         </EntityType>
         <EntityType Name="View_User_Baskets">
           <Key>
+            <PropertyRef Name="ID" />
             <PropertyRef Name="ShoppingBasketID" />
           </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="ShoppingBasketID" Type="Int32" Nullable="false" />
           <Property Name="UserID" Type="Int32" />
           <Property Name="BasketStatusID" Type="Int32" />
@@ -2329,7 +2496,7 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SD_Addresses_BD_Cities">
-          <End Type="officia1_StoreModel.BD_Cities" Role="BD_Cities" Multiplicity="0..1" />
+          <End Type="officia1_StoreModel.BD_Cities" Role="BD_Cities" Multiplicity="1" />
           <End Type="officia1_StoreModel.SD_Addresses" Role="SD_Addresses" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="BD_Cities">
@@ -2481,7 +2648,7 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SD_Addresses_SD_Users">
-          <End Type="officia1_StoreModel.SD_Users" Role="SD_Users" Multiplicity="0..1">
+          <End Type="officia1_StoreModel.SD_Users" Role="SD_Users" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Type="officia1_StoreModel.SD_Addresses" Role="SD_Addresses" Multiplicity="*" />
@@ -2798,6 +2965,30 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="officia1_StoreModelStoreContainer" CdmEntityContainer="officia1_StoreEntities">
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="officia1_StoreModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="officia1_StoreModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="officia1_StoreModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="officia1_StoreModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="officia1_StoreModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="officia1_StoreModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="officia1_StoreModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="officia1_StoreModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="officia1_StoreModel.Store.sp_upgraddiagrams" />
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="officia1_StoreModel.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
@@ -2860,6 +3051,7 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
             <EntityTypeMapping TypeName="officia1_StoreModel.BD_ShoppingBasketTypes">
               <MappingFragment StoreEntitySet="BD_ShoppingBasketTypes">
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
@@ -3028,6 +3220,7 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
             <EntityTypeMapping TypeName="officia1_StoreModel.SD_ProductSizes">
               <MappingFragment StoreEntitySet="SD_ProductSizes">
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CommonInProductCharge" ColumnName="CommonInProductCharge" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
                 <ScalarProperty Name="ProductChargePropertiesID" ColumnName="ProductChargePropertiesID" />
                 <ScalarProperty Name="SizeID" ColumnName="SizeID" />
@@ -3097,6 +3290,7 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
           <EntitySetMapping Name="SD_Users">
             <EntityTypeMapping TypeName="officia1_StoreModel.SD_Users">
               <MappingFragment StoreEntitySet="SD_Users">
+                <ScalarProperty Name="JoinDate" ColumnName="JoinDate" />
                 <ScalarProperty Name="AspNetUserId" ColumnName="AspNetUserId" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
@@ -3242,6 +3436,8 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
               <MappingFragment StoreEntitySet="View_Site_ProductDetails_Colors">
                 <ScalarProperty Name="ColorCode" ColumnName="ColorCode" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="OtherProductChargePropertiesID" ColumnName="OtherProductChargePropertiesID" />
+                <ScalarProperty Name="ProductChargePropertiesID" ColumnName="ProductChargePropertiesID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -3257,6 +3453,7 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
                 <ScalarProperty Name="PercentInterest" ColumnName="PercentInterest" />
                 <ScalarProperty Name="BuyInvoiceNumber" ColumnName="BuyInvoiceNumber" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ProductChargePropertiesID" ColumnName="ProductChargePropertiesID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -3269,12 +3466,14 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
                 <ScalarProperty Name="SizeDescription" ColumnName="SizeDescription" />
                 <ScalarProperty Name="SizeTitle" ColumnName="SizeTitle" />
                 <ScalarProperty Name="ProductChargePropertiesID" ColumnName="ProductChargePropertiesID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="View_User_BasketsObjects">
             <EntityTypeMapping TypeName="officia1_StoreModel.View_User_BasketsObjects">
               <MappingFragment StoreEntitySet="View_User_BasketsObjects">
+                <ScalarProperty Name="TotalPriceWithTax" ColumnName="TotalPriceWithTax" />
                 <ScalarProperty Name="BasketStatus" ColumnName="BasketStatus" />
                 <ScalarProperty Name="BasketStatusID" ColumnName="BasketStatusID" />
                 <ScalarProperty Name="AddInToBasketDate" ColumnName="AddInToBasketDate" />
@@ -3295,7 +3494,9 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
                 <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
                 <ScalarProperty Name="ProductName" ColumnName="ProductName" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ShoppingBasketObjectsID" ColumnName="ShoppingBasketObjectsID" />
                 <ScalarProperty Name="ShoppingBasketID" ColumnName="ShoppingBasketID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3308,6 +3509,7 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
                 <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
                 <ScalarProperty Name="Product" ColumnName="Product" />
                 <ScalarProperty Name="ProductChargeID" ColumnName="ProductChargeID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3321,6 +3523,7 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
                 <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
                 <ScalarProperty Name="ProductName" ColumnName="ProductName" />
                 <ScalarProperty Name="ProductChargePropertiesID" ColumnName="ProductChargePropertiesID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3333,6 +3536,7 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="BasketType" ColumnName="BasketType" />
                 <ScalarProperty Name="ShoppingBasketID" ColumnName="ShoppingBasketID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3350,18 +3554,23 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
                 <ScalarProperty Name="BasketType" ColumnName="BasketType" />
                 <ScalarProperty Name="ShoppingBasketID" ColumnName="ShoppingBasketID" />
                 <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="View_Admin_UserID">
-            <EntityTypeMapping TypeName="officia1_StoreModel.View_Admin_UserID">
-              <MappingFragment StoreEntitySet="View_Admin_UserID">
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
+          <EntitySetMapping Name="View_Admin_Users">
+            <EntityTypeMapping TypeName="officia1_StoreModel.View_Admin_Users">
+              <MappingFragment StoreEntitySet="View_Admin_Users">
+                <ScalarProperty Name="JoinDate" ColumnName="JoinDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
                 <ScalarProperty Name="Mobile" ColumnName="Mobile" />
                 <ScalarProperty Name="Family" ColumnName="Family" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -3397,6 +3606,7 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
                 <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
                 <ScalarProperty Name="Product" ColumnName="Product" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3407,6 +3617,7 @@ warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' 
                 <ScalarProperty Name="BasketStatusID" ColumnName="BasketStatusID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="ShoppingBasketID" ColumnName="ShoppingBasketID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -14,7 +14,9 @@ namespace WebApplicationStoreAdmin.Models
     
     public partial class View_User_BasketsObjects
     {
+        public int ID { get; set; }
         public int ShoppingBasketID { get; set; }
+        public int ShoppingBasketObjectsID { get; set; }
         public Nullable<int> UserID { get; set; }
         public string ProductName { get; set; }
         public Nullable<int> ProductCode { get; set; }
@@ -35,5 +37,6 @@ namespace WebApplicationStoreAdmin.Models
         public Nullable<System.DateTime> AddInToBasketDate { get; set; }
         public Nullable<int> BasketStatusID { get; set; }
         public string BasketStatus { get; set; }
+        public Nullable<int> TotalPriceWithTax { get; set; }
     }
 }

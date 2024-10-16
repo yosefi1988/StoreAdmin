@@ -17,7 +17,7 @@ namespace WebApplicationStoreAdmin.Controllers
             var targetDate = DateTime.Now.AddDays(daysToAdd);
 
             //User Count
-            ViewBag.UserCount = db.SD_Users.Count();
+            ViewBag.UserCount = getUserCount();
 
             //Transaction Count
             var TransactionCountInLastSevenenDay = db.SD_Transactions
@@ -46,11 +46,35 @@ namespace WebApplicationStoreAdmin.Controllers
                                     .Sum(x => x.BuyCount);
             return View();
         }
-        public ActionResult Index3()
+        public ActionResult Index2()
         {
             return View();
         }
 
+        public ActionResult indexLinks()
+        {
+            return View();
+        }
+        public ActionResult IndexUsers()
+        {
+            //User Count
+            ViewBag.UserCount = getUserCount();
+            ViewBag.ASPUserCount = getASPUserCount();
+
+
+            return View();
+        }
+
+        private dynamic getUserCount()
+        {
+            return db.SD_Users.Count();
+        }
+        private dynamic getASPUserCount()
+        {
+            return db.AspNetUsers.Count();
+        }
+
+        
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

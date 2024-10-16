@@ -31,6 +31,7 @@ namespace WebApplicationStoreAdmin.Models
         public string Email { get; set; }
         public string Description { get; set; }
         public string AspNetUserId { get; set; }
+        public Nullable<System.DateTime> JoinDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SC_Admins> SC_Admins { get; set; }

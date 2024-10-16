@@ -14,6 +14,7 @@ namespace WebApplicationStoreAdmin.Models
     
     public partial class View_Site_ProductDetails_SendPrices
     {
+        public int ID { get; set; }
         public Nullable<int> ProductID { get; set; }
         public string Product { get; set; }
         public Nullable<int> ProductCode { get; set; }

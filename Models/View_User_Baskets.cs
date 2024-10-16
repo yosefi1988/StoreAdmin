@@ -14,6 +14,7 @@ namespace WebApplicationStoreAdmin.Models
     
     public partial class View_User_Baskets
     {
+        public int ID { get; set; }
         public int ShoppingBasketID { get; set; }
         public Nullable<int> UserID { get; set; }
         public Nullable<int> BasketStatusID { get; set; }

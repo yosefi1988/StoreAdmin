@@ -12,13 +12,18 @@ namespace WebApplicationStoreAdmin.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class View_Site_ProductDetails_Sizes
+    public partial class View_Admin_Users
     {
         public int ID { get; set; }
-        public int ProductChargePropertiesID { get; set; }
-        public string SizeTitle { get; set; }
-        public string SizeDescription { get; set; }
-        public string SizeValue { get; set; }
-        public string SizeValueDescription { get; set; }
+        public string GUID { get; set; }
+        public string UserName { get; set; }
+        public string Email { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Name { get; set; }
+        public string Family { get; set; }
+        public string Mobile { get; set; }
+        public string Mail { get; set; }
+        public string Description { get; set; }
+        public Nullable<System.DateTime> JoinDate { get; set; }
     }
 }

@@ -24,8 +24,12 @@ en ok
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ProductChargePropertiesID, "Charge Product's Properties", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            @Html.LabelFor(
+               model => model.ProductChargePropertiesID,
+               "Charge Product's Properties",
+               htmlAttributes: new { @class = "control-label col-md-2" }
+           )
+            <div class="col-md-7">
 
                 @*v1*@
                 @*@Html.DropDownList("ProductChargePropertiesID", null, htmlAttributes: new { @class = "form-control" })*@
@@ -35,8 +39,11 @@ en ok
 
                 @Html.ValidationMessageFor(model => model.ProductChargePropertiesID, "", new { @class = "text-danger" })
             </div>
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.CommonInProductCharge, "Other Similar Product", new { @class = "control-label col-md-2" })
+                @Html.CheckBoxFor(model => model.CommonInProductCharge, new { @class = "form-check-input" })
+            </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Value, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
