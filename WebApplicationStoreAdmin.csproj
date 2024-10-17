@@ -188,7 +188,7 @@
     <Compile Include="Controllers\Config\StoreDetailsController.cs" />
     <Compile Include="Controllers\Product\ProductCategoriesController.cs" />
     <Compile Include="Controllers\Product\ProductChargesPropertiesController.cs" />
-    <Compile Include="Controllers\Product\AddressesController.cs" />
+    <Compile Include="Controllers\Users\AddressesController.cs" />
     <Compile Include="Controllers\Product\CategoryController.cs" />
     <Compile Include="Controllers\Basedata\ColorController.cs" />
     <Compile Include="Controllers\Product\CouponsController.cs" />
