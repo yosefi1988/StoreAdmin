@@ -15,10 +15,10 @@ namespace WebApplicationStoreAdmin.Models
     public partial class SD_Addresses
     {
         public int ID { get; set; }
-        public Nullable<int> UserID { get; set; }
-        public Nullable<int> CityID { get; set; }
+        public int UserID { get; set; }
+        public int CityID { get; set; }
         public string Address { get; set; }
-        public Nullable<bool> IsDefault { get; set; }
+        public bool IsDefault { get; set; }
         public string FullName { get; set; }
         public string MobileNo { get; set; }
     

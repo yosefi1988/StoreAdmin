@@ -14,20 +14,15 @@ namespace WebApplicationStoreAdmin.Controllers
     {
         private officia1_StoreEntities db = new officia1_StoreEntities();
 
-        // GET: StoreDetails
-        public ActionResult Index()
-        {
-            return View(db.SC_StoreDetails.ToList());
-        }
 
         // GET: StoreDetails/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details()
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            SC_StoreDetails sC_StoreDetails = db.SC_StoreDetails.Find(id);
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            SC_StoreDetails sC_StoreDetails = db.SC_StoreDetails.OrderByDescending(x => x.ID).ToList().FirstOrDefault();
             if (sC_StoreDetails == null)
             {
                 return HttpNotFound();
@@ -88,33 +83,7 @@ namespace WebApplicationStoreAdmin.Controllers
             }
             return View(sC_StoreDetails);
         }
-
-        // GET: StoreDetails/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            SC_StoreDetails sC_StoreDetails = db.SC_StoreDetails.Find(id);
-            if (sC_StoreDetails == null)
-            {
-                return HttpNotFound();
-            }
-            return View(sC_StoreDetails);
-        }
-
-        // POST: StoreDetails/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            SC_StoreDetails sC_StoreDetails = db.SC_StoreDetails.Find(id);
-            db.SC_StoreDetails.Remove(sC_StoreDetails);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
+  
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -29,5 +29,6 @@ namespace WebApplicationStoreAdmin.Models
         public string Fax { get; set; }
         public string SupportNo { get; set; }
         public string SupportHours { get; set; }
+        public string PaymentToken { get; set; }
     }
 }

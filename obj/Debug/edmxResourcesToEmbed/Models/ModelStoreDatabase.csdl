@@ -1,6 +1,37 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="officia1_StoreModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityContainer Name="officia1_StoreEntities" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(officia1_StoreModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(officia1_StoreModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <EntitySet Name="sysdiagrams" EntityType="officia1_StoreModel.sysdiagram" />
     <EntitySet Name="BD_Cities" EntityType="officia1_StoreModel.BD_Cities" />
     <EntitySet Name="BD_Country" EntityType="officia1_StoreModel.BD_Country" />
     <EntitySet Name="BD_PaymentStatusTypes" EntityType="officia1_StoreModel.BD_PaymentStatusTypes" />
@@ -36,6 +67,20 @@
     <EntitySet Name="AspNetUserLogins" EntityType="officia1_StoreModel.AspNetUserLogin" />
     <EntitySet Name="AspNetUsers" EntityType="officia1_StoreModel.AspNetUser" />
     <EntitySet Name="AspNetUserTokens" EntityType="officia1_StoreModel.AspNetUserToken" />
+    <EntitySet Name="employees" EntityType="officia1_StoreModel.employee" />
+    <EntitySet Name="View_Site_Home" EntityType="officia1_StoreModel.View_Site_Home" />
+    <EntitySet Name="View_Site_ProductDetails_Colors" EntityType="officia1_StoreModel.View_Site_ProductDetails_Colors" />
+    <EntitySet Name="View_Site_ProductDetails_SimilarProductInSize" EntityType="officia1_StoreModel.View_Site_ProductDetails_SimilarProductInSize" />
+    <EntitySet Name="View_Site_ProductDetails_Sizes" EntityType="officia1_StoreModel.View_Site_ProductDetails_Sizes" />
+    <EntitySet Name="View_User_BasketsObjects" EntityType="officia1_StoreModel.View_User_BasketsObjects" />
+    <EntitySet Name="View_Admin_ProductChargeID" EntityType="officia1_StoreModel.View_Admin_ProductChargeID" />
+    <EntitySet Name="View_Admin_ProductChargePropertiesID" EntityType="officia1_StoreModel.View_Admin_ProductChargePropertiesID" />
+    <EntitySet Name="View_Admin_ShoppingBasketID" EntityType="officia1_StoreModel.View_Admin_ShoppingBasketID" />
+    <EntitySet Name="View_Admin_TransactionID" EntityType="officia1_StoreModel.View_Admin_TransactionID" />
+    <EntitySet Name="View_Admin_Users" EntityType="officia1_StoreModel.View_Admin_Users" />
+    <EntitySet Name="View_Site_ProductDetails" EntityType="officia1_StoreModel.View_Site_ProductDetails" />
+    <EntitySet Name="View_Site_ProductDetails_SendPrices" EntityType="officia1_StoreModel.View_Site_ProductDetails_SendPrices" />
+    <EntitySet Name="View_User_Baskets" EntityType="officia1_StoreModel.View_User_Baskets" />
     <AssociationSet Name="FK_BD_Cities_BD_States" Association="officia1_StoreModel.FK_BD_Cities_BD_States">
       <End Role="BD_States" EntitySet="BD_States" />
       <End Role="BD_Cities" EntitySet="BD_Cities" />
@@ -156,6 +201,10 @@
       <End Role="SD_ShoppingBasket" EntitySet="SD_ShoppingBasket" />
       <End Role="SD_Transactions" EntitySet="SD_Transactions" />
     </AssociationSet>
+    <AssociationSet Name="FK_SD_Users_AspNetUsers" Association="officia1_StoreModel.FK_SD_Users_AspNetUsers">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="SD_Users" EntitySet="SD_Users" />
+    </AssociationSet>
     <AssociationSet Name="FK_SD_Votes_SD_Users" Association="officia1_StoreModel.FK_SD_Votes_SD_Users">
       <End Role="SD_Users" EntitySet="SD_Users" />
       <End Role="SD_Votes" EntitySet="SD_Votes" />
@@ -181,6 +230,27 @@
       <End Role="AspNetUser" EntitySet="AspNetUsers" />
     </AssociationSet>
   </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
   <EntityType Name="BD_Cities">
     <Key>
       <PropertyRef Name="ID" />
@@ -237,6 +307,7 @@
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsDefault" Type="Boolean" />
     <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="SD_ShoppingBasket" Relationship="officia1_StoreModel.FK_SD_ShoppingBasket_BD_ShoppingBasketTypes" FromRole="BD_ShoppingBasketTypes" ToRole="SD_ShoppingBasket" />
   </EntityType>
@@ -268,6 +339,7 @@
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="TaxPercentage" Type="Int32" />
+    <Property Name="CountryId" Type="Int32" />
     <NavigationProperty Name="SD_ProductCharges" Relationship="officia1_StoreModel.FK_SD_ProductCharges_BD_Tax" FromRole="BD_Tax" ToRole="SD_ProductCharges" />
   </EntityType>
   <EntityType Name="SC_Admins">
@@ -299,18 +371,19 @@
     <Property Name="Fax" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
     <Property Name="SupportNo" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
     <Property Name="SupportHours" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PaymentToken" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="SD_Addresses">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="UserID" Type="Int32" />
-    <Property Name="CityID" Type="Int32" />
-    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="IsDefault" Type="Boolean" />
-    <Property Name="FullName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-    <Property Name="MobileNo" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="CityID" Type="Int32" Nullable="false" />
+    <Property Name="Address" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsDefault" Type="Boolean" Nullable="false" />
+    <Property Name="FullName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="MobileNo" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="false" />
     <NavigationProperty Name="BD_Cities" Relationship="officia1_StoreModel.FK_SD_Addresses_BD_Cities" FromRole="SD_Addresses" ToRole="BD_Cities" />
     <NavigationProperty Name="SD_Users" Relationship="officia1_StoreModel.FK_SD_Addresses_SD_Users" FromRole="SD_Addresses" ToRole="SD_Users" />
   </EntityType>
@@ -419,6 +492,7 @@
     <Property Name="SizeID" Type="Int32" Nullable="false" />
     <Property Name="ProductChargePropertiesID" Type="Int32" Nullable="false" />
     <Property Name="Value" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="CommonInProductCharge" Type="Boolean" Nullable="false" />
     <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="BD_SizeTypes" Relationship="officia1_StoreModel.FK_SD_ProductSizes_BD_SizeTypes" FromRole="SD_ProductSizes" ToRole="BD_SizeTypes" />
     <NavigationProperty Name="SD_ProductChargesProperties" Relationship="officia1_StoreModel.FK_SD_ProductSizes_SD_ProductChargesProperties" FromRole="SD_ProductSizes" ToRole="SD_ProductChargesProperties" />
@@ -488,7 +562,7 @@
     <Property Name="SumShoppingBasketDiscount" Type="Int32" />
     <Property Name="AmountForPay" Type="Int32" />
     <Property Name="PaymentStatusID" Type="Int32" />
-    <Property Name="PaymentTrackingNo" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+    <Property Name="PaymentTrackingNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="PaymentDate" Type="DateTime" Precision="3" />
     <NavigationProperty Name="BD_PaymentStatusTypes" Relationship="officia1_StoreModel.FK_SD_Transactions_BD_PaymentStatusTypes" FromRole="SD_Transactions" ToRole="BD_PaymentStatusTypes" />
     <NavigationProperty Name="SD_Coupons" Relationship="officia1_StoreModel.FK_SD_Transactions_SD_Coupons" FromRole="SD_Transactions" ToRole="SD_Coupons" />
@@ -506,9 +580,12 @@
     <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="AspNetUserId" Type="String" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="JoinDate" Type="DateTime" Precision="0" />
     <NavigationProperty Name="SC_Admins" Relationship="officia1_StoreModel.FK_SC_Admins_SD_Users" FromRole="SD_Users" ToRole="SC_Admins" />
     <NavigationProperty Name="SD_Addresses" Relationship="officia1_StoreModel.FK_SD_Addresses_SD_Users" FromRole="SD_Users" ToRole="SD_Addresses" />
     <NavigationProperty Name="SD_ShoppingBasket" Relationship="officia1_StoreModel.FK_SD_ShoppingBasket_SD_Users" FromRole="SD_Users" ToRole="SD_ShoppingBasket" />
+    <NavigationProperty Name="AspNetUser" Relationship="officia1_StoreModel.FK_SD_Users_AspNetUsers" FromRole="SD_Users" ToRole="AspNetUser" />
     <NavigationProperty Name="SD_Votes" Relationship="officia1_StoreModel.FK_SD_Votes_SD_Users" FromRole="SD_Users" ToRole="SD_Votes" />
   </EntityType>
   <EntityType Name="SD_Votes">
@@ -578,8 +655,8 @@
       <PropertyRef Name="LoginProvider" />
       <PropertyRef Name="ProviderKey" />
     </Key>
-    <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="450" FixedLength="false" Unicode="true" />
     <Property Name="ProviderDisplayName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="UserId" Type="String" Nullable="false" MaxLength="450" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="AspNetUser" Relationship="officia1_StoreModel.FK_AspNetUserLogins_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
@@ -603,6 +680,8 @@
     <Property Name="LockoutEnd" Type="DateTimeOffset" Precision="7" />
     <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
     <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+    <Property Name="Age" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="SD_Users" Relationship="officia1_StoreModel.FK_SD_Users_AspNetUsers" FromRole="AspNetUser" ToRole="SD_Users" />
     <NavigationProperty Name="AspNetUserClaims" Relationship="officia1_StoreModel.FK_AspNetUserClaims_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
     <NavigationProperty Name="AspNetUserLogins" Relationship="officia1_StoreModel.FK_AspNetUserLogins_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
     <NavigationProperty Name="AspNetUserTokens" Relationship="officia1_StoreModel.FK_AspNetUserTokens_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserToken" />
@@ -615,10 +694,229 @@
       <PropertyRef Name="Name" />
     </Key>
     <Property Name="UserId" Type="String" Nullable="false" MaxLength="450" FixedLength="false" Unicode="true" />
-    <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-    <Property Name="Name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="450" FixedLength="false" Unicode="true" />
     <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="AspNetUser" Relationship="officia1_StoreModel.FK_AspNetUserTokens_AspNetUsers_UserId" FromRole="AspNetUserToken" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="employee">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Family" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Company" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="View_Site_Home">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="BuyInvoiceNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PercentInterest" Type="Int32" />
+    <Property Name="PercentWages" Type="Int32" />
+    <Property Name="Discount" Type="Int32" />
+    <Property Name="RemainingCount" Type="Int32" />
+    <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ColorCode" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="View_Site_ProductDetails_Colors">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="ProductChargePropertiesID" />
+      <PropertyRef Name="OtherProductChargePropertiesID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ProductChargePropertiesID" Type="Int32" Nullable="false" />
+    <Property Name="OtherProductChargePropertiesID" Type="Int32" Nullable="false" />
+    <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ColorCode" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="View_Site_ProductDetails_SimilarProductInSize">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="ProductChargePropertiesID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ProductChargePropertiesID" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="BuyInvoiceNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PercentInterest" Type="Int32" />
+    <Property Name="PercentWages" Type="Int32" />
+    <Property Name="Discount" Type="Int32" />
+    <Property Name="RemainingCount" Type="Int32" />
+    <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="View_Site_ProductDetails_Sizes">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="ProductChargePropertiesID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ProductChargePropertiesID" Type="Int32" Nullable="false" />
+    <Property Name="SizeTitle" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="SizeDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SizeValue" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="SizeValueDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="View_User_BasketsObjects">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="ShoppingBasketID" />
+      <PropertyRef Name="ShoppingBasketObjectsID" />
+      <PropertyRef Name="ProductChargePropertiesID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ShoppingBasketID" Type="Int32" Nullable="false" />
+    <Property Name="ShoppingBasketObjectsID" Type="Int32" Nullable="false" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="ProductName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ProductCode" Type="Int32" />
+    <Property Name="Tax" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="TaxPercentage" Type="Int32" />
+    <Property Name="PercentInterest" Type="Int32" />
+    <Property Name="PercentWages" Type="Int32" />
+    <Property Name="Color" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ColorCode" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+    <Property Name="Discount" Type="Int32" />
+    <Property Name="RemainingCount" Type="Int32" />
+    <Property Name="ProductChargePropertiesID" Type="Int32" Nullable="false" />
+    <Property Name="ProductChargeID" Type="Int32" />
+    <Property Name="ProductID" Type="Int32" />
+    <Property Name="Price" Type="Int32" />
+    <Property Name="OldPrice" Type="Int32" />
+    <Property Name="Count" Type="Int32" />
+    <Property Name="AddInToBasketDate" Type="DateTime" Precision="3" />
+    <Property Name="BasketStatusID" Type="Int32" />
+    <Property Name="BasketStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TotalPriceWithTax" Type="Int32" />
+  </EntityType>
+  <EntityType Name="View_Admin_ProductChargeID">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="ProductChargeID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ProductChargeID" Type="Int32" Nullable="false" />
+    <Property Name="Product" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ProductCode" Type="Int32" />
+    <Property Name="BuyInvoiceNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ChargeDate" Type="DateTime" Precision="3" />
+    <Property Name="BuyCount" Type="Int32" />
+  </EntityType>
+  <EntityType Name="View_Admin_ProductChargePropertiesID">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="ProductChargePropertiesID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ProductChargePropertiesID" Type="Int32" Nullable="false" />
+    <Property Name="ProductName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ProductCode" Type="Int32" />
+    <Property Name="BuyInvoiceNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ChargeDate" Type="DateTime" Precision="3" />
+    <Property Name="BuyPrice" Type="Int32" />
+    <Property Name="Color" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="View_Admin_ShoppingBasketID">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="ShoppingBasketID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ShoppingBasketID" Type="Int32" Nullable="false" />
+    <Property Name="BasketType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Family" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Mobile" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="View_Admin_TransactionID">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="TransactionID" />
+      <PropertyRef Name="ShoppingBasketID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="TransactionID" Type="Int32" Nullable="false" />
+    <Property Name="ShoppingBasketID" Type="Int32" Nullable="false" />
+    <Property Name="BasketType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Family" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Mobile" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SumShoppingBasketPrice" Type="Int32" />
+    <Property Name="PaymentDate" Type="DateTime" Precision="3" />
+    <Property Name="PaymentTrackingNo" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="View_Admin_Users">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="GUID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="GUID" Type="String" Nullable="false" MaxLength="450" FixedLength="false" Unicode="true" />
+    <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Family" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Mobile" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="Mail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="JoinDate" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="View_Site_ProductDetails">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Code" Type="Int32" />
+    <Property Name="BuyPrice" Type="Int32" />
+    <Property Name="PercentInterest" Type="Int32" />
+    <Property Name="PercentWages" Type="Int32" />
+    <Property Name="Discount" Type="Int32" />
+    <Property Name="RemainingCount" Type="Int32" />
+    <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ColorCode" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="View_Site_ProductDetails_SendPrices">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="SendID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ProductID" Type="Int32" />
+    <Property Name="Product" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ProductCode" Type="Int32" />
+    <Property Name="ProductDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SendID" Type="Int32" Nullable="false" />
+    <Property Name="Send" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="CountryID" Type="Int32" />
+    <Property Name="Country" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="StateID" Type="Int32" />
+    <Property Name="State" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Int32" />
+  </EntityType>
+  <EntityType Name="View_User_Baskets">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="ShoppingBasketID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ShoppingBasketID" Type="Int32" Nullable="false" />
+    <Property Name="UserID" Type="Int32" />
+    <Property Name="BasketStatusID" Type="Int32" />
+    <Property Name="BasketStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
   <Association Name="FK_BD_Cities_BD_States">
     <End Type="officia1_StoreModel.BD_States" Role="BD_States" Multiplicity="0..1">
@@ -635,7 +933,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_SD_Addresses_BD_Cities">
-    <End Type="officia1_StoreModel.BD_Cities" Role="BD_Cities" Multiplicity="0..1" />
+    <End Type="officia1_StoreModel.BD_Cities" Role="BD_Cities" Multiplicity="1" />
     <End Type="officia1_StoreModel.SD_Addresses" Role="SD_Addresses" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="BD_Cities">
@@ -787,7 +1085,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_SD_Addresses_SD_Users">
-    <End Type="officia1_StoreModel.SD_Users" Role="SD_Users" Multiplicity="0..1">
+    <End Type="officia1_StoreModel.SD_Users" Role="SD_Users" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
     <End Type="officia1_StoreModel.SD_Addresses" Role="SD_Addresses" Multiplicity="*" />
@@ -1009,6 +1307,18 @@
       </Principal>
       <Dependent Role="SD_Transactions">
         <PropertyRef Name="ShoppingBasketID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SD_Users_AspNetUsers">
+    <End Type="officia1_StoreModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="officia1_StoreModel.SD_Users" Role="SD_Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SD_Users">
+        <PropertyRef Name="AspNetUserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

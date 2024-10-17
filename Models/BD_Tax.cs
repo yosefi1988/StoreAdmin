@@ -23,6 +23,7 @@ namespace WebApplicationStoreAdmin.Models
         public int ID { get; set; }
         public string Title { get; set; }
         public Nullable<int> TaxPercentage { get; set; }
+        public Nullable<int> CountryId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SD_ProductCharges> SD_ProductCharges { get; set; }

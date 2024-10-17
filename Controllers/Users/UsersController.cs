@@ -1,127 +1,1 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using WebApplicationStoreAdmin.Models;
-
-namespace WebApplicationStoreAdmin.Controllers.Users
-{
-    public class UsersController : Controller
-    {
-        private officia1_StoreEntities db = new officia1_StoreEntities();
-
-        // GET: Users
-        public ActionResult Index()
-        {
-            return View(db.SD_Users.ToList());
-        }
-
-        // GET: Users/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            SD_Users sD_Users = db.SD_Users.Find(id);
-            if (sD_Users == null)
-            {
-                return HttpNotFound();
-            }
-            return View(sD_Users);
-        }
-
-        // GET: Users/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Users/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,Family,Mobile,Password,Email,Description")] SD_Users sD_Users)
-        {
-            if (ModelState.IsValid)
-            {
-                db.SD_Users.Add(sD_Users);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(sD_Users);
-        }
-
-        // GET: Users/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            SD_Users sD_Users = db.SD_Users.Find(id);
-            if (sD_Users == null)
-            {
-                return HttpNotFound();
-            }
-            return View(sD_Users);
-        }
-
-        // POST: Users/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Family,Mobile,Password,Email,Description")] SD_Users sD_Users)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(sD_Users).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(sD_Users);
-        }
-
-        // GET: Users/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            SD_Users sD_Users = db.SD_Users.Find(id);
-            if (sD_Users == null)
-            {
-                return HttpNotFound();
-            }
-            return View(sD_Users);
-        }
-
-        // POST: Users/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            SD_Users sD_Users = db.SD_Users.Find(id);
-            db.SD_Users.Remove(sD_Users);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-    }
-}
+﻿using System; using System.Collections.Generic; using System.Data; using System.Data.Entity; using System.Linq; using System.Net; using System.Threading.Tasks; using System.Web; using System.Web.Mvc; using WebApplicationStoreAdmin.Models; using System.Linq; using System.Threading.Tasks; using System.Net.Http; using Newtonsoft.Json; using System.Text; using Newtonsoft.Json.Linq;  namespace WebApplicationStoreAdmin.Controllers.Users {     public class UsersController : Controller     {         private officia1_StoreEntities db = new officia1_StoreEntities();          // GET: Users         public async Task<ActionResult> Index()         {             var list = getUsersList();              using (var client = new HttpClient())             {                 RequestParameters parameters = new RequestParameters("e8a913e8-f089-11e6-8dec-005056a205be", "50000", "------", "callbackurl0............", "09123678522", "Yosefi1988@gmail.com");                  var json = JsonConvert.SerializeObject(parameters);                  HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");                  HttpResponseMessage response = await client.PostAsync("https://api.zarinpal.com/pg/v4/payment/request.json", content);                  string responseBody = await response.Content.ReadAsStringAsync();                  JObject jo = JObject.Parse(responseBody);                 string errorscode = jo["errors"].ToString();                  JObject jodata = JObject.Parse(responseBody);                 string dataauth = jodata["data"].ToString();                 if (dataauth != "[]")                 {                      string gatewayUrl = "https://www.zarinpal.com/pg/StartPay/" + jodata["data"]["authority"].ToString();                     return Redirect(gatewayUrl);                 }                 else                 {                     return View(list); ;// BadRequest("error " + errorscode);                 }             }               return View(list);         }             // GET: Users/Details/5         public ActionResult Details(int? id)         {             if (id == null)             {                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);             }             SD_Users sD_Users = db.SD_Users.Find(id);             if (sD_Users == null)             {                 return HttpNotFound();             }             return View(sD_Users);         }          // GET: Users/Create         public ActionResult Create()         {             ViewBag.AspNetUserId = new SelectList(db.AspNetUsers, "Id", "UserName");             return View();         }          // POST: Users/Create         // To protect from overposting attacks, please enable the specific properties you want to bind to, for          // more details see http://go.microsoft.com/fwlink/?LinkId=317598.         [HttpPost]         [ValidateAntiForgeryToken]         public ActionResult Create([Bind(Include = "ID,Name,Family,Mobile,Password,Email,Description,AspNetUserId")] SD_Users sD_Users)         {             if (ModelState.IsValid)             {                 db.SD_Users.Add(sD_Users);                 db.SaveChanges();                 return RedirectToAction("Index");             }              ViewBag.AspNetUserId = new SelectList(db.AspNetUsers, "Id", "UserName", sD_Users.AspNetUserId);             return View(sD_Users);         }          // GET: Users/Edit/5         public ActionResult Edit(int? id)         {             if (id == null)             {                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);             }             SD_Users sD_Users = db.SD_Users.Find(id);             if (sD_Users == null)             {                 return HttpNotFound();             }             ViewBag.AspNetUserId = new SelectList(db.AspNetUsers, "Id", "UserName", sD_Users.AspNetUserId);             return View(sD_Users);         }          // POST: Users/Edit/5         // To protect from overposting attacks, please enable the specific properties you want to bind to, for          // more details see http://go.microsoft.com/fwlink/?LinkId=317598.         [HttpPost]         [ValidateAntiForgeryToken]         public ActionResult Edit([Bind(Include = "ID,Name,Family,Mobile,Password,Email,Description,AspNetUserId")] SD_Users sD_Users)         {             if (ModelState.IsValid)             {                 db.Entry(sD_Users).State = EntityState.Modified;                 db.SaveChanges();                 return RedirectToAction("Index");             }             ViewBag.AspNetUserId = new SelectList(db.AspNetUsers, "Id", "UserName", sD_Users.AspNetUserId);             return View(sD_Users);         }          // GET: Users/Delete/5         public ActionResult Delete(int? id)         {             if (id == null)             {                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);             }             SD_Users sD_Users = db.SD_Users.Find(id);             if (sD_Users == null)             {                 return HttpNotFound();             }             return View(sD_Users);         }          // POST: Users/Delete/5         [HttpPost, ActionName("Delete")]         [ValidateAntiForgeryToken]         public ActionResult DeleteConfirmed(int id)         {             SD_Users sD_Users = db.SD_Users.Find(id);             db.SD_Users.Remove(sD_Users);             db.SaveChanges();             return RedirectToAction("Index");         }          protected override void Dispose(bool disposing)         {             if (disposing)             {                 db.Dispose();             }             base.Dispose(disposing);         }          ///////////////////////////////////////Panel///////////////////////////////////////////////////         public ActionResult IndexUsersList()         {             ViewBag.UserCount = 10;             ViewBag.UsersList = getUsersList();             return View();         }          private object getUsersList()         {             var sD_Users = db.SD_Users.Include(s => s.AspNetUser);             return sD_Users.ToList();         }          [HttpPost] //No need to decorate, as by default it will be GET         public async Task<ActionResult> LoadData()         {              //// خواندن پارامترهای ارسالی از DataTables             var draw = HttpContext.Request.Form["draw"].FirstOrDefault();             var start = HttpContext.Request.Form["start"].FirstOrDefault();             var length = HttpContext.Request.Form["length"].FirstOrDefault();             var searchValue = HttpContext.Request.Form["search[value]"].FirstOrDefault();             var sortColumn = HttpContext.Request.Form["order[0][column]"].FirstOrDefault();             var sortDirection = HttpContext.Request.Form["order[0][dir]"].FirstOrDefault();              //// تبدیل مقادیر به نوع داده صحیح             int pageSize = length != null ? Convert.ToInt32(length) : 0;             int skip = start != null ? Convert.ToInt32(start) : 0;             int drawNumber = draw != null ? Convert.ToInt32(draw) : 0;              List<emp> list = new List<emp>()             {                 new emp                 {                     age = "10",                     name ="ali",                     office = "s",                     position ="sss",                     salary = "2000",                     start_date = "10-10-10"                 },new emp                 {                     age = "10",                     name ="reza",                     office = "s",                     position ="sss",                     salary = "2000",                     start_date = "10-10-10"                 },             };             // بازیابی تمام داده‌ها             //var employeeData = db.SD_Users.AsQueryable();             var employeeData = list.AsQueryable();              //// اعمال جستجو             //if (!string.IsNullOrEmpty(searchValue))             //{             //    employeeData = employeeData.Where(e => e.Name.Contains(searchValue)             //                                           || e.Family.Contains(searchValue)             //                                           || e.Mobile.Contains(searchValue));             //}              // گرفتن تعداد کل رکوردها             var recordsTotal = employeeData.Count();              //// مرتب‌سازی داده‌ها             //if (sortColumn != null)             //{             //    employeeData = sortDirection == "asc" ? employeeData.OrderBy(e => EF.Property<object>(e, sortColumn))             //                                          : employeeData.OrderByDescending(e => EF.Property<object>(e, sortColumn));             //}              // اعمال صفحه‌بندی             var data = employeeData//.Skip(skip).Take(pageSize)                 .ToList();              // ساختار پاسخ DataTables             //var response = new DataTablesResponse<SD_Users>             var response = new DataTablesResponse<emp>             {                 Draw = drawNumber,                 RecordsTotal = recordsTotal,                 RecordsFiltered = recordsTotal, // در صورت جستجو، باید تعداد رکوردهای فیلتر شده را جایگزین کنید                 Data = data             };              return Json(response);         }          public class DataTablesResponse<T>         {             public int Draw { get; set; }             public int RecordsTotal { get; set; }             public int RecordsFiltered { get; set; }             public List<T> Data { get; set; }         }          public class emp         {             public string name { get; set; }             public string position { get; set; }             public string office { get; set; }             public string age { get; set; }             public string start_date { get; set; }             public string salary { get; set; }         }        }   }  

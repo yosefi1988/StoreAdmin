@@ -30,6 +30,8 @@ namespace WebApplicationStoreAdmin.Models
         public string Password { get; set; }
         public string Email { get; set; }
         public string Description { get; set; }
+        public string AspNetUserId { get; set; }
+        public Nullable<System.DateTime> JoinDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SC_Admins> SC_Admins { get; set; }
@@ -37,6 +39,7 @@ namespace WebApplicationStoreAdmin.Models
         public virtual ICollection<SD_Addresses> SD_Addresses { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SD_ShoppingBasket> SD_ShoppingBasket { get; set; }
+        public virtual AspNetUser AspNetUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SD_Votes> SD_Votes { get; set; }
     }

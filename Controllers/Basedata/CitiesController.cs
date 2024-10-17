@@ -39,7 +39,7 @@ namespace WebApplicationStoreAdmin.Controllers.Basedata
         // GET: Cities/Create
         public ActionResult Create()
         {
-            ViewBag.StateID = new SelectList(db.BD_States, "ID", "Title");
+            ViewBag.StateID = new SelectList(db.BD_States, "ID", "Title"); 
             return View();
         }
 

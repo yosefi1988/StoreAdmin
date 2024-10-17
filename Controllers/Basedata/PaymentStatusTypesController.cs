@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebApplicationStoreAdmin.Models;
 
-namespace WebApplicationStoreAdmin.Controllers.Basedata
+namespace WebApplicationStoreAdmin.Controllers.Product
 {
     public class PaymentStatusTypesController : Controller
     {

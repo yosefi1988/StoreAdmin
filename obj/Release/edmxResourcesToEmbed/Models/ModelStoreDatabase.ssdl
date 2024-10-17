@@ -1,5 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="officia1_StoreModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
   <EntityType Name="BD_Cities">
     <Key>
       <PropertyRef Name="ID" />
@@ -15,6 +25,14 @@
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Title" Type="nvarchar" MaxLength="256" />
     <Property Name="Logo" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="BD_PaymentStatusTypes">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
+    <Property Name="Description" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="BD_SendProductsPrice">
     <Key>
@@ -65,6 +83,7 @@
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Title" Type="nvarchar" MaxLength="255" />
     <Property Name="TaxPercentage" Type="int" />
+    <Property Name="CountryId" Type="int" />
   </EntityType>
   <EntityType Name="SC_Admins">
     <Key>
@@ -94,6 +113,7 @@
     <Property Name="Fax" Type="nvarchar" MaxLength="15" />
     <Property Name="SupportNo" Type="nvarchar" MaxLength="15" />
     <Property Name="SupportHours" Type="nvarchar(max)" />
+    <Property Name="PaymentToken" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="SD_Addresses">
     <Key>
@@ -248,7 +268,7 @@
     <Property Name="SumShoppingBasketPrice" Type="int" />
     <Property Name="SumShoppingBasketDiscount" Type="int" />
     <Property Name="AmountForPay" Type="int" />
-    <Property Name="PaymentStatus" Type="int" />
+    <Property Name="PaymentStatusID" Type="int" />
     <Property Name="PaymentTrackingNo" Type="char" MaxLength="30" />
     <Property Name="PaymentDate" Type="datetime" />
   </EntityType>
@@ -263,6 +283,7 @@
     <Property Name="Password" Type="nvarchar(max)" />
     <Property Name="Email" Type="nvarchar(max)" />
     <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="AspNetUserId" Type="nvarchar" MaxLength="450" />
   </EntityType>
   <EntityType Name="SD_Votes">
     <Key>
@@ -284,6 +305,389 @@
     <Property Name="StateID" Type="int" />
     <Property Name="Title" Type="nvarchar" MaxLength="256" />
   </EntityType>
+  <EntityType Name="__EFMigrationsHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+    </Key>
+    <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetRoleClaims">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleId" Type="nvarchar" MaxLength="450" Nullable="false" />
+    <Property Name="ClaimType" Type="nvarchar(max)" />
+    <Property Name="ClaimValue" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AspNetRoles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="450" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="256" />
+    <Property Name="NormalizedName" Type="nvarchar" MaxLength="256" />
+    <Property Name="ConcurrencyStamp" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaims">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="450" Nullable="false" />
+    <Property Name="ClaimType" Type="nvarchar(max)" />
+    <Property Name="ClaimValue" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogins">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+    </Key>
+    <Property Name="LoginProvider" Type="nvarchar" MaxLength="450" Nullable="false" />
+    <Property Name="ProviderKey" Type="nvarchar" MaxLength="450" Nullable="false" />
+    <Property Name="ProviderDisplayName" Type="nvarchar(max)" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="450" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserRoles">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="UserId" Type="nvarchar" MaxLength="450" Nullable="false" />
+    <Property Name="RoleId" Type="nvarchar" MaxLength="450" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="450" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" />
+    <Property Name="NormalizedUserName" Type="nvarchar" MaxLength="256" />
+    <Property Name="Email" Type="nvarchar" MaxLength="256" />
+    <Property Name="NormalizedEmail" Type="nvarchar" MaxLength="256" />
+    <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+    <Property Name="PasswordHash" Type="nvarchar(max)" />
+    <Property Name="SecurityStamp" Type="nvarchar(max)" />
+    <Property Name="ConcurrencyStamp" Type="nvarchar(max)" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" />
+    <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+    <Property Name="LockoutEnd" Type="datetimeoffset" Precision="7" />
+    <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+    <Property Name="Age" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserTokens">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="Name" />
+    </Key>
+    <Property Name="UserId" Type="nvarchar" MaxLength="450" Nullable="false" />
+    <Property Name="LoginProvider" Type="nvarchar" MaxLength="450" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="450" Nullable="false" />
+    <Property Name="Value" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="employees">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" />
+    <Property Name="Family" Type="nvarchar(max)" />
+    <Property Name="Company" Type="nvarchar(max)" />
+    <Property Name="Email" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar(max)" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'officia1_Store.officia1_DbadminMsi.View_Site_Home' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="View_Site_Home">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="255" />
+    <Property Name="BuyInvoiceNumber" Type="nvarchar(max)" />
+    <Property Name="PercentInterest" Type="int" />
+    <Property Name="PercentWages" Type="int" />
+    <Property Name="Discount" Type="int" />
+    <Property Name="RemainingCount" Type="int" />
+    <Property Name="Title" Type="nvarchar" MaxLength="255" />
+    <Property Name="ImageUrl" Type="nvarchar(max)" />
+    <Property Name="ColorCode" Type="char" MaxLength="15" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'officia1_Store.officia1_DbadminMsi.View_Site_ProductDetails_Colors' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="View_Site_ProductDetails_Colors">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="255" />
+    <Property Name="ColorCode" Type="char" MaxLength="15" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'officia1_Store.officia1_DbadminMsi.View_Site_ProductDetails_SimilarProductInSize' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="View_Site_ProductDetails_SimilarProductInSize">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="255" />
+    <Property Name="BuyInvoiceNumber" Type="nvarchar(max)" />
+    <Property Name="PercentInterest" Type="int" />
+    <Property Name="PercentWages" Type="int" />
+    <Property Name="Discount" Type="int" />
+    <Property Name="RemainingCount" Type="int" />
+    <Property Name="Title" Type="nvarchar" MaxLength="255" />
+    <Property Name="ImageUrl" Type="nvarchar(max)" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'officia1_Store.officia1_DbadminMsi.View_Site_ProductDetails_Sizes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="View_Site_ProductDetails_Sizes">
+    <Key>
+      <PropertyRef Name="ProductChargePropertiesID" />
+    </Key>
+    <Property Name="ProductChargePropertiesID" Type="int" Nullable="false" />
+    <Property Name="SizeTitle" Type="nvarchar" MaxLength="256" />
+    <Property Name="SizeDescription" Type="nvarchar(max)" />
+    <Property Name="SizeValue" Type="nchar" MaxLength="10" />
+    <Property Name="SizeValueDescription" Type="nvarchar(max)" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'officia1_Store.officia1_DbadminMsi.View_User_BasketsObjects' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="View_User_BasketsObjects">
+    <Key>
+      <PropertyRef Name="ShoppingBasketID" />
+      <PropertyRef Name="ProductChargePropertiesID" />
+    </Key>
+    <Property Name="ShoppingBasketID" Type="int" Nullable="false" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="ProductName" Type="nvarchar" MaxLength="255" />
+    <Property Name="ProductCode" Type="int" />
+    <Property Name="Tax" Type="nvarchar" MaxLength="255" />
+    <Property Name="TaxPercentage" Type="int" />
+    <Property Name="PercentInterest" Type="int" />
+    <Property Name="PercentWages" Type="int" />
+    <Property Name="Color" Type="nvarchar" MaxLength="255" />
+    <Property Name="ColorCode" Type="char" MaxLength="15" />
+    <Property Name="Discount" Type="int" />
+    <Property Name="RemainingCount" Type="int" />
+    <Property Name="ProductChargePropertiesID" Type="int" Nullable="false" />
+    <Property Name="ProductChargeID" Type="int" />
+    <Property Name="ProductID" Type="int" />
+    <Property Name="Price" Type="int" />
+    <Property Name="OldPrice" Type="int" />
+    <Property Name="Count" Type="int" />
+    <Property Name="AddInToBasketDate" Type="datetime" />
+    <Property Name="BasketStatusID" Type="int" />
+    <Property Name="BasketStatus" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_Admin_ProductChargeID' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="View_Admin_ProductChargeID">
+    <Key>
+      <PropertyRef Name="ProductChargeID" />
+    </Key>
+    <Property Name="ProductChargeID" Type="int" Nullable="false" />
+    <Property Name="Product" Type="nvarchar" MaxLength="255" />
+    <Property Name="ProductCode" Type="int" />
+    <Property Name="BuyInvoiceNumber" Type="nvarchar(max)" />
+    <Property Name="ChargeDate" Type="datetime" />
+    <Property Name="BuyCount" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_Admin_ProductChargePropertiesID' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="View_Admin_ProductChargePropertiesID">
+    <Key>
+      <PropertyRef Name="ProductChargePropertiesID" />
+    </Key>
+    <Property Name="ProductChargePropertiesID" Type="int" Nullable="false" />
+    <Property Name="ProductName" Type="nvarchar" MaxLength="255" />
+    <Property Name="ProductCode" Type="int" />
+    <Property Name="BuyInvoiceNumber" Type="nvarchar(max)" />
+    <Property Name="ChargeDate" Type="datetime" />
+    <Property Name="BuyPrice" Type="int" />
+    <Property Name="Color" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_Admin_ShoppingBasketID' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="View_Admin_ShoppingBasketID">
+    <Key>
+      <PropertyRef Name="ShoppingBasketID" />
+    </Key>
+    <Property Name="ShoppingBasketID" Type="int" Nullable="false" />
+    <Property Name="BasketType" Type="nvarchar" MaxLength="50" />
+    <Property Name="Name" Type="nvarchar" MaxLength="256" />
+    <Property Name="Family" Type="nvarchar" MaxLength="256" />
+    <Property Name="Mobile" Type="nvarchar" MaxLength="15" />
+    <Property Name="Email" Type="nvarchar(max)" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_Admin_TransactionID' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="View_Admin_TransactionID">
+    <Key>
+      <PropertyRef Name="TransactionID" />
+      <PropertyRef Name="ShoppingBasketID" />
+    </Key>
+    <Property Name="TransactionID" Type="int" Nullable="false" />
+    <Property Name="ShoppingBasketID" Type="int" Nullable="false" />
+    <Property Name="BasketType" Type="nvarchar" MaxLength="50" />
+    <Property Name="Name" Type="nvarchar" MaxLength="256" />
+    <Property Name="Family" Type="nvarchar" MaxLength="256" />
+    <Property Name="Mobile" Type="nvarchar" MaxLength="15" />
+    <Property Name="Email" Type="nvarchar(max)" />
+    <Property Name="SumShoppingBasketPrice" Type="int" />
+    <Property Name="PaymentDate" Type="datetime" />
+    <Property Name="PaymentTrackingNo" Type="char" MaxLength="30" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_Admin_UserID' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="View_Admin_UserID">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="256" />
+    <Property Name="Family" Type="nvarchar" MaxLength="256" />
+    <Property Name="Mobile" Type="nvarchar" MaxLength="15" />
+    <Property Name="Email" Type="nvarchar(max)" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_Site_ProductDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="View_Site_ProductDetails">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="255" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Code" Type="int" />
+    <Property Name="BuyPrice" Type="int" />
+    <Property Name="PercentInterest" Type="int" />
+    <Property Name="PercentWages" Type="int" />
+    <Property Name="Discount" Type="int" />
+    <Property Name="RemainingCount" Type="int" />
+    <Property Name="Title" Type="nvarchar" MaxLength="255" />
+    <Property Name="ColorCode" Type="char" MaxLength="15" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_Site_ProductDetails_SendPrices' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="View_Site_ProductDetails_SendPrices">
+    <Key>
+      <PropertyRef Name="SendID" />
+    </Key>
+    <Property Name="ProductID" Type="int" />
+    <Property Name="Product" Type="nvarchar" MaxLength="255" />
+    <Property Name="ProductCode" Type="int" />
+    <Property Name="ProductDescription" Type="nvarchar(max)" />
+    <Property Name="SendID" Type="int" Nullable="false" />
+    <Property Name="Send" Type="nvarchar" MaxLength="256" />
+    <Property Name="CountryID" Type="int" />
+    <Property Name="Country" Type="nvarchar" MaxLength="256" />
+    <Property Name="StateID" Type="int" />
+    <Property Name="State" Type="nvarchar" MaxLength="256" />
+    <Property Name="Price" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'officia1_Store.officia1_VS_msi.View_User_Baskets' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="View_User_Baskets">
+    <Key>
+      <PropertyRef Name="ShoppingBasketID" />
+    </Key>
+    <Property Name="ShoppingBasketID" Type="int" Nullable="false" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="BasketStatusID" Type="int" />
+    <Property Name="BasketStatus" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_AspNetRoleClaims_AspNetRoles_RoleId">
+    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetRoleClaims" Type="Self.AspNetRoleClaims" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetRoles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetRoleClaims">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetUserClaims_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaims">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetUserLogins_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetUserRoles_AspNetRoles_RoleId">
+    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetRoles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetUserRoles_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AspNetUserTokens_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserTokens" Type="Self.AspNetUserTokens" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserTokens">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_BD_Cities_BD_States">
     <End Role="BD_States" Type="Self.BD_States" Multiplicity="0..1">
       <OnDelete Action="Cascade" />
@@ -624,6 +1028,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_SD_Transactions_BD_PaymentStatusTypes">
+    <End Role="BD_PaymentStatusTypes" Type="Self.BD_PaymentStatusTypes" Multiplicity="0..1" />
+    <End Role="SD_Transactions" Type="Self.SD_Transactions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BD_PaymentStatusTypes">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SD_Transactions">
+        <PropertyRef Name="PaymentStatusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_SD_Transactions_SD_Coupons">
     <End Role="SD_Coupons" Type="Self.SD_Coupons" Multiplicity="0..1" />
     <End Role="SD_Transactions" Type="Self.SD_Transactions" Multiplicity="*" />
@@ -647,6 +1063,18 @@
       </Principal>
       <Dependent Role="SD_Transactions">
         <PropertyRef Name="ShoppingBasketID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SD_Users_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="SD_Users" Type="Self.SD_Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SD_Users">
+        <PropertyRef Name="AspNetUserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -679,8 +1107,10 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="officia1_StoreModelStoreContainer">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BD_Cities" EntityType="Self.BD_Cities" Schema="officia1_Dbadmin" store:Type="Tables" />
     <EntitySet Name="BD_Country" EntityType="Self.BD_Country" Schema="officia1_Dbadmin" store:Type="Tables" />
+    <EntitySet Name="BD_PaymentStatusTypes" EntityType="Self.BD_PaymentStatusTypes" Schema="officia1_Dbadmin" store:Type="Tables" />
     <EntitySet Name="BD_SendProductsPrice" EntityType="Self.BD_SendProductsPrice" Schema="officia1_Dbadmin" store:Type="Tables" />
     <EntitySet Name="BD_SendStatusTypes" EntityType="Self.BD_SendStatusTypes" Schema="officia1_Dbadmin" store:Type="Tables" />
     <EntitySet Name="BD_ShoppingBasketTypes" EntityType="Self.BD_ShoppingBasketTypes" Schema="officia1_Dbadmin" store:Type="Tables" />
@@ -706,6 +1136,202 @@
     <EntitySet Name="SD_Users" EntityType="Self.SD_Users" Schema="officia1_Dbadmin" store:Type="Tables" />
     <EntitySet Name="SD_Votes" EntityType="Self.SD_Votes" Schema="officia1_Dbadmin" store:Type="Tables" />
     <EntitySet Name="BD_SendBoxPrices" EntityType="Self.BD_SendBoxPrices" Schema="officia1_DbadminMsi" store:Type="Tables" />
+    <EntitySet Name="__EFMigrationsHistory" EntityType="Self.__EFMigrationsHistory" Schema="officia1_VS_msi" store:Type="Tables" />
+    <EntitySet Name="AspNetRoleClaims" EntityType="Self.AspNetRoleClaims" Schema="officia1_VS_msi" store:Type="Tables" />
+    <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="officia1_VS_msi" store:Type="Tables" />
+    <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="officia1_VS_msi" store:Type="Tables" />
+    <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="officia1_VS_msi" store:Type="Tables" />
+    <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="officia1_VS_msi" store:Type="Tables" />
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="officia1_VS_msi" store:Type="Tables" />
+    <EntitySet Name="AspNetUserTokens" EntityType="Self.AspNetUserTokens" Schema="officia1_VS_msi" store:Type="Tables" />
+    <EntitySet Name="employees" EntityType="Self.employees" Schema="officia1_VS_msi" store:Type="Tables" />
+    <EntitySet Name="View_Site_Home" EntityType="Self.View_Site_Home" store:Type="Views" store:Schema="officia1_DbadminMsi">
+      <DefiningQuery>SELECT 
+    [View_Site_Home].[ID] AS [ID], 
+    [View_Site_Home].[Name] AS [Name], 
+    [View_Site_Home].[BuyInvoiceNumber] AS [BuyInvoiceNumber], 
+    [View_Site_Home].[PercentInterest] AS [PercentInterest], 
+    [View_Site_Home].[PercentWages] AS [PercentWages], 
+    [View_Site_Home].[Discount] AS [Discount], 
+    [View_Site_Home].[RemainingCount] AS [RemainingCount], 
+    [View_Site_Home].[Title] AS [Title], 
+    [View_Site_Home].[ImageUrl] AS [ImageUrl], 
+    [View_Site_Home].[ColorCode] AS [ColorCode]
+    FROM [officia1_DbadminMsi].[View_Site_Home] AS [View_Site_Home]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="View_Site_ProductDetails_Colors" EntityType="Self.View_Site_ProductDetails_Colors" store:Type="Views" store:Schema="officia1_DbadminMsi">
+      <DefiningQuery>SELECT 
+    [View_Site_ProductDetails_Colors].[ID] AS [ID], 
+    [View_Site_ProductDetails_Colors].[Title] AS [Title], 
+    [View_Site_ProductDetails_Colors].[ColorCode] AS [ColorCode]
+    FROM [officia1_DbadminMsi].[View_Site_ProductDetails_Colors] AS [View_Site_ProductDetails_Colors]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="View_Site_ProductDetails_SimilarProductInSize" EntityType="Self.View_Site_ProductDetails_SimilarProductInSize" store:Type="Views" store:Schema="officia1_DbadminMsi">
+      <DefiningQuery>SELECT 
+    [View_Site_ProductDetails_SimilarProductInSize].[ID] AS [ID], 
+    [View_Site_ProductDetails_SimilarProductInSize].[Name] AS [Name], 
+    [View_Site_ProductDetails_SimilarProductInSize].[BuyInvoiceNumber] AS [BuyInvoiceNumber], 
+    [View_Site_ProductDetails_SimilarProductInSize].[PercentInterest] AS [PercentInterest], 
+    [View_Site_ProductDetails_SimilarProductInSize].[PercentWages] AS [PercentWages], 
+    [View_Site_ProductDetails_SimilarProductInSize].[Discount] AS [Discount], 
+    [View_Site_ProductDetails_SimilarProductInSize].[RemainingCount] AS [RemainingCount], 
+    [View_Site_ProductDetails_SimilarProductInSize].[Title] AS [Title], 
+    [View_Site_ProductDetails_SimilarProductInSize].[ImageUrl] AS [ImageUrl]
+    FROM [officia1_DbadminMsi].[View_Site_ProductDetails_SimilarProductInSize] AS [View_Site_ProductDetails_SimilarProductInSize]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="View_Site_ProductDetails_Sizes" EntityType="Self.View_Site_ProductDetails_Sizes" store:Type="Views" store:Schema="officia1_DbadminMsi">
+      <DefiningQuery>SELECT 
+    [View_Site_ProductDetails_Sizes].[ProductChargePropertiesID] AS [ProductChargePropertiesID], 
+    [View_Site_ProductDetails_Sizes].[SizeTitle] AS [SizeTitle], 
+    [View_Site_ProductDetails_Sizes].[SizeDescription] AS [SizeDescription], 
+    [View_Site_ProductDetails_Sizes].[SizeValue] AS [SizeValue], 
+    [View_Site_ProductDetails_Sizes].[SizeValueDescription] AS [SizeValueDescription]
+    FROM [officia1_DbadminMsi].[View_Site_ProductDetails_Sizes] AS [View_Site_ProductDetails_Sizes]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="View_User_BasketsObjects" EntityType="Self.View_User_BasketsObjects" store:Type="Views" store:Schema="officia1_DbadminMsi">
+      <DefiningQuery>SELECT 
+    [View_User_BasketsObjects].[ShoppingBasketID] AS [ShoppingBasketID], 
+    [View_User_BasketsObjects].[UserID] AS [UserID], 
+    [View_User_BasketsObjects].[ProductName] AS [ProductName], 
+    [View_User_BasketsObjects].[ProductCode] AS [ProductCode], 
+    [View_User_BasketsObjects].[Tax] AS [Tax], 
+    [View_User_BasketsObjects].[TaxPercentage] AS [TaxPercentage], 
+    [View_User_BasketsObjects].[PercentInterest] AS [PercentInterest], 
+    [View_User_BasketsObjects].[PercentWages] AS [PercentWages], 
+    [View_User_BasketsObjects].[Color] AS [Color], 
+    [View_User_BasketsObjects].[ColorCode] AS [ColorCode], 
+    [View_User_BasketsObjects].[Discount] AS [Discount], 
+    [View_User_BasketsObjects].[RemainingCount] AS [RemainingCount], 
+    [View_User_BasketsObjects].[ProductChargePropertiesID] AS [ProductChargePropertiesID], 
+    [View_User_BasketsObjects].[ProductChargeID] AS [ProductChargeID], 
+    [View_User_BasketsObjects].[ProductID] AS [ProductID], 
+    [View_User_BasketsObjects].[Price] AS [Price], 
+    [View_User_BasketsObjects].[OldPrice] AS [OldPrice], 
+    [View_User_BasketsObjects].[Count] AS [Count], 
+    [View_User_BasketsObjects].[AddInToBasketDate] AS [AddInToBasketDate], 
+    [View_User_BasketsObjects].[BasketStatusID] AS [BasketStatusID], 
+    [View_User_BasketsObjects].[BasketStatus] AS [BasketStatus]
+    FROM [officia1_DbadminMsi].[View_User_BasketsObjects] AS [View_User_BasketsObjects]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="View_Admin_ProductChargeID" EntityType="Self.View_Admin_ProductChargeID" store:Type="Views" store:Schema="officia1_VS_msi">
+      <DefiningQuery>SELECT 
+    [View_Admin_ProductChargeID].[ProductChargeID] AS [ProductChargeID], 
+    [View_Admin_ProductChargeID].[Product] AS [Product], 
+    [View_Admin_ProductChargeID].[ProductCode] AS [ProductCode], 
+    [View_Admin_ProductChargeID].[BuyInvoiceNumber] AS [BuyInvoiceNumber], 
+    [View_Admin_ProductChargeID].[ChargeDate] AS [ChargeDate], 
+    [View_Admin_ProductChargeID].[BuyCount] AS [BuyCount]
+    FROM [officia1_VS_msi].[View_Admin_ProductChargeID] AS [View_Admin_ProductChargeID]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="View_Admin_ProductChargePropertiesID" EntityType="Self.View_Admin_ProductChargePropertiesID" store:Type="Views" store:Schema="officia1_VS_msi">
+      <DefiningQuery>SELECT 
+    [View_Admin_ProductChargePropertiesID].[ProductChargePropertiesID] AS [ProductChargePropertiesID], 
+    [View_Admin_ProductChargePropertiesID].[ProductName] AS [ProductName], 
+    [View_Admin_ProductChargePropertiesID].[ProductCode] AS [ProductCode], 
+    [View_Admin_ProductChargePropertiesID].[BuyInvoiceNumber] AS [BuyInvoiceNumber], 
+    [View_Admin_ProductChargePropertiesID].[ChargeDate] AS [ChargeDate], 
+    [View_Admin_ProductChargePropertiesID].[BuyPrice] AS [BuyPrice], 
+    [View_Admin_ProductChargePropertiesID].[Color] AS [Color]
+    FROM [officia1_VS_msi].[View_Admin_ProductChargePropertiesID] AS [View_Admin_ProductChargePropertiesID]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="View_Admin_ShoppingBasketID" EntityType="Self.View_Admin_ShoppingBasketID" store:Type="Views" store:Schema="officia1_VS_msi">
+      <DefiningQuery>SELECT 
+    [View_Admin_ShoppingBasketID].[ShoppingBasketID] AS [ShoppingBasketID], 
+    [View_Admin_ShoppingBasketID].[BasketType] AS [BasketType], 
+    [View_Admin_ShoppingBasketID].[Name] AS [Name], 
+    [View_Admin_ShoppingBasketID].[Family] AS [Family], 
+    [View_Admin_ShoppingBasketID].[Mobile] AS [Mobile], 
+    [View_Admin_ShoppingBasketID].[Email] AS [Email]
+    FROM [officia1_VS_msi].[View_Admin_ShoppingBasketID] AS [View_Admin_ShoppingBasketID]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="View_Admin_TransactionID" EntityType="Self.View_Admin_TransactionID" store:Type="Views" store:Schema="officia1_VS_msi">
+      <DefiningQuery>SELECT 
+    [View_Admin_TransactionID].[TransactionID] AS [TransactionID], 
+    [View_Admin_TransactionID].[ShoppingBasketID] AS [ShoppingBasketID], 
+    [View_Admin_TransactionID].[BasketType] AS [BasketType], 
+    [View_Admin_TransactionID].[Name] AS [Name], 
+    [View_Admin_TransactionID].[Family] AS [Family], 
+    [View_Admin_TransactionID].[Mobile] AS [Mobile], 
+    [View_Admin_TransactionID].[Email] AS [Email], 
+    [View_Admin_TransactionID].[SumShoppingBasketPrice] AS [SumShoppingBasketPrice], 
+    [View_Admin_TransactionID].[PaymentDate] AS [PaymentDate], 
+    [View_Admin_TransactionID].[PaymentTrackingNo] AS [PaymentTrackingNo], 
+    [View_Admin_TransactionID].[Status] AS [Status]
+    FROM [officia1_VS_msi].[View_Admin_TransactionID] AS [View_Admin_TransactionID]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="View_Admin_UserID" EntityType="Self.View_Admin_UserID" store:Type="Views" store:Schema="officia1_VS_msi">
+      <DefiningQuery>SELECT 
+    [View_Admin_UserID].[ID] AS [ID], 
+    [View_Admin_UserID].[Name] AS [Name], 
+    [View_Admin_UserID].[Family] AS [Family], 
+    [View_Admin_UserID].[Mobile] AS [Mobile], 
+    [View_Admin_UserID].[Email] AS [Email], 
+    [View_Admin_UserID].[UserName] AS [UserName], 
+    [View_Admin_UserID].[PhoneNumber] AS [PhoneNumber]
+    FROM [officia1_VS_msi].[View_Admin_UserID] AS [View_Admin_UserID]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="View_Site_ProductDetails" EntityType="Self.View_Site_ProductDetails" store:Type="Views" store:Schema="officia1_VS_msi">
+      <DefiningQuery>SELECT 
+    [View_Site_ProductDetails].[ID] AS [ID], 
+    [View_Site_ProductDetails].[Name] AS [Name], 
+    [View_Site_ProductDetails].[Description] AS [Description], 
+    [View_Site_ProductDetails].[Code] AS [Code], 
+    [View_Site_ProductDetails].[BuyPrice] AS [BuyPrice], 
+    [View_Site_ProductDetails].[PercentInterest] AS [PercentInterest], 
+    [View_Site_ProductDetails].[PercentWages] AS [PercentWages], 
+    [View_Site_ProductDetails].[Discount] AS [Discount], 
+    [View_Site_ProductDetails].[RemainingCount] AS [RemainingCount], 
+    [View_Site_ProductDetails].[Title] AS [Title], 
+    [View_Site_ProductDetails].[ColorCode] AS [ColorCode]
+    FROM [officia1_VS_msi].[View_Site_ProductDetails] AS [View_Site_ProductDetails]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="View_Site_ProductDetails_SendPrices" EntityType="Self.View_Site_ProductDetails_SendPrices" store:Type="Views" store:Schema="officia1_VS_msi">
+      <DefiningQuery>SELECT 
+    [View_Site_ProductDetails_SendPrices].[ProductID] AS [ProductID], 
+    [View_Site_ProductDetails_SendPrices].[Product] AS [Product], 
+    [View_Site_ProductDetails_SendPrices].[ProductCode] AS [ProductCode], 
+    [View_Site_ProductDetails_SendPrices].[ProductDescription] AS [ProductDescription], 
+    [View_Site_ProductDetails_SendPrices].[SendID] AS [SendID], 
+    [View_Site_ProductDetails_SendPrices].[Send] AS [Send], 
+    [View_Site_ProductDetails_SendPrices].[CountryID] AS [CountryID], 
+    [View_Site_ProductDetails_SendPrices].[Country] AS [Country], 
+    [View_Site_ProductDetails_SendPrices].[StateID] AS [StateID], 
+    [View_Site_ProductDetails_SendPrices].[State] AS [State], 
+    [View_Site_ProductDetails_SendPrices].[Price] AS [Price]
+    FROM [officia1_VS_msi].[View_Site_ProductDetails_SendPrices] AS [View_Site_ProductDetails_SendPrices]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="View_User_Baskets" EntityType="Self.View_User_Baskets" store:Type="Views" store:Schema="officia1_VS_msi">
+      <DefiningQuery>SELECT 
+    [View_User_Baskets].[ShoppingBasketID] AS [ShoppingBasketID], 
+    [View_User_Baskets].[UserID] AS [UserID], 
+    [View_User_Baskets].[BasketStatusID] AS [BasketStatusID], 
+    [View_User_Baskets].[BasketStatus] AS [BasketStatus]
+    FROM [officia1_VS_msi].[View_User_Baskets] AS [View_User_Baskets]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_AspNetRoleClaims_AspNetRoles_RoleId" Association="Self.FK_AspNetRoleClaims_AspNetRoles_RoleId">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetRoleClaims" EntitySet="AspNetRoleClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetUserClaims_AspNetUsers_UserId" Association="Self.FK_AspNetUserClaims_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetUserLogins_AspNetUsers_UserId" Association="Self.FK_AspNetUserLogins_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetUserRoles_AspNetRoles_RoleId" Association="Self.FK_AspNetUserRoles_AspNetRoles_RoleId">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetUserRoles_AspNetUsers_UserId" Association="Self.FK_AspNetUserRoles_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AspNetUserTokens_AspNetUsers_UserId" Association="Self.FK_AspNetUserTokens_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserTokens" EntitySet="AspNetUserTokens" />
+    </AssociationSet>
     <AssociationSet Name="FK_BD_Cities_BD_States" Association="Self.FK_BD_Cities_BD_States">
       <End Role="BD_States" EntitySet="BD_States" />
       <End Role="BD_Cities" EntitySet="BD_Cities" />
@@ -810,6 +1436,10 @@
       <End Role="SD_ShoppingBasket" EntitySet="SD_ShoppingBasket" />
       <End Role="SD_ShoppingBasketObjects" EntitySet="SD_ShoppingBasketObjects" />
     </AssociationSet>
+    <AssociationSet Name="FK_SD_Transactions_BD_PaymentStatusTypes" Association="Self.FK_SD_Transactions_BD_PaymentStatusTypes">
+      <End Role="BD_PaymentStatusTypes" EntitySet="BD_PaymentStatusTypes" />
+      <End Role="SD_Transactions" EntitySet="SD_Transactions" />
+    </AssociationSet>
     <AssociationSet Name="FK_SD_Transactions_SD_Coupons" Association="Self.FK_SD_Transactions_SD_Coupons">
       <End Role="SD_Coupons" EntitySet="SD_Coupons" />
       <End Role="SD_Transactions" EntitySet="SD_Transactions" />
@@ -817,6 +1447,10 @@
     <AssociationSet Name="FK_SD_Transactions_SD_ShoppingBasket" Association="Self.FK_SD_Transactions_SD_ShoppingBasket">
       <End Role="SD_ShoppingBasket" EntitySet="SD_ShoppingBasket" />
       <End Role="SD_Transactions" EntitySet="SD_Transactions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SD_Users_AspNetUsers" Association="Self.FK_SD_Users_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="SD_Users" EntitySet="SD_Users" />
     </AssociationSet>
     <AssociationSet Name="FK_SD_Votes_SD_ProductChargesProperties" Association="Self.FK_SD_Votes_SD_ProductChargesProperties">
       <End Role="SD_ProductChargesProperties" EntitySet="SD_ProductChargesProperties" />
