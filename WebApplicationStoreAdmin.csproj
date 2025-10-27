@@ -4774,7 +4774,9 @@
     <Content Include="test\IndexDatePicker.html" />
     <Content Include="TextFile1.txt" />
     <Content Include="w3\W3CSS Template.htm" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

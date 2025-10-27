@@ -1,6 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="officia1_StoreModelStoreContainer" CdmEntityContainer="officia1_StoreEntities">
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="officia1_StoreModel.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="officia1_StoreModel.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="officia1_StoreModel.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="officia1_StoreModel.Store.sp_helpdiagramdefinition">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="officia1_StoreModel.sp_helpdiagramdefinition_Result">
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="officia1_StoreModel.Store.sp_helpdiagrams">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="officia1_StoreModel.sp_helpdiagrams_Result">
+          <ScalarProperty Name="Database" ColumnName="Database" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="officia1_StoreModel.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="officia1_StoreModel.Store.sp_upgraddiagrams" />
     <EntitySetMapping Name="sysdiagrams">
       <EntityTypeMapping TypeName="officia1_StoreModel.sysdiagram">
         <MappingFragment StoreEntitySet="sysdiagrams">
@@ -63,6 +87,7 @@
       <EntityTypeMapping TypeName="officia1_StoreModel.BD_ShoppingBasketTypes">
         <MappingFragment StoreEntitySet="BD_ShoppingBasketTypes">
           <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
           <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
@@ -231,6 +256,7 @@
       <EntityTypeMapping TypeName="officia1_StoreModel.SD_ProductSizes">
         <MappingFragment StoreEntitySet="SD_ProductSizes">
           <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="CommonInProductCharge" ColumnName="CommonInProductCharge" />
           <ScalarProperty Name="Value" ColumnName="Value" />
           <ScalarProperty Name="ProductChargePropertiesID" ColumnName="ProductChargePropertiesID" />
           <ScalarProperty Name="SizeID" ColumnName="SizeID" />
@@ -300,6 +326,7 @@
     <EntitySetMapping Name="SD_Users">
       <EntityTypeMapping TypeName="officia1_StoreModel.SD_Users">
         <MappingFragment StoreEntitySet="SD_Users">
+          <ScalarProperty Name="JoinDate" ColumnName="JoinDate" />
           <ScalarProperty Name="AspNetUserId" ColumnName="AspNetUserId" />
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="Email" ColumnName="Email" />
@@ -445,6 +472,8 @@
         <MappingFragment StoreEntitySet="View_Site_ProductDetails_Colors">
           <ScalarProperty Name="ColorCode" ColumnName="ColorCode" />
           <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="OtherProductChargePropertiesID" ColumnName="OtherProductChargePropertiesID" />
+          <ScalarProperty Name="ProductChargePropertiesID" ColumnName="ProductChargePropertiesID" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -460,6 +489,7 @@
           <ScalarProperty Name="PercentInterest" ColumnName="PercentInterest" />
           <ScalarProperty Name="BuyInvoiceNumber" ColumnName="BuyInvoiceNumber" />
           <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ProductChargePropertiesID" ColumnName="ProductChargePropertiesID" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -472,12 +502,14 @@
           <ScalarProperty Name="SizeDescription" ColumnName="SizeDescription" />
           <ScalarProperty Name="SizeTitle" ColumnName="SizeTitle" />
           <ScalarProperty Name="ProductChargePropertiesID" ColumnName="ProductChargePropertiesID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="View_User_BasketsObjects">
       <EntityTypeMapping TypeName="officia1_StoreModel.View_User_BasketsObjects">
         <MappingFragment StoreEntitySet="View_User_BasketsObjects">
+          <ScalarProperty Name="TotalPriceWithTax" ColumnName="TotalPriceWithTax" />
           <ScalarProperty Name="BasketStatus" ColumnName="BasketStatus" />
           <ScalarProperty Name="BasketStatusID" ColumnName="BasketStatusID" />
           <ScalarProperty Name="AddInToBasketDate" ColumnName="AddInToBasketDate" />
@@ -498,7 +530,9 @@
           <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
           <ScalarProperty Name="ProductName" ColumnName="ProductName" />
           <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="ShoppingBasketObjectsID" ColumnName="ShoppingBasketObjectsID" />
           <ScalarProperty Name="ShoppingBasketID" ColumnName="ShoppingBasketID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -511,6 +545,7 @@
           <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
           <ScalarProperty Name="Product" ColumnName="Product" />
           <ScalarProperty Name="ProductChargeID" ColumnName="ProductChargeID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -524,6 +559,7 @@
           <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
           <ScalarProperty Name="ProductName" ColumnName="ProductName" />
           <ScalarProperty Name="ProductChargePropertiesID" ColumnName="ProductChargePropertiesID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -536,6 +572,7 @@
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="BasketType" ColumnName="BasketType" />
           <ScalarProperty Name="ShoppingBasketID" ColumnName="ShoppingBasketID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -553,18 +590,23 @@
           <ScalarProperty Name="BasketType" ColumnName="BasketType" />
           <ScalarProperty Name="ShoppingBasketID" ColumnName="ShoppingBasketID" />
           <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="View_Admin_UserID">
-      <EntityTypeMapping TypeName="officia1_StoreModel.View_Admin_UserID">
-        <MappingFragment StoreEntitySet="View_Admin_UserID">
-          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-          <ScalarProperty Name="UserName" ColumnName="UserName" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
+    <EntitySetMapping Name="View_Admin_Users">
+      <EntityTypeMapping TypeName="officia1_StoreModel.View_Admin_Users">
+        <MappingFragment StoreEntitySet="View_Admin_Users">
+          <ScalarProperty Name="JoinDate" ColumnName="JoinDate" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Mail" ColumnName="Mail" />
           <ScalarProperty Name="Mobile" ColumnName="Mobile" />
           <ScalarProperty Name="Family" ColumnName="Family" />
           <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="GUID" ColumnName="GUID" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -600,6 +642,7 @@
           <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
           <ScalarProperty Name="Product" ColumnName="Product" />
           <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -610,6 +653,7 @@
           <ScalarProperty Name="BasketStatusID" ColumnName="BasketStatusID" />
           <ScalarProperty Name="UserID" ColumnName="UserID" />
           <ScalarProperty Name="ShoppingBasketID" ColumnName="ShoppingBasketID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
