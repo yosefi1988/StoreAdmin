@@ -28,9 +28,13 @@
     <!-- jQuery -->
     <script src="~/Content/vendors/jquery/dist/jquery.min.js"></script>    
     <!-- Bootstrap -->
-    <script src="~/Content/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    @*<script src="~/Content/vendors/bootstrap/dist/js/bootstrap.min.js"></script>*@ 
+    @*<script src="@Url.Content("~/Content/vendors/bootstrap/dist/js/bootstrap.min.js")"></script>*@
 
+     
+    <script src="~/Content/vendors/bootstrap/dist/js/bootstrap.min.js"></script> 
 
+    <link href="~/Content/vendors/Flot/examples/shared/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
 </head>
 <body class="nav-md">
     <div class="container body">
@@ -364,12 +368,23 @@
     <script src="~/Content/vendors/moment/min/moment.min.js"></script>
     <script src="~/Content/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
     <!-- Custom Theme Scripts -->
-    <script src="~/Content/build/js/custom.min.js"></script>
+    @*<script src="~/Content/build/js/custom.min.js"></script>*@
 
-    @Scripts.Render("~/bundles/jquery")
+    @*@Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 
+    <script src="~/Content/build/js/custom.min.js"></script> *@
+
+
+ 
+    <script src="~/Content/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script src="~/Content/vendors/Flot/examples/shared/jquery-ui/jquery-ui.min.js"></script>
+
+    @RenderSection("scripts", required: false)
+
+    <script src="~/Content/build/js/custom.min.js"></script>
 </body>
 </html>
 
