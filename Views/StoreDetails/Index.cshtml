@@ -1,0 +1,97 @@
+﻿@model IEnumerable<WebApplicationStoreAdmin.Models.X_StoreSetting>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.StoreNameFa) (نام فروشگاه فارسی)</th>
+        <th>@Html.DisplayNameFor(model => model.StoreNameEn) (نام فروشگاه انگلیسی)</th>
+        <th>@Html.DisplayNameFor(model => model.LegalName) (نام حقوقی)</th>
+        <th>@Html.DisplayNameFor(model => model.RegistrationNumber) (شماره ثبت)</th>
+        <th>@Html.DisplayNameFor(model => model.NationalId) (شناسه ملی)</th>
+        <th>@Html.DisplayNameFor(model => model.EconomicCode) (کد اقتصادی)</th>
+        <th>@Html.DisplayNameFor(model => model.PhoneNumber) (تلفن ثابت)</th>
+        <th>@Html.DisplayNameFor(model => model.MobileNumber) (موبایل)</th>
+        <th>@Html.DisplayNameFor(model => model.FaxNumber) (فکس)</th>
+        <th>@Html.DisplayNameFor(model => model.Email) (ایمیل)</th>
+        <th>@Html.DisplayNameFor(model => model.Website) (وب‌سایت)</th>
+        <th>@Html.DisplayNameFor(model => model.FK_CountryId) (کشور)</th>
+        <th>@Html.DisplayNameFor(model => model.FK_ProvinceId) (استان)</th>
+        <th>@Html.DisplayNameFor(model => model.FK_CityId) (شهر)</th>
+        <th>@Html.DisplayNameFor(model => model.Address) (آدرس)</th>
+        <th>@Html.DisplayNameFor(model => model.PostalCode) (کد پستی)</th>
+        <th>@Html.DisplayNameFor(model => model.Latitude) (عرض جغرافیایی)</th>
+        <th>@Html.DisplayNameFor(model => model.Longitude) (طول جغرافیایی)</th>
+        <th>@Html.DisplayNameFor(model => model.LogoUrl) (آدرس لوگو)</th>
+        <th>@Html.DisplayNameFor(model => model.FaviconUrl) (آدرس فاوآیکون)</th>
+        <th>@Html.DisplayNameFor(model => model.Description) (توضیحات)</th>
+        <th>@Html.DisplayNameFor(model => model.InstagramUrl) (اینستاگرام)</th>
+        <th>@Html.DisplayNameFor(model => model.TelegramUrl) (تلگرام)</th>
+        <th>@Html.DisplayNameFor(model => model.WhatsAppNumber) (واتساپ)</th>
+        <th>@Html.DisplayNameFor(model => model.LinkedInUrl) (لینکدین)</th>
+        <th>@Html.DisplayNameFor(model => model.WorkingHours) (ساعات کاری)</th>
+        <th>@Html.DisplayNameFor(model => model.SupportPhone) (تلفن پشتیبانی)</th>
+        <th>@Html.DisplayNameFor(model => model.SupportEmail) (ایمیل پشتیبانی)</th>
+        <th>@Html.DisplayNameFor(model => model.IsActive) (فعال)</th>
+        <th>@Html.DisplayNameFor(model => model.CreatedAt) (تاریخ ایجاد)</th>
+        <th>@Html.DisplayNameFor(model => model.UpdatedAt) (تاریخ ویرایش)</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.StoreNameFa)</td>
+            <td>@Html.DisplayFor(modelItem => item.StoreNameEn)</td>
+            <td>@Html.DisplayFor(modelItem => item.LegalName)</td>
+            <td>@Html.DisplayFor(modelItem => item.RegistrationNumber)</td>
+            <td>@Html.DisplayFor(modelItem => item.NationalId)</td>
+            <td>@Html.DisplayFor(modelItem => item.EconomicCode)</td>
+            <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
+            <td>@Html.DisplayFor(modelItem => item.MobileNumber)</td>
+            <td>@Html.DisplayFor(modelItem => item.FaxNumber)</td>
+            <td>@Html.DisplayFor(modelItem => item.Email)</td>
+            <td>@Html.DisplayFor(modelItem => item.Website)</td>
+
+            <!-- کشور -->
+            <td>@(item.X_Country != null ? item.X_Country.NameFa : "-")</td>
+
+            <!-- استان -->
+            <td>@(item.X_Province != null ? item.X_Province.NameFa : "-")</td>
+
+            <!-- شهر -->
+            <td>@(item.X_City != null ? item.X_City.NameFa : "-")</td>
+
+            <td>@Html.DisplayFor(modelItem => item.Address)</td>
+            <td>@Html.DisplayFor(modelItem => item.PostalCode)</td>
+            <td>@Html.DisplayFor(modelItem => item.Latitude)</td>
+            <td>@Html.DisplayFor(modelItem => item.Longitude)</td>
+            <td>@Html.DisplayFor(modelItem => item.LogoUrl)</td>
+            <td>@Html.DisplayFor(modelItem => item.FaviconUrl)</td>
+            <td>@Html.DisplayFor(modelItem => item.Description)</td>
+            <td>@Html.DisplayFor(modelItem => item.InstagramUrl)</td>
+            <td>@Html.DisplayFor(modelItem => item.TelegramUrl)</td>
+            <td>@Html.DisplayFor(modelItem => item.WhatsAppNumber)</td>
+            <td>@Html.DisplayFor(modelItem => item.LinkedInUrl)</td>
+            <td>@Html.DisplayFor(modelItem => item.WorkingHours)</td>
+            <td>@Html.DisplayFor(modelItem => item.SupportPhone)</td>
+            <td>@Html.DisplayFor(modelItem => item.SupportEmail)</td>
+            <td>@Html.DisplayFor(modelItem => item.IsActive)</td>
+            <td>@Html.DisplayFor(modelItem => item.CreatedAt)</td>
+            <td>@Html.DisplayFor(modelItem => item.UpdatedAt)</td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.StoreSettingId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.StoreSettingId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.StoreSettingId })
+            </td>
+        </tr>
+    }
+
+</table>

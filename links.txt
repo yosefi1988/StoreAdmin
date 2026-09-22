@@ -1,0 +1,53 @@
+﻿
+
+StoreDetails
+http://localhost:44602/StoreDetails/
+http://localhost:44602/StoreDetails/create
+http://localhost:44602/StoreDetails/Details/1
+http://localhost:44602/StoreDetails/Edit/1
+http://localhost:44602/StoreDetails/Delete/1
+
+
+product + Resources
+http://localhost:44602/product/Create
+http://localhost:44602/product
+http://localhost:44602/product/Details/7
+http://localhost:44602/product/Delete/7
+http://localhost:44602/product/Edit/7
+
+
+X_ProductVariants + X_ProductVariantDiscounts
+http://localhost:44602/ProductVariants/Create
+http://localhost:44602/ProductVariants
+http://localhost:44602/ProductVariants/Edit/25
+http://localhost:44602/ProductVariants/Details/25
+http://localhost:44602/ProductVariants/Delete/26
+
+
+product Cat =  ResourceCategories
+http://localhost:44602/ResourceCategories/Create
+http://localhost:44602/ResourceCategories
+http://localhost:44602/ResourceCategories/Edit/7
+http://localhost:44602/ResourceCategories/Details/7
+http://localhost:44602/ResourceCategories/Delete/7
+
+
+Product Attribute = ProductVariantAttributes
+http://localhost:44602/ProductVariantAttributes
+http://localhost:44602/ProductVariantAttributes/Create
+http://localhost:44602/ProductVariantAttributes/Edit/6
+http://localhost:44602/ProductVariantAttributes/Details/7
+http://localhost:44602/ProductVariantAttributes/Delete/8
+
+
+
+
+AttributeValues
+http://localhost:44602/AttributeValues
+http://localhost:44602/AttributeValues/Create
+http://localhost:44602/AttributeValues/Edit/22
+http://localhost:44602/AttributeValues/Details/23
+http://localhost:44602/AttributeValues/Delete/23
+
+
+

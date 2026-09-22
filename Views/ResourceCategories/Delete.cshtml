@@ -1,0 +1,47 @@
+﻿@model WebApplicationStoreAdmin.Models.ViewModel.ResourceCategoriesViewModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>آیا از حذف همه دسته‌بندی‌های این محصول مطمئن هستید؟</h3>
+<div>
+    <h4>Resource Categories</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(model => model.ResourceId) (شناسه)</dt>
+        <dd>@Html.DisplayFor(model => model.ResourceId)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.ResourceNameFa) (نام محصول)</dt>
+        <dd>@Html.DisplayFor(model => model.ResourceNameFa)</dd>
+
+        <dt>دسته‌بندی‌های فعلی</dt>
+        <dd>
+            @if (Model.SelectedCategoryNames != null && Model.SelectedCategoryNames.Any())
+            {
+                <ul>
+                    @foreach (var catName in Model.SelectedCategoryNames)
+                    {
+                        <li>@catName</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <span class="text-muted">بدون دسته‌بندی</span>
+            }
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete All" class="btn btn-danger" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

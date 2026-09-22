@@ -137,6 +137,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -197,214 +198,33 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\Basedata\CitiesController.cs" />
     <Compile Include="Controllers\Basedata\CountryController.cs" />
     <Compile Include="Controllers\Basedata\PaymentStatusTypesController.cs" />
-    <Compile Include="Controllers\Basedata\SendStatusTypesController.cs" />
-    <Compile Include="Controllers\Basedata\ShoppingBasketTypesController.cs" />
-    <Compile Include="Controllers\Basedata\SizeTypesController.cs" />
-    <Compile Include="Controllers\Basedata\StatesController.cs" />
-    <Compile Include="Controllers\Basedata\TaxController.cs" />
-    <Compile Include="Controllers\Config\AdminsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\Config\StoreDetailsController.cs" />
-    <Compile Include="Controllers\Product\ProductCategoriesController.cs" />
-    <Compile Include="Controllers\Product\ProductChargesPropertiesController.cs" />
-    <Compile Include="Controllers\Users\AddressesController.cs" />
-    <Compile Include="Controllers\Product\CategoryController.cs" />
-    <Compile Include="Controllers\Basedata\ColorController.cs" />
-    <Compile Include="Controllers\Product\CouponsController.cs" />
-    <Compile Include="Controllers\Product\ImagesController.cs" />
-    <Compile Include="Controllers\Product\ProductChargesController.cs" />
+    <Compile Include="Controllers\Basedata\AttributeValuesController.cs" />
+    <Compile Include="Controllers\Product\ProductVariantAttributesController.cs" />
+    <Compile Include="Controllers\Product\ResourceCategoriesController.cs" />
+    <Compile Include="Controllers\Product\ProductVariantsController.cs" />
     <Compile Include="Controllers\Product\ProductController.cs" />
-    <Compile Include="Controllers\Product\ProductSizesController.cs" />
-    <Compile Include="Controllers\Product\SendBoxPricesController.cs" />
-    <Compile Include="Controllers\Product\SendBoxsController.cs" />
-    <Compile Include="Controllers\Product\SendProductsPriceController.cs" />
-    <Compile Include="Controllers\Product\TransactionsController.cs" />
-    <Compile Include="Controllers\Product\VotesController.cs" />
-    <Compile Include="Controllers\Users\ShoppingBasketController.cs" />
-    <Compile Include="Controllers\Users\ShoppingBasketObjectsController.cs" />
-    <Compile Include="Controllers\Users\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\AspNetRole.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AspNetRoleClaim.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AspNetUser.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AspNetUserClaim.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AspNetUserLogin.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AspNetUserToken.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\BD_Cities.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\BD_Country.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\BD_PaymentStatusTypes.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\BD_SendBoxPrices.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\BD_SendProductsPrice.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\BD_SendStatusTypes.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\BD_ShoppingBasketTypes.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\BD_SizeTypes.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\BD_States.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\BD_Tax.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\C__EFMigrationsHistory.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\employee.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
+    <Compile Include="Models\DataClassesDatabase.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataClassesDatabase.dbml</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\ModelStoreDatabase.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelStoreDatabase.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ModelStoreDatabase.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ModelStoreDatabase.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelStoreDatabase.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Models\RequestParameters.cs" />
-    <Compile Include="Models\SC_Admins.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SC_StoreDetails.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SD_Addresses.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SD_Category.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SD_Color.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SD_Coupons.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SD_Images.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SD_Product.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SD_ProductCategories.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SD_ProductCharges.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SD_ProductChargesProperties.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SD_ProductSizes.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SD_SendBoxs.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SD_ShoppingBasket.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SD_ShoppingBasketObjects.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SD_Transactions.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SD_Users.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SD_Votes.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_helpdiagrams_Result.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\View_Admin_ProductChargeID.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\View_Admin_ProductChargePropertiesID.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\View_Admin_ShoppingBasketID.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\View_Admin_TransactionID.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\View_Admin_Users.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\View_Site_Home.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\View_Site_ProductDetails.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\View_Site_ProductDetails_Colors.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\View_Site_ProductDetails_SendPrices.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\View_Site_ProductDetails_SimilarProductInSize.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\View_Site_ProductDetails_Sizes.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\View_User_Baskets.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\View_User_BasketsObjects.cs">
-      <DependentUpon>ModelStoreDatabase.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\ViewModel\AttributeValueViewModel.cs" />
+    <Compile Include="Models\ViewModel\ProductVariantAttributeViewModel.cs" />
+    <Compile Include="Models\ViewModel\ResourceCategoriesViewModel.cs" />
+    <Compile Include="Models\ViewModel\ProductVariantDiscountViewModel.cs" />
+    <Compile Include="Models\ViewModel\ProductResourceViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -3915,25 +3735,8 @@
     <Content Include="fonts\Vazir.ttf" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\ModelStoreDatabase.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelStoreDatabase.edmx</DependentUpon>
-      <LastGenOutput>ModelStoreDatabase.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\ModelStoreDatabase.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelStoreDatabase.edmx</DependentUpon>
-      <LastGenOutput>ModelStoreDatabase.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\ModelStoreDatabase.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelStoreDatabase.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\ModelStoreDatabase.edmx.diagram">
-      <DependentUpon>ModelStoreDatabase.edmx</DependentUpon>
-    </Content>
     <Content Include="fonts\CALIBRI.TTF" />
     <Content Include="fonts\CALIBRIB.TTF" />
     <Content Include="fonts\CALIBRII.TTF" />
@@ -4777,6 +4580,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Models\DataClassesDatabase.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>DataClassesDatabase.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Properties\PublishProfiles\file.pubxml" />
     <None Include="Properties\PublishProfiles\test server.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -4797,6 +4605,7 @@
     <Content Include="test\IndexChart.html" />
     <Content Include="test\IndexDatePicker.html" />
     <Content Include="TextFile1.txt" />
+    <Content Include="links.txt" />
     <Content Include="w3\W3CSS Template.htm" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -4835,11 +4644,11 @@
     <Content Include="Views\StoreDetails\Delete.cshtml" />
     <Content Include="Views\StoreDetails\Details.cshtml" />
     <Content Include="Views\StoreDetails\Edit.cshtml" />
-    <Content Include="Views\Country\Create.cshtml" />
-    <Content Include="Views\Country\Delete.cshtml" />
-    <Content Include="Views\Country\Details.cshtml" />
-    <Content Include="Views\Country\Edit.cshtml" />
-    <Content Include="Views\Country\Index.cshtml" />
+    <Content Include="Views\ProductVariantAttributes\Create.cshtml" />
+    <Content Include="Views\ProductVariantAttributes\Delete.cshtml" />
+    <Content Include="Views\ProductVariantAttributes\Details.cshtml" />
+    <Content Include="Views\ProductVariantAttributes\Edit.cshtml" />
+    <Content Include="Views\ProductVariantAttributes\Index.cshtml" />
     <Content Include="Views\Cities\Create.cshtml" />
     <Content Include="Views\Cities\Delete.cshtml" />
     <Content Include="Views\Cities\Details.cshtml" />
@@ -4865,11 +4674,11 @@
     <Content Include="Views\Product\Details.cshtml" />
     <Content Include="Views\Product\Edit.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
-    <Content Include="Views\Color\Create.cshtml" />
-    <Content Include="Views\Color\Delete.cshtml" />
-    <Content Include="Views\Color\Details.cshtml" />
-    <Content Include="Views\Color\Edit.cshtml" />
-    <Content Include="Views\Color\Index.cshtml" />
+    <Content Include="Views\AttributeValues\Create.cshtml" />
+    <Content Include="Views\AttributeValues\Delete.cshtml" />
+    <Content Include="Views\AttributeValues\Details.cshtml" />
+    <Content Include="Views\AttributeValues\Edit.cshtml" />
+    <Content Include="Views\AttributeValues\Index.cshtml" />
     <Content Include="Views\Images\Create.cshtml" />
     <Content Include="Views\Images\Delete.cshtml" />
     <Content Include="Views\Images\Details.cshtml" />
@@ -4890,36 +4699,11 @@
     <Content Include="Views\Admins\Details.cshtml" />
     <Content Include="Views\Admins\Edit.cshtml" />
     <Content Include="Views\Admins\Index.cshtml" />
-    <Content Include="Views\ProductCharges\Create.cshtml" />
-    <Content Include="Views\ProductCharges\Delete.cshtml" />
-    <Content Include="Views\ProductCharges\Details.cshtml" />
-    <Content Include="Views\ProductCharges\Edit.cshtml" />
-    <Content Include="Views\ProductCharges\Index.cshtml" />
-    <Content Include="Views\ProductChargesProperties\Create.cshtml" />
-    <Content Include="Views\ProductChargesProperties\Delete.cshtml" />
-    <Content Include="Views\ProductChargesProperties\Details.cshtml" />
-    <Content Include="Views\ProductChargesProperties\Edit.cshtml" />
-    <Content Include="Views\ProductChargesProperties\Index.cshtml" />
-    <Content Include="Views\ProductSizes\Create.cshtml" />
-    <Content Include="Views\ProductSizes\Delete.cshtml" />
-    <Content Include="Views\ProductSizes\Details.cshtml" />
-    <Content Include="Views\ProductSizes\Edit.cshtml" />
-    <Content Include="Views\ProductSizes\Index.cshtml" />
     <Content Include="Views\Votes\Create.cshtml" />
     <Content Include="Views\Votes\Delete.cshtml" />
     <Content Include="Views\Votes\Details.cshtml" />
     <Content Include="Views\Votes\Edit.cshtml" />
     <Content Include="Views\Votes\Index.cshtml" />
-    <Content Include="Views\ProductCategories\Create.cshtml" />
-    <Content Include="Views\ProductCategories\Delete.cshtml" />
-    <Content Include="Views\ProductCategories\Details.cshtml" />
-    <Content Include="Views\ProductCategories\Edit.cshtml" />
-    <Content Include="Views\ProductCategories\Index.cshtml" />
-    <Content Include="Views\Tax\Create.cshtml" />
-    <Content Include="Views\Tax\Delete.cshtml" />
-    <Content Include="Views\Tax\Details.cshtml" />
-    <Content Include="Views\Tax\Edit.cshtml" />
-    <Content Include="Views\Tax\Index.cshtml" />
     <Content Include="Views\ShoppingBasketTypes\Create.cshtml" />
     <Content Include="Views\ShoppingBasketTypes\Delete.cshtml" />
     <Content Include="Views\ShoppingBasketTypes\Details.cshtml" />
@@ -4945,11 +4729,11 @@
     <Content Include="Views\SendProductsPrice\Details.cshtml" />
     <Content Include="Views\SendProductsPrice\Edit.cshtml" />
     <Content Include="Views\SendProductsPrice\Index.cshtml" />
-    <Content Include="Views\SendBoxPrices\Create.cshtml" />
-    <Content Include="Views\SendBoxPrices\Delete.cshtml" />
-    <Content Include="Views\SendBoxPrices\Details.cshtml" />
-    <Content Include="Views\SendBoxPrices\Edit.cshtml" />
-    <Content Include="Views\SendBoxPrices\Index.cshtml" />
+    <Content Include="Views\ProductVariants\Create.cshtml" />
+    <Content Include="Views\ProductVariants\Delete.cshtml" />
+    <Content Include="Views\ProductVariants\Details.cshtml" />
+    <Content Include="Views\ProductVariants\Edit.cshtml" />
+    <Content Include="Views\ProductVariants\Index.cshtml" />
     <Content Include="Views\ShoppingBasketObjects\Create.cshtml" />
     <Content Include="Views\ShoppingBasketObjects\Delete.cshtml" />
     <Content Include="Views\ShoppingBasketObjects\Details.cshtml" />
@@ -4978,15 +4762,28 @@
     <Content Include="Views\Home\IndexUsers.cshtml" />
     <Content Include="Views\Users\IndexUsersList.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\StoreDetails\Index.cshtml" />
+    <Content Include="Views\ResourceCategories\Index.cshtml" />
+    <Content Include="Views\ResourceCategories\Create.cshtml" />
+    <Content Include="Views\ResourceCategories\Delete.cshtml" />
+    <Content Include="Views\ResourceCategories\Details.cshtml" />
+    <Content Include="Views\ResourceCategories\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Controllers\Users\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Models\DataClassesDatabase.dbml.layout">
+      <DependentUpon>DataClassesDatabase.dbml</DependentUpon>
+    </None>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

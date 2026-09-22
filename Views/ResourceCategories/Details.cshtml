@@ -1,0 +1,50 @@
+﻿@model WebApplicationStoreAdmin.Models.ViewModel.ResourceCategoriesViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Resource Categories</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(model => model.ResourceId) (شناسه)</dt>
+        <dd>@Html.DisplayFor(model => model.ResourceId)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.ResourceNameFa) (نام محصول)</dt>
+        <dd>@Html.DisplayFor(model => model.ResourceNameFa)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.ResourceNameEn) (نام انگلیسی)</dt>
+        <dd>@Html.DisplayFor(model => model.ResourceNameEn)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.ResourceImageUrl) (تصویر)</dt>
+        <dd>@Html.DisplayFor(model => model.ResourceImageUrl)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.ResourceIsActive) (فعال)</dt>
+        <dd>@Html.DisplayFor(model => model.ResourceIsActive)</dd>
+
+        <dt>دسته‌بندی‌ها</dt>
+        <dd>
+            @if (Model.SelectedCategoryNames != null && Model.SelectedCategoryNames.Any())
+            {
+                <ul>
+                    @foreach (var catName in Model.SelectedCategoryNames)
+                    {
+                        <li>@catName</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <span class="text-muted">بدون دسته‌بندی</span>
+            }
+        </dd>
+    </dl>
+</div>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ResourceId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

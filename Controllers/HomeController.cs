@@ -9,7 +9,7 @@ namespace WebApplicationStoreAdmin.Controllers
 {
     public class HomeController : Controller
     {
-        private officia1_StoreEntities db = new officia1_StoreEntities();
+        //private officia1_StoreEntities db = new officia1_StoreEntities();
 
         public ActionResult Index()
         {
