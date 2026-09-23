@@ -75,6 +75,48 @@ namespace WebApplicationStoreAdmin.Controllers.Product
         {
             var db = new DataClassesDatabaseDataContext();
 
+            // همه Resourceهای فعال با نام و کد محصول و دسته‌بندی
+            var resources = (from r in db.X_Resources
+                             where r.IsActive
+                             join p in db.X_Products on r.ResourceId equals p.FK_ResourceId into pj
+                             from p in pj.DefaultIfEmpty()
+                             select new
+                             {
+                                 r.ResourceId,
+                                 r.NameFa,
+                                 ProductCode = p != null ? p.ProductCode : null,
+                                 CategoryName = db.X_ResourceCategories
+                                     .Where(rc => rc.FK_ResourceId == r.ResourceId)
+                                     .Join(db.X_Categories,
+                                           rc => rc.FK_CategoryId,
+                                           c => c.CategoryId,
+                                           (rc, c) => c.NameFa)
+                                     .FirstOrDefault() ?? "بدون دسته‌بندی"
+                             }).ToList();
+
+            // گروه‌بندی بر اساس دسته‌بندی
+            var items = new List<SelectListItem>();
+            foreach (var grp in resources.GroupBy(x => x.CategoryName).OrderBy(g => g.Key))
+            {
+                var group = new SelectListGroup { Name = grp.Key };
+                foreach (var r in grp.OrderBy(x => x.NameFa))
+                {
+                    var text = r.NameFa;
+                    if (!string.IsNullOrEmpty(r.ProductCode))
+                        text += $" ({r.ProductCode})";
+
+                    items.Add(new SelectListItem
+                    {
+                        Value = r.ResourceId.ToString(),
+                        Text = text,
+                        Group = group
+                    });
+                }
+            }
+
+            ViewBag.ResourceId = items;
+
+            // برای چک‌باکس‌های دسته‌بندی
             var model = new ResourceCategoriesViewModel
             {
                 AllCategories = db.X_Categories
@@ -87,7 +129,6 @@ namespace WebApplicationStoreAdmin.Controllers.Product
                     }).ToList()
             };
 
-            ViewBag.ResourceId = new SelectList(db.X_Resources.Where(r => r.IsActive), "ResourceId", "NameFa");
             return View(model);
         }
 

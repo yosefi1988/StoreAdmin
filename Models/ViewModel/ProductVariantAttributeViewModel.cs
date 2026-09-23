@@ -5,18 +5,16 @@ using System.Web;
 
 namespace WebApplicationStoreAdmin.Models.ViewModel
 {
-    // Models/ViewModels/ProductVariantAttributeViewModel.cs
     public class ProductVariantAttributeViewModel
     {
-        // اطلاعات خود X_ProductVariants
         public int ProductVariantId { get; set; }
         public string SKU { get; set; }
         public string ProductName { get; set; }
+        public string ProductCode { get; set; }   // ← اضافه شد
         public decimal? Price { get; set; }
         public int StockQuantity { get; set; }
         public bool VariantIsActive { get; set; }
 
-        // لیست Attributeهای این Variant
         public List<VariantAttributeRow> Attributes { get; set; }
     }
 

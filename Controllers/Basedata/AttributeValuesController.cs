@@ -14,6 +14,7 @@ namespace WebApplicationStoreAdmin.Controllers.Product
     public class AttributeValuesController : Controller
     {
         // ============ INDEX ============
+ 
         public ActionResult Index()
         {
             var db = new DataClassesDatabaseDataContext();
@@ -21,6 +22,7 @@ namespace WebApplicationStoreAdmin.Controllers.Product
             var model = (from av in db.X_AttributeValues
                          join a in db.X_Attributes on av.FK_AttributeId equals a.AttributeId into aj
                          from a in aj.DefaultIfEmpty()
+                         orderby a.NameFa, av.SortOrder
                          select new AttributeValueViewModel
                          {
                              AttributeValueId = av.AttributeValueId,
@@ -36,6 +38,7 @@ namespace WebApplicationStoreAdmin.Controllers.Product
 
             return View(model);
         }
+
 
         // ============ DETAILS ============
         public ActionResult Details(int id)

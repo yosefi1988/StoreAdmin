@@ -20,11 +20,13 @@ namespace WebApplicationStoreAdmin.Controllers.Product
                             from p in pj.DefaultIfEmpty()
                             join r in db.X_Resources on p.FK_ResourceId equals r.ResourceId into rj
                             from r in rj.DefaultIfEmpty()
+                            orderby r.NameFa, v.SKU
                             select new
                             {
                                 v.ProductVariantId,
                                 v.SKU,
                                 ProductName = r != null ? r.NameFa : null,
+                                ProductCode = p != null ? p.ProductCode : null,
                                 v.Price,
                                 v.StockQuantity,
                                 v.IsActive
@@ -35,6 +37,7 @@ namespace WebApplicationStoreAdmin.Controllers.Product
                 ProductVariantId = v.ProductVariantId,
                 SKU = v.SKU,
                 ProductName = v.ProductName,
+                ProductCode = v.ProductCode,
                 Price = v.Price,
                 StockQuantity = v.StockQuantity,
                 VariantIsActive = v.IsActive,
@@ -108,19 +111,53 @@ namespace WebApplicationStoreAdmin.Controllers.Product
         {
             var db = new DataClassesDatabaseDataContext();
 
-            ViewBag.ProductVariantId = new SelectList(
-                db.X_ProductVariants.Select(v => new {
-                    v.ProductVariantId,
-                    Name = v.SKU
-                }).ToList(),
-                "ProductVariantId", "Name");
+            // همه Variantها با نام محصول و دسته‌بندی
+            var variants = (from v in db.X_ProductVariants
+                            join p in db.X_Products on v.FK_ProductId equals p.ProductId
+                            join r in db.X_Resources on p.FK_ResourceId equals r.ResourceId
+                            where r.IsActive
+                            select new
+                            {
+                                v.ProductVariantId,
+                                v.SKU,
+                                ProductName = r.NameFa,
+                                ProductCode = p.ProductCode,
+                                CategoryName = db.X_ResourceCategories
+                                    .Where(rc => rc.FK_ResourceId == r.ResourceId)
+                                    .Join(db.X_Categories,
+                                          rc => rc.FK_CategoryId,
+                                          c => c.CategoryId,
+                                          (rc, c) => c.NameFa)
+                                    .FirstOrDefault() ?? "بدون دسته‌بندی"
+                            }).ToList();
 
+            // گروه‌بندی بر اساس دسته‌بندی
+            var items = new List<SelectListItem>();
+            foreach (var grp in variants.GroupBy(x => x.CategoryName).OrderBy(g => g.Key))
+            {
+                var group = new SelectListGroup { Name = grp.Key };
+                foreach (var v in grp.OrderBy(x => x.ProductName).ThenBy(x => x.SKU))
+                {
+                    var text = v.ProductName;
+                    if (!string.IsNullOrEmpty(v.ProductCode))
+                        text += $" ({v.ProductCode})";
+                    text += $" — SKU: {v.SKU}";
+
+                    items.Add(new SelectListItem
+                    {
+                        Value = v.ProductVariantId.ToString(),
+                        Text = text,
+                        Group = group
+                    });
+                }
+            }
+
+            ViewBag.ProductVariantId = items;
+
+            // مقادیر پیش‌فرض برای Dropdownهای صفت
             ViewBag.FK_AttributeId = new SelectList(
                 db.X_Attributes.Where(a => a.IsActive).ToList(),
                 "AttributeId", "NameFa");
-
-            ViewBag.FK_AttributeValueId = new SelectList(
-                Enumerable.Empty<SelectListItem>());
 
             return View();
         }

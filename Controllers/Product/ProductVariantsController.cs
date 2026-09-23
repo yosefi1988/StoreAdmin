@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using WebApplicationStoreAdmin.Models;
 using WebApplicationStoreAdmin.Models.ViewModel;
@@ -16,29 +15,21 @@ namespace WebApplicationStoreAdmin.Controllers.Product
             var db = new DataClassesDatabaseDataContext();
 
             var model = (from v in db.X_ProductVariants
-                         join d in db.X_ProductVariantDiscounts on v.ProductVariantId equals d.FK_ProductVariantId into gj
-                         from d in gj.DefaultIfEmpty()
                          join p in db.X_Products on v.FK_ProductId equals p.ProductId into pj
                          from p in pj.DefaultIfEmpty()
                          join r in db.X_Resources on p.FK_ResourceId equals r.ResourceId into rj
                          from r in rj.DefaultIfEmpty()
-                         select new ProductVariantDiscountViewModel
+                         orderby r.NameFa, v.SKU
+                         select new ProductVariantViewModel
                          {
                              ProductVariantId = v.ProductVariantId,
                              FK_ProductId = v.FK_ProductId,
                              ProductName = r != null ? r.NameFa : null,
+                             ProductCode = p != null ? p.ProductCode : null,
                              SKU = v.SKU,
                              StockQuantity = v.StockQuantity,
                              Price = v.Price,
-                             VariantIsActive = v.IsActive,
-
-                             ProductVariantDiscountId = d != null ? (int?)d.ProductVariantDiscountId : null,
-                             DiscountType = d != null ? d.DiscountType : null,
-                             DiscountValue = d != null ? (decimal?)d.DiscountValue : null,
-                             StartDate = d != null ? d.StartDate : null,
-                             EndDate = d != null ? d.EndDate : null,
-                             DiscountIsActive = d != null ? d.IsActive : false,
-                             DiscountCreatedAt = d != null ? (DateTime?)d.CreatedAt : null
+                             IsActive = v.IsActive
                          }).ToList();
 
             return View(model);
@@ -50,30 +41,21 @@ namespace WebApplicationStoreAdmin.Controllers.Product
             var db = new DataClassesDatabaseDataContext();
 
             var model = (from v in db.X_ProductVariants
-                         join d in db.X_ProductVariantDiscounts on v.ProductVariantId equals d.FK_ProductVariantId into gj
-                         from d in gj.DefaultIfEmpty()
                          join p in db.X_Products on v.FK_ProductId equals p.ProductId into pj
                          from p in pj.DefaultIfEmpty()
                          join r in db.X_Resources on p.FK_ResourceId equals r.ResourceId into rj
                          from r in rj.DefaultIfEmpty()
                          where v.ProductVariantId == id
-                         select new ProductVariantDiscountViewModel
+                         select new ProductVariantViewModel
                          {
                              ProductVariantId = v.ProductVariantId,
                              FK_ProductId = v.FK_ProductId,
                              ProductName = r != null ? r.NameFa : null,
+                             ProductCode = p != null ? p.ProductCode : null,
                              SKU = v.SKU,
                              StockQuantity = v.StockQuantity,
                              Price = v.Price,
-                             VariantIsActive = v.IsActive,
-
-                             ProductVariantDiscountId = d != null ? (int?)d.ProductVariantDiscountId : null,
-                             DiscountType = d != null ? d.DiscountType : null,
-                             DiscountValue = d != null ? (decimal?)d.DiscountValue : null,
-                             StartDate = d != null ? d.StartDate : null,
-                             EndDate = d != null ? d.EndDate : null,
-                             DiscountIsActive = d != null ? d.IsActive : false,
-                             DiscountCreatedAt = d != null ? (DateTime?)d.CreatedAt : null
+                             IsActive = v.IsActive
                          }).FirstOrDefault();
 
             if (model == null) return HttpNotFound();
@@ -84,65 +66,36 @@ namespace WebApplicationStoreAdmin.Controllers.Product
         public ActionResult Create()
         {
             var db = new DataClassesDatabaseDataContext();
-            ViewBag.FK_ProductId = new SelectList(
-                db.X_Products.Select(p => new {
-                    p.ProductId,
-                    Name = db.X_Resources.Where(r => r.ResourceId == p.FK_ResourceId).Select(r => r.NameFa).FirstOrDefault()
-                }).ToList(),
-                "ProductId", "Name");
-
+            ViewBag.FK_ProductId = BuildProductSelectList(db);
             return View();
         }
 
         // ============ CREATE (POST) ============
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(ProductVariantDiscountViewModel model)
+        public ActionResult Create(ProductVariantViewModel model)
         {
             if (ModelState.IsValid)
             {
                 var db = new DataClassesDatabaseDataContext();
 
-                // ۱. درج در X_ProductVariants
-                var variant = new X_ProductVariant
+                var entity = new X_ProductVariant
                 {
                     FK_ProductId = model.FK_ProductId,
                     SKU = model.SKU,
                     StockQuantity = model.StockQuantity,
                     Price = model.Price,
-                    IsActive = model.VariantIsActive
+                    IsActive = model.IsActive
                 };
-                db.X_ProductVariants.InsertOnSubmit(variant);
-                db.SubmitChanges();
 
-                // ۲. درج در X_ProductVariantDiscounts (اگه اطلاعات تخفیف داده شده)
-                if (!string.IsNullOrWhiteSpace(model.DiscountType) && model.DiscountValue.HasValue)
-                {
-                    var discount = new X_ProductVariantDiscount
-                    {
-                        FK_ProductVariantId = variant.ProductVariantId,
-                        DiscountType = model.DiscountType,
-                        DiscountValue = model.DiscountValue.Value,
-                        StartDate = model.StartDate,
-                        EndDate = model.EndDate,
-                        IsActive = model.DiscountIsActive,
-                        CreatedAt = DateTime.Now
-                    };
-                    db.X_ProductVariantDiscounts.InsertOnSubmit(discount);
-                    db.SubmitChanges();
-                }
+                db.X_ProductVariants.InsertOnSubmit(entity);
+                db.SubmitChanges();
 
                 return RedirectToAction("Index");
             }
 
             var db2 = new DataClassesDatabaseDataContext();
-            ViewBag.FK_ProductId = new SelectList(
-                db2.X_Products.Select(p => new {
-                    p.ProductId,
-                    Name = db2.X_Resources.Where(r => r.ResourceId == p.FK_ResourceId).Select(r => r.NameFa).FirstOrDefault()
-                }).ToList(),
-                "ProductId", "Name", model.FK_ProductId);
-
+            ViewBag.FK_ProductId = BuildProductSelectList(db2, model.FK_ProductId);
             return View(model);
         }
 
@@ -151,105 +104,47 @@ namespace WebApplicationStoreAdmin.Controllers.Product
         {
             var db = new DataClassesDatabaseDataContext();
 
-            var model = (from v in db.X_ProductVariants
-                         join d in db.X_ProductVariantDiscounts on v.ProductVariantId equals d.FK_ProductVariantId into gj
-                         from d in gj.DefaultIfEmpty()
-                         where v.ProductVariantId == id
-                         select new ProductVariantDiscountViewModel
-                         {
-                             ProductVariantId = v.ProductVariantId,
-                             FK_ProductId = v.FK_ProductId,
-                             SKU = v.SKU,
-                             StockQuantity = v.StockQuantity,
-                             Price = v.Price,
-                             VariantIsActive = v.IsActive,
+            var entity = db.X_ProductVariants.FirstOrDefault(x => x.ProductVariantId == id);
+            if (entity == null) return HttpNotFound();
 
-                             ProductVariantDiscountId = d != null ? (int?)d.ProductVariantDiscountId : null,
-                             DiscountType = d != null ? d.DiscountType : null,
-                             DiscountValue = d != null ? (decimal?)d.DiscountValue : null,
-                             StartDate = d != null ? d.StartDate : null,
-                             EndDate = d != null ? d.EndDate : null,
-                             DiscountIsActive = d != null ? d.IsActive : false,
-                             DiscountCreatedAt = d != null ? (DateTime?)d.CreatedAt : null
-                         }).FirstOrDefault();
+            var model = new ProductVariantViewModel
+            {
+                ProductVariantId = entity.ProductVariantId,
+                FK_ProductId = entity.FK_ProductId,
+                SKU = entity.SKU,
+                StockQuantity = entity.StockQuantity,
+                Price = entity.Price,
+                IsActive = entity.IsActive
+            };
 
-            if (model == null) return HttpNotFound();
-
-            ViewBag.FK_ProductId = new SelectList(
-                db.X_Products.Select(p => new {
-                    p.ProductId,
-                    Name = db.X_Resources.Where(r => r.ResourceId == p.FK_ResourceId).Select(r => r.NameFa).FirstOrDefault()
-                }).ToList(),
-                "ProductId", "Name", model.FK_ProductId);
-
+            ViewBag.FK_ProductId = BuildProductSelectList(db, entity.FK_ProductId);
             return View(model);
         }
 
         // ============ EDIT (POST) ============
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(ProductVariantDiscountViewModel model)
+        public ActionResult Edit(ProductVariantViewModel model)
         {
             if (ModelState.IsValid)
             {
                 var db = new DataClassesDatabaseDataContext();
 
-                // ۱. آپدیت X_ProductVariants
-                var variant = db.X_ProductVariants.FirstOrDefault(v => v.ProductVariantId == model.ProductVariantId);
-                if (variant == null) return HttpNotFound();
+                var entity = db.X_ProductVariants.FirstOrDefault(x => x.ProductVariantId == model.ProductVariantId);
+                if (entity == null) return HttpNotFound();
 
-                variant.FK_ProductId = model.FK_ProductId;
-                variant.SKU = model.SKU;
-                variant.StockQuantity = model.StockQuantity;
-                variant.Price = model.Price;
-                variant.IsActive = model.VariantIsActive;
-
-                // ۲. آپدیت یا درج X_ProductVariantDiscounts
-                var discount = db.X_ProductVariantDiscounts.FirstOrDefault(d => d.FK_ProductVariantId == model.ProductVariantId);
-
-                if (!string.IsNullOrWhiteSpace(model.DiscountType) && model.DiscountValue.HasValue)
-                {
-                    if (discount == null)
-                    {
-                        discount = new X_ProductVariantDiscount
-                        {
-                            FK_ProductVariantId = model.ProductVariantId,
-                            DiscountType = model.DiscountType,
-                            DiscountValue = model.DiscountValue.Value,
-                            StartDate = model.StartDate,
-                            EndDate = model.EndDate,
-                            IsActive = model.DiscountIsActive,
-                            CreatedAt = DateTime.Now
-                        };
-                        db.X_ProductVariantDiscounts.InsertOnSubmit(discount);
-                    }
-                    else
-                    {
-                        discount.DiscountType = model.DiscountType;
-                        discount.DiscountValue = model.DiscountValue.Value;
-                        discount.StartDate = model.StartDate;
-                        discount.EndDate = model.EndDate;
-                        discount.IsActive = model.DiscountIsActive;
-                    }
-                }
-                else if (discount != null)
-                {
-                    // اگه کاربر تخفیف رو پاک کرد
-                    db.X_ProductVariantDiscounts.DeleteOnSubmit(discount);
-                }
+                entity.FK_ProductId = model.FK_ProductId;
+                entity.SKU = model.SKU;
+                entity.StockQuantity = model.StockQuantity;
+                entity.Price = model.Price;
+                entity.IsActive = model.IsActive;
 
                 db.SubmitChanges();
                 return RedirectToAction("Index");
             }
 
             var db2 = new DataClassesDatabaseDataContext();
-            ViewBag.FK_ProductId = new SelectList(
-                db2.X_Products.Select(p => new {
-                    p.ProductId,
-                    Name = db2.X_Resources.Where(r => r.ResourceId == p.FK_ResourceId).Select(r => r.NameFa).FirstOrDefault()
-                }).ToList(),
-                "ProductId", "Name", model.FK_ProductId);
-
+            ViewBag.FK_ProductId = BuildProductSelectList(db2, model.FK_ProductId);
             return View(model);
         }
 
@@ -259,24 +154,21 @@ namespace WebApplicationStoreAdmin.Controllers.Product
             var db = new DataClassesDatabaseDataContext();
 
             var model = (from v in db.X_ProductVariants
-                         join d in db.X_ProductVariantDiscounts on v.ProductVariantId equals d.FK_ProductVariantId into gj
-                         from d in gj.DefaultIfEmpty()
+                         join p in db.X_Products on v.FK_ProductId equals p.ProductId into pj
+                         from p in pj.DefaultIfEmpty()
+                         join r in db.X_Resources on p.FK_ResourceId equals r.ResourceId into rj
+                         from r in rj.DefaultIfEmpty()
                          where v.ProductVariantId == id
-                         select new ProductVariantDiscountViewModel
+                         select new ProductVariantViewModel
                          {
                              ProductVariantId = v.ProductVariantId,
                              FK_ProductId = v.FK_ProductId,
+                             ProductName = r != null ? r.NameFa : null,
+                             ProductCode = p != null ? p.ProductCode : null,
                              SKU = v.SKU,
                              StockQuantity = v.StockQuantity,
                              Price = v.Price,
-                             VariantIsActive = v.IsActive,
-
-                             ProductVariantDiscountId = d != null ? (int?)d.ProductVariantDiscountId : null,
-                             DiscountType = d != null ? d.DiscountType : null,
-                             DiscountValue = d != null ? (decimal?)d.DiscountValue : null,
-                             StartDate = d != null ? d.StartDate : null,
-                             EndDate = d != null ? d.EndDate : null,
-                             DiscountIsActive = d != null ? d.IsActive : false
+                             IsActive = v.IsActive
                          }).FirstOrDefault();
 
             if (model == null) return HttpNotFound();
@@ -290,23 +182,57 @@ namespace WebApplicationStoreAdmin.Controllers.Product
         {
             var db = new DataClassesDatabaseDataContext();
 
-            // اول Discount رو حذف کن (چون FK داره)
-            var discount = db.X_ProductVariantDiscounts.FirstOrDefault(d => d.FK_ProductVariantId == id);
-            if (discount != null)
+            var entity = db.X_ProductVariants.FirstOrDefault(x => x.ProductVariantId == id);
+            if (entity != null)
             {
-                db.X_ProductVariantDiscounts.DeleteOnSubmit(discount);
-                db.SubmitChanges();
-            }
-
-            // بعد Variant رو حذف کن
-            var variant = db.X_ProductVariants.FirstOrDefault(v => v.ProductVariantId == id);
-            if (variant != null)
-            {
-                db.X_ProductVariants.DeleteOnSubmit(variant);
+                db.X_ProductVariants.DeleteOnSubmit(entity);
                 db.SubmitChanges();
             }
 
             return RedirectToAction("Index");
+        }
+
+        // ============ Helper ============
+        private List<SelectListItem> BuildProductSelectList(DataClassesDatabaseDataContext db, int? selectedId = null)
+        {
+            var products = (from p in db.X_Products
+                            join r in db.X_Resources on p.FK_ResourceId equals r.ResourceId
+                            where r.IsActive
+                            select new
+                            {
+                                p.ProductId,
+                                ProductName = r.NameFa,
+                                p.ProductCode,
+                                CategoryName = db.X_ResourceCategories
+                                    .Where(rc => rc.FK_ResourceId == r.ResourceId)
+                                    .Join(db.X_Categories,
+                                          rc => rc.FK_CategoryId,
+                                          c => c.CategoryId,
+                                          (rc, c) => c.NameFa)
+                                    .FirstOrDefault() ?? "بدون دسته‌بندی"
+                            }).ToList();
+
+            var items = new List<SelectListItem>();
+            foreach (var grp in products.GroupBy(x => x.CategoryName).OrderBy(g => g.Key))
+            {
+                var group = new SelectListGroup { Name = grp.Key };
+                foreach (var p in grp.OrderBy(x => x.ProductName))
+                {
+                    var text = p.ProductName;
+                    if (!string.IsNullOrEmpty(p.ProductCode))
+                        text += $" ({p.ProductCode})";
+
+                    items.Add(new SelectListItem
+                    {
+                        Value = p.ProductId.ToString(),
+                        Text = text,
+                        Group = group,
+                        Selected = selectedId.HasValue && selectedId.Value == p.ProductId
+                    });
+                }
+            }
+
+            return items;
         }
     }
 }

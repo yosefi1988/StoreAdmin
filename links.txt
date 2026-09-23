@@ -24,6 +24,12 @@ http://localhost:44602/ProductVariants/Details/25
 http://localhost:44602/ProductVariants/Delete/26
 
 
+productVariantDiscounts
+http://localhost:44602/ProductVariantDiscounts
+
+
+
+
 product Cat =  ResourceCategories
 http://localhost:44602/ResourceCategories/Create
 http://localhost:44602/ResourceCategories
@@ -50,4 +56,15 @@ http://localhost:44602/AttributeValues/Details/23
 http://localhost:44602/AttributeValues/Delete/23
 
 
+
+Categories
+http://localhost:44602/Categories
+http://localhost:44602/Categories/Create
+http://localhost:44602/Categories/Edit/2
+http://localhost:44602/Categories/Details/5
+http://localhost:44602/Categories/Delete/4
+
+
+image
+http://localhost:44602/ResourceImages
 
