@@ -1,0 +1,843 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="balabar1_balabarkaran" Class="DataClassesDatabaseDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=185.55.224.101;Initial Catalog=balabar1_balabarkaran;Persist Security Info=True;User ID=balabar1_Develop" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="balabar1_balabarkaranConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="balabar1_Develop.X_Attributes" Member="X_Attributes">
+    <Type Name="X_Attribute">
+      <Column Name="AttributeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NameFa" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="NameEn" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="DataType" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="IsMultiValue" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsFilterable" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsVisible" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="FK_CategoryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="X_Attribute_X_AttributeValue" Member="X_AttributeValues" ThisKey="AttributeId" OtherKey="FK_AttributeId" Type="X_AttributeValue" />
+      <Association Name="X_Attribute_X_ProductVariantAttribute" Member="X_ProductVariantAttributes" ThisKey="AttributeId" OtherKey="FK_AttributeId" Type="X_ProductVariantAttribute" />
+      <Association Name="X_Attribute_X_ResourceAttribute" Member="X_ResourceAttributes" ThisKey="AttributeId" OtherKey="FK_AttributeId" Type="X_ResourceAttribute" />
+      <Association Name="X_Category_X_Attribute" Member="X_Category" ThisKey="FK_CategoryId" OtherKey="CategoryId" Type="X_Category" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_WalletTransactions" Member="X_WalletTransactions">
+    <Type Name="X_WalletTransaction">
+      <Column Name="WalletTransactionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_WalletId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TransactionType" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="BalanceBefore" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="BalanceAfter" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="FK_OrderId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="TransactionDate" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Association Name="X_Order_X_WalletTransaction" Member="X_Order" ThisKey="FK_OrderId" OtherKey="OrderId" Type="X_Order" IsForeignKey="true" />
+      <Association Name="X_Wallet_X_WalletTransaction" Member="X_Wallet" ThisKey="FK_WalletId" OtherKey="WalletId" Type="X_Wallet" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_AttributeValueRelations" Member="X_AttributeValueRelations">
+    <Type Name="X_AttributeValueRelation">
+      <Column Name="AttributeValueRelationId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_ParentValueId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FK_ChildValueId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="X_AttributeValue_X_AttributeValueRelation" Member="X_AttributeValue" ThisKey="FK_ChildValueId" OtherKey="AttributeValueId" Type="X_AttributeValue" IsForeignKey="true" />
+      <Association Name="X_AttributeValue_X_AttributeValueRelation1" Member="X_AttributeValue1" ThisKey="FK_ParentValueId" OtherKey="AttributeValueId" Type="X_AttributeValue" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_AttributeValues" Member="X_AttributeValues">
+    <Type Name="X_AttributeValue">
+      <Column Name="AttributeValueId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_AttributeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ValueFa" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="ValueEn" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="SortOrder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Association Name="X_AttributeValue_X_AttributeValueRelation" Member="X_AttributeValueRelations" ThisKey="AttributeValueId" OtherKey="FK_ChildValueId" Type="X_AttributeValueRelation" />
+      <Association Name="X_AttributeValue_X_AttributeValueRelation1" Member="X_AttributeValueRelations1" ThisKey="AttributeValueId" OtherKey="FK_ParentValueId" Type="X_AttributeValueRelation" />
+      <Association Name="X_AttributeValue_X_Cart" Member="X_Carts" ThisKey="AttributeValueId" OtherKey="FK_StatusValueId" Type="X_Cart" />
+      <Association Name="X_AttributeValue_X_Cart1" Member="X_Carts1" ThisKey="AttributeValueId" OtherKey="FK_CartTypeValueId" Type="X_Cart" />
+      <Association Name="X_AttributeValue_X_OrderCost" Member="X_OrderCosts" ThisKey="AttributeValueId" OtherKey="FK_CostCalculationTypeValueId" Type="X_OrderCost" />
+      <Association Name="X_AttributeValue_X_OrderCost1" Member="X_OrderCosts1" ThisKey="AttributeValueId" OtherKey="FK_CostTypeValueId" Type="X_OrderCost" />
+      <Association Name="X_AttributeValue_X_Order" Member="X_Orders" ThisKey="AttributeValueId" OtherKey="FK_StatusValueId" Type="X_Order" />
+      <Association Name="X_AttributeValue_X_OrderStatusHistory" Member="X_OrderStatusHistories" ThisKey="AttributeValueId" OtherKey="FK_StatusValueId" Type="X_OrderStatusHistory" />
+      <Association Name="X_AttributeValue_X_Payment" Member="X_Payments" ThisKey="AttributeValueId" OtherKey="FK_StatusValueId" Type="X_Payment" />
+      <Association Name="X_AttributeValue_X_ProductVariantAttribute" Member="X_ProductVariantAttributes" ThisKey="AttributeValueId" OtherKey="FK_AttributeValueId" Type="X_ProductVariantAttribute" />
+      <Association Name="X_AttributeValue_X_ResourceAttribute" Member="X_ResourceAttributes" ThisKey="AttributeValueId" OtherKey="FK_AttributeValueId" Type="X_ResourceAttribute" />
+      <Association Name="X_AttributeValue_X_ServiceBooking" Member="X_ServiceBookings" ThisKey="AttributeValueId" OtherKey="FK_StatusValueId" Type="X_ServiceBooking" />
+      <Association Name="X_Attribute_X_AttributeValue" Member="X_Attribute" ThisKey="FK_AttributeId" OtherKey="AttributeId" Type="X_Attribute" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_CartItems" Member="X_CartItems">
+    <Type Name="X_CartItem">
+      <Column Name="CartItemId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_CartId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FK_ProductVariantId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FK_ServiceId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UnitPrice" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Association Name="X_Cart_X_CartItem" Member="X_Cart" ThisKey="FK_CartId" OtherKey="CartId" Type="X_Cart" IsForeignKey="true" />
+      <Association Name="X_ProductVariant_X_CartItem" Member="X_ProductVariant" ThisKey="FK_ProductVariantId" OtherKey="ProductVariantId" Type="X_ProductVariant" IsForeignKey="true" />
+      <Association Name="X_Service_X_CartItem" Member="X_Service" ThisKey="FK_ServiceId" OtherKey="ServiceId" Type="X_Service" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_Carts" Member="X_Carts">
+    <Type Name="X_Cart">
+      <Column Name="CartId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FK_CartTypeValueId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FK_StatusValueId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Association Name="X_Cart_X_CartItem" Member="X_CartItems" ThisKey="CartId" OtherKey="FK_CartId" Type="X_CartItem" />
+      <Association Name="X_Cart_X_Order" Member="X_Orders" ThisKey="CartId" OtherKey="FK_CartId" Type="X_Order" />
+      <Association Name="X_AttributeValue_X_Cart" Member="X_AttributeValue" ThisKey="FK_StatusValueId" OtherKey="AttributeValueId" Type="X_AttributeValue" IsForeignKey="true" />
+      <Association Name="X_AttributeValue_X_Cart1" Member="X_AttributeValue1" ThisKey="FK_CartTypeValueId" OtherKey="AttributeValueId" Type="X_AttributeValue" IsForeignKey="true" />
+      <Association Name="X_User_X_Cart" Member="X_User" ThisKey="FK_UserId" OtherKey="UserId" Type="X_User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_Categories" Member="X_Categories">
+    <Type Name="X_Category">
+      <Column Name="CategoryId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NameFa" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="NameEn" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ImageUrl" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="FK_ParentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CategoryType" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Association Name="X_Category_X_Attribute" Member="X_Attributes" ThisKey="CategoryId" OtherKey="FK_CategoryId" Type="X_Attribute" />
+      <Association Name="X_Category_X_Category" Member="X_Categories" ThisKey="CategoryId" OtherKey="FK_ParentId" Type="X_Category" />
+      <Association Name="X_Category_X_ResourceCategory" Member="X_ResourceCategories" ThisKey="CategoryId" OtherKey="FK_CategoryId" Type="X_ResourceCategory" />
+      <Association Name="X_Category_X_Category" Member="X_Category1" ThisKey="FK_ParentId" OtherKey="CategoryId" Type="X_Category" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_Cities" Member="X_Cities">
+    <Type Name="X_City">
+      <Column Name="CityId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_ProvinceId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NameFa" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="NameEn" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="X_City_X_OrderShipping" Member="X_OrderShippings" ThisKey="CityId" OtherKey="FK_CityId" Type="X_OrderShipping" />
+      <Association Name="X_City_X_Property" Member="X_Properties" ThisKey="CityId" OtherKey="FK_CityId" Type="X_Property" />
+      <Association Name="X_City_X_StoreSetting" Member="X_StoreSettings" ThisKey="CityId" OtherKey="FK_CityId" Type="X_StoreSetting" />
+      <Association Name="X_City_X_UserAddress" Member="X_UserAddresses" ThisKey="CityId" OtherKey="FK_CityId" Type="X_UserAddress" />
+      <Association Name="X_Province_X_City" Member="X_Province" ThisKey="FK_ProvinceId" OtherKey="ProvinceId" Type="X_Province" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_Countries" Member="X_Countries">
+    <Type Name="X_Country">
+      <Column Name="CountryId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NameFa" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="NameEn" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="PhonePrefix" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="FlagImage" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="X_Country_X_OrderShipping" Member="X_OrderShippings" ThisKey="CountryId" OtherKey="FK_CountryId" Type="X_OrderShipping" />
+      <Association Name="X_Country_X_Property" Member="X_Properties" ThisKey="CountryId" OtherKey="FK_CountryId" Type="X_Property" />
+      <Association Name="X_Country_X_Province" Member="X_Provinces" ThisKey="CountryId" OtherKey="FK_CountryId" Type="X_Province" />
+      <Association Name="X_Country_X_StoreSetting" Member="X_StoreSettings" ThisKey="CountryId" OtherKey="FK_CountryId" Type="X_StoreSetting" />
+      <Association Name="X_Country_X_UserAddress" Member="X_UserAddresses" ThisKey="CountryId" OtherKey="FK_CountryId" Type="X_UserAddress" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_Coupons" Member="X_Coupons">
+    <Type Name="X_Coupon">
+      <Column Name="CouponId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="DiscountType" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="DiscountValue" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="MaxDiscountAmount" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="MinOrderAmount" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="UsageLimit" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UsedCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Association Name="X_Coupon_X_OrderDiscount" Member="X_OrderDiscounts" ThisKey="CouponId" OtherKey="FK_CouponId" Type="X_OrderDiscount" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_DigitalFileAccess" Member="X_DigitalFileAccesses">
+    <Type Name="X_DigitalFileAccess">
+      <Column Name="DigitalFileAccessId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_DigitalFileId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="FK_UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FK_OrderItemId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DownloadCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LastDownloadAt" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Association Name="X_DigitalFile_X_DigitalFileAccess" Member="X_DigitalFile" ThisKey="FK_DigitalFileId" OtherKey="DigitalFileId" Type="X_DigitalFile" IsForeignKey="true" />
+      <Association Name="X_OrderItem_X_DigitalFileAccess" Member="X_OrderItem" ThisKey="FK_OrderItemId" OtherKey="OrderItemId" Type="X_OrderItem" IsForeignKey="true" />
+      <Association Name="X_User_X_DigitalFileAccess" Member="X_User" ThisKey="FK_UserId" OtherKey="UserId" Type="X_User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_DigitalFiles" Member="X_DigitalFiles">
+    <Type Name="X_DigitalFile">
+      <Column Name="DigitalFileId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_ResourceId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FK_ProductVariantId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FileName" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="FileUrl" Type="System.String" DbType="NVarChar(1000) NOT NULL" CanBeNull="false" />
+      <Column Name="FileExtension" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="FileSize" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="FileHash" Type="System.String" DbType="VarChar(128)" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Association Name="X_DigitalFile_X_DigitalFileAccess" Member="X_DigitalFileAccesses" ThisKey="DigitalFileId" OtherKey="FK_DigitalFileId" Type="X_DigitalFileAccess" />
+      <Association Name="X_ProductVariant_X_DigitalFile" Member="X_ProductVariant" ThisKey="FK_ProductVariantId" OtherKey="ProductVariantId" Type="X_ProductVariant" IsForeignKey="true" />
+      <Association Name="X_Resource_X_DigitalFile" Member="X_Resource" ThisKey="FK_ResourceId" OtherKey="ResourceId" Type="X_Resource" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_help" Member="X_helps">
+    <Type Name="X_help">
+      <Column Name="id" Type="System.Byte" DbType="TinyInt NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="title" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="text" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_InventoryTransactions" Member="X_InventoryTransactions">
+    <Type Name="X_InventoryTransaction">
+      <Column Name="InventoryTransactionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_ProductVariantId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TransactionType" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BalanceBefore" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BalanceAfter" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FK_PurchaseId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FK_PurchaseItemId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FK_OrderId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="TransactionDate" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Association Name="X_Order_X_InventoryTransaction" Member="X_Order" ThisKey="FK_OrderId" OtherKey="OrderId" Type="X_Order" IsForeignKey="true" />
+      <Association Name="X_ProductVariant_X_InventoryTransaction" Member="X_ProductVariant" ThisKey="FK_ProductVariantId" OtherKey="ProductVariantId" Type="X_ProductVariant" IsForeignKey="true" />
+      <Association Name="X_PurchaseItem_X_InventoryTransaction" Member="X_PurchaseItem" ThisKey="FK_PurchaseItemId" OtherKey="PurchaseItemId" Type="X_PurchaseItem" IsForeignKey="true" />
+      <Association Name="X_Purchase_X_InventoryTransaction" Member="X_Purchase" ThisKey="FK_PurchaseId" OtherKey="PurchaseId" Type="X_Purchase" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_OrderCosts" Member="X_OrderCosts">
+    <Type Name="X_OrderCost">
+      <Column Name="OrderCostId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_OrderItemId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FK_CostTypeValueId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FK_CostCalculationTypeValueId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="Rate" Type="System.Decimal" DbType="Decimal(18,4)" CanBeNull="true" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Association Name="X_AttributeValue_X_OrderCost" Member="X_AttributeValue" ThisKey="FK_CostCalculationTypeValueId" OtherKey="AttributeValueId" Type="X_AttributeValue" IsForeignKey="true" />
+      <Association Name="X_AttributeValue_X_OrderCost1" Member="X_AttributeValue1" ThisKey="FK_CostTypeValueId" OtherKey="AttributeValueId" Type="X_AttributeValue" IsForeignKey="true" />
+      <Association Name="X_OrderItem_X_OrderCost" Member="X_OrderItem" ThisKey="FK_OrderItemId" OtherKey="OrderItemId" Type="X_OrderItem" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_OrderDiscounts" Member="X_OrderDiscounts">
+    <Type Name="X_OrderDiscount">
+      <Column Name="OrderDiscountId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_OrderId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FK_CouponId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FK_ProductVariantDiscountId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DiscountAmount" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Association Name="X_Coupon_X_OrderDiscount" Member="X_Coupon" ThisKey="FK_CouponId" OtherKey="CouponId" Type="X_Coupon" IsForeignKey="true" />
+      <Association Name="X_Order_X_OrderDiscount" Member="X_Order" ThisKey="FK_OrderId" OtherKey="OrderId" Type="X_Order" IsForeignKey="true" />
+      <Association Name="X_ProductVariantDiscount_X_OrderDiscount" Member="X_ProductVariantDiscount" ThisKey="FK_ProductVariantDiscountId" OtherKey="ProductVariantDiscountId" Type="X_ProductVariantDiscount" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_OrderItems" Member="X_OrderItems">
+    <Type Name="X_OrderItem">
+      <Column Name="OrderItemId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_OrderId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FK_ProductVariantId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FK_ServiceId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="UnitPrice" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="TotalPrice" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="FK_ResourceId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="X_OrderItem_X_DigitalFileAccess" Member="X_DigitalFileAccesses" ThisKey="OrderItemId" OtherKey="FK_OrderItemId" Type="X_DigitalFileAccess" />
+      <Association Name="X_OrderItem_X_OrderCost" Member="X_OrderCosts" ThisKey="OrderItemId" OtherKey="FK_OrderItemId" Type="X_OrderCost" />
+      <Association Name="X_OrderItem_X_ServiceBooking" Member="X_ServiceBookings" ThisKey="OrderItemId" OtherKey="FK_OrderItemId" Type="X_ServiceBooking" />
+      <Association Name="X_Order_X_OrderItem" Member="X_Order" ThisKey="FK_OrderId" OtherKey="OrderId" Type="X_Order" IsForeignKey="true" />
+      <Association Name="X_ProductVariant_X_OrderItem" Member="X_ProductVariant" ThisKey="FK_ProductVariantId" OtherKey="ProductVariantId" Type="X_ProductVariant" IsForeignKey="true" />
+      <Association Name="X_Resource_X_OrderItem" Member="X_Resource" ThisKey="FK_ResourceId" OtherKey="ResourceId" Type="X_Resource" IsForeignKey="true" />
+      <Association Name="X_Service_X_OrderItem" Member="X_Service" ThisKey="FK_ServiceId" OtherKey="ServiceId" Type="X_Service" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_Orders" Member="X_Orders">
+    <Type Name="X_Order">
+      <Column Name="OrderId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FK_CartId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FK_StatusValueId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TotalAmount" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Association Name="X_Order_X_WalletTransaction" Member="X_WalletTransactions" ThisKey="OrderId" OtherKey="FK_OrderId" Type="X_WalletTransaction" />
+      <Association Name="X_Order_X_InventoryTransaction" Member="X_InventoryTransactions" ThisKey="OrderId" OtherKey="FK_OrderId" Type="X_InventoryTransaction" />
+      <Association Name="X_Order_X_OrderDiscount" Member="X_OrderDiscounts" ThisKey="OrderId" OtherKey="FK_OrderId" Type="X_OrderDiscount" />
+      <Association Name="X_Order_X_OrderItem" Member="X_OrderItems" ThisKey="OrderId" OtherKey="FK_OrderId" Type="X_OrderItem" />
+      <Association Name="X_Order_X_OrderShipping" Member="X_OrderShippings" ThisKey="OrderId" OtherKey="FK_OrderId" Type="X_OrderShipping" />
+      <Association Name="X_Order_X_OrderStatusHistory" Member="X_OrderStatusHistories" ThisKey="OrderId" OtherKey="FK_OrderId" Type="X_OrderStatusHistory" />
+      <Association Name="X_Order_X_Payment" Member="X_Payments" ThisKey="OrderId" OtherKey="FK_OrderId" Type="X_Payment" />
+      <Association Name="X_Order_X_ServiceBooking" Member="X_ServiceBookings" ThisKey="OrderId" OtherKey="FK_OrderId" Type="X_ServiceBooking" />
+      <Association Name="X_Order_X_UserSubscription" Member="X_UserSubscriptions" ThisKey="OrderId" OtherKey="FK_OrderId" Type="X_UserSubscription" />
+      <Association Name="X_Cart_X_Order" Member="X_Cart" ThisKey="FK_CartId" OtherKey="CartId" Type="X_Cart" IsForeignKey="true" />
+      <Association Name="X_AttributeValue_X_Order" Member="X_AttributeValue" ThisKey="FK_StatusValueId" OtherKey="AttributeValueId" Type="X_AttributeValue" IsForeignKey="true" />
+      <Association Name="X_User_X_Order" Member="X_User" ThisKey="FK_UserId" OtherKey="UserId" Type="X_User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_OrderShipping" Member="X_OrderShippings">
+    <Type Name="X_OrderShipping">
+      <Column Name="OrderShippingId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_OrderId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RecipientName" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="RecipientMobile" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="FK_CountryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FK_ProvinceId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FK_CityId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(1000) NOT NULL" CanBeNull="false" />
+      <Column Name="PostalCode" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Association Name="X_City_X_OrderShipping" Member="X_City" ThisKey="FK_CityId" OtherKey="CityId" Type="X_City" IsForeignKey="true" />
+      <Association Name="X_Country_X_OrderShipping" Member="X_Country" ThisKey="FK_CountryId" OtherKey="CountryId" Type="X_Country" IsForeignKey="true" />
+      <Association Name="X_Order_X_OrderShipping" Member="X_Order" ThisKey="FK_OrderId" OtherKey="OrderId" Type="X_Order" IsForeignKey="true" />
+      <Association Name="X_Province_X_OrderShipping" Member="X_Province" ThisKey="FK_ProvinceId" OtherKey="ProvinceId" Type="X_Province" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_OrderStatusHistory" Member="X_OrderStatusHistories">
+    <Type Name="X_OrderStatusHistory">
+      <Column Name="OrderStatusHistoryId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_OrderId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FK_StatusValueId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Association Name="X_Order_X_OrderStatusHistory" Member="X_Order" ThisKey="FK_OrderId" OtherKey="OrderId" Type="X_Order" IsForeignKey="true" />
+      <Association Name="X_AttributeValue_X_OrderStatusHistory" Member="X_AttributeValue" ThisKey="FK_StatusValueId" OtherKey="AttributeValueId" Type="X_AttributeValue" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_Payments" Member="X_Payments">
+    <Type Name="X_Payment">
+      <Column Name="PaymentId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_OrderId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FK_StatusValueId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="PaymentMethod" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="TransactionNumber" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ReferenceNumber" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="PaidAt" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Association Name="X_AttributeValue_X_Payment" Member="X_AttributeValue" ThisKey="FK_StatusValueId" OtherKey="AttributeValueId" Type="X_AttributeValue" IsForeignKey="true" />
+      <Association Name="X_Order_X_Payment" Member="X_Order" ThisKey="FK_OrderId" OtherKey="OrderId" Type="X_Order" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_Products" Member="X_Products">
+    <Type Name="X_Product">
+      <Column Name="ProductId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_ResourceId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ProductCode" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Barcode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Association Name="X_Product_X_ProductVariant" Member="X_ProductVariants" ThisKey="ProductId" OtherKey="FK_ProductId" Type="X_ProductVariant" />
+      <Association Name="X_Product_X_Property" Member="X_Properties" ThisKey="ProductId" OtherKey="FK_ProductId" Type="X_Property" />
+      <Association Name="X_Resource_X_Product" Member="X_Resource" ThisKey="FK_ResourceId" OtherKey="ResourceId" Type="X_Resource" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_ProductVariantAttributes" Member="X_ProductVariantAttributes">
+    <Type Name="X_ProductVariantAttribute">
+      <Column Name="ProductVariantAttributeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_ProductVariantId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FK_AttributeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FK_AttributeValueId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="X_Attribute_X_ProductVariantAttribute" Member="X_Attribute" ThisKey="FK_AttributeId" OtherKey="AttributeId" Type="X_Attribute" IsForeignKey="true" />
+      <Association Name="X_AttributeValue_X_ProductVariantAttribute" Member="X_AttributeValue" ThisKey="FK_AttributeValueId" OtherKey="AttributeValueId" Type="X_AttributeValue" IsForeignKey="true" />
+      <Association Name="X_ProductVariant_X_ProductVariantAttribute" Member="X_ProductVariant" ThisKey="FK_ProductVariantId" OtherKey="ProductVariantId" Type="X_ProductVariant" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_ProductVariantDiscounts" Member="X_ProductVariantDiscounts">
+    <Type Name="X_ProductVariantDiscount">
+      <Column Name="ProductVariantDiscountId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_ProductVariantId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DiscountType" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="DiscountValue" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Association Name="X_ProductVariantDiscount_X_OrderDiscount" Member="X_OrderDiscounts" ThisKey="ProductVariantDiscountId" OtherKey="FK_ProductVariantDiscountId" Type="X_OrderDiscount" />
+      <Association Name="X_ProductVariant_X_ProductVariantDiscount" Member="X_ProductVariant" ThisKey="FK_ProductVariantId" OtherKey="ProductVariantId" Type="X_ProductVariant" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_ProductVariantOtherSellers" Member="X_ProductVariantOtherSellers">
+    <Type Name="X_ProductVariantOtherSeller">
+      <Column Name="ProductVariantSellerId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_ProductVariantId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FK_StoreSettingId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Decimal(29,2)" CanBeNull="true" />
+      <Column Name="StockQuantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Association Name="X_ProductVariant_X_ProductVariantOtherSeller" Member="X_ProductVariant" ThisKey="FK_ProductVariantId" OtherKey="ProductVariantId" Type="X_ProductVariant" IsForeignKey="true" />
+      <Association Name="X_StoreSetting_X_ProductVariantOtherSeller" Member="X_StoreSetting" ThisKey="FK_StoreSettingId" OtherKey="StoreSettingId" Type="X_StoreSetting" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_ProductVariants" Member="X_ProductVariants">
+    <Type Name="X_ProductVariant">
+      <Column Name="ProductVariantId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_ProductId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SKU" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="StockQuantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="X_ProductVariant_X_CartItem" Member="X_CartItems" ThisKey="ProductVariantId" OtherKey="FK_ProductVariantId" Type="X_CartItem" />
+      <Association Name="X_ProductVariant_X_DigitalFile" Member="X_DigitalFiles" ThisKey="ProductVariantId" OtherKey="FK_ProductVariantId" Type="X_DigitalFile" />
+      <Association Name="X_ProductVariant_X_InventoryTransaction" Member="X_InventoryTransactions" ThisKey="ProductVariantId" OtherKey="FK_ProductVariantId" Type="X_InventoryTransaction" />
+      <Association Name="X_ProductVariant_X_OrderItem" Member="X_OrderItems" ThisKey="ProductVariantId" OtherKey="FK_ProductVariantId" Type="X_OrderItem" />
+      <Association Name="X_ProductVariant_X_ProductVariantAttribute" Member="X_ProductVariantAttributes" ThisKey="ProductVariantId" OtherKey="FK_ProductVariantId" Type="X_ProductVariantAttribute" />
+      <Association Name="X_ProductVariant_X_ProductVariantDiscount" Member="X_ProductVariantDiscounts" ThisKey="ProductVariantId" OtherKey="FK_ProductVariantId" Type="X_ProductVariantDiscount" />
+      <Association Name="X_ProductVariant_X_ProductVariantOtherSeller" Member="X_ProductVariantOtherSellers" ThisKey="ProductVariantId" OtherKey="FK_ProductVariantId" Type="X_ProductVariantOtherSeller" />
+      <Association Name="X_ProductVariant_X_PurchaseItem" Member="X_PurchaseItems" ThisKey="ProductVariantId" OtherKey="FK_ProductVariantId" Type="X_PurchaseItem" />
+      <Association Name="X_Product_X_ProductVariant" Member="X_Product" ThisKey="FK_ProductId" OtherKey="ProductId" Type="X_Product" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_Properties" Member="X_Properties">
+    <Type Name="X_Property">
+      <Column Name="PropertyId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_ProductId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FK_CountryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FK_ProvinceId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FK_CityId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="PostalCode" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Latitude" Type="System.Decimal" DbType="Decimal(10,7)" CanBeNull="true" />
+      <Column Name="Longitude" Type="System.Decimal" DbType="Decimal(10,7)" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Association Name="X_Property_X_PropertyPrice" Member="X_PropertyPrices" ThisKey="PropertyId" OtherKey="FK_PropertyId" Type="X_PropertyPrice" />
+      <Association Name="X_City_X_Property" Member="X_City" ThisKey="FK_CityId" OtherKey="CityId" Type="X_City" IsForeignKey="true" />
+      <Association Name="X_Country_X_Property" Member="X_Country" ThisKey="FK_CountryId" OtherKey="CountryId" Type="X_Country" IsForeignKey="true" />
+      <Association Name="X_Product_X_Property" Member="X_Product" ThisKey="FK_ProductId" OtherKey="ProductId" Type="X_Product" IsForeignKey="true" />
+      <Association Name="X_Province_X_Property" Member="X_Province" ThisKey="FK_ProvinceId" OtherKey="ProvinceId" Type="X_Province" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_PropertyPrices" Member="X_PropertyPrices">
+    <Type Name="X_PropertyPrice">
+      <Column Name="PropertyPriceId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_PropertyId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TransactionType" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="TotalPrice" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="DepositAmount" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="MonthlyRent" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="PricePerMeter" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Association Name="X_Property_X_PropertyPrice" Member="X_Property" ThisKey="FK_PropertyId" OtherKey="PropertyId" Type="X_Property" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_Provinces" Member="X_Provinces">
+    <Type Name="X_Province">
+      <Column Name="ProvinceId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_CountryId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NameFa" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="NameEn" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="PhonePrefix" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="X_Province_X_City" Member="X_Cities" ThisKey="ProvinceId" OtherKey="FK_ProvinceId" Type="X_City" />
+      <Association Name="X_Province_X_OrderShipping" Member="X_OrderShippings" ThisKey="ProvinceId" OtherKey="FK_ProvinceId" Type="X_OrderShipping" />
+      <Association Name="X_Province_X_Property" Member="X_Properties" ThisKey="ProvinceId" OtherKey="FK_ProvinceId" Type="X_Property" />
+      <Association Name="X_Province_X_StoreSetting" Member="X_StoreSettings" ThisKey="ProvinceId" OtherKey="FK_ProvinceId" Type="X_StoreSetting" />
+      <Association Name="X_Province_X_UserAddress" Member="X_UserAddresses" ThisKey="ProvinceId" OtherKey="FK_ProvinceId" Type="X_UserAddress" />
+      <Association Name="X_Country_X_Province" Member="X_Country" ThisKey="FK_CountryId" OtherKey="CountryId" Type="X_Country" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_PurchaseItems" Member="X_PurchaseItems">
+    <Type Name="X_PurchaseItem">
+      <Column Name="PurchaseItemId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_PurchaseId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FK_ProductVariantId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProductName" Type="System.String" DbType="NVarChar(400) NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PurchasePrice" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="TotalPrice" Type="System.Decimal" DbType="Decimal(29,2)" IsDbGenerated="true" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Association Name="X_PurchaseItem_X_InventoryTransaction" Member="X_InventoryTransactions" ThisKey="PurchaseItemId" OtherKey="FK_PurchaseItemId" Type="X_InventoryTransaction" />
+      <Association Name="X_ProductVariant_X_PurchaseItem" Member="X_ProductVariant" ThisKey="FK_ProductVariantId" OtherKey="ProductVariantId" Type="X_ProductVariant" IsForeignKey="true" />
+      <Association Name="X_Purchase_X_PurchaseItem" Member="X_Purchase" ThisKey="FK_PurchaseId" OtherKey="PurchaseId" Type="X_Purchase" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_Purchases" Member="X_Purchases">
+    <Type Name="X_Purchase">
+      <Column Name="PurchaseId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SupplierName" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="InvoiceNumber" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="PurchaseDate" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="TotalAmount" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Association Name="X_Purchase_X_InventoryTransaction" Member="X_InventoryTransactions" ThisKey="PurchaseId" OtherKey="FK_PurchaseId" Type="X_InventoryTransaction" />
+      <Association Name="X_Purchase_X_PurchaseItem" Member="X_PurchaseItems" ThisKey="PurchaseId" OtherKey="FK_PurchaseId" Type="X_PurchaseItem" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_ResourceAttributes" Member="X_ResourceAttributes">
+    <Type Name="X_ResourceAttribute">
+      <Column Name="ResourceAttributeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_ResourceId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FK_AttributeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FK_AttributeValueId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ValueNumber" Type="System.Decimal" DbType="Decimal(18,4)" CanBeNull="true" />
+      <Column Name="ValueDate" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="ValueBoolean" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ValueText" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Association Name="X_Attribute_X_ResourceAttribute" Member="X_Attribute" ThisKey="FK_AttributeId" OtherKey="AttributeId" Type="X_Attribute" IsForeignKey="true" />
+      <Association Name="X_AttributeValue_X_ResourceAttribute" Member="X_AttributeValue" ThisKey="FK_AttributeValueId" OtherKey="AttributeValueId" Type="X_AttributeValue" IsForeignKey="true" />
+      <Association Name="X_Resource_X_ResourceAttribute" Member="X_Resource" ThisKey="FK_ResourceId" OtherKey="ResourceId" Type="X_Resource" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_ResourceCategories" Member="X_ResourceCategories">
+    <Type Name="X_ResourceCategory">
+      <Column Name="ResourceCategoryId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_ResourceId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FK_CategoryId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="X_Category_X_ResourceCategory" Member="X_Category" ThisKey="FK_CategoryId" OtherKey="CategoryId" Type="X_Category" IsForeignKey="true" />
+      <Association Name="X_Resource_X_ResourceCategory" Member="X_Resource" ThisKey="FK_ResourceId" OtherKey="ResourceId" Type="X_Resource" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_ResourceImages" Member="X_ResourceImages">
+    <Type Name="X_ResourceImage">
+      <Column Name="ResourceImageId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_ResourceId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ImageUrl" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="SortOrder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsMain" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Association Name="X_Resource_X_ResourceImage" Member="X_Resource" ThisKey="FK_ResourceId" OtherKey="ResourceId" Type="X_Resource" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_Resources" Member="X_Resources">
+    <Type Name="X_Resource">
+      <Column Name="ResourceId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NameFa" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="NameEn" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="ImageUrl" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Association Name="X_Resource_X_DigitalFile" Member="X_DigitalFiles" ThisKey="ResourceId" OtherKey="FK_ResourceId" Type="X_DigitalFile" />
+      <Association Name="X_Resource_X_OrderItem" Member="X_OrderItems" ThisKey="ResourceId" OtherKey="FK_ResourceId" Type="X_OrderItem" />
+      <Association Name="X_Resource_X_Product" Member="X_Products" ThisKey="ResourceId" OtherKey="FK_ResourceId" Type="X_Product" />
+      <Association Name="X_Resource_X_ResourceAttribute" Member="X_ResourceAttributes" ThisKey="ResourceId" OtherKey="FK_ResourceId" Type="X_ResourceAttribute" />
+      <Association Name="X_Resource_X_ResourceCategory" Member="X_ResourceCategories" ThisKey="ResourceId" OtherKey="FK_ResourceId" Type="X_ResourceCategory" />
+      <Association Name="X_Resource_X_ResourceImage" Member="X_ResourceImages" ThisKey="ResourceId" OtherKey="FK_ResourceId" Type="X_ResourceImage" />
+      <Association Name="X_Resource_X_Review" Member="X_Reviews" ThisKey="ResourceId" OtherKey="FK_ResourceId" Type="X_Review" />
+      <Association Name="X_Resource_X_Service" Member="X_Services" ThisKey="ResourceId" OtherKey="FK_ResourceId" Type="X_Service" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_Reviews" Member="X_Reviews">
+    <Type Name="X_Review">
+      <Column Name="ReviewId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_ResourceId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FK_UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Rating" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Comment" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="IsApproved" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Association Name="X_Resource_X_Review" Member="X_Resource" ThisKey="FK_ResourceId" OtherKey="ResourceId" Type="X_Resource" IsForeignKey="true" />
+      <Association Name="X_User_X_Review" Member="X_User" ThisKey="FK_UserId" OtherKey="UserId" Type="X_User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_Roles" Member="X_Roles">
+    <Type Name="X_Role">
+      <Column Name="RoleId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="X_Role_X_UserRole" Member="X_UserRoles" ThisKey="RoleId" OtherKey="FK_RoleId" Type="X_UserRole" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_ServiceAssignments" Member="X_ServiceAssignments">
+    <Type Name="X_ServiceAssignment">
+      <Column Name="ServiceAssignmentId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_ServiceBookingId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FK_UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="AssignedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="StartedAt" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="CompletedAt" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Notes" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Association Name="X_ServiceBooking_X_ServiceAssignment" Member="X_ServiceBooking" ThisKey="FK_ServiceBookingId" OtherKey="ServiceBookingId" Type="X_ServiceBooking" IsForeignKey="true" />
+      <Association Name="X_User_X_ServiceAssignment" Member="X_User" ThisKey="FK_UserId" OtherKey="UserId" Type="X_User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_ServiceBookings" Member="X_ServiceBookings">
+    <Type Name="X_ServiceBooking">
+      <Column Name="ServiceBookingId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_OrderId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FK_OrderItemId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FK_ServiceId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FK_UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FK_ScheduleId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BookingDateTime" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Notes" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="FK_StatusValueId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="X_ServiceBooking_X_ServiceAssignment" Member="X_ServiceAssignments" ThisKey="ServiceBookingId" OtherKey="FK_ServiceBookingId" Type="X_ServiceAssignment" />
+      <Association Name="X_Order_X_ServiceBooking" Member="X_Order" ThisKey="FK_OrderId" OtherKey="OrderId" Type="X_Order" IsForeignKey="true" />
+      <Association Name="X_OrderItem_X_ServiceBooking" Member="X_OrderItem" ThisKey="FK_OrderItemId" OtherKey="OrderItemId" Type="X_OrderItem" IsForeignKey="true" />
+      <Association Name="X_AttributeValue_X_ServiceBooking" Member="X_AttributeValue" ThisKey="FK_StatusValueId" OtherKey="AttributeValueId" Type="X_AttributeValue" IsForeignKey="true" />
+      <Association Name="X_Service_X_ServiceBooking" Member="X_Service" ThisKey="FK_ServiceId" OtherKey="ServiceId" Type="X_Service" IsForeignKey="true" />
+      <Association Name="X_ServiceSchedule_X_ServiceBooking" Member="X_ServiceSchedule" ThisKey="FK_ScheduleId" OtherKey="ScheduleId" Type="X_ServiceSchedule" IsForeignKey="true" />
+      <Association Name="X_User_X_ServiceBooking" Member="X_User" ThisKey="FK_UserId" OtherKey="UserId" Type="X_User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_ServicePrices" Member="X_ServicePrices">
+    <Type Name="X_ServicePrice">
+      <Column Name="ServicePriceId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_ServiceId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="PriceType" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="UnitName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Association Name="X_Service_X_ServicePrice" Member="X_Service" ThisKey="FK_ServiceId" OtherKey="ServiceId" Type="X_Service" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_Services" Member="X_Services">
+    <Type Name="X_Service">
+      <Column Name="ServiceId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_ResourceId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ServiceCode" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Association Name="X_Service_X_CartItem" Member="X_CartItems" ThisKey="ServiceId" OtherKey="FK_ServiceId" Type="X_CartItem" />
+      <Association Name="X_Service_X_OrderItem" Member="X_OrderItems" ThisKey="ServiceId" OtherKey="FK_ServiceId" Type="X_OrderItem" />
+      <Association Name="X_Service_X_ServiceBooking" Member="X_ServiceBookings" ThisKey="ServiceId" OtherKey="FK_ServiceId" Type="X_ServiceBooking" />
+      <Association Name="X_Service_X_ServicePrice" Member="X_ServicePrices" ThisKey="ServiceId" OtherKey="FK_ServiceId" Type="X_ServicePrice" />
+      <Association Name="X_Service_X_ServiceSchedule" Member="X_ServiceSchedules" ThisKey="ServiceId" OtherKey="FK_ServiceId" Type="X_ServiceSchedule" />
+      <Association Name="X_Resource_X_Service" Member="X_Resource" ThisKey="FK_ResourceId" OtherKey="ResourceId" Type="X_Resource" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_ServiceSchedules" Member="X_ServiceSchedules">
+    <Type Name="X_ServiceSchedule">
+      <Column Name="ScheduleId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_ServiceId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FK_ProviderId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StartDateTime" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="EndDateTime" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="Capacity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ReservedCount" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Association Name="X_ServiceSchedule_X_ServiceBooking" Member="X_ServiceBookings" ThisKey="ScheduleId" OtherKey="FK_ScheduleId" Type="X_ServiceBooking" />
+      <Association Name="X_Service_X_ServiceSchedule" Member="X_Service" ThisKey="FK_ServiceId" OtherKey="ServiceId" Type="X_Service" IsForeignKey="true" />
+      <Association Name="X_User_X_ServiceSchedule" Member="X_User" ThisKey="FK_ProviderId" OtherKey="UserId" Type="X_User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_StoreSettings" Member="X_StoreSettings">
+    <Type Name="X_StoreSetting">
+      <Column Name="StoreSettingId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StoreNameFa" Type="System.String" DbType="NVarChar(300) NOT NULL" CanBeNull="false" />
+      <Column Name="StoreNameEn" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="LegalName" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="RegistrationNumber" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="NationalId" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="EconomicCode" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="PhoneNumber" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="MobileNumber" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="FaxNumber" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Website" Type="System.String" DbType="VarChar(300)" CanBeNull="true" />
+      <Column Name="FK_CountryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FK_ProvinceId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FK_CityId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="PostalCode" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Latitude" Type="System.Decimal" DbType="Decimal(10,7)" CanBeNull="true" />
+      <Column Name="Longitude" Type="System.Decimal" DbType="Decimal(10,7)" CanBeNull="true" />
+      <Column Name="LogoUrl" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="FaviconUrl" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="InstagramUrl" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="TelegramUrl" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="WhatsAppNumber" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="LinkedInUrl" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="WorkingHours" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="SupportPhone" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="SupportEmail" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Association Name="X_StoreSetting_X_ProductVariantOtherSeller" Member="X_ProductVariantOtherSellers" ThisKey="StoreSettingId" OtherKey="FK_StoreSettingId" Type="X_ProductVariantOtherSeller" />
+      <Association Name="X_City_X_StoreSetting" Member="X_City" ThisKey="FK_CityId" OtherKey="CityId" Type="X_City" IsForeignKey="true" />
+      <Association Name="X_Country_X_StoreSetting" Member="X_Country" ThisKey="FK_CountryId" OtherKey="CountryId" Type="X_Country" IsForeignKey="true" />
+      <Association Name="X_Province_X_StoreSetting" Member="X_Province" ThisKey="FK_ProvinceId" OtherKey="ProvinceId" Type="X_Province" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_SubscriptionPlans" Member="X_SubscriptionPlans">
+    <Type Name="X_SubscriptionPlan">
+      <Column Name="SubscriptionPlanId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NameFa" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="NameEn" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="DurationDays" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Association Name="X_SubscriptionPlan_X_UserSubscription" Member="X_UserSubscriptions" ThisKey="SubscriptionPlanId" OtherKey="FK_SubscriptionPlanId" Type="X_UserSubscription" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_UserAddresses" Member="X_UserAddresses">
+    <Type Name="X_UserAddress">
+      <Column Name="UserAddressId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="RecipientName" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="RecipientMobile" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="FK_CountryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FK_ProvinceId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FK_CityId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(1000) NOT NULL" CanBeNull="false" />
+      <Column Name="PostalCode" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Latitude" Type="System.Decimal" DbType="Decimal(10,7)" CanBeNull="true" />
+      <Column Name="Longitude" Type="System.Decimal" DbType="Decimal(10,7)" CanBeNull="true" />
+      <Column Name="IsDefault" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Association Name="X_City_X_UserAddress" Member="X_City" ThisKey="FK_CityId" OtherKey="CityId" Type="X_City" IsForeignKey="true" />
+      <Association Name="X_Country_X_UserAddress" Member="X_Country" ThisKey="FK_CountryId" OtherKey="CountryId" Type="X_Country" IsForeignKey="true" />
+      <Association Name="X_Province_X_UserAddress" Member="X_Province" ThisKey="FK_ProvinceId" OtherKey="ProvinceId" Type="X_Province" IsForeignKey="true" />
+      <Association Name="X_User_X_UserAddress" Member="X_User" ThisKey="FK_UserId" OtherKey="UserId" Type="X_User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_UserRoles" Member="X_UserRoles">
+    <Type Name="X_UserRole">
+      <Column Name="UserRoleId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FK_RoleId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="X_Role_X_UserRole" Member="X_Role" ThisKey="FK_RoleId" OtherKey="RoleId" Type="X_Role" IsForeignKey="true" />
+      <Association Name="X_User_X_UserRole" Member="X_User" ThisKey="FK_UserId" OtherKey="UserId" Type="X_User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_Users" Member="X_Users">
+    <Type Name="X_User">
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="MobileNumber" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="PasswordHash" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="FirstName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ProfileImageUrl" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="LastLoginAt" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Association Name="X_User_X_Cart" Member="X_Carts" ThisKey="UserId" OtherKey="FK_UserId" Type="X_Cart" />
+      <Association Name="X_User_X_DigitalFileAccess" Member="X_DigitalFileAccesses" ThisKey="UserId" OtherKey="FK_UserId" Type="X_DigitalFileAccess" />
+      <Association Name="X_User_X_Order" Member="X_Orders" ThisKey="UserId" OtherKey="FK_UserId" Type="X_Order" />
+      <Association Name="X_User_X_Review" Member="X_Reviews" ThisKey="UserId" OtherKey="FK_UserId" Type="X_Review" />
+      <Association Name="X_User_X_ServiceAssignment" Member="X_ServiceAssignments" ThisKey="UserId" OtherKey="FK_UserId" Type="X_ServiceAssignment" />
+      <Association Name="X_User_X_ServiceBooking" Member="X_ServiceBookings" ThisKey="UserId" OtherKey="FK_UserId" Type="X_ServiceBooking" />
+      <Association Name="X_User_X_ServiceSchedule" Member="X_ServiceSchedules" ThisKey="UserId" OtherKey="FK_ProviderId" Type="X_ServiceSchedule" />
+      <Association Name="X_User_X_UserAddress" Member="X_UserAddresses" ThisKey="UserId" OtherKey="FK_UserId" Type="X_UserAddress" />
+      <Association Name="X_User_X_UserRole" Member="X_UserRoles" ThisKey="UserId" OtherKey="FK_UserId" Type="X_UserRole" />
+      <Association Name="X_User_X_UserSubscription" Member="X_UserSubscriptions" ThisKey="UserId" OtherKey="FK_UserId" Type="X_UserSubscription" />
+      <Association Name="X_User_X_Wallet" Member="X_Wallets" ThisKey="UserId" OtherKey="FK_UserId" Type="X_Wallet" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_UserSubscriptions" Member="X_UserSubscriptions">
+    <Type Name="X_UserSubscription">
+      <Column Name="UserSubscriptionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FK_SubscriptionPlanId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FK_OrderId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StartAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="EndAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Association Name="X_Order_X_UserSubscription" Member="X_Order" ThisKey="FK_OrderId" OtherKey="OrderId" Type="X_Order" IsForeignKey="true" />
+      <Association Name="X_SubscriptionPlan_X_UserSubscription" Member="X_SubscriptionPlan" ThisKey="FK_SubscriptionPlanId" OtherKey="SubscriptionPlanId" Type="X_SubscriptionPlan" IsForeignKey="true" />
+      <Association Name="X_User_X_UserSubscription" Member="X_User" ThisKey="FK_UserId" OtherKey="UserId" Type="X_User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_Wallets" Member="X_Wallets">
+    <Type Name="X_Wallet">
+      <Column Name="WalletId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Balance" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Association Name="X_Wallet_X_WalletTransaction" Member="X_WalletTransactions" ThisKey="WalletId" OtherKey="FK_WalletId" Type="X_WalletTransaction" />
+      <Association Name="X_User_X_Wallet" Member="X_User" ThisKey="FK_UserId" OtherKey="UserId" Type="X_User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.View_Cars_AllCars" Member="View_Cars_AllCars">
+    <Type Name="View_Cars_AllCar">
+      <Column Name="ResourceId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ResourceNameFa" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="ResourceNameEn" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="ResourceDescription" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="ResourceImageUrl" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="CategoryId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CategoryNameFa" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Fuel" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Transmission" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Color" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Body" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Brand" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Model" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="ProductId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProductVariantId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SKU" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Price" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="StockQuantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="VariantIsActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.View_Cars_CarsPrice" Member="View_Cars_CarsPrices">
+    <Type Name="View_Cars_CarsPrice">
+      <Column Name="NameFa" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Expr1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Expr2" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="CategoryId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.View_Cars_CarDetails" Member="View_Cars_CarDetails">
+    <Type Name="View_Cars_CarDetail">
+      <Column Name="ResourceId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Expr2" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="NameFa" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="ValueFa" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="AttributeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>
