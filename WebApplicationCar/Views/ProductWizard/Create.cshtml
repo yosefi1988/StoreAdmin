@@ -1,0 +1,227 @@
+﻿@{
+    ViewBag.Title = "افزودن محصول جدید";
+}
+
+<div class="container" style="margin-top:20px;">
+    <h2>افزودن محصول جدید</h2>
+    <hr />
+
+    <!-- Progress Bar -->
+    <div class="wizard-steps">
+        <div class="wizard-step active" data-step="1">
+            <span class="step-number">1</span>
+            <span class="step-title">اطلاعات پایه</span>
+        </div>
+        <div class="wizard-step" data-step="2">
+            <span class="step-number">2</span>
+            <span class="step-title">دسته‌بندی و صفت‌ها</span>
+        </div>
+        <div class="wizard-step" data-step="3">
+            <span class="step-number">3</span>
+            <span class="step-title">ویژگی‌ها و تصاویر</span>
+        </div>
+        <div class="wizard-step" data-step="4">
+            <span class="step-number">4</span>
+            <span class="step-title">خلاصه و ثبت</span>
+        </div>
+    </div>
+
+    <hr />
+
+    <!-- ========== قدم ۱ ========== -->
+    <div class="wizard-panel" id="step-1">
+        <h4>اطلاعات پایه</h4>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>نام فارسی *</label>
+                    <input type="text" id="NameFa" class="form-control" required />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>نام انگلیسی</label>
+                    <input type="text" id="NameEn" class="form-control" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>توضیحات</label>
+            <textarea id="Description" class="form-control" rows="3"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>آدرس تصویر اصلی</label>
+            <input type="text" id="ImageUrl" class="form-control" />
+        </div>
+
+        <hr />
+        <h5>اطلاعات محصول</h5>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>کد محصول</label>
+                    <input type="text" id="ProductCode" class="form-control" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>بارکد</label>
+                    <input type="text" id="Barcode" class="form-control" />
+                </div>
+            </div>
+        </div>
+
+        <hr />
+        <h5>واریانت‌ها (SKU)</h5>
+        <button type="button" class="btn btn-sm btn-success" id="btnAddVariant">
+            + افزودن واریانت
+        </button>
+
+        <table class="table table-bordered" style="margin-top:10px;" id="tblVariants">
+            <thead>
+                <tr>
+                    <th>SKU</th>
+                    <th>موجودی</th>
+                    <th>قیمت</th>
+                    <th>فعال</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <!-- ========== قدم ۲ ========== -->
+    <div class="wizard-panel" id="step-2" style="display:none;">
+        <h4>دسته‌بندی و صفت‌ها</h4>
+
+        <div class="form-group">
+            <label>دسته‌بندی‌ها</label>
+            <div id="categoriesList" style="max-height:250px; overflow-y:auto; border:1px solid #ddd; padding:10px;">
+                در حال بارگذاری...
+            </div>
+        </div>
+
+        <hr />
+        <h5>صفت‌های واریانت‌ها</h5>
+        <div id="variantAttributesContainer">
+            <!-- اینجا داینامیک پر می‌شه -->
+        </div>
+    </div>
+
+    <!-- ========== قدم ۳ ========== -->
+    <div class="wizard-panel" id="step-3" style="display:none;">
+        <h4>ویژگی‌ها و تصاویر</h4>
+
+        <h5>ویژگی‌های Resource</h5>
+        <button type="button" class="btn btn-sm btn-success" id="btnAddResourceAttr">
+            + افزودن ویژگی
+        </button>
+        <table class="table table-bordered" style="margin-top:10px;" id="tblResourceAttrs">
+            <thead>
+                <tr>
+                    <th>صفت</th>
+                    <th>مقدار</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <hr />
+        <h5>تصاویر Resource</h5>
+        <button type="button" class="btn btn-sm btn-success" id="btnAddImage">
+            + افزودن تصویر
+        </button>
+        <table class="table table-bordered" style="margin-top:10px;" id="tblImages">
+            <thead>
+                <tr>
+                    <th>آدرس تصویر</th>
+                    <th>عنوان</th>
+                    <th>ترتیب</th>
+                    <th>اصلی</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <!-- ========== قدم ۴ ========== -->
+    <div class="wizard-panel" id="step-4" style="display:none;">
+        <h4>خلاصه اطلاعات</h4>
+        <div id="summaryContainer">
+            <!-- خلاصه اینجا نمایش داده می‌شه -->
+        </div>
+    </div>
+
+    <hr />
+
+    <!-- دکمه‌های ناوبری -->
+    <div class="wizard-nav">
+        <button type="button" class="btn btn-secondary" id="btnPrev" disabled>قبلی</button>
+        <button type="button" class="btn btn-primary" id="btnNext">بعدی</button>
+        <button type="button" class="btn btn-success" id="btnSave" style="display:none;">
+            ثبت نهایی
+        </button>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .wizard-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .wizard-step {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            border-bottom: 3px solid #ddd;
+            opacity: 0.5;
+        }
+
+            .wizard-step.active {
+                border-bottom-color: #007bff;
+                opacity: 1;
+            }
+
+            .wizard-step.done {
+                border-bottom-color: #28a745;
+                opacity: 1;
+            }
+
+        .step-number {
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            line-height: 35px;
+            border-radius: 50%;
+            background: #007bff;
+            color: white;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .step-title {
+            display: block;
+            font-size: 13px;
+        }
+
+        .wizard-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+    </style>
+}
+
+@section Scripts {    
+    <script src="~/Scripts/product-wizard.js"></script>
+}
