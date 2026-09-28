@@ -27,7 +27,7 @@ namespace WebApplicationCar.Controllers
             using (var db = new DataClassesDatabaseDataContextDataContext())
             {
                 var categories = db.X_Categories
-                    .Where(c => c.IsActive)
+                    .Where( c => c.IsActive && c.FK_ParentId == 1 )
                     .Select(c => new { c.CategoryId, c.NameFa, c.CategoryType })
                     .ToList();
                 return Json(categories, JsonRequestBehavior.AllowGet);
@@ -41,7 +41,7 @@ namespace WebApplicationCar.Controllers
             using (var db = new DataClassesDatabaseDataContextDataContext())
             {
                 var attributes = db.X_Attributes
-                    .Where(a => a.IsActive)
+                    .Where(a => a.IsActive && a.FK_CategoryId == 7)
                     .Select(a => new { a.AttributeId, a.NameFa, a.DataType })
                     .ToList();
                 return Json(attributes, JsonRequestBehavior.AllowGet);

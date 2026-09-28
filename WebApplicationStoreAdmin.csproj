@@ -4612,6 +4612,7 @@
       <LastGenOutput>DataClassesDatabase.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Properties\PublishProfiles\admin.pubxml" />
     <None Include="Properties\PublishProfiles\file.pubxml" />
     <None Include="Properties\PublishProfiles\test server.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

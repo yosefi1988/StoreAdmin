@@ -63,5 +63,53 @@ namespace WebApplicationCar.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
+
+        public ActionResult Scroll()
+        {
+            return View();
+        }
+
+        // AJAX: لیست محصولات برای Infinite Scroll
+        [HttpGet]
+        public JsonResult GetProductsScroll(int skip = 0, int take = 12)
+        {
+            try
+            {
+                using (var db = new DataClassesDatabaseDataContextDataContext())
+                {
+                    var query = from p in db.X_Products
+                                join r in db.X_Resources on p.FK_ResourceId equals r.ResourceId
+                                where p.IsActive
+                                orderby p.ProductId descending
+                                select new
+                                {
+                                    p.ProductId,
+                                    r.NameFa,
+                                    r.NameEn,
+                                    r.ImageUrl,
+                                    p.ProductCode,
+                                    p.Barcode,
+                                    p.IsActive
+                                };
+
+                    var total = query.Count();
+                    var data = query.Skip(skip).Take(take).ToList();
+
+                    return Json(new
+                    {
+                        Total = total,
+                        Skip = skip,
+                        Take = take,
+                        HasMore = (skip + take) < total,
+                        Data = data
+                    }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }
