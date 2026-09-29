@@ -1,6 +1,7 @@
 ﻿$(function () {
     var currentPage = 1;
     var pageSize = 20;
+    var searchTerm = window.INITIAL_SEARCH || '';
 
     // ============ لود محصولات ============
     function loadProducts(page) {
@@ -12,11 +13,12 @@
 
         var params = {
             page: currentPage,
-            pageSize: pageSize
+            pageSize: pageSize,
+            search: searchTerm
         };
 
-        // ← مستقیم از همین پروژه (بدون API جدا)
-        $.get('/Products/GetProducts', params, function (res) {
+        // ← از ApiClient.baseUrl استفاده می‌کنه
+        $.get(ApiClient.baseUrl + 'Products/GetProducts', params, function (res) {
             $('#loading').hide();
 
             if (!res || !res.Data) {
@@ -46,7 +48,9 @@
                 ? '<span class="label label-success">فعال</span>'
                 : '<span class="label label-default">غیرفعال</span>';
 
-            var row = '<tr>' +
+            var detailsUrl = ApiClient.baseUrl + 'Products/Details/' + p.ProductId;
+
+            var row = '<tr style="cursor:pointer;" data-href="' + detailsUrl + '">' +
                 '<td>' + (p.ProductId || '-') + '</td>' +
                 '<td>' + (p.NameFa || '-') + '</td>' +
                 '<td>' + (p.NameEn || '-') + '</td>' +
@@ -54,12 +58,22 @@
                 '<td>' + (p.Barcode || '-') + '</td>' +
                 '<td>' + status + '</td>' +
                 '<td>' +
-                    '<a href="/Products/Details/' + p.ProductId + '" class="btn btn-xs btn-info">جزئیات</a>' +
+                    '<a href="' + detailsUrl + '" class="btn btn-xs btn-info btn-details">جزئیات</a>' +
                 '</td>' +
             '</tr>';
             tbody.append(row);
         });
     }
+
+    // ============ کلیک روی ردیف → صفحه جزئیات ============
+    $(document).on('click', '#tblProducts tbody tr', function (e) {
+        if ($(e.target).closest('.btn-details').length) return;
+
+        var href = $(this).data('href');
+        if (href) {
+            window.location.href = href;
+        }
+    });
 
     // ============ صفحه‌بندی ============
     function renderPagination(totalPages, current, total) {
@@ -110,13 +124,24 @@
         loadProducts(1);
     });
 
-    // جستجو سمت کلاینت
+    // ============ جستجو (سرور-محور با debounce) ============
+    var searchTimer = null;
     $('#txtSearch').on('keyup', function () {
-        var value = $(this).val().toLowerCase().trim();
-        $('#tblProducts tbody tr').each(function () {
-            var text = $(this).text().toLowerCase();
-            $(this).toggle(text.indexOf(value) > -1);
-        });
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(function () {
+            searchTerm = $('#txtSearch').val().trim();
+            loadProducts(1);
+        }, 500);
+    });
+
+    // Enter هم فوری جستجو کنه
+    $('#txtSearch').on('keypress', function (e) {
+        if (e.which === 13) {
+            e.preventDefault();
+            clearTimeout(searchTimer);
+            searchTerm = $('#txtSearch').val().trim();
+            loadProducts(1);
+        }
     });
 
     // شروع

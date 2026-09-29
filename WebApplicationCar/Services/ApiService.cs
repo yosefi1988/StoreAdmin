@@ -13,8 +13,24 @@ namespace WebApplicationCar.Services
         static ApiService()
         {
             var baseUrl = ConfigurationManager.AppSettings["ApiBaseUrl"];
+
             if (string.IsNullOrEmpty(baseUrl))
-                baseUrl = "http://localhost:59658/"; // ← پورت API
+                throw new ConfigurationErrorsException("ApiBaseUrl در Web.config تنظیم نشده است");
+
+            // اگه نسبی بود (مثل /x_car/) → آدرس کامل بساز
+            if (baseUrl.StartsWith("/"))
+            {
+                var request = System.Web.HttpContext.Current?.Request;
+                if (request != null)
+                {
+                    baseUrl = $"{request.Url.Scheme}://{request.Url.Authority}{baseUrl}";
+                }
+                else
+                {
+                    throw new ConfigurationErrorsException(
+                        "ApiBaseUrl نسبی است اما HttpContext در دسترس نیست");
+                }
+            }
 
             _client.BaseAddress = new Uri(baseUrl);
             _client.DefaultRequestHeaders.Accept.Clear();

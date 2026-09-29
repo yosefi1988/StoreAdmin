@@ -405,14 +405,14 @@
         $('#btnSave').prop('disabled', true).text('در حال ذخیره...');
 
         $.ajax({
-            url: '/ProductWizard/Save',
+            url: ApiClient.baseUrl + 'ProductWizard/Save',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(model),
             success: function (res) {
                 if (res.success) {
                     alert(res.message);
-                    window.location.href = '/Products/Index';
+                    window.location.href = ApiClient.baseUrl + 'Products/Index';
                 } else {
                     alert('خطا: ' + res.message);
                     $('#btnSave').prop('disabled', false).text('ثبت نهایی');

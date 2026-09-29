@@ -15,7 +15,7 @@
             pageSize: pageSize
         };
 
-        ApiClient.get('api/products', params, function (res) {
+        ApiClient.get('Products/GetProducts', params, function (res) {
             $('#loading').hide();
 
             if (!res || !res.Data) {
@@ -55,7 +55,7 @@
                 '<td>' + (p.Barcode || '-') + '</td>' +
                 '<td>' + status + '</td>' +
                 '<td>' +
-                    '<a href="/Products/Details/' + p.ProductId + '" class="btn btn-xs btn-info">جزئیات</a>' +
+                    '<a href="' + ApiClient.baseUrl + 'Products/Details/' + p.ProductId + '" class="btn btn-xs btn-info">جزئیات</a>' +
                 '</td>' +
             '</tr>';
             tbody.append(row);

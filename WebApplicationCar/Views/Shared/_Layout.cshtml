@@ -40,9 +40,17 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
 
-    <!-- اسکریپت ارتباط با API -->
+    <!-- ۱. اول کانفیگ: تعریف APP_CONFIG -->
+    <script>
+        window.APP_CONFIG = {
+            baseUrl: '@System.Configuration.ConfigurationManager.AppSettings["ApiBaseUrl"]'
+        };
+     </script>
 
+    <!-- ۲. بعد api-client (که از APP_CONFIG استفاده می‌کنه) -->
     <script src="~/Scripts/api-client.js"></script>
+
+    <!-- ۳. در آخر اسکریپت‌های هر View -->
     @RenderSection("scripts", required: false)
 </body>
 </html>

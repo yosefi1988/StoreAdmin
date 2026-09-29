@@ -4,12 +4,14 @@
 
 var ApiClient = (function () {
 
-    // ⚠️ آدرس API رو با پورت واقعی جایگزین کن
-    var BASE_URL = 'http://localhost:59658/';
+    // خواندن baseUrl از کانفیگ (هر بار چک می‌شه)
+    function getBaseUrl() {
+        return (window.APP_CONFIG && window.APP_CONFIG.baseUrl) || '/x_car/';
+    }
 
     function request(method, endpoint, data, success, error) {
         var options = {
-            url: BASE_URL + endpoint,
+            url: getBaseUrl() + endpoint,
             type: method,
             dataType: 'json',
             success: success || function () {},
@@ -48,6 +50,8 @@ var ApiClient = (function () {
         delete: function (endpoint, success, error) {
             request('DELETE', endpoint, null, success, error);
         },
-        baseUrl: BASE_URL
+        get baseUrl() {
+            return getBaseUrl();
+        }
     };
 })();

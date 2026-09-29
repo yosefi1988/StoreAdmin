@@ -1,5 +1,6 @@
 ﻿@{
     ViewBag.Title = "لیست خودروها";
+    string search = ViewBag.Search as string ?? "";
 }
 
 <div class="container" style="margin-top:20px;">
@@ -9,8 +10,9 @@
     <!-- فیلتر و جستجو -->
     <div class="row" style="margin-bottom:15px;">
         <div class="col-md-4">
-            <input type="text" id="txtSearch" class="form-control" placeholder="جستجو (نام، کد محصول)..." />
-        </div>
+            <input type="text" id="txtSearch" class="form-control"
+                   placeholder="جستجو (نام، کد محصول)..."
+                   value="@search" />        </div>
         <div class="col-md-2">
             <select id="ddlPageSize" class="form-control">
                 <option value="10">10</option>
@@ -53,7 +55,10 @@
     <!-- اطلاعات -->
     <div class="text-muted" id="paginationInfo"></div>
 </div>
-
+ 
 @section Scripts {
+    <script>
+        window.INITIAL_SEARCH = '@search';
+    </script>
     <script src="~/Scripts/products-list.js"></script>
 }

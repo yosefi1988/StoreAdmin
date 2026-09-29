@@ -13,7 +13,7 @@
         $('#loading').show();
         $('#error').hide();
 
-        $.get('/Products/GetProductsScroll', { skip: skip, take: take }, function (res) {
+        $.get(ApiClient.baseUrl + 'Products/GetProductsScroll', { skip: skip, take: take }, function (res) {
             isLoading = false;
             $('#loading').hide();
 
@@ -58,9 +58,11 @@
                 ? '<span class="badge badge-success">فعال</span>'
                 : '<span class="badge badge-secondary">غیرفعال</span>';
 
-            var card = 
+            var detailsUrl = ApiClient.baseUrl + 'Products/Details/' + p.ProductId;
+
+            var card =
                 '<div class="col-md-4 col-sm-6">' +
-                    '<div class="product-card">' +
+                    '<div class="product-card" style="cursor:pointer;" data-href="' + detailsUrl + '">' +
                         imageHtml +
                         '<div class="card-body">' +
                             '<h5 class="card-title">' + (p.NameFa || '-') + '</h5>' +
@@ -70,7 +72,7 @@
                         '</div>' +
                         '<div class="card-footer">' +
                             statusBadge +
-                            '<a href="/Products/Details/' + p.ProductId + '" class="btn btn-sm btn-primary float-right">جزئیات</a>' +
+                            '<a href="' + detailsUrl + '" class="btn btn-sm btn-primary float-right btn-details">جزئیات</a>' +
                         '</div>' +
                     '</div>' +
                 '</div>';
@@ -78,6 +80,17 @@
             container.append(card);
         });
     }
+
+    // ============ کلیک روی کارت → صفحه جزئیات ============
+    $(document).on('click', '.product-card', function (e) {
+        // اگه روی دکمه جزئیات کلیک شد، نذار دوبار redirect بشه
+        if ($(e.target).closest('.btn-details').length) return;
+
+        var href = $(this).data('href');
+        if (href) {
+            window.location.href = href;
+        }
+    });
 
     // ============ Infinite Scroll ============
     function isNearBottom() {
