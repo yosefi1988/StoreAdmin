@@ -39,7 +39,7 @@ namespace WebApplicationCar.Controllers
             var model = new HomeViewModel
             {
                 Settings = GetSettings(),
-                LatestCars = GetLatestCars(6)
+                LatestCars = GetLatestCars(8)
             };
 
             return View(model);
