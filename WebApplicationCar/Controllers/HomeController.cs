@@ -13,7 +13,7 @@ using WebApplicationCar.Models;
 
 namespace WebApplicationCar.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly string _conn =
             ConfigurationManager.ConnectionStrings["balabar1_balabarkaranConnectionString"].ConnectionString;

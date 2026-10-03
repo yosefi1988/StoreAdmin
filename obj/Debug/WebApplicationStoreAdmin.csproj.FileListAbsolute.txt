@@ -69,3 +69,11 @@ D:\Projects\Source\Repos2\StoreAdmin\bin\System.Web.WebPages.Razor.xml
 D:\Projects\Source\Repos2\StoreAdmin\obj\Debug\WebApplicationStoreAdmin.csprojResolveAssemblyReference.cache
 D:\Projects\Source\Repos2\StoreAdmin\obj\Debug\WebApplicationStoreAdmin.dll
 D:\Projects\Source\Repos2\StoreAdmin\obj\Debug\WebApplicationStoreAdmin.pdb
+D:\Projects\Source\Repos2\StoreAdmin\bin\Swashbuckle.Core.dll
+D:\Projects\Source\Repos2\StoreAdmin\bin\System.Net.Http.Formatting.dll
+D:\Projects\Source\Repos2\StoreAdmin\bin\System.Web.Http.dll
+D:\Projects\Source\Repos2\StoreAdmin\bin\System.Web.Http.WebHost.dll
+D:\Projects\Source\Repos2\StoreAdmin\bin\WebActivatorEx.dll
+D:\Projects\Source\Repos2\StoreAdmin\bin\System.Net.Http.Formatting.xml
+D:\Projects\Source\Repos2\StoreAdmin\bin\System.Web.Http.xml
+D:\Projects\Source\Repos2\StoreAdmin\bin\System.Web.Http.WebHost.xml
