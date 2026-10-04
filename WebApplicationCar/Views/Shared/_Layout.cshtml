@@ -54,7 +54,6 @@
     
    @Styles.Render("~/Content/css")
    @Scripts.Render("~/bundles/modernizr")
-    @RenderSection("Styles", required: false)
     @RenderSection("Scripts", required: false)
 
 
@@ -98,9 +97,37 @@
     <div class="call_text_main">
         <div class="container">
             <div class="call_taital">
-                <div class="call_text"><a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i><span class="padding_left_15">Location</span></a></div>
-                <div class="call_text"><a href="#"><i class="fa fa-phone" aria-hidden="true"></i><span class="padding_left_15">(+71) 8522369417</span></a></div>
-                <div class="call_text"><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i><span class="padding_left_15">demo@gmail.com</span></a></div>
+
+                @if (settings != null && !string.IsNullOrEmpty(settings.StoreNameFa))
+                {
+                    <div class="call_text"><a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i><span class="padding_left_15">@settings.Address</span></a></div>
+                    @*<div class="location_text">
+                        <a href="#">
+                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                            <span class="padding_left_15">@settings.Address</span>
+                        </a>
+                    </div>*@
+
+
+                    <div class="call_text"><a href="#"><i class="fa fa-phone" aria-hidden="true"></i><span class="padding_left_15">>@settings.PhoneNumber</span></a></div>
+                    @*<div class="location_text">
+                        <a href="tel:@settings.PhoneNumber">
+                            <i class="fa fa-phone" aria-hidden="true"></i>
+                            <span class="padding_left_15">@settings.PhoneNumber</span>
+                        </a>
+                    </div>*@
+
+
+                    <div class="call_text"><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i><span class="padding_left_15">@settings.Email</span></a></div>
+                    @*<div class="location_text">
+                        <a href="mailto:@settings.Email">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                            <span class="padding_left_15">@settings.Email</span>
+                        </a>
+                    </div>*@
+
+                }
+
             </div>
         </div>
     </div>
@@ -117,30 +144,64 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="footeer_logo"><img src="~/Content/trator-1.0.0/imagesx/logo.png"></div>
+                    <div class="footeer_logo"><img src="@Model.Settings.LogoUrl"></div>
                 </div>
             </div>
             <div class="footer_section_2">
                 <div class="row">
-                    <div class="col">
-                        <h4 class="footer_taital">Subscribe Now</h4>
-                        <p class="footer_text">There are many variations of passages of Lorem Ipsum available,</p>
+                    @*<div class="col">
+                        <h4 class="footer_taital">اشتراک در ماهنامه</h4>
+                        <p class="footer_text">برای اشتراک در ماهنامه، @Model.Settings.StoreNameFa آدرس ایمیل خود را وارد و درخواست را ثبت نمایید.</p>
                         <div class="form-group">
-                            <textarea class="update_mail" placeholder="Enter Your Email" rows="5" id="comment" name="Enter Your Email"></textarea>
-                            <div class="subscribe_bt"><a href="#">Subscribe</a></div>
+                            <textarea class="update_mail" placeholder="آدرس ایمیل" rows="5" id="comment" name="Enter Your Email"></textarea>
+                            <div class="subscribe_bt"><a href="#">عضویت</a></div>
+                        </div>
+                    </div>*@
+
+                    <div class="col">
+                        <h4 class="footer_taital">اشتراک در ماهنامه</h4>
+                        <p class="footer_text">برای اشتراک در ماهنامه، @Model.Settings.StoreNameFa آدرس ایمیل خود را وارد و درخواست را ثبت نمایید.</p>
+                        <div class="form-group">
+                            <textarea class="update_mail" placeholder="آدرس ایمیل" rows="5" id="newsletterEmail"></textarea>
+                            <div class="subscribe_bt">
+                                <a href="javascript:void(0)" onclick="subscribeNewsletter()">عضویت</a>
+                            </div>
                         </div>
                     </div>
+                    <script>
+                        function subscribeNewsletter() {
+                            var email = document.getElementById('newsletterEmail').value;
+                            var data = new FormData();
+                            data.append('email', email);
+
+                            fetch('@Url.Action("SubscribeNewsletter", "Home")', {
+                                method: 'POST',
+                                body: data
+                            })
+                            .then(r => r.json())
+                            .then(res => {
+                                alert(res.message);
+                                if (res.success) document.getElementById('newsletterEmail').value = '';
+                            });
+                        }
+                    </script>
+
+
                     <div class="col">
-                        <h4 class="footer_taital">Information</h4>
-                        <p class="lorem_text">There are many variations of passages of Lorem Ipsum available, but the majority </p>
+                        <h4 class="footer_taital">انتقاد و پیشنهاد</h4>
+                        <p class="lorem_text">سوالات و پیشنهادات خود تنها در رابطه با سایت از طریق زیر با ما در میان بگذارید.</p>
                     </div>
                     <div class="col">
-                        <h4 class="footer_taital">Helpful Links</h4>
-                        <p class="lorem_text">There are many variations of passages of Lorem Ipsum available, but the majority </p>
+                        <h4 class="footer_taital">لینک های مفید</h4>
+                        
+                        <a href="https://www.mimt.gov.ir/"  style="color:#fff;">وزارت صنایع و معادن</a>
+                        <p class="lorem_text"><a href="https://www.bazresi.ir/"  style="color:#fff;">بازرسی کل کشور</a></p>
+                        <p class="lorem_text"><a href="https://rrk.ir/home.htm"  style="color:#fff;">روزنامه جمهوری اسلامی</a></p>
+                        <p class="lorem_text"><a href="http://ssaa.ir/"  style="color:#fff;">سازمان ثبت و اسناد</a></p>
                     </div>
                     <div class="col">
-                        <h4 class="footer_taital">Invesments</h4>
-                        <p class="lorem_text">There are many variations of passages of Lorem Ipsum available, but the majority </p>
+                        <h4 class="footer_taital">ساعات کاری</h4>
+                        <p class="lorem_text">@Model.Settings.WorkingHours</p>
                     </div>
                     @*<div class="col">
                         <h4 class="footer_taital">Contact Us</h4>
@@ -176,6 +237,18 @@
                                 </a>
                             </div>
                             <div class="location_text">
+                                <a href="tel:@settings.MobileNumber">
+                                    <i class="fa fa-phone" aria-hidden="true"></i>
+                                    <span class="padding_left_15">@settings.MobileNumber</span>
+                                </a>
+                            </div>
+                            <div class="location_text">
+                                <a href="tel:@settings.FaxNumber">
+                                    <i class="fa fa-phone" aria-hidden="true"></i>
+                                    <span class="padding_left_15">@settings.FaxNumber</span>
+                                </a>
+                            </div>
+                            <div class="location_text">
                                 <a href="mailto:@settings.Email">
                                     <i class="fa fa-envelope" aria-hidden="true"></i>
                                     <span class="padding_left_15">@settings.Email</span>
@@ -185,10 +258,16 @@
 
                         <div class="social_icon">
                             <ul>
-                                <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                @*<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
                                 <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
                                 <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>*@
+
+
+                                <li><a href="@settings.FacebookUrl"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                <li><a href="@settings.TwitterUrl"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                <li><a href="@settings.LinkedInUrl"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                                <li><a href="@settings.InstagramUrl"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
                             </ul>
                         </div>
                     </div>
@@ -203,7 +282,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
-                    <p class="copyright_text">2023 All Rights Reserved. Design by <a href="https://html.design">Free Html Templates</a> Distributed By <a href="https://themewagon.com">ThemeWagon</a></p>
+
+
+                    <p class="copyright_text">
+                        © @DateTime.Now.Year - تمامی حقوق برای @Model.Settings.StoreNameFa محفوظ است. 
+                        <br />
+                        طراحی و تولید توسط <a href="+989999816652">یوسفی</a>
+                    </p>
                 </div>
             </div>
         </div>

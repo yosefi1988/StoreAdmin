@@ -13,14 +13,17 @@ namespace WebApplicationCar.Controllers
     { 
         private readonly string _conn = ConfigurationManager.ConnectionStrings["balabar1_balabarkaranConnectionString"].ConnectionString;
 
-        protected StoreSettingVM GetSettings()
+        public StoreSettingVM GetSettings()
         {
             using (var conn = new SqlConnection(_conn))
             {
                 conn.Open();
                 var cmd = new SqlCommand(
                     @"SELECT TOP 1 StoreNameFa, Address, WorkingHours, 
-                         PhoneNumber, Email, MobileNumber, LogoUrl
+                        PhoneNumber, Email, MobileNumber, LogoUrl , FaxNumber,Description,
+                        AbouteUs,
+                        InstagramUrl,TwitterUrl,FacebookUrl,LinkedInUrl
+
                   FROM X_StoreSettings 
                   WHERE IsActive = 1", conn);
 
@@ -36,7 +39,17 @@ namespace WebApplicationCar.Controllers
                             PhoneNumber = reader["PhoneNumber"]?.ToString(),
                             Email = reader["Email"]?.ToString(),
                             MobileNumber = reader["MobileNumber"]?.ToString(),
-                            LogoUrl = reader["LogoUrl"]?.ToString()
+                            LogoUrl = reader["LogoUrl"]?.ToString(),
+                             
+                            FaxNumber = reader["FaxNumber"]?.ToString(),
+                            Description = reader["Description"]?.ToString(),
+
+                            AbouteUs = reader["AbouteUs"]?.ToString(),
+                            InstagramUrl = reader["InstagramUrl"]?.ToString(),
+                            TwitterUrl = reader["TwitterUrl"]?.ToString(),
+                            FacebookUrl = reader["FacebookUrl"]?.ToString(),
+                            LinkedInUrl = reader["LinkedInUrl"]?.ToString(),
+
                         };
                     }
                 }

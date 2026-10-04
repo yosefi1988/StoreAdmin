@@ -1,4 +1,6 @@
 ﻿@model WebApplicationCar.Models.HomeViewModel
+
+
 @*@{
     ViewBag.Title = "صفحه اصلی";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -12,37 +14,37 @@
             <div class="col-md-6">
                 <div id="banner_slider" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <div class="banner_taital_main">
-                                <h1 class="banner_taital">Car Rent <br><span style="color: #fe5b29;">For You</span></h1>
-                                <p class="banner_text">There are many variations of passages of Lorem Ipsum available, but the majority</p>
-                                <div class="btn_main">
-                                    <div class="contact_bt"><a href="#">Read More</a></div>
-                                    <div class="contact_bt active"><a href="#">Contact Us</a></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="banner_taital_main">
-                                <h1 class="banner_taital">Car Rent <br><span style="color: #fe5b29;">For You</span></h1>
-                                <p class="banner_text">There are many variations of passages of Lorem Ipsum available, but the majority</p>
-                                <div class="btn_main">
-                                    <div class="contact_bt"><a href="#">Read More</a></div>
-                                    <div class="contact_bt active"><a href="#">Contact Us</a></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <div class="banner_taital_main">
-                                <h1 class="banner_taital">Car Rent <br><span style="color: #fe5b29;">For You</span></h1>
-                                <p class="banner_text">There are many variations of passages of Lorem Ipsum available, but the majority</p>
-                                <div class="btn_main">
-                                    <div class="contact_bt"><a href="#">Read More</a></div>
-                                    <div class="contact_bt active"><a href="#">Contact Us</a></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <div class="carousel-item active">
+        <div class="banner_taital_main">
+            <h1 class="banner_taital">خرید خودرو <br><span style="color: #fe5b29;">با بهترین شرایط</span></h1>
+            <p class="banner_text">گسترده‌ترین انتخاب خودرو با کیفیت تضمین‌شده و قیمت‌های مناسب، فقط برای شما.</p>
+            <div class="btn_main">
+                <div class="contact_bt"><a href="tel:@Model.Settings.MobileNumber">📞 تماس</a></div>
+                <div class="contact_bt active"><a href="https://wa.me/@Model.Settings.MobileNumber" target="_blank">واتساپ</a></div>
+            </div>
+        </div>
+    </div>
+    <div class="carousel-item">
+        <div class="banner_taital_main">
+            <h1 class="banner_taital">خرید خودرو <br><span style="color: #fe5b29;">با بهترین شرایط</span></h1>
+            <p class="banner_text">گسترده‌ترین انتخاب خودرو با کیفیت تضمین‌شده و قیمت‌های مناسب، فقط برای شما.</p>
+            <div class="btn_main">
+                <div class="contact_bt"><a href="tel:@Model.Settings.MobileNumber">📞 تماس</a></div>
+                <div class="contact_bt active"><a href="https://wa.me/@Model.Settings.MobileNumber" target="_blank">واتساپ</a></div>
+            </div>
+        </div>
+    </div>
+    <div class="carousel-item">
+        <div class="banner_taital_main">
+            <h1 class="banner_taital">خرید خودرو <br><span style="color: #fe5b29;">با بهترین شرایط</span></h1>
+            <p class="banner_text">گسترده‌ترین انتخاب خودرو با کیفیت تضمین‌شده و قیمت‌های مناسب، فقط برای شما.</p>
+            <div class="btn_main">
+                <div class="contact_bt"><a href="tel:@Model.Settings.MobileNumber">📞 تماس</a></div>
+                <div class="contact_bt active"><a href="https://wa.me/@Model.Settings.MobileNumber" target="_blank">واتساپ</a></div>
+            </div>
+        </div>
+    </div>
+</div>
                     <a class="carousel-control-prev" href="#banner_slider" role="button" data-slide="prev">
                         <i class="fa fa-angle-left"></i>
                     </a>
@@ -52,7 +54,7 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="banner_img"><img src="~/Content/trator-1.0.0/imagesx/banner-img.png"></div>
+                <div class="banner_img"><img src="~/Content/trator-1.0.0/images/banner-img.png"></div>
             </div>
         </div>
     </div>
@@ -65,13 +67,15 @@
         <div class="about_section_2">
             <div class="row">
                 <div class="col-md-6">
-                    <div class="image_iman"><img src="~/Content/trator-1.0.0/imagesx/about-img.png" class="about_img"></div>
+                    <div class="image_iman"><img src="~/Content/trator-1.0.0/images/about-img.png" class="about_img"></div>
                 </div>
                 <div class="col-md-6">
                     <div class="about_taital_box">
-                        <h1 class="about_taital">About <span style="color: #fe5b29;">Us</span></h1>
-                        <p class="about_text">going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined </p>
-                        <div class="readmore_btn"><a href="#">Read More</a></div>
+                        <h1 class="about_taital">درباره <span style="color: #fe5b29;">ما</span></h1>
+                        <p class="about_text">
+                        @Model.Settings.Description
+                        </p>
+                        <div class="readmore_btn"><a href="#">بیشتر...</a></div>
                     </div>
                 </div>
             </div>
@@ -85,8 +89,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1 class="search_taital">Search Your Best Cars</h1>
-                <p class="search_text">Using 'Content here, content here', making it look like readable</p>
+                <h1 class="search_taital">بهترین خودروی خود را جستجو کنید</h1>
+                <p class="search_text">با جستجوی سریع و آسان، خودروی موردنظرتان را پیدا کنید و از خرید مطمئن لذت ببرید.</p>
                 <!-- select box section start -->
                 <div class="container">
                     <div class="select_box_section">
@@ -289,25 +293,25 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1 class="choose_taital">WHY CHOOSE US</h1>
+                <h1 class="choose_taital">چرا ما را انتخاب کنید؟</h1>
             </div>
         </div>
         <div class="choose_section_2">
             <div class="row">
                 <div class="col-sm-4">
-                    <div class="icon_1"><img src="~/Content/trator-1.0.0/imagesx/icon-1.png"></div>
-                    <h4 class="safety_text">SAFETY & SECURITY</h4>
-                    <p class="ipsum_text">variations of passages of Lorem Ipsum available, but the majority have </p>
+                    <div class="icon_1"><img src="~/Content/trator-1.0.0/images/icon-1.png"></div>
+                    <h4 class="safety_text">امنیت و ایمنی</h4>
+                    <p class="ipsum_text">با خیال راحت و اطمینان کامل خرید کنید؛ امنیت اطلاعات و تراکنش‌های شما اولویت ماست.</p>
                 </div>
                 <div class="col-sm-4">
-                    <div class="icon_1"><img src="~/Content/trator-1.0.0/imagesx/icon-2.png"></div>
-                    <h4 class="safety_text">Online Booking</h4>
-                    <p class="ipsum_text">variations of passages of Lorem Ipsum available, but the majority have </p>
+                    <div class="icon_1"><img src="~/Content/trator-1.0.0/images/icon-2.png"></div>
+                    <h4 class="safety_text">ثبت سفارش آنلاین</h4>
+                    <p class="ipsum_text">در هر ساعت از شبانه‌روز، به‌سادگی و تنها با چند کلیک سفارش خود را ثبت کنید.</p>
                 </div>
                 <div class="col-sm-4">
-                    <div class="icon_1"><img src="~/Content/trator-1.0.0/imagesx/icon-3.png"></div>
-                    <h4 class="safety_text">Best Drivers</h4>
-                    <p class="ipsum_text">variations of passages of Lorem Ipsum available, but the majority have </p>
+                    <div class="icon_1"><img src="~/Content/trator-1.0.0/images/icon-3.png"></div>
+                    <h4 class="safety_text">پشتیبانی برتر</h4>
+                    <p class="ipsum_text">تیم پشتیبانی ما همیشه در کنار شماست تا تجربه‌ای بی‌دغدغه داشته باشید.</p>
                 </div>
             </div>
         </div>
@@ -317,7 +321,77 @@
 <!-- client section start -->
 <div class="client_section layout_padding">
     <div class="container">
+
+        @{
+    var firstSlide = true;
+        }
+
         <div id="custom_slider" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+
+                @foreach (var group in Model.CommentsGrouped)
+        {
+                    <div class="carousel-item @(firstSlide ? "active" : "")">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h1 class="client_taital">نظرات مشتریان</h1>
+                            </div>
+                        </div>
+                        <div class="client_section_2">
+                            <div class="row">
+
+                                @foreach (var item in group)
+                        {
+                                    <div class="col-md-6">
+                                        <div class="client_taital_box">
+                                            <div class="client_img">
+                                                @if (!string.IsNullOrEmpty(item.ImageUrl1))
+                                        {
+                                                    <img src="@item.ImageUrl1" alt="@item.FullName">
+                                        }
+                                        else
+                                        {
+                                                    <img src="~/Content/trator-1.0.0/images/client-img1.png" alt="@item.FullName">
+                                        }
+                                            </div>
+                                            <h3 class="moark_text">@item.FullName</h3>
+                                            <p class="client_text">@item.Message</p>
+                                        </div>
+                                        <div class="quick_icon">
+                                            <img src="~/Content/trator-1.0.0/images/quick-icon.png">
+                                        </div>
+                                    </div>
+                        }
+
+                            </div>
+                        </div>
+                    </div>
+
+            firstSlide = false;
+        }
+
+                @if (Model.CommentsGrouped == null || Model.CommentsGrouped.Count == 0)
+        {
+                    <div class="carousel-item active">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h1 class="client_taital">نظرات مشتریان</h1>
+                                <p style="text-align:center;">هنوز نظری ثبت نشده است.</p>
+                            </div>
+                        </div>
+                    </div>
+        }
+
+            </div>
+
+            <a class="carousel-control-prev" href="#custom_slider" role="button" data-slide="prev">
+                <i class="fa fa-angle-left"></i>
+            </a>
+            <a class="carousel-control-next" href="#custom_slider" role="button" data-slide="next">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        </div>
+        @*<div id="custom_slider" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <div class="row">
@@ -327,21 +401,27 @@
                     </div>
                     <div class="client_section_2">
                         <div class="row">
+
                             <div class="col-md-6">
                                 <div class="client_taital_box">
                                     <div class="client_img"><img src="~/Content/trator-1.0.0/imagesx/client-img1.png"></div>
                                     <h3 class="moark_text">Hannery</h3>
                                     <p class="client_text">It is a long established fact that a reader will be distracted by the readable content of a page</p>
                                 </div>
-                                <div class="quick_icon"><img src="~/Content/trator-1.0.0/imagesx/quick-icon.png"></div>
+                                <div class="quick_icon"><img src="~/Content/trator-1.0.0/images/quick-icon.png"></div>
+
+
                             </div>
+
                             <div class="col-md-6">
                                 <div class="client_taital_box">
                                     <div class="client_img"><img src="~/Content/trator-1.0.0/imagesx/client-img2.png"></div>
                                     <h3 class="moark_text">Channery</h3>
                                     <p class="client_text">It is a long established fact that a reader will be distracted by the readable content of a page</p>
                                 </div>
-                                <div class="quick_icon"><img src="~/Content/trator-1.0.0/imagesx/quick-icon.png"></div>
+                                <div class="quick_icon"><img src="~/Content/trator-1.0.0/images/quick-icon.png"></div>
+
+
                             </div>
                         </div>
                     </div>
@@ -360,7 +440,8 @@
                                     <h3 class="moark_text">Hannery</h3>
                                     <p class="client_text">It is a long established fact that a reader will be distracted by the readable content of a page</p>
                                 </div>
-                                <div class="quick_icon"><img src="~/Content/trator-1.0.0/imagesx/quick-icon.png"></div>
+                                <div class="quick_icon"><img src="~/Content/trator-1.0.0/images/quick-icon.png"></div>
+
                             </div>
                             <div class="col-md-6">
                                 <div class="client_taital_box">
@@ -368,7 +449,9 @@
                                     <h3 class="moark_text">Channery</h3>
                                     <p class="client_text">It is a long established fact that a reader will be distracted by the readable content of a page</p>
                                 </div>
-                                <div class="quick_icon"><img src="~/Content/trator-1.0.0/imagesx/quick-icon.png"></div>
+                                <div class="quick_icon"><img src="~/Content/trator-1.0.0/images/quick-icon.png"></div>
+
+
                             </div>
                         </div>
                     </div>
@@ -387,7 +470,8 @@
                                     <h3 class="moark_text">Hannery</h3>
                                     <p class="client_text">It is a long established fact that a reader will be distracted by the readable content of a page</p>
                                 </div>
-                                <div class="quick_icon"><img src="~/Content/trator-1.0.0/imagesx/quick-icon.png"></div>
+                                <div class="quick_icon"><img src="~/Content/trator-1.0.0/images/quick-icon.png"></div>
+
                             </div>
                             <div class="col-md-6">
                                 <div class="client_taital_box">
@@ -395,7 +479,8 @@
                                     <h3 class="moark_text">Channery</h3>
                                     <p class="client_text">It is a long established fact that a reader will be distracted by the readable content of a page</p>
                                 </div>
-                                <div class="quick_icon"><img src="~/Content/trator-1.0.0/imagesx/quick-icon.png"></div>
+                                <div class="quick_icon"><img src="~/Content/trator-1.0.0/images/quick-icon.png"></div>
+
                             </div>
                         </div>
                     </div>
@@ -407,7 +492,7 @@
             <a class="carousel-control-next" href="#custom_slider" role="button" data-slide="next">
                 <i class="fa fa-angle-right"></i>
             </a>
-        </div>
+        </div>*@
     </div>
 </div>
 <!-- client section end -->
@@ -416,7 +501,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <h1 class="contact_taital">Get In Touch</h1>
+                <h1 class="contact_taital">ارتباط مستقیم با @Model.Settings.StoreNameFa</h1>
             </div>
         </div>
     </div>
@@ -424,13 +509,58 @@
         <div class="contact_section_2">
             <div class="row">
                 <div class="col-md-12">
+
+
                     <div class="mail_section_1">
-                        <input type="text" class="mail_text" placeholder="Name" name="Name">
-                        <input type="text" class="mail_text" placeholder="Email" name="Email">
-                        <input type="text" class="mail_text" placeholder="Phone Number" name="Phone Number">
-                        <textarea class="massage-bt" placeholder="Massage" rows="5" id="comment" name="Massage"></textarea>
-                        <div class="send_bt"><a href="#">Send</a></div>
+                        <form id="contactForm">
+                            <input type="text" class="mail_text" placeholder="نام و نام خانوادگی" name="Name" required>
+                            <input type="email" class="mail_text" placeholder="آدرس ایمیل" name="Email">
+                            <input type="text" class="mail_text" placeholder="شماره موبایل" name="PhoneNumber">
+                            <textarea class="massage-bt" placeholder="پیام یا درخواست" rows="5" name="Massage"></textarea>
+                            <div class="send_bt">
+                                <a href="javascript:void(0)" onclick="submitContact()">ارسال به @Model.Settings.StoreNameFa</a>
+                            </div>
+                        </form>
+
+                        <div style="text-align:center; margin:30px 0;">
+                            <a href="@Url.Action("Create", "ProductWizard")"
+                               style="padding:12px 30px; background:#28a745; color:#fff; text-decoration:none; border-radius:5px;">
+                                ثبت جدید
+                            </a>
+                        </div>
                     </div>
+
+                    <script>
+                        function submitContact() {
+                            var f = document.getElementById('contactForm');
+                            var data = new FormData(f);
+                            fetch('@Url.Action("SendContactMessage", "Home")', {
+                                method: 'POST',
+                                body: data
+                            })
+                            .then(r => r.json())
+                            .then(res => {
+                                alert(res.message);
+                                if (res.success) f.reset();
+                            });
+                        }
+                    </script>
+
+                    @*<div class="mail_section_1">
+                        <input type="text" class="mail_text" placeholder="نام و نام خانوادگی" name="Name">
+                        <input type="text" class="mail_text" placeholder="آدرس ایمیل" name="Email">
+                        <input type="text" class="mail_text" placeholder="شماره موبایل" name="Phone Number">
+                        <textarea class="massage-bt" placeholder="پیام یا درخواست" rows="5" id="comment" name="Massage"></textarea>
+                        <div class="send_bt"><a href="#">ارسال به @Model.Settings.StoreNameFa</a></div>
+
+                        <div style="text-align:center; margin:30px 0;">
+                            <a href="@Url.Action("Create", "ProductWizard")"
+                               style="padding:12px 30px; background:#28a745; color:#fff; text-decoration:none; border-radius:5px;">
+                                ثبت جدید
+                            </a>
+                        </div>
+
+                    </div>*@
                 </div>
             </div>
         </div>
@@ -443,7 +573,7 @@
 <div style="max-width:1100px; margin:20px auto; font-family:Tahoma; direction:rtl;">
 
     <!-- باکس جستجو -->
-    <div style="text-align:center; margin:30px 0;">
+    @*<div style="text-align:center; margin:30px 0;">
         @using (Html.BeginForm("Index", "Products", FormMethod.Get))
         {
             <input type="text" name="search" placeholder="جستجوی ماشین..."
@@ -453,29 +583,22 @@
                     جستجو
                 </button>
         }
-    </div>
+    </div>*@
 
     <!-- اطلاعات فروشگاه -->
-    @if (Model.Settings != null && !string.IsNullOrEmpty(Model.Settings.StoreNameFa))
+    @*@if (Model.Settings != null && !string.IsNullOrEmpty(Model.Settings.StoreNameFa))
     {
-        <div style="background:#f8f9fa; padding:20px; border-radius:8px; margin-bottom:30px;">
-            <h2 style="margin-top:0;">@Model.Settings.StoreNameFa</h2>
-            <p><strong>آدرس:</strong> @Model.Settings.Address</p>
-            <p><strong>ساعات کاری:</strong> @Model.Settings.WorkingHours</p>
+        <div style="background:#f8f9fa; padding:20px; border-radius:8px; margin-bottom:30px;"> 
+            <p><strong>آدرس:</strong> @Model.Settings.Address</p> 
             <p><strong>تلفن:</strong> @Model.Settings.PhoneNumber</p>
             <p><strong>ایمیل:</strong> @Model.Settings.Email</p>
         </div>
-    }
+    }*@
 
   
 
     
 
-    <div style="text-align:center; margin:30px 0;">
-        <a href="@Url.Action("Create", "ProductWizard")"
-           style="padding:12px 30px; background:#28a745; color:#fff; text-decoration:none; border-radius:5px;">
-            ثبت جدید
-        </a>
-    </div>
+    
 </div>
  

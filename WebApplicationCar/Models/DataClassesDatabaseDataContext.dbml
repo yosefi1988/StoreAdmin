@@ -130,6 +130,22 @@
       <Association Name="X_Province_X_City" Member="X_Province" ThisKey="FK_ProvinceId" OtherKey="ProvinceId" Type="X_Province" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="balabar1_Develop.X_ContactMessages" Member="X_ContactMessages">
+    <Type Name="X_ContactMessage">
+      <Column Name="ContactMessageId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FullName" Type="System.String" DbType="NVarChar(300) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="PhoneNumber" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Message" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="IsRead" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="MessageType" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Subject" Type="System.String" DbType="NVarChar(400)" CanBeNull="true" />
+      <Column Name="ImageUrl1" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="ImageUrl2" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+    </Type>
+  </Table>
   <Table Name="balabar1_Develop.X_Countries" Member="X_Countries">
     <Type Name="X_Country">
       <Column Name="CountryId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -221,6 +237,17 @@
       <Association Name="X_ProductVariant_X_InventoryTransaction" Member="X_ProductVariant" ThisKey="FK_ProductVariantId" OtherKey="ProductVariantId" Type="X_ProductVariant" IsForeignKey="true" />
       <Association Name="X_PurchaseItem_X_InventoryTransaction" Member="X_PurchaseItem" ThisKey="FK_PurchaseItemId" OtherKey="PurchaseItemId" Type="X_PurchaseItem" IsForeignKey="true" />
       <Association Name="X_Purchase_X_InventoryTransaction" Member="X_Purchase" ThisKey="FK_PurchaseId" OtherKey="PurchaseId" Type="X_Purchase" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_NewsletterSubscriptions" Member="X_NewsletterSubscriptions">
+    <Type Name="X_NewsletterSubscription">
+      <Column Name="NewsletterSubscriptionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="IsConfirmed" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ConfirmedAt" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="Token" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
   <Table Name="balabar1_Develop.X_OrderCosts" Member="X_OrderCosts">
@@ -670,6 +697,11 @@
       <Column Name="MobileNumber" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
       <Column Name="FaxNumber" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
       <Column Name="Email" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Help" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Copyright" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Security" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Services" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Information" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
       <Column Name="Website" Type="System.String" DbType="VarChar(300)" CanBeNull="true" />
       <Column Name="FK_CountryId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="FK_ProvinceId" Type="System.Int32" DbType="Int" CanBeNull="true" />
@@ -680,8 +712,11 @@
       <Column Name="Longitude" Type="System.Decimal" DbType="Decimal(10,7)" CanBeNull="true" />
       <Column Name="LogoUrl" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
       <Column Name="FaviconUrl" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="AbouteUs" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
       <Column Name="Description" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
       <Column Name="InstagramUrl" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="TwitterUrl" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="FacebookUrl" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
       <Column Name="TelegramUrl" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
       <Column Name="WhatsAppNumber" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
       <Column Name="LinkedInUrl" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
@@ -797,47 +832,6 @@
       <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
       <Association Name="X_Wallet_X_WalletTransaction" Member="X_WalletTransactions" ThisKey="WalletId" OtherKey="FK_WalletId" Type="X_WalletTransaction" />
       <Association Name="X_User_X_Wallet" Member="X_User" ThisKey="FK_UserId" OtherKey="UserId" Type="X_User" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="balabar1_Develop.View_Cars_AllCars" Member="View_Cars_AllCars">
-    <Type Name="View_Cars_AllCar">
-      <Column Name="ResourceId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="ResourceNameFa" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="ResourceNameEn" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
-      <Column Name="ResourceDescription" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
-      <Column Name="ResourceImageUrl" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
-      <Column Name="CategoryId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="CategoryNameFa" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
-      <Column Name="Fuel" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
-      <Column Name="Transmission" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
-      <Column Name="Color" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
-      <Column Name="Body" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
-      <Column Name="Brand" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
-      <Column Name="Model" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
-      <Column Name="ProductId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ProductVariantId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="SKU" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
-      <Column Name="Price" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
-      <Column Name="StockQuantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="VariantIsActive" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="balabar1_Develop.View_Cars_CarsPrice" Member="View_Cars_CarsPrices">
-    <Type Name="View_Cars_CarsPrice">
-      <Column Name="NameFa" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
-      <Column Name="Expr1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Expr2" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="Price" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
-      <Column Name="CategoryId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-    </Type>
-  </Table>
-  <Table Name="balabar1_Develop.View_Cars_CarDetails" Member="View_Cars_CarDetails">
-    <Type Name="View_Cars_CarDetail">
-      <Column Name="ResourceId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Expr2" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="NameFa" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
-      <Column Name="ValueFa" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="AttributeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
 </Database>

@@ -54,6 +54,9 @@ namespace WebApplicationCar.Models
     partial void InsertX_City(X_City instance);
     partial void UpdateX_City(X_City instance);
     partial void DeleteX_City(X_City instance);
+    partial void InsertX_ContactMessage(X_ContactMessage instance);
+    partial void UpdateX_ContactMessage(X_ContactMessage instance);
+    partial void DeleteX_ContactMessage(X_ContactMessage instance);
     partial void InsertX_Country(X_Country instance);
     partial void UpdateX_Country(X_Country instance);
     partial void DeleteX_Country(X_Country instance);
@@ -69,6 +72,9 @@ namespace WebApplicationCar.Models
     partial void InsertX_InventoryTransaction(X_InventoryTransaction instance);
     partial void UpdateX_InventoryTransaction(X_InventoryTransaction instance);
     partial void DeleteX_InventoryTransaction(X_InventoryTransaction instance);
+    partial void InsertX_NewsletterSubscription(X_NewsletterSubscription instance);
+    partial void UpdateX_NewsletterSubscription(X_NewsletterSubscription instance);
+    partial void DeleteX_NewsletterSubscription(X_NewsletterSubscription instance);
     partial void InsertX_OrderCost(X_OrderCost instance);
     partial void UpdateX_OrderCost(X_OrderCost instance);
     partial void DeleteX_OrderCost(X_OrderCost instance);
@@ -270,6 +276,14 @@ namespace WebApplicationCar.Models
 			}
 		}
 		
+		public System.Data.Linq.Table<X_ContactMessage> X_ContactMessages
+		{
+			get
+			{
+				return this.GetTable<X_ContactMessage>();
+			}
+		}
+		
 		public System.Data.Linq.Table<X_Country> X_Countries
 		{
 			get
@@ -315,6 +329,14 @@ namespace WebApplicationCar.Models
 			get
 			{
 				return this.GetTable<X_InventoryTransaction>();
+			}
+		}
+		
+		public System.Data.Linq.Table<X_NewsletterSubscription> X_NewsletterSubscriptions
+		{
+			get
+			{
+				return this.GetTable<X_NewsletterSubscription>();
 			}
 		}
 		
@@ -595,30 +617,6 @@ namespace WebApplicationCar.Models
 			get
 			{
 				return this.GetTable<X_Wallet>();
-			}
-		}
-		
-		public System.Data.Linq.Table<View_Cars_AllCar> View_Cars_AllCars
-		{
-			get
-			{
-				return this.GetTable<View_Cars_AllCar>();
-			}
-		}
-		
-		public System.Data.Linq.Table<View_Cars_CarsPrice> View_Cars_CarsPrices
-		{
-			get
-			{
-				return this.GetTable<View_Cars_CarsPrice>();
-			}
-		}
-		
-		public System.Data.Linq.Table<View_Cars_CarDetail> View_Cars_CarDetails
-		{
-			get
-			{
-				return this.GetTable<View_Cars_CarDetail>();
 			}
 		}
 	}
@@ -3613,6 +3611,332 @@ namespace WebApplicationCar.Models
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="balabar1_Develop.X_ContactMessages")]
+	public partial class X_ContactMessage : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ContactMessageId;
+		
+		private string _FullName;
+		
+		private string _Email;
+		
+		private string _PhoneNumber;
+		
+		private string _Message;
+		
+		private bool _IsRead;
+		
+		private bool _IsActive;
+		
+		private System.DateTime _CreatedAt;
+		
+		private string _MessageType;
+		
+		private string _Subject;
+		
+		private string _ImageUrl1;
+		
+		private string _ImageUrl2;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnContactMessageIdChanging(int value);
+    partial void OnContactMessageIdChanged();
+    partial void OnFullNameChanging(string value);
+    partial void OnFullNameChanged();
+    partial void OnEmailChanging(string value);
+    partial void OnEmailChanged();
+    partial void OnPhoneNumberChanging(string value);
+    partial void OnPhoneNumberChanged();
+    partial void OnMessageChanging(string value);
+    partial void OnMessageChanged();
+    partial void OnIsReadChanging(bool value);
+    partial void OnIsReadChanged();
+    partial void OnIsActiveChanging(bool value);
+    partial void OnIsActiveChanged();
+    partial void OnCreatedAtChanging(System.DateTime value);
+    partial void OnCreatedAtChanged();
+    partial void OnMessageTypeChanging(string value);
+    partial void OnMessageTypeChanged();
+    partial void OnSubjectChanging(string value);
+    partial void OnSubjectChanged();
+    partial void OnImageUrl1Changing(string value);
+    partial void OnImageUrl1Changed();
+    partial void OnImageUrl2Changing(string value);
+    partial void OnImageUrl2Changed();
+    #endregion
+		
+		public X_ContactMessage()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ContactMessageId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ContactMessageId
+		{
+			get
+			{
+				return this._ContactMessageId;
+			}
+			set
+			{
+				if ((this._ContactMessageId != value))
+				{
+					this.OnContactMessageIdChanging(value);
+					this.SendPropertyChanging();
+					this._ContactMessageId = value;
+					this.SendPropertyChanged("ContactMessageId");
+					this.OnContactMessageIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FullName", DbType="NVarChar(300) NOT NULL", CanBeNull=false)]
+		public string FullName
+		{
+			get
+			{
+				return this._FullName;
+			}
+			set
+			{
+				if ((this._FullName != value))
+				{
+					this.OnFullNameChanging(value);
+					this.SendPropertyChanging();
+					this._FullName = value;
+					this.SendPropertyChanged("FullName");
+					this.OnFullNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="VarChar(150)")]
+		public string Email
+		{
+			get
+			{
+				return this._Email;
+			}
+			set
+			{
+				if ((this._Email != value))
+				{
+					this.OnEmailChanging(value);
+					this.SendPropertyChanging();
+					this._Email = value;
+					this.SendPropertyChanged("Email");
+					this.OnEmailChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PhoneNumber", DbType="VarChar(20)")]
+		public string PhoneNumber
+		{
+			get
+			{
+				return this._PhoneNumber;
+			}
+			set
+			{
+				if ((this._PhoneNumber != value))
+				{
+					this.OnPhoneNumberChanging(value);
+					this.SendPropertyChanging();
+					this._PhoneNumber = value;
+					this.SendPropertyChanged("PhoneNumber");
+					this.OnPhoneNumberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Message", DbType="NVarChar(4000)")]
+		public string Message
+		{
+			get
+			{
+				return this._Message;
+			}
+			set
+			{
+				if ((this._Message != value))
+				{
+					this.OnMessageChanging(value);
+					this.SendPropertyChanging();
+					this._Message = value;
+					this.SendPropertyChanged("Message");
+					this.OnMessageChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsRead", DbType="Bit NOT NULL")]
+		public bool IsRead
+		{
+			get
+			{
+				return this._IsRead;
+			}
+			set
+			{
+				if ((this._IsRead != value))
+				{
+					this.OnIsReadChanging(value);
+					this.SendPropertyChanging();
+					this._IsRead = value;
+					this.SendPropertyChanged("IsRead");
+					this.OnIsReadChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsActive", DbType="Bit NOT NULL")]
+		public bool IsActive
+		{
+			get
+			{
+				return this._IsActive;
+			}
+			set
+			{
+				if ((this._IsActive != value))
+				{
+					this.OnIsActiveChanging(value);
+					this.SendPropertyChanging();
+					this._IsActive = value;
+					this.SendPropertyChanged("IsActive");
+					this.OnIsActiveChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedAt", DbType="DateTime2 NOT NULL")]
+		public System.DateTime CreatedAt
+		{
+			get
+			{
+				return this._CreatedAt;
+			}
+			set
+			{
+				if ((this._CreatedAt != value))
+				{
+					this.OnCreatedAtChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedAt = value;
+					this.SendPropertyChanged("CreatedAt");
+					this.OnCreatedAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MessageType", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
+		public string MessageType
+		{
+			get
+			{
+				return this._MessageType;
+			}
+			set
+			{
+				if ((this._MessageType != value))
+				{
+					this.OnMessageTypeChanging(value);
+					this.SendPropertyChanging();
+					this._MessageType = value;
+					this.SendPropertyChanged("MessageType");
+					this.OnMessageTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Subject", DbType="NVarChar(400)")]
+		public string Subject
+		{
+			get
+			{
+				return this._Subject;
+			}
+			set
+			{
+				if ((this._Subject != value))
+				{
+					this.OnSubjectChanging(value);
+					this.SendPropertyChanging();
+					this._Subject = value;
+					this.SendPropertyChanged("Subject");
+					this.OnSubjectChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ImageUrl1", DbType="NVarChar(1000)")]
+		public string ImageUrl1
+		{
+			get
+			{
+				return this._ImageUrl1;
+			}
+			set
+			{
+				if ((this._ImageUrl1 != value))
+				{
+					this.OnImageUrl1Changing(value);
+					this.SendPropertyChanging();
+					this._ImageUrl1 = value;
+					this.SendPropertyChanged("ImageUrl1");
+					this.OnImageUrl1Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ImageUrl2", DbType="NVarChar(1000)")]
+		public string ImageUrl2
+		{
+			get
+			{
+				return this._ImageUrl2;
+			}
+			set
+			{
+				if ((this._ImageUrl2 != value))
+				{
+					this.OnImageUrl2Changing(value);
+					this.SendPropertyChanging();
+					this._ImageUrl2 = value;
+					this.SendPropertyChanged("ImageUrl2");
+					this.OnImageUrl2Changed();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="balabar1_Develop.X_Countries")]
 	public partial class X_Country : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -5606,6 +5930,212 @@ namespace WebApplicationCar.Models
 						this._FK_PurchaseId = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("X_Purchase");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="balabar1_Develop.X_NewsletterSubscriptions")]
+	public partial class X_NewsletterSubscription : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _NewsletterSubscriptionId;
+		
+		private string _Email;
+		
+		private bool _IsConfirmed;
+		
+		private System.Nullable<System.DateTime> _ConfirmedAt;
+		
+		private string _Token;
+		
+		private bool _IsActive;
+		
+		private System.DateTime _CreatedAt;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnNewsletterSubscriptionIdChanging(int value);
+    partial void OnNewsletterSubscriptionIdChanged();
+    partial void OnEmailChanging(string value);
+    partial void OnEmailChanged();
+    partial void OnIsConfirmedChanging(bool value);
+    partial void OnIsConfirmedChanged();
+    partial void OnConfirmedAtChanging(System.Nullable<System.DateTime> value);
+    partial void OnConfirmedAtChanged();
+    partial void OnTokenChanging(string value);
+    partial void OnTokenChanged();
+    partial void OnIsActiveChanging(bool value);
+    partial void OnIsActiveChanged();
+    partial void OnCreatedAtChanging(System.DateTime value);
+    partial void OnCreatedAtChanged();
+    #endregion
+		
+		public X_NewsletterSubscription()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NewsletterSubscriptionId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int NewsletterSubscriptionId
+		{
+			get
+			{
+				return this._NewsletterSubscriptionId;
+			}
+			set
+			{
+				if ((this._NewsletterSubscriptionId != value))
+				{
+					this.OnNewsletterSubscriptionIdChanging(value);
+					this.SendPropertyChanging();
+					this._NewsletterSubscriptionId = value;
+					this.SendPropertyChanged("NewsletterSubscriptionId");
+					this.OnNewsletterSubscriptionIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="VarChar(150) NOT NULL", CanBeNull=false)]
+		public string Email
+		{
+			get
+			{
+				return this._Email;
+			}
+			set
+			{
+				if ((this._Email != value))
+				{
+					this.OnEmailChanging(value);
+					this.SendPropertyChanging();
+					this._Email = value;
+					this.SendPropertyChanged("Email");
+					this.OnEmailChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsConfirmed", DbType="Bit NOT NULL")]
+		public bool IsConfirmed
+		{
+			get
+			{
+				return this._IsConfirmed;
+			}
+			set
+			{
+				if ((this._IsConfirmed != value))
+				{
+					this.OnIsConfirmedChanging(value);
+					this.SendPropertyChanging();
+					this._IsConfirmed = value;
+					this.SendPropertyChanged("IsConfirmed");
+					this.OnIsConfirmedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ConfirmedAt", DbType="DateTime2")]
+		public System.Nullable<System.DateTime> ConfirmedAt
+		{
+			get
+			{
+				return this._ConfirmedAt;
+			}
+			set
+			{
+				if ((this._ConfirmedAt != value))
+				{
+					this.OnConfirmedAtChanging(value);
+					this.SendPropertyChanging();
+					this._ConfirmedAt = value;
+					this.SendPropertyChanged("ConfirmedAt");
+					this.OnConfirmedAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Token", DbType="VarChar(100)")]
+		public string Token
+		{
+			get
+			{
+				return this._Token;
+			}
+			set
+			{
+				if ((this._Token != value))
+				{
+					this.OnTokenChanging(value);
+					this.SendPropertyChanging();
+					this._Token = value;
+					this.SendPropertyChanged("Token");
+					this.OnTokenChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsActive", DbType="Bit NOT NULL")]
+		public bool IsActive
+		{
+			get
+			{
+				return this._IsActive;
+			}
+			set
+			{
+				if ((this._IsActive != value))
+				{
+					this.OnIsActiveChanging(value);
+					this.SendPropertyChanging();
+					this._IsActive = value;
+					this.SendPropertyChanged("IsActive");
+					this.OnIsActiveChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedAt", DbType="DateTime2 NOT NULL")]
+		public System.DateTime CreatedAt
+		{
+			get
+			{
+				return this._CreatedAt;
+			}
+			set
+			{
+				if ((this._CreatedAt != value))
+				{
+					this.OnCreatedAtChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedAt = value;
+					this.SendPropertyChanged("CreatedAt");
+					this.OnCreatedAtChanged();
 				}
 			}
 		}
@@ -15612,6 +16142,16 @@ namespace WebApplicationCar.Models
 		
 		private string _Email;
 		
+		private string _Help;
+		
+		private string _Copyright;
+		
+		private string _Security;
+		
+		private string _Services;
+		
+		private string _Information;
+		
 		private string _Website;
 		
 		private System.Nullable<int> _FK_CountryId;
@@ -15632,9 +16172,15 @@ namespace WebApplicationCar.Models
 		
 		private string _FaviconUrl;
 		
+		private string _AbouteUs;
+		
 		private string _Description;
 		
 		private string _InstagramUrl;
+		
+		private string _TwitterUrl;
+		
+		private string _FacebookUrl;
 		
 		private string _TelegramUrl;
 		
@@ -15688,6 +16234,16 @@ namespace WebApplicationCar.Models
     partial void OnFaxNumberChanged();
     partial void OnEmailChanging(string value);
     partial void OnEmailChanged();
+    partial void OnHelpChanging(string value);
+    partial void OnHelpChanged();
+    partial void OnCopyrightChanging(string value);
+    partial void OnCopyrightChanged();
+    partial void OnSecurityChanging(string value);
+    partial void OnSecurityChanged();
+    partial void OnServicesChanging(string value);
+    partial void OnServicesChanged();
+    partial void OnInformationChanging(string value);
+    partial void OnInformationChanged();
     partial void OnWebsiteChanging(string value);
     partial void OnWebsiteChanged();
     partial void OnFK_CountryIdChanging(System.Nullable<int> value);
@@ -15708,10 +16264,16 @@ namespace WebApplicationCar.Models
     partial void OnLogoUrlChanged();
     partial void OnFaviconUrlChanging(string value);
     partial void OnFaviconUrlChanged();
+    partial void OnAbouteUsChanging(string value);
+    partial void OnAbouteUsChanged();
     partial void OnDescriptionChanging(string value);
     partial void OnDescriptionChanged();
     partial void OnInstagramUrlChanging(string value);
     partial void OnInstagramUrlChanged();
+    partial void OnTwitterUrlChanging(string value);
+    partial void OnTwitterUrlChanged();
+    partial void OnFacebookUrlChanging(string value);
+    partial void OnFacebookUrlChanged();
     partial void OnTelegramUrlChanging(string value);
     partial void OnTelegramUrlChanged();
     partial void OnWhatsAppNumberChanging(string value);
@@ -15961,6 +16523,106 @@ namespace WebApplicationCar.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Help", DbType="NVarChar(2000)")]
+		public string Help
+		{
+			get
+			{
+				return this._Help;
+			}
+			set
+			{
+				if ((this._Help != value))
+				{
+					this.OnHelpChanging(value);
+					this.SendPropertyChanging();
+					this._Help = value;
+					this.SendPropertyChanged("Help");
+					this.OnHelpChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Copyright", DbType="NVarChar(2000)")]
+		public string Copyright
+		{
+			get
+			{
+				return this._Copyright;
+			}
+			set
+			{
+				if ((this._Copyright != value))
+				{
+					this.OnCopyrightChanging(value);
+					this.SendPropertyChanging();
+					this._Copyright = value;
+					this.SendPropertyChanged("Copyright");
+					this.OnCopyrightChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Security", DbType="NVarChar(2000)")]
+		public string Security
+		{
+			get
+			{
+				return this._Security;
+			}
+			set
+			{
+				if ((this._Security != value))
+				{
+					this.OnSecurityChanging(value);
+					this.SendPropertyChanging();
+					this._Security = value;
+					this.SendPropertyChanged("Security");
+					this.OnSecurityChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Services", DbType="NVarChar(2000)")]
+		public string Services
+		{
+			get
+			{
+				return this._Services;
+			}
+			set
+			{
+				if ((this._Services != value))
+				{
+					this.OnServicesChanging(value);
+					this.SendPropertyChanging();
+					this._Services = value;
+					this.SendPropertyChanged("Services");
+					this.OnServicesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Information", DbType="NVarChar(2000)")]
+		public string Information
+		{
+			get
+			{
+				return this._Information;
+			}
+			set
+			{
+				if ((this._Information != value))
+				{
+					this.OnInformationChanging(value);
+					this.SendPropertyChanging();
+					this._Information = value;
+					this.SendPropertyChanged("Information");
+					this.OnInformationChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Website", DbType="VarChar(300)")]
 		public string Website
 		{
@@ -16173,6 +16835,26 @@ namespace WebApplicationCar.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AbouteUs", DbType="NVarChar(4000)")]
+		public string AbouteUs
+		{
+			get
+			{
+				return this._AbouteUs;
+			}
+			set
+			{
+				if ((this._AbouteUs != value))
+				{
+					this.OnAbouteUsChanging(value);
+					this.SendPropertyChanging();
+					this._AbouteUs = value;
+					this.SendPropertyChanged("AbouteUs");
+					this.OnAbouteUsChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(4000)")]
 		public string Description
 		{
@@ -16209,6 +16891,46 @@ namespace WebApplicationCar.Models
 					this._InstagramUrl = value;
 					this.SendPropertyChanged("InstagramUrl");
 					this.OnInstagramUrlChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TwitterUrl", DbType="NVarChar(500)")]
+		public string TwitterUrl
+		{
+			get
+			{
+				return this._TwitterUrl;
+			}
+			set
+			{
+				if ((this._TwitterUrl != value))
+				{
+					this.OnTwitterUrlChanging(value);
+					this.SendPropertyChanging();
+					this._TwitterUrl = value;
+					this.SendPropertyChanged("TwitterUrl");
+					this.OnTwitterUrlChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FacebookUrl", DbType="NVarChar(500)")]
+		public string FacebookUrl
+		{
+			get
+			{
+				return this._FacebookUrl;
+			}
+			set
+			{
+				if ((this._FacebookUrl != value))
+				{
+					this.OnFacebookUrlChanging(value);
+					this.SendPropertyChanging();
+					this._FacebookUrl = value;
+					this.SendPropertyChanged("FacebookUrl");
+					this.OnFacebookUrlChanged();
 				}
 			}
 		}
@@ -18860,555 +19582,6 @@ namespace WebApplicationCar.Models
 		{
 			this.SendPropertyChanging();
 			entity.X_Wallet = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="balabar1_Develop.View_Cars_AllCars")]
-	public partial class View_Cars_AllCar
-	{
-		
-		private int _ResourceId;
-		
-		private string _ResourceNameFa;
-		
-		private string _ResourceNameEn;
-		
-		private string _ResourceDescription;
-		
-		private string _ResourceImageUrl;
-		
-		private int _CategoryId;
-		
-		private string _CategoryNameFa;
-		
-		private string _Fuel;
-		
-		private string _Transmission;
-		
-		private string _Color;
-		
-		private string _Body;
-		
-		private string _Brand;
-		
-		private string _Model;
-		
-		private System.Nullable<int> _ProductId;
-		
-		private System.Nullable<int> _ProductVariantId;
-		
-		private string _SKU;
-		
-		private System.Nullable<decimal> _Price;
-		
-		private System.Nullable<int> _StockQuantity;
-		
-		private System.Nullable<bool> _VariantIsActive;
-		
-		public View_Cars_AllCar()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ResourceId", DbType="Int NOT NULL")]
-		public int ResourceId
-		{
-			get
-			{
-				return this._ResourceId;
-			}
-			set
-			{
-				if ((this._ResourceId != value))
-				{
-					this._ResourceId = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ResourceNameFa", DbType="NVarChar(200) NOT NULL", CanBeNull=false)]
-		public string ResourceNameFa
-		{
-			get
-			{
-				return this._ResourceNameFa;
-			}
-			set
-			{
-				if ((this._ResourceNameFa != value))
-				{
-					this._ResourceNameFa = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ResourceNameEn", DbType="NVarChar(200)")]
-		public string ResourceNameEn
-		{
-			get
-			{
-				return this._ResourceNameEn;
-			}
-			set
-			{
-				if ((this._ResourceNameEn != value))
-				{
-					this._ResourceNameEn = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ResourceDescription", DbType="NVarChar(1000)")]
-		public string ResourceDescription
-		{
-			get
-			{
-				return this._ResourceDescription;
-			}
-			set
-			{
-				if ((this._ResourceDescription != value))
-				{
-					this._ResourceDescription = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ResourceImageUrl", DbType="NVarChar(500)")]
-		public string ResourceImageUrl
-		{
-			get
-			{
-				return this._ResourceImageUrl;
-			}
-			set
-			{
-				if ((this._ResourceImageUrl != value))
-				{
-					this._ResourceImageUrl = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CategoryId", DbType="Int NOT NULL")]
-		public int CategoryId
-		{
-			get
-			{
-				return this._CategoryId;
-			}
-			set
-			{
-				if ((this._CategoryId != value))
-				{
-					this._CategoryId = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CategoryNameFa", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
-		public string CategoryNameFa
-		{
-			get
-			{
-				return this._CategoryNameFa;
-			}
-			set
-			{
-				if ((this._CategoryNameFa != value))
-				{
-					this._CategoryNameFa = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fuel", DbType="NVarChar(200)")]
-		public string Fuel
-		{
-			get
-			{
-				return this._Fuel;
-			}
-			set
-			{
-				if ((this._Fuel != value))
-				{
-					this._Fuel = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Transmission", DbType="NVarChar(200)")]
-		public string Transmission
-		{
-			get
-			{
-				return this._Transmission;
-			}
-			set
-			{
-				if ((this._Transmission != value))
-				{
-					this._Transmission = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Color", DbType="NVarChar(200)")]
-		public string Color
-		{
-			get
-			{
-				return this._Color;
-			}
-			set
-			{
-				if ((this._Color != value))
-				{
-					this._Color = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Body", DbType="NVarChar(200)")]
-		public string Body
-		{
-			get
-			{
-				return this._Body;
-			}
-			set
-			{
-				if ((this._Body != value))
-				{
-					this._Body = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Brand", DbType="NVarChar(200)")]
-		public string Brand
-		{
-			get
-			{
-				return this._Brand;
-			}
-			set
-			{
-				if ((this._Brand != value))
-				{
-					this._Brand = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Model", DbType="NVarChar(200)")]
-		public string Model
-		{
-			get
-			{
-				return this._Model;
-			}
-			set
-			{
-				if ((this._Model != value))
-				{
-					this._Model = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductId", DbType="Int")]
-		public System.Nullable<int> ProductId
-		{
-			get
-			{
-				return this._ProductId;
-			}
-			set
-			{
-				if ((this._ProductId != value))
-				{
-					this._ProductId = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProductVariantId", DbType="Int")]
-		public System.Nullable<int> ProductVariantId
-		{
-			get
-			{
-				return this._ProductVariantId;
-			}
-			set
-			{
-				if ((this._ProductVariantId != value))
-				{
-					this._ProductVariantId = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SKU", DbType="VarChar(100)")]
-		public string SKU
-		{
-			get
-			{
-				return this._SKU;
-			}
-			set
-			{
-				if ((this._SKU != value))
-				{
-					this._SKU = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price", DbType="Decimal(18,2)")]
-		public System.Nullable<decimal> Price
-		{
-			get
-			{
-				return this._Price;
-			}
-			set
-			{
-				if ((this._Price != value))
-				{
-					this._Price = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StockQuantity", DbType="Int")]
-		public System.Nullable<int> StockQuantity
-		{
-			get
-			{
-				return this._StockQuantity;
-			}
-			set
-			{
-				if ((this._StockQuantity != value))
-				{
-					this._StockQuantity = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VariantIsActive", DbType="Bit")]
-		public System.Nullable<bool> VariantIsActive
-		{
-			get
-			{
-				return this._VariantIsActive;
-			}
-			set
-			{
-				if ((this._VariantIsActive != value))
-				{
-					this._VariantIsActive = value;
-				}
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="balabar1_Develop.View_Cars_CarsPrice")]
-	public partial class View_Cars_CarsPrice
-	{
-		
-		private string _NameFa;
-		
-		private int _Expr1;
-		
-		private string _Expr2;
-		
-		private System.Nullable<decimal> _Price;
-		
-		private int _CategoryId;
-		
-		public View_Cars_CarsPrice()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NameFa", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
-		public string NameFa
-		{
-			get
-			{
-				return this._NameFa;
-			}
-			set
-			{
-				if ((this._NameFa != value))
-				{
-					this._NameFa = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Expr1", DbType="Int NOT NULL")]
-		public int Expr1
-		{
-			get
-			{
-				return this._Expr1;
-			}
-			set
-			{
-				if ((this._Expr1 != value))
-				{
-					this._Expr1 = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Expr2", DbType="NVarChar(200) NOT NULL", CanBeNull=false)]
-		public string Expr2
-		{
-			get
-			{
-				return this._Expr2;
-			}
-			set
-			{
-				if ((this._Expr2 != value))
-				{
-					this._Expr2 = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price", DbType="Decimal(18,2)")]
-		public System.Nullable<decimal> Price
-		{
-			get
-			{
-				return this._Price;
-			}
-			set
-			{
-				if ((this._Price != value))
-				{
-					this._Price = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CategoryId", DbType="Int NOT NULL")]
-		public int CategoryId
-		{
-			get
-			{
-				return this._CategoryId;
-			}
-			set
-			{
-				if ((this._CategoryId != value))
-				{
-					this._CategoryId = value;
-				}
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="balabar1_Develop.View_Cars_CarDetails")]
-	public partial class View_Cars_CarDetail
-	{
-		
-		private int _ResourceId;
-		
-		private string _Expr2;
-		
-		private string _NameFa;
-		
-		private string _ValueFa;
-		
-		private int _AttributeId;
-		
-		public View_Cars_CarDetail()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ResourceId", DbType="Int NOT NULL")]
-		public int ResourceId
-		{
-			get
-			{
-				return this._ResourceId;
-			}
-			set
-			{
-				if ((this._ResourceId != value))
-				{
-					this._ResourceId = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Expr2", DbType="NVarChar(200) NOT NULL", CanBeNull=false)]
-		public string Expr2
-		{
-			get
-			{
-				return this._Expr2;
-			}
-			set
-			{
-				if ((this._Expr2 != value))
-				{
-					this._Expr2 = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NameFa", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
-		public string NameFa
-		{
-			get
-			{
-				return this._NameFa;
-			}
-			set
-			{
-				if ((this._NameFa != value))
-				{
-					this._NameFa = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ValueFa", DbType="NVarChar(200) NOT NULL", CanBeNull=false)]
-		public string ValueFa
-		{
-			get
-			{
-				return this._ValueFa;
-			}
-			set
-			{
-				if ((this._ValueFa != value))
-				{
-					this._ValueFa = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AttributeId", DbType="Int NOT NULL")]
-		public int AttributeId
-		{
-			get
-			{
-				return this._AttributeId;
-			}
-			set
-			{
-				if ((this._AttributeId != value))
-				{
-					this._AttributeId = value;
-				}
-			}
 		}
 	}
 }
