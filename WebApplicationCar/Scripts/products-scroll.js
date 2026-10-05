@@ -4,8 +4,8 @@
     var isLoading = false;
     var hasMore = true;
     var total = 0;
+    var seed = 0;
 
-    // ============ لود محصولات ============
     function loadMore() {
         if (isLoading || !hasMore) return;
 
@@ -13,7 +13,9 @@
         $('#loading').show();
         $('#error').hide();
 
-        $.get(ApiClient.baseUrl + 'Products/GetProductsScroll', { skip: skip, take: take }, function (res) {
+        $.get(ApiClient.baseUrl + 'Products/GetProductsScroll',
+              { skip: skip, take: take, seed: seed },
+              function (res) {
             isLoading = false;
             $('#loading').hide();
 
@@ -21,6 +23,8 @@
                 $('#error').text('پاسخ نامعتبر از سرور').show();
                 return;
             }
+
+            if (seed === 0 && res.Seed) seed = res.Seed;
 
             total = res.Total;
             hasMore = res.HasMore;
@@ -38,7 +42,6 @@
         });
     }
 
-    // ============ رندر کارت‌ها ============
     function renderProducts(products) {
         var container = $('#productsContainer');
 
@@ -81,28 +84,19 @@
         });
     }
 
-    // ============ کلیک روی کارت → صفحه جزئیات ============
     $(document).on('click', '.product-card', function (e) {
-        // اگه روی دکمه جزئیات کلیک شد، نذار دوبار redirect بشه
         if ($(e.target).closest('.btn-details').length) return;
-
         var href = $(this).data('href');
-        if (href) {
-            window.location.href = href;
-        }
+        if (href) window.location.href = href;
     });
 
-    // ============ Infinite Scroll ============
     function isNearBottom() {
         return $(window).scrollTop() + $(window).height() >= $(document).height() - 300;
     }
 
     $(window).on('scroll', function () {
-        if (isNearBottom()) {
-            loadMore();
-        }
+        if (isNearBottom()) loadMore();
     });
 
-    // ============ شروع ============
     loadMore();
 });

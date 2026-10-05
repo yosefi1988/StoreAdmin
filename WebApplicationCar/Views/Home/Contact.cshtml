@@ -1,17 +1,59 @@
-﻿@{
-    ViewBag.Title = "Contact";
-}
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+﻿@model WebApplicationCar.Models.HomeViewModel
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+@*@{
+        ViewBag.Title = "صفحه اصلی";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }*@
+
+ 
+<!-- contact section start -->
+<div class="contact_section layout_padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1 class="contact_taital">ارتباط مستقیم با @Model.Settings.StoreNameFa</h1>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="contact_section_2">
+            <div class="row">
+                <div class="col-md-12">
+
+
+                    <div class="mail_section_1">
+                        <form id="contactForm">
+                            <input type="text" class="mail_text" placeholder="نام و نام خانوادگی" name="Name" required>
+                            <input type="email" class="mail_text" placeholder="آدرس ایمیل" name="Email">
+                            <input type="text" class="mail_text" placeholder="شماره موبایل" name="PhoneNumber">
+                            <textarea class="massage-bt" placeholder="پیام یا درخواست" rows="5" name="Massage"></textarea>
+                            <div class="send_bt">
+                                <a href="javascript:void(0)" onclick="submitContact()">ارسال به @Model.Settings.StoreNameFa</a>
+                            </div>
+                        </form> 
+                    </div>
+
+                    <script>
+                        function submitContact() {
+                            var f = document.getElementById('contactForm');
+                            var data = new FormData(f);
+                            fetch('@Url.Action("SendContactMessage", "Home")', {
+                                method: 'POST',
+                                body: data
+                            })
+                            .then(r => r.json())
+                            .then(res => {
+                                alert(res.message);
+                                if (res.success) f.reset();
+                            });
+                        }
+                    </script>
+                     
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- contact section end -->
+ 

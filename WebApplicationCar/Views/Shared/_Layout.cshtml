@@ -1,19 +1,11 @@
-﻿ 
-@{
-    var settings = ViewBag.StoreSettings as WebApplicationCar.Models.StoreSettingVM;
+﻿@{
+    var settings = ViewBag.StoreSettings as WebApplicationCar.Models.StoreSettingVM
+                   ?? new WebApplicationCar.Models.StoreSettingVM();
 }
 
 
 <!DOCTYPE html>
-<html> 
-@*<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-    @RenderSection("Styles", required: false)
-</head>*@
+<html>
 <head>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -32,11 +24,9 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
-    
-    
+
     <!-- bootstrap css -->
-    <link rel="stylesheet" type="text/css" href="~/Content/trator-1.0.0/css/bootstrap.min.css"> 
- 
+    <link rel="stylesheet" type="text/css" href="~/Content/trator-1.0.0/css/bootstrap.min.css">
 
     <!-- style css -->
     <link rel="stylesheet" type="text/css" href="~/Content/trator-1.0.0/css/style.css">
@@ -51,81 +41,87 @@
     <!-- Tweaks for older IEs-->
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
 
-    
-   @Styles.Render("~/Content/css")
-   @Scripts.Render("~/bundles/modernizr")
-    @RenderSection("Scripts", required: false)
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        .header_section { position: relative; z-index: 99999; }
+        .header_section .navbar,
+        .header_section .navbar-collapse,
+        .header_section .navbar-nav,
+        .header_section .nav-item,
+        .header_section .nav-link {
+            pointer-events: auto !important;
+            position: relative;
+            z-index: 99999;
+        }
+    </style>
 
-
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <style>
+        html, body, h1, h2, h3, h4, h5, h6, p, a, span, div, input, button, select, textarea, table {
+            font-family: 'Vazirmatn', Tahoma, sans-serif !important;
+        }
+    </style>
 </head>
 <body>
     <!-- header section start -->
     <div class="header_section">
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="index.html"><img src="~/Content/trator-1.0.0/imagesx/logo.png"></a>
+                <a class="navbar-brand" href="/"><img src="~/Content/trator-1.0.0/images/logo.png"></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.html">Home</a>
+                        @{
+                            string currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+                            string currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+                        }
+                        <li class="nav-item @(currentController == "Home" && currentAction == "Index" ? "active" : "")">
+                            <a class="nav-link" href="@Url.Action("Index", "Home")">صفحه اصلی</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="about.html">About</a>
+                        <li class="nav-item @(currentController == "Home" && currentAction == "About" ? "active" : "")">
+                            <a class="nav-link" href="@Url.Action("About", "Home")">درباره ما</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="services.html">Services</a>
+                        <li class="nav-item @(currentController == "Products" ? "active" : "")">
+                            <a class="nav-link" href="@Url.Action("Scroll", "Products")">لیست خودروها</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="gallery.html">Vehicles</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="client.html">Client</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="contact.html">Contact</a>
+                        <li class="nav-item @(currentController == "Home" && currentAction == "Contact" ? "active" : "")">
+                            <a class="nav-link" href="@Url.Action("Contact", "Home")">تماس با ما</a>
                         </li>
                     </ul>
-                    <form class="form-inline my-2 my-lg-0"></form>
                 </div>
             </nav>
         </div>
     </div>
     <!-- header section end -->
+
     <div class="call_text_main">
         <div class="container">
             <div class="call_taital">
 
                 @if (settings != null && !string.IsNullOrEmpty(settings.StoreNameFa))
                 {
-                    <div class="call_text"><a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i><span class="padding_left_15">@settings.Address</span></a></div>
-                    @*<div class="location_text">
+                    <div class="call_text">
                         <a href="#">
                             <i class="fa fa-map-marker" aria-hidden="true"></i>
                             <span class="padding_left_15">@settings.Address</span>
                         </a>
-                    </div>*@
+                    </div>
 
-
-                    <div class="call_text"><a href="#"><i class="fa fa-phone" aria-hidden="true"></i><span class="padding_left_15">>@settings.PhoneNumber</span></a></div>
-                    @*<div class="location_text">
+                    <div class="call_text">
                         <a href="tel:@settings.PhoneNumber">
                             <i class="fa fa-phone" aria-hidden="true"></i>
                             <span class="padding_left_15">@settings.PhoneNumber</span>
                         </a>
-                    </div>*@
+                    </div>
 
-
-                    <div class="call_text"><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i><span class="padding_left_15">@settings.Email</span></a></div>
-                    @*<div class="location_text">
+                    <div class="call_text">
                         <a href="mailto:@settings.Email">
                             <i class="fa fa-envelope" aria-hidden="true"></i>
                             <span class="padding_left_15">@settings.Email</span>
                         </a>
-                    </div>*@
-
+                    </div>
                 }
 
             </div>
@@ -144,23 +140,17 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="footeer_logo"><img src="@Model.Settings.LogoUrl"></div>
+                    <div class="footeer_logo">
+                        <img src="@(string.IsNullOrEmpty(settings.LogoUrl) ? Url.Content("~/Content/trator-1.0.0/imagesx/logo.png") : settings.LogoUrl)">
+                    </div>
                 </div>
             </div>
             <div class="footer_section_2">
                 <div class="row">
-                    @*<div class="col">
-                        <h4 class="footer_taital">اشتراک در ماهنامه</h4>
-                        <p class="footer_text">برای اشتراک در ماهنامه، @Model.Settings.StoreNameFa آدرس ایمیل خود را وارد و درخواست را ثبت نمایید.</p>
-                        <div class="form-group">
-                            <textarea class="update_mail" placeholder="آدرس ایمیل" rows="5" id="comment" name="Enter Your Email"></textarea>
-                            <div class="subscribe_bt"><a href="#">عضویت</a></div>
-                        </div>
-                    </div>*@
 
                     <div class="col">
                         <h4 class="footer_taital">اشتراک در ماهنامه</h4>
-                        <p class="footer_text">برای اشتراک در ماهنامه، @Model.Settings.StoreNameFa آدرس ایمیل خود را وارد و درخواست را ثبت نمایید.</p>
+                        <p class="footer_text">برای اشتراک در ماهنامه، @(string.IsNullOrEmpty(settings.StoreNameFa) ? "فروشگاه" : settings.StoreNameFa) آدرس ایمیل خود را وارد و درخواست را ثبت نمایید.</p>
                         <div class="form-group">
                             <textarea class="update_mail" placeholder="آدرس ایمیل" rows="5" id="newsletterEmail"></textarea>
                             <div class="subscribe_bt">
@@ -186,68 +176,56 @@
                         }
                     </script>
 
-
                     <div class="col">
                         <h4 class="footer_taital">انتقاد و پیشنهاد</h4>
                         <p class="lorem_text">سوالات و پیشنهادات خود تنها در رابطه با سایت از طریق زیر با ما در میان بگذارید.</p>
                     </div>
+
                     <div class="col">
                         <h4 class="footer_taital">لینک های مفید</h4>
-                        
-                        <a href="https://www.mimt.gov.ir/"  style="color:#fff;">وزارت صنایع و معادن</a>
-                        <p class="lorem_text"><a href="https://www.bazresi.ir/"  style="color:#fff;">بازرسی کل کشور</a></p>
-                        <p class="lorem_text"><a href="https://rrk.ir/home.htm"  style="color:#fff;">روزنامه جمهوری اسلامی</a></p>
-                        <p class="lorem_text"><a href="http://ssaa.ir/"  style="color:#fff;">سازمان ثبت و اسناد</a></p>
+                        <a href="https://www.mimt.gov.ir/" style="color:#fff;">وزارت صنایع و معادن</a>
+                        <p class="lorem_text"><a href="https://www.bazresi.ir/" style="color:#fff;">بازرسی کل کشور</a></p>
+                        <p class="lorem_text"><a href="https://rrk.ir/home.htm" style="color:#fff;">روزنامه جمهوری اسلامی</a></p>
+                        <p class="lorem_text"><a href="http://ssaa.ir/" style="color:#fff;">سازمان ثبت و اسناد</a></p>
                     </div>
+
                     <div class="col">
                         <h4 class="footer_taital">ساعات کاری</h4>
-                        <p class="lorem_text">@Model.Settings.WorkingHours</p>
+                        <p class="lorem_text">@(string.IsNullOrEmpty(settings.WorkingHours) ? "—" : settings.WorkingHours)</p>
                     </div>
-                    @*<div class="col">
-                        <h4 class="footer_taital">Contact Us</h4>
-                        <div class="location_text"><a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i><span class="padding_left_15">Location</span></a></div>
-                        <div class="location_text"><a href="#"><i class="fa fa-phone" aria-hidden="true"></i><span class="padding_left_15">(+71) 8522369417</span></a></div>
-                        <div class="location_text"><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i><span class="padding_left_15">demo@gmail.com</span></a></div>
-                        <div class="social_icon">
-                            <ul>
-                                <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>*@
-                     
 
                     <div class="col">
                         <h4 class="footer_taital">تماس با ما</h4>
 
-                        @if (settings != null && !string.IsNullOrEmpty(settings.StoreNameFa))
+                        <div class="location_text">
+                            <a href="#">
+                                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                <span class="padding_left_15">@settings.Address</span>
+                            </a>
+                        </div>
+
+                        @if (!string.IsNullOrEmpty(settings.PhoneNumber))
                         {
-                            <div class="location_text">
-                                <a href="#">
-                                    <i class="fa fa-map-marker" aria-hidden="true"></i>
-                                    <span class="padding_left_15">@settings.Address</span>
-                                </a>
-                            </div>
                             <div class="location_text">
                                 <a href="tel:@settings.PhoneNumber">
                                     <i class="fa fa-phone" aria-hidden="true"></i>
                                     <span class="padding_left_15">@settings.PhoneNumber</span>
                                 </a>
                             </div>
+                        }
+
+                        @if (!string.IsNullOrEmpty(settings.MobileNumber))
+                        {
                             <div class="location_text">
                                 <a href="tel:@settings.MobileNumber">
                                     <i class="fa fa-phone" aria-hidden="true"></i>
                                     <span class="padding_left_15">@settings.MobileNumber</span>
                                 </a>
                             </div>
-                            <div class="location_text">
-                                <a href="tel:@settings.FaxNumber">
-                                    <i class="fa fa-phone" aria-hidden="true"></i>
-                                    <span class="padding_left_15">@settings.FaxNumber</span>
-                                </a>
-                            </div>
+                        }
+
+                        @if (!string.IsNullOrEmpty(settings.Email))
+                        {
                             <div class="location_text">
                                 <a href="mailto:@settings.Email">
                                     <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -258,16 +236,22 @@
 
                         <div class="social_icon">
                             <ul>
-                                @*<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>*@
-
-
-                                <li><a href="@settings.FacebookUrl"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                <li><a href="@settings.TwitterUrl"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                                <li><a href="@settings.LinkedInUrl"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-                                <li><a href="@settings.InstagramUrl"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                @if (!string.IsNullOrEmpty(settings.FacebookUrl))
+                                {
+                                    <li><a href="@settings.FacebookUrl"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                }
+                                @if (!string.IsNullOrEmpty(settings.TwitterUrl))
+                                {
+                                    <li><a href="@settings.TwitterUrl"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                }
+                                @if (!string.IsNullOrEmpty(settings.LinkedInUrl))
+                                {
+                                    <li><a href="@settings.LinkedInUrl"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                                }
+                                @if (!string.IsNullOrEmpty(settings.InstagramUrl))
+                                {
+                                    <li><a href="@settings.InstagramUrl"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                }
                             </ul>
                         </div>
                     </div>
@@ -282,32 +266,26 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
-
-
                     <p class="copyright_text">
-                        © @DateTime.Now.Year - تمامی حقوق برای @Model.Settings.StoreNameFa محفوظ است. 
+                        © @DateTime.Now.Year - تمامی حقوق برای @(string.IsNullOrEmpty(settings.StoreNameFa) ? "فروشگاه" : settings.StoreNameFa) محفوظ است.
                         <br />
-                        طراحی و تولید توسط <a href="+989999816652">یوسفی</a>
+                        طراحی و تولید توسط <a href="tel:+989999816652">یوسفی</a>
                     </p>
                 </div>
             </div>
         </div>
     </div>
-
-
-
-
-
     <!-- copyright section end -->
     <!-- Javascript files-->
     <script src="~/Content/trator-1.0.0/js/jquery.min.js"></script>
     <script src="~/Content/trator-1.0.0/js/popper.min.js"></script>
     <script src="~/Content/trator-1.0.0/js/bootstrap.bundle.min.js"></script>
-
     <script src="~/Content/trator-1.0.0/js/jquery-3.0.0.min.js"></script>
     <script src="~/Content/trator-1.0.0/js/plugin.js"></script>
-    <!-- sidebar -->
     <script src="~/Content/trator-1.0.0/js/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="~/Content/trator-1.0.0/js/custom.js"></script>
+    @RenderSection("Scripts", required: false)
+
+
 </body>
 </html>

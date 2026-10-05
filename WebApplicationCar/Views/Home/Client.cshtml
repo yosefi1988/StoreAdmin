@@ -1,0 +1,307 @@
+﻿@model WebApplicationCar.Models.HomeViewModel
+
+
+@*@{
+        ViewBag.Title = "صفحه اصلی";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }*@
+ 
+ 
+
+<!-- client section start -->
+<div class="client_section layout_padding">
+    <div class="container">
+
+        @{
+            var firstSlide = true;
+        }
+
+        <div id="custom_slider" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+
+                @foreach (var group in Model.CommentsGrouped)
+                {
+                    <div class="carousel-item @(firstSlide ? "active" : "")">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h1 class="client_taital">نظرات مشتریان</h1>
+                            </div>
+                        </div>
+                        <div class="client_section_2">
+                            <div class="row">
+
+                                @foreach (var item in group)
+                                {
+                                    <div class="col-md-6">
+                                        <div class="client_taital_box">
+                                            <div class="client_img">
+                                                @if (!string.IsNullOrEmpty(item.ImageUrl1))
+                                                {
+                                                    <img src="@item.ImageUrl1" alt="@item.FullName">
+                                                }
+                                                else
+                                                {
+                                                    <img src="~/Content/trator-1.0.0/images/client-img1.png" alt="@item.FullName">
+                                                }
+                                            </div>
+                                            <h3 class="moark_text">@item.FullName</h3>
+                                            <p class="client_text">@item.Message</p>
+                                        </div>
+                                        <div class="quick_icon">
+                                            <img src="~/Content/trator-1.0.0/images/quick-icon.png">
+                                        </div>
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+
+                    firstSlide = false;
+                }
+
+                @if (Model.CommentsGrouped == null || Model.CommentsGrouped.Count == 0)
+                {
+                    <div class="carousel-item active">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h1 class="client_taital">نظرات مشتریان</h1>
+                                <p style="text-align:center;">هنوز نظری ثبت نشده است.</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+            <a class="carousel-control-prev" href="#custom_slider" role="button" data-slide="prev">
+                <i class="fa fa-angle-left"></i>
+            </a>
+            <a class="carousel-control-next" href="#custom_slider" role="button" data-slide="next">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        </div>
+        @*<div id="custom_slider" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h1 class="client_taital">What Says Customers</h1>
+                            </div>
+                        </div>
+                        <div class="client_section_2">
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <div class="client_taital_box">
+                                        <div class="client_img"><img src="~/Content/trator-1.0.0/imagesx/client-img1.png"></div>
+                                        <h3 class="moark_text">Hannery</h3>
+                                        <p class="client_text">It is a long established fact that a reader will be distracted by the readable content of a page</p>
+                                    </div>
+                                    <div class="quick_icon"><img src="~/Content/trator-1.0.0/images/quick-icon.png"></div>
+
+
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="client_taital_box">
+                                        <div class="client_img"><img src="~/Content/trator-1.0.0/imagesx/client-img2.png"></div>
+                                        <h3 class="moark_text">Channery</h3>
+                                        <p class="client_text">It is a long established fact that a reader will be distracted by the readable content of a page</p>
+                                    </div>
+                                    <div class="quick_icon"><img src="~/Content/trator-1.0.0/images/quick-icon.png"></div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h1 class="client_taital">What Says Customers</h1>
+                            </div>
+                        </div>
+                        <div class="client_section_2">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="client_taital_box">
+                                        <div class="client_img"><img src="~/Content/trator-1.0.0/imagesx/client-img1.png"></div>
+                                        <h3 class="moark_text">Hannery</h3>
+                                        <p class="client_text">It is a long established fact that a reader will be distracted by the readable content of a page</p>
+                                    </div>
+                                    <div class="quick_icon"><img src="~/Content/trator-1.0.0/images/quick-icon.png"></div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="client_taital_box">
+                                        <div class="client_img"><img src="~/Content/trator-1.0.0/imagesx/client-img2.png"></div>
+                                        <h3 class="moark_text">Channery</h3>
+                                        <p class="client_text">It is a long established fact that a reader will be distracted by the readable content of a page</p>
+                                    </div>
+                                    <div class="quick_icon"><img src="~/Content/trator-1.0.0/images/quick-icon.png"></div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h1 class="client_taital">What Says Customers</h1>
+                            </div>
+                        </div>
+                        <div class="client_section_2">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="client_taital_box">
+                                        <div class="client_img"><img src="~/Content/trator-1.0.0/imagesx/client-img1.png"></div>
+                                        <h3 class="moark_text">Hannery</h3>
+                                        <p class="client_text">It is a long established fact that a reader will be distracted by the readable content of a page</p>
+                                    </div>
+                                    <div class="quick_icon"><img src="~/Content/trator-1.0.0/images/quick-icon.png"></div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="client_taital_box">
+                                        <div class="client_img"><img src="~/Content/trator-1.0.0/imagesx/client-img2.png"></div>
+                                        <h3 class="moark_text">Channery</h3>
+                                        <p class="client_text">It is a long established fact that a reader will be distracted by the readable content of a page</p>
+                                    </div>
+                                    <div class="quick_icon"><img src="~/Content/trator-1.0.0/images/quick-icon.png"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#custom_slider" role="button" data-slide="prev">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                <a class="carousel-control-next" href="#custom_slider" role="button" data-slide="next">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </div>*@
+    </div>
+</div>
+<!-- client section end -->
+
+<!-- gallery section start -->
+<div class="gallery_section layout_padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="gallery_taital">آخرین ماشین‌های ثبت‌شده</h1>
+            </div>
+        </div>
+
+        @{
+            var cars = Model.LatestCars.ToList();
+            int itemsPerRow = 3;
+        }
+
+        @for (int i = 0; i < cars.Count; i += itemsPerRow)
+        {
+            <div class="gallery_section_2">
+                <div class="row">
+                    @for (int j = i; j < i + itemsPerRow && j < cars.Count; j++)
+                    {
+                        var car = cars[j];
+                        <div class="col-md-4">
+                            <div class="gallery_box">
+                                <div class="gallery_img">
+                                    <a href="@Url.Action("Details", "Products", new { id = car.ProductId })">
+                                        <img src="@car.ImageUrl" alt="@car.NameFa">
+                                    </a>
+                                </div>
+                                <h3 class="types_text">@car.NameFa</h3>
+                                <p class="looking_text">
+                                    @(car.Price.HasValue ? car.Price.Value.ToString("N0") + " تومان" : "تماس بگیرید")
+                                </p>
+                                <div class="read_bt">
+                                    <a href="@Url.Action("Details", "Products", new { id = car.ProductId })">مشاهده</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+
+
+</div>
+ 
+
+<!-- gallery section end -->
+<!-- gallery section start -->
+@*<div class="gallery_section layout_padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="gallery_taital">Our best offers</h1>
+                </div>
+            </div>
+            <div class="gallery_section_2">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="gallery_box">
+                            <div class="gallery_img"><img src="~/Content/trator-1.0.0/imagesx/img-1.png"></div>
+                            <h3 class="types_text">Toyota car</h3>
+                            <p class="looking_text">Start per day $4500</p>
+                            <div class="read_bt"><a href="#">Book Now</a></div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="gallery_box">
+                            <div class="gallery_img"><img src="~/Content/trator-1.0.0/imagesx/img-2.png"></div>
+                            <h3 class="types_text">Toyota car</h3>
+                            <p class="looking_text">Start per day $4500</p>
+                            <div class="read_bt"><a href="#">Book Now</a></div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="gallery_box">
+                            <div class="gallery_img"><img src="~/Content/trator-1.0.0/imagesx/img-3.png"></div>
+                            <h3 class="types_text">Toyota car</h3>
+                            <p class="looking_text">Start per day $4500</p>
+                            <div class="read_bt"><a href="#">Book Now</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery_section_2">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="gallery_box">
+                            <div class="gallery_img"><img src="~/Content/trator-1.0.0/imagesx/img-1.png"></div>
+                            <h3 class="types_text">Toyota car</h3>
+                            <p class="looking_text">Start per day $4500</p>
+                            <div class="read_bt"><a href="#">Book Now</a></div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="gallery_box">
+                            <div class="gallery_img"><img src="~/Content/trator-1.0.0/imagesx/img-2.png"></div>
+                            <h3 class="types_text">Toyota car</h3>
+                            <p class="looking_text">Start per day $4500</p>
+                            <div class="read_bt"><a href="#">Book Now</a></div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="gallery_box">
+                            <div class="gallery_img"><img src="~/Content/trator-1.0.0/imagesx/img-3.png"></div>
+                            <h3 class="types_text">Toyota car</h3>
+                            <p class="looking_text">Start per day $4500</p>
+                            <div class="read_bt"><a href="#">Book Now</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+<!-- gallery section end -->
+ 
+ 
+ 

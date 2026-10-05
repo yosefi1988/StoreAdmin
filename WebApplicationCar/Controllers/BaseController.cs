@@ -10,9 +10,10 @@ using WebApplicationCar.Models;
 namespace WebApplicationCar.Controllers
 {
     public class BaseController : Controller
-    { 
+    {
         private readonly string _conn = ConfigurationManager.ConnectionStrings["balabar1_balabarkaranConnectionString"].ConnectionString;
 
+        // ==================== خواندن تنظیمات از دیتابیس ====================
         public StoreSettingVM GetSettings()
         {
             using (var conn = new SqlConnection(_conn))
@@ -20,12 +21,11 @@ namespace WebApplicationCar.Controllers
                 conn.Open();
                 var cmd = new SqlCommand(
                     @"SELECT TOP 1 StoreNameFa, Address, WorkingHours, 
-                        PhoneNumber, Email, MobileNumber, LogoUrl , FaxNumber,Description,
-                        AbouteUs,
-                        InstagramUrl,TwitterUrl,FacebookUrl,LinkedInUrl
-
-                  FROM X_StoreSettings 
-                  WHERE IsActive = 1", conn);
+                             PhoneNumber, Email, MobileNumber, LogoUrl, FaxNumber,
+                             Description, AbouteUs,
+                             InstagramUrl, TwitterUrl, FacebookUrl, LinkedInUrl
+                      FROM X_StoreSettings 
+                      WHERE IsActive = 1", conn);
 
                 using (var reader = cmd.ExecuteReader())
                 {
@@ -40,16 +40,13 @@ namespace WebApplicationCar.Controllers
                             Email = reader["Email"]?.ToString(),
                             MobileNumber = reader["MobileNumber"]?.ToString(),
                             LogoUrl = reader["LogoUrl"]?.ToString(),
-                             
                             FaxNumber = reader["FaxNumber"]?.ToString(),
                             Description = reader["Description"]?.ToString(),
-
                             AbouteUs = reader["AbouteUs"]?.ToString(),
                             InstagramUrl = reader["InstagramUrl"]?.ToString(),
                             TwitterUrl = reader["TwitterUrl"]?.ToString(),
                             FacebookUrl = reader["FacebookUrl"]?.ToString(),
                             LinkedInUrl = reader["LinkedInUrl"]?.ToString(),
-
                         };
                     }
                 }
@@ -57,10 +54,12 @@ namespace WebApplicationCar.Controllers
             return new StoreSettingVM();
         }
 
-        // این متد قبل از اجرای هر Action اجرا میشه
+        // ==================== قبل از هر اکشن ====================
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+            // این خط کلید ماجراست — _Layout از این می‌خونه
             ViewBag.StoreSettings = GetSettings();
+
             base.OnActionExecuting(filterContext);
         }
     }

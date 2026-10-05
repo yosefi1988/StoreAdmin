@@ -31,16 +31,27 @@ namespace WebApplicationCar.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "description page.";
+            
+            var model = new HomeViewModel
+            {
+                Settings = GetSettings(),
+                
+            };
 
-            return View();
+            return View(model);
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "contact page.";
 
-            return View();
+            var model = new HomeViewModel
+            {
+                Settings = GetSettings(), 
+            };
+
+            return View(model); 
         }
 
 
@@ -55,6 +66,23 @@ namespace WebApplicationCar.Controllers
             };
 
             return View(model);
+        }
+        public ActionResult Client()
+        {
+            var model = new HomeViewModel
+            { 
+                LatestCars = GetRandomCars(8),
+                CommentsGrouped = GetActiveCommentsGrouped(2)   // ۲ تایی گروه‌بندی
+            };
+
+            return View(model);
+        }
+
+        public ActionResult Services()
+        {
+            ViewBag.Message = "description page.";
+
+            return View();
         }
 
         private List<List<X_ContactMessage>> GetActiveCommentsGrouped(int perSlide)

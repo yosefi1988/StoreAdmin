@@ -221,7 +221,18 @@
         }
     </style>
 }
-
-@section Scripts {    
+ 
+ @section Scripts {
+    <script>
+        window.ApiClient = {
+            baseUrl: '@Url.Content("~/")',
+            get: function (url, data, success, fail) {
+                return $.get(this.baseUrl + url, data, success).fail(fail);
+            },
+            post: function (url, data, success, fail) {
+                return $.post(this.baseUrl + url, data, success).fail(fail);
+            }
+        };
+    </script>
     <script src="~/Scripts/product-wizard.js"></script>
 }

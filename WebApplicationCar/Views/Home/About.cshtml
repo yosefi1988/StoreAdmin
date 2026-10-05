@@ -1,7 +1,108 @@
-﻿@{
-    ViewBag.Title = "About";
-}
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+﻿@model WebApplicationCar.Models.HomeViewModel
 
-<p>Use this area to provide additional information.</p>
+
+@*@{
+        ViewBag.Title = "صفحه اصلی";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }*@
+
+ 
+<!-- about section start -->
+<div class="about_section layout_padding">
+    <div class="container">
+        <div class="about_section_2">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="image_iman"><img src="~/Content/trator-1.0.0/images/about-img.png" class="about_img"></div>
+                </div>
+                <div class="col-md-6">
+                    <div class="about_taital_box">
+                        <h1 class="about_taital">درباره <span style="color: #fe5b29;">ما</span></h1>
+                        <p class="about_text">
+                            @Model.Settings.Description
+                        </p>
+                        <div class="readmore_btn"><a href="#">بیشتر...</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- about section end -->
+
+
+<div class="">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="search_taital">بهترین خودروی خود را جستجو کنید</h1>
+                <p class="search_text">با جستجوی سریع و آسان، خودروی موردنظرتان را پیدا کنید و از خرید مطمئن لذت ببرید.</p>
+                <!-- select box section start -->
+                <div class="container">
+                    <div class="select_box_section">
+                        <div class="select_box_main">
+                            <div class="row">
+                                @using (Html.BeginForm("Index", "Products", FormMethod.Get))
+                                {
+                                    <div class="col-md-3 select-outline">
+                                        <input type="text" name="search" placeholder="جستجوی ماشین..."
+                                               style="padding:10px; width:400px; border:1px solid #ccc; border-radius:5px;" />
+                                    </div>
+                                    <div class="col-md-3 select-outline">
+                                        <div class="read_bt">
+                                            <button type="submit">
+                                                جستجو
+                                            </button>
+                                        </div>
+
+                                    </div>
+
+                                }
+
+
+
+                            </div>
+                            @*<div class="row">
+                                    <div class="col-md-3 select-outline">
+                                        <select class="mdb-select md-form md-outline colorful-select dropdown-primary">
+                                            <option value="" disabled selected>Any type</option>
+                                            <option value="1">Option 1</option>
+                                            <option value="2">Option 2</option>
+                                            <option value="3">Option 3</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 select-outline">
+                                        <select class="mdb-select md-form md-outline colorful-select dropdown-primary">
+                                            <option value="" disabled selected>Price</option>
+                                            <option value="1">Option 1</option>
+                                            <option value="2">Option 2</option>
+                                            <option value="3">Option 3</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="search_btn"><a href="#">Search Now</a></div>
+                                    </div>
+                                </div>*@
+
+                        </div>
+                    </div>
+                </div>
+                <!-- select box section end -->
+            </div>
+        </div>
+    </div>
+</div>
+
+ 
+<div class="row">
+    <div class="col-md-12">
+        <div style="text-align:center; margin:30px 0;">
+            <div class="read_bt">
+                <a href="@Url.Action("Scroll", "Products")">
+                    مشاهده همه ماشین‌ها
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+

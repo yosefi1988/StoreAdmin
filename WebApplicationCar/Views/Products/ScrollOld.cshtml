@@ -1,13 +1,17 @@
 ﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "لیست خودروها";
 }
 
 <div class="container" style="margin-top:20px;">
     <h2>لیست خودروها</h2>
     <hr />
 
-    <div class="row" id="productsContainer"></div>
+    <!-- کارت‌ها -->
+    <div class="row" id="productsContainer">
+        <!-- اینجا کارت‌ها داینامیک اضافه می‌شن -->
+    </div>
 
+    <!-- Loading -->
     <div id="loading" style="display:none; text-align:center; padding:30px;">
         <div class="spinner-border text-primary" role="status">
             <span class="sr-only">در حال بارگذاری...</span>
@@ -15,10 +19,12 @@
         <p>در حال بارگذاری...</p>
     </div>
 
+    <!-- End Message -->
     <div id="endMessage" style="display:none; text-align:center; padding:30px; color:#888;">
         <p>— به پایان لیست رسیدید —</p>
     </div>
 
+    <!-- Error -->
     <div id="error" class="alert alert-danger" style="display:none;"></div>
 </div>
 
@@ -87,10 +93,5 @@
 }
 
 @section Scripts {
-    <script>
-        var ApiClient = {
-            baseUrl: '@Url.Content("~/")'
-        };
-    </script>
     <script src="~/Scripts/products-scroll.js"></script>
 }
