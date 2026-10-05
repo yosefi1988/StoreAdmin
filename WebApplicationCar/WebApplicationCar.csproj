@@ -197,6 +197,22 @@
     <None Include="Content\bootstrap.cssOLD" />
     <None Include="Content\bootstrap.min.cssOLD" />
     <Content Include="Content\images\logo.png" />
+    <Content Include="Content\trator-1.0.0\images\12.jpg" />
+    <Content Include="Content\trator-1.0.0\images\about-img.png" />
+    <Content Include="Content\trator-1.0.0\images\about-img0.png" />
+    <Content Include="Content\trator-1.0.0\images\banner-bg0.png" />
+    <Content Include="Content\trator-1.0.0\images\banner-img.png" />
+    <Content Include="Content\trator-1.0.0\images\client-img1.png" />
+    <Content Include="Content\trator-1.0.0\images\client-img2.png" />
+    <Content Include="Content\trator-1.0.0\images\banner-bg.png" />
+    <Content Include="Content\trator-1.0.0\images\icon-1.png" />
+    <Content Include="Content\trator-1.0.0\images\icon-2.png" />
+    <Content Include="Content\trator-1.0.0\images\icon-3.png" />
+    <Content Include="Content\trator-1.0.0\images\img-1.png" />
+    <Content Include="Content\trator-1.0.0\images\img-2.png" />
+    <Content Include="Content\trator-1.0.0\images\img-3.png" />
+    <Content Include="Content\trator-1.0.0\images\logo.png" />
+    <Content Include="Content\trator-1.0.0\images\quick-icon.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -272,7 +288,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\trator-1.0.0\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\NewFolder1\" />
   </ItemGroup>

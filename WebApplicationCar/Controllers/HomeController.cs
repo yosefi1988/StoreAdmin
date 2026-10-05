@@ -154,18 +154,30 @@ namespace WebApplicationCar.Controllers
         {
             using (var db = new DataClassesDatabaseDataContextDataContext())
             {
-                var all = db.X_Resources
-                            .Where(x => x.IsActive)
-                            .Select(x => new CarItemVM
-                            {
-                                ProductId = x.ResourceId,
-                                NameFa = x.NameFa,
-                                ImageUrl = x.ImageUrl,
-                                Price = null,        // ← از X_Resources نمیاد
-                        CreatedAt = x.CreatedAt
-                            })
-                            .ToList();
+                //var all = db.X_Resources
+                //            .Where(x => x.IsActive)
+                //            .Select(x => new CarItemVM
+                //            {
+                //                ProductId = x.ResourceId,
+                //                NameFa = x.NameFa,
+                //                ImageUrl = x.ImageUrl,
+                //                Price = null,        // ← از X_Resources نمیاد
+                //        CreatedAt = x.CreatedAt
+                //            })
+                //            .ToList();
 
+                var all = (from x in db.X_Resources
+                           join p in db.X_Products on x.ResourceId equals p.FK_ResourceId
+                           where x.IsActive && p.IsActive
+                           select new CarItemVM
+                           {
+                               ProductId = p.ProductId,      // ← ProductId واقعی
+                               NameFa = x.NameFa,
+                               ImageUrl = x.ImageUrl,
+                               Price = null,
+                               CreatedAt = x.CreatedAt
+                           })
+           .ToList();
                 return all.OrderBy(x => Guid.NewGuid())
                           .Take(count)
                           .ToList();
@@ -210,7 +222,7 @@ namespace WebApplicationCar.Controllers
                         ImageUrl2 = null,
 
                         IsRead = false,
-                        IsActive = true,
+                        IsActive = false,
                         CreatedAt = DateTime.Now
                     };
 
