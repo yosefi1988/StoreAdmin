@@ -179,21 +179,83 @@ namespace WebApplicationCar.Controllers
                         IsMain = i.IsMain
                     }).ToList();
 
-                product.Attributes = (from ra in db.X_ResourceAttributes
-                                      join a in db.X_Attributes on ra.FK_AttributeId equals a.AttributeId
-                                      join av in db.X_AttributeValues on ra.FK_AttributeValueId equals av.AttributeValueId into avJoin
-                                      from av in avJoin.DefaultIfEmpty()
-                                      where ra.FK_ResourceId == product.FK_ResourceId
-                                      select new AttributeDto
-                                      {
-                                          AttributeId = a.AttributeId,
-                                          NameFa = a.NameFa,
-                                          DataType = a.DataType,
-                                          Value = av != null ? av.ValueFa :
-                                                  (ra.ValueText != null ? ra.ValueText :
-                                                  (ra.ValueNumber != null ? ra.ValueNumber.ToString() :
-                                                  (ra.ValueBoolean != null ? (ra.ValueBoolean == true ? "بله" : "خیر") : "-")))
-                                      }).ToList();
+
+                #region only ResourceAttributes
+                //product.Attributes = (from ra in db.X_ResourceAttributes
+                //                      join a in db.X_Attributes on ra.FK_AttributeId equals a.AttributeId
+                //                      join av in db.X_AttributeValues on ra.FK_AttributeValueId equals av.AttributeValueId into avJoin
+                //                      from av in avJoin.DefaultIfEmpty()
+                //                      where ra.FK_ResourceId == product.FK_ResourceId
+                //                      select new AttributeDto
+                //                      {
+                //                          AttributeId = a.AttributeId,
+                //                          NameFa = a.NameFa,
+                //                          DataType = a.DataType,
+                //                          Value = av != null ? av.ValueFa :
+                //                                  (ra.ValueText != null ? ra.ValueText :
+                //                                  (ra.ValueNumber != null ? ra.ValueNumber.ToString() :
+                //                                  (ra.ValueBoolean != null ? (ra.ValueBoolean == true ? "بله" : "خیر") : "-")))
+                //                      }).ToList();
+                #endregion
+
+                #region Resource + product Attributes
+
+                // ویژگی‌های سطح Resource (عمومی محصول)
+                var resourceAttributes = (
+                    from ra in db.X_ResourceAttributes
+                    join a in db.X_Attributes on ra.FK_AttributeId equals a.AttributeId
+                    join av in db.X_AttributeValues on ra.FK_AttributeValueId equals av.AttributeValueId into avJoin
+                    from av in avJoin.DefaultIfEmpty()
+                    where ra.FK_ResourceId == product.FK_ResourceId
+                    select new AttributeDto
+                    {
+                        AttributeId = a.AttributeId,
+                        NameFa = a.NameFa,
+                        DataType = a.DataType,
+                        //Source = "Resource",
+                        Value = av != null ? av.ValueFa :
+                                (ra.ValueText != null ? ra.ValueText :
+                                (ra.ValueNumber != null ? ra.ValueNumber.ToString() :
+                                (ra.ValueBoolean != null ? (ra.ValueBoolean == true ? "بله" : "خیر") : "-")))
+                    }).ToList();
+
+                // ویژگی‌های سطح ProductVariant
+                var variantAttributes = (
+                    from pva in db.X_ProductVariantAttributes
+                    join pv in db.X_ProductVariants on pva.FK_ProductVariantId equals pv.ProductVariantId
+                    join a in db.X_Attributes on pva.FK_AttributeId equals a.AttributeId
+                    join av in db.X_AttributeValues on pva.FK_AttributeValueId equals av.AttributeValueId into avJoin
+                    from av in avJoin.DefaultIfEmpty()
+                    where pv.FK_ProductId == product.ProductId
+                    select new AttributeDto
+                    {
+                        AttributeId = a.AttributeId,
+                        NameFa = a.NameFa,
+                        DataType = a.DataType,
+                        //Source = "Variant",
+                        Value = av != null ? av.ValueFa : "-"
+                    }).ToList();
+
+                // ادغام هر دو (بدون تکرار)
+                product.Attributes = resourceAttributes
+                    .Concat(variantAttributes)
+                    .GroupBy(x => x.AttributeId)
+                    .Select(g => g.First())
+                    .ToList();
+
+                #endregion
+
+
+                //product.Variants = db.X_ProductVariants
+                //    .Where(v => v.FK_ProductId == product.ProductId && v.IsActive)
+                //    .Select(v => new VariantDto
+                //    {
+                //        ProductVariantId = v.ProductVariantId,
+                //        SKU = v.SKU,
+                //        StockQuantity = v.StockQuantity,
+                //        Price = v.Price,
+                //        IsActive = v.IsActive
+                //    }).ToList();
 
                 product.Variants = db.X_ProductVariants
                     .Where(v => v.FK_ProductId == product.ProductId && v.IsActive)
@@ -202,9 +264,28 @@ namespace WebApplicationCar.Controllers
                         ProductVariantId = v.ProductVariantId,
                         SKU = v.SKU,
                         StockQuantity = v.StockQuantity,
-                        Price = v.Price,
-                        IsActive = v.IsActive
+                        Price = (decimal) v.Price,
+                        IsActive = v.IsActive,
+                        Attributes = (from pva in db.X_ProductVariantAttributes
+                                      join at in db.X_Attributes on pva.FK_AttributeId equals at.AttributeId
+                                      join av in db.X_AttributeValues on pva.FK_AttributeValueId equals av.AttributeValueId
+                                      where pva.FK_ProductVariantId == v.ProductVariantId
+                                      select new VariantAttributeDto
+                                      {
+                                          ProductVariantAttributeId = pva.ProductVariantAttributeId,
+                                          AttributeId = at.AttributeId,
+                                          AttributeNameFa = at.NameFa,
+                                          AttributeNameEn = at.NameEn,
+                                          AttributeCode = at.Code,
+                                          DataType = at.DataType,
+
+                                          AttributeValueId = av.AttributeValueId,
+                                          ValueFa = av.ValueFa,
+                                          ValueEn = av.ValueEn,
+                                          ValueCode = av.Code
+                                      }).ToList()
                     }).ToList();
+
 
                 product.Categories = (from rc in db.X_ResourceCategories
                                       join c in db.X_Categories on rc.FK_CategoryId equals c.CategoryId

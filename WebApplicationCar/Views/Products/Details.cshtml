@@ -152,45 +152,68 @@
 
     <hr style="margin:35px 0;" />
 
-    <!-- واریانت‌ها -->
-    <div class="text-center">
-        <h4 style="font-weight:bold;">واریانت‌ها</h4>
-    </div>
-    @if (Model.Variants != null && Model.Variants.Any())
-    {
-        <table class="table table-bordered" style="background:#fff; margin-top:15px; border-radius:8px; overflow:hidden;">
-            <thead>
-                <tr style="background:#f1f1f1;">
-                    <th class="text-center">SKU</th>
-                    <th class="text-center">موجودی</th>
-                    <th class="text-center">قیمت</th>
-                    <th class="text-center">وضعیت</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var v in Model.Variants)
-                {
-                    <tr>
-                        <td class="text-center">@(v.SKU ?? "-")</td>
-                        <td class="text-center">@v.StockQuantity</td>
-                        <td class="text-center">@(v.Price.HasValue ? v.Price.Value.ToString("N0") + " ریال" : "-")</td>
-                        <td class="text-center">
-                            @if (v.IsActive)
-                            {
-                                <span class="label label-success">فعال</span>
-                            }
-                            else
-                            {
-                                <span class="label label-default">غیرفعال</span>
-                            }
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    }
-    else
-    {
-        <p class="text-muted text-center">واریانتی ثبت نشده</p>
-    }
+     <!-- واریانت‌ها -->
+     <div class="text-center">
+         <h4 style="font-weight:bold;">واریانت‌ها</h4>
+     </div>
+
+     @if (Model.Variants != null && Model.Variants.Any())
+     {
+         <table class="table table-bordered"
+                style="background:#fff; margin-top:15px; border-radius:8px; overflow:hidden;">
+             <thead>
+                 <tr style="background:#f1f1f1;">
+                     <th class="text-center">SKU</th>
+                     <th class="text-center">موجودی</th>
+                     <th class="text-center">قیمت</th>
+                     <th class="text-center">وضعیت</th>
+                 </tr>
+             </thead>
+             <tbody>
+                 @foreach (var v in Model.Variants)
+                 {
+                     <tr>
+                         <td class="text-center">@(v.SKU ?? "-")</td>
+                         <td class="text-center">@v.StockQuantity</td>
+ 
+                         <td class="text-center">
+                             @(v.Price.HasValue ? v.Price.Value.ToString("N0") + " ریال" : "-")
+                         </td>
+
+                         <td class="text-center">
+                             @if (v.IsActive)
+                             {
+                                 <span class="label label-success">فعال</span>
+                             }
+                             else
+                             {
+                                 <span class="label label-default">غیرفعال</span>
+                             }
+                         </td>
+                     </tr>
+
+                     if (v.Attributes != null && v.Attributes.Any())
+                     {
+                         <tr>
+                             <td colspan="4" style="background:#fafafa; padding:8px 15px;">
+                                 <strong style="font-size:12px; color:#666;">ویژگی‌ها:</strong>
+                                 @foreach (var a in v.Attributes)
+                                 {
+                                     <span class="label label-info"
+                                           style="margin:3px; display:inline-block; font-weight:normal;">
+                                         @a.AttributeNameFa:
+                                         @(!string.IsNullOrWhiteSpace(a.ValueFa) ? a.ValueFa : a.ValueCode)
+                                     </span>
+                                 }
+                             </td>
+                         </tr>
+                     }
+                 }
+             </tbody>
+         </table>
+     }
+     else
+     {
+         <p class="text-muted text-center">واریانتی ثبت نشده</p>
+     }
 </div>

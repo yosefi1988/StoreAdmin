@@ -154,6 +154,7 @@ namespace WebApplicationCar.Controllers
         {
             using (var db = new DataClassesDatabaseDataContextDataContext())
             {
+                //1
                 //var all = db.X_Resources
                 //            .Where(x => x.IsActive)
                 //            .Select(x => new CarItemVM
@@ -166,19 +167,42 @@ namespace WebApplicationCar.Controllers
                 //            })
                 //            .ToList();
 
+
+                //2
+                //     var all = (from x in db.X_Resources
+                //                join p in db.X_Products on x.ResourceId equals p.FK_ResourceId
+                //                where x.IsActive && p.IsActive
+                //                select new CarItemVM
+                //                {
+                //                    ProductId = p.ProductId,      // ← ProductId واقعی
+                //                    NameFa = x.NameFa,
+                //                    ImageUrl = x.ImageUrl,
+                //                    Price = null,
+                //                    CreatedAt = x.CreatedAt
+                //                })
+                //.ToList();
+                //     return all.OrderBy(x => Guid.NewGuid())
+                //               .Take(count)
+                //               .ToList();
+
+                //3
                 var all = (from x in db.X_Resources
                            join p in db.X_Products on x.ResourceId equals p.FK_ResourceId
                            where x.IsActive && p.IsActive
+                           let minPrice = db.X_ProductVariants
+                                            .Where(v => v.FK_ProductId == p.ProductId && v.IsActive)
+                                            .Min(v => (decimal?)v.Price)
                            select new CarItemVM
                            {
-                               ProductId = p.ProductId,      // ← ProductId واقعی
+                               ProductId = p.ProductId,
                                NameFa = x.NameFa,
                                ImageUrl = x.ImageUrl,
-                               Price = null,
+                               Price = minPrice,
                                CreatedAt = x.CreatedAt
                            })
-           .ToList();
-                return all.OrderBy(x => Guid.NewGuid())
+               .ToList();
+
+                return all.OrderBy(_ => Guid.NewGuid())
                           .Take(count)
                           .ToList();
             }

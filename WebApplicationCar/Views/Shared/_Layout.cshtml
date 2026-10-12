@@ -1,8 +1,41 @@
-﻿@{
+﻿@using System.Linq
+@using WebApplicationCar.Models
+@using WebApplicationCar.Services
+@{
     var settings = ViewBag.StoreSettings as WebApplicationCar.Models.StoreSettingVM
                    ?? new WebApplicationCar.Models.StoreSettingVM();
-}
 
+    // ====== بررسی لاگین ======
+    var authToken = Context.Request.Cookies["auth_token"]?.Value;
+    var tokenService = new SessionTokenService();
+    var currentUser = tokenService.ValidateToken(authToken);
+    var isLoggedIn = currentUser != null;
+
+    // نام کاربر
+    string displayName = null;
+    if (isLoggedIn)
+    {
+        using (var db = new DataClassesDatabaseDataContextDataContext())
+        {
+            var u = db.X_Users.FirstOrDefault(x => x.UserId == currentUser.UserId);
+            if (u != null)
+            {
+                if (!string.IsNullOrEmpty(u.FirstName))
+                {
+                    displayName = u.FirstName + " " + u.LastName;
+                }
+                else if (!string.IsNullOrEmpty(u.UserName))
+                {
+                    displayName = u.UserName;
+                }
+                else
+                {
+                    displayName = u.MobileNumber;
+                }
+            }
+        }
+    }
+}
 
 <!DOCTYPE html>
 <html>
@@ -75,6 +108,45 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto">
+                        @if (isLoggedIn)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown"
+                                   role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-user-circle"></i>
+                                    @displayName
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                                    <a class="dropdown-item" href="@Url.Action("Index", "Dashboard")">
+                                        <i class="fa fa-dashboard"></i> پنل کاربری
+                                    </a>
+                                    <a class="dropdown-item" href="@Url.Action("MyOrders", "Order")">
+                                        <i class="fa fa-shopping-bag"></i> سفارشات من
+                                    </a>
+                                    <a class="dropdown-item" href="@Url.Action("Index", "Profile")">
+                                        <i class="fa fa-user"></i> پروفایل
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item text-danger" href="javascript:void(0)" onclick="logoutUser()">
+                                        <i class="fa fa-sign-out"></i> خروج
+                                    </a>
+                                </div>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("Index", "Login")">
+                                    <i class="fa fa-sign-in"></i> ورود
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("Index", "RegisterWizard")">
+                                    <i class="fa fa-user-plus"></i> ثبت‌نام
+                                </a>
+                            </li>
+
+                        }
                         @{
                             string currentController = ViewContext.RouteData.Values["controller"]?.ToString();
                             string currentAction = ViewContext.RouteData.Values["action"]?.ToString();
@@ -286,6 +358,18 @@
     <script src="~/Content/trator-1.0.0/js/plugin.js"></script>
     <script src="~/Content/trator-1.0.0/js/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="~/Content/trator-1.0.0/js/custom.js"></script>
+    <script>
+    function logoutUser() {
+        if (!confirm('از حساب خارج می‌شوید؟')) return;
+
+        $.post('@Url.Action("Logout", "Login")', function (res) {
+            if (res.success) {
+                localStorage.removeItem('auth_token');
+                window.location.href = '/';
+            }
+        });
+    }
+    </script>
     @RenderSection("Scripts", required: false)
 
 

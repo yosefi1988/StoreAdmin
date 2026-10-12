@@ -39,14 +39,6 @@ namespace WebApplicationCar.Models
         public string Value { get; set; }
     }
 
-    public class VariantDto
-    {
-        public int ProductVariantId { get; set; }
-        public string SKU { get; set; }
-        public int StockQuantity { get; set; }
-        public decimal? Price { get; set; }
-        public bool IsActive { get; set; }
-    }
 
     public class CategoryDto
     {

@@ -173,6 +173,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\RegisterWizardController.cs" />
     <Compile Include="Controllers\ProductWizardController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -183,13 +185,22 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataClassesDatabaseDataContext.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\DTO\VariantDto.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ProductDetailsViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ViewModels\RegisterWizardViewModel.cs" />
     <Compile Include="Models\ViewModels\Message.cs" />
     <Compile Include="Models\ViewModels\HomeViewModel.cs" />
     <Compile Include="Models\ViewModels\Wizard\ProductWizardViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ITokenService.cs" />
+    <Compile Include="Services\AuthFilter.cs" />
+    <Compile Include="Services\SessionTokenService.cs" />
+    <Compile Include="Services\PasswordHasher.cs" />
+    <Compile Include="Services\OtpService.cs" />
+    <Compile Include="Services\MockOtpSender.cs" />
+    <Compile Include="Services\IOtpSender.cs" />
     <Compile Include="Services\ApiService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -216,7 +227,7 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <None Include="Content\Site.cssط" />
+    <None Include="Content\Site.cssیت" />
     <Content Include="Scripts\config.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -236,6 +247,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\api-client.js" />
+    <Content Include="Scripts\login.js" />
+    <Content Include="Scripts\register-wizard.js" />
     <Content Include="Scripts\products-scroll.js" />
     <Content Include="Scripts\products-list.js" />
     <Content Include="Scripts\product.js" />
@@ -285,6 +298,8 @@
     <Content Include="Views\Products\ScrollOld.cshtml" />
     <Content Include="Views\Home\Client.cshtml" />
     <Content Include="Views\Home\Services.cshtml" />
+    <Content Include="Views\RegisterWizard\Index.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

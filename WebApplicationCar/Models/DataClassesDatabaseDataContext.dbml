@@ -834,4 +834,10 @@
       <Association Name="X_User_X_Wallet" Member="X_User" ThisKey="FK_UserId" OtherKey="UserId" Type="X_User" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="balabar1_Develop.x_tags" Member="x_tags">
+    <Type Name="x_tag">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
 </Database>

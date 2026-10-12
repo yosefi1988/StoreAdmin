@@ -3757,6 +3757,7 @@
     <Content Include="Content\w3css\font-awesome.min.css" />
     <Content Include="Content\w3css\w3-theme-black.css" />
     <Content Include="Content\w3css\w3.css" />
+    <Content Include="Docs\TextFile2.txt" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\Vazir.ttf" />
@@ -4612,6 +4613,7 @@
       <LastGenOutput>DataClassesDatabase.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Docs\تعداد کل جدول.docx" />
     <None Include="Properties\PublishProfiles\admin.pubxml" />
     <None Include="Properties\PublishProfiles\file.pubxml" />
     <None Include="Properties\PublishProfiles\test server.pubxml" />

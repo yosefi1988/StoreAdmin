@@ -180,6 +180,9 @@ namespace WebApplicationCar.Models
     partial void InsertX_Wallet(X_Wallet instance);
     partial void UpdateX_Wallet(X_Wallet instance);
     partial void DeleteX_Wallet(X_Wallet instance);
+    partial void Insertx_tag(x_tag instance);
+    partial void Updatex_tag(x_tag instance);
+    partial void Deletex_tag(x_tag instance);
     #endregion
 		
 		public DataClassesDatabaseDataContextDataContext() : 
@@ -617,6 +620,14 @@ namespace WebApplicationCar.Models
 			get
 			{
 				return this.GetTable<X_Wallet>();
+			}
+		}
+		
+		public System.Data.Linq.Table<x_tag> x_tags
+		{
+			get
+			{
+				return this.GetTable<x_tag>();
 			}
 		}
 	}
@@ -19582,6 +19593,92 @@ namespace WebApplicationCar.Models
 		{
 			this.SendPropertyChanging();
 			entity.X_Wallet = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="balabar1_Develop.x_tags")]
+	public partial class x_tag : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _name;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnnameChanging(string value);
+    partial void OnnameChanged();
+    #endregion
+		
+		public x_tag()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				if ((this._name != value))
+				{
+					this.OnnameChanging(value);
+					this.SendPropertyChanging();
+					this._name = value;
+					this.SendPropertyChanged("name");
+					this.OnnameChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 }
