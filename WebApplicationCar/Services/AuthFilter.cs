@@ -9,12 +9,30 @@ namespace WebApplicationCar.Services
         {
             var token = filterContext.HttpContext.Request.Cookies["auth_token"]?.Value;
             var tokenService = new SessionTokenService();
-
             var payload = tokenService.ValidateToken(token);
 
             if (payload == null)
             {
-                filterContext.Result = new RedirectResult("/Login/Index");
+                // ====== تشخیص AJAX ======
+                if (filterContext.HttpContext.Request.IsAjaxRequest())
+                {
+                    // کلاینت منتظر JSON هست، نه HTML صفحه لاگین
+                    filterContext.Result = new JsonResult
+                    {
+                        Data = new
+                        {
+                            success = false,
+                            message = "لطفاً وارد شوید",
+                            requireLogin = true
+                        },
+                        JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                    };
+                }
+                else
+                {
+                    // درخواست عادی → ریدایرکت
+                    filterContext.Result = new RedirectResult("/Login/Index");
+                }
                 return;
             }
 
