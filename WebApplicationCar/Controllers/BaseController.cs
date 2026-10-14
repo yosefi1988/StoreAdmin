@@ -5,10 +5,12 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebApplicationCar.Filters;
 using WebApplicationCar.Models;
 
 namespace WebApplicationCar.Controllers
 {
+    [TokenAuthorize]
     public class BaseController : Controller
     {
         private readonly string _conn = ConfigurationManager.ConnectionStrings["balabar1_balabarkaranConnectionString"].ConnectionString;

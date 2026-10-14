@@ -1,5 +1,6 @@
 ﻿@{
     ViewBag.Title = "افزودن محصول جدید";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="container" style="margin-top:20px;">
@@ -221,8 +222,8 @@
         }
     </style>
 }
- 
- @section Scripts {
+
+@section Scripts {
     <script>
         window.ApiClient = {
             baseUrl: '@Url.Content("~/")',

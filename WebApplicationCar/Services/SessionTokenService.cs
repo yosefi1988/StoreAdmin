@@ -92,5 +92,12 @@ namespace WebApplicationCar.Services
             }
             return BitConverter.ToString(bytes).Replace("-", "").ToLower();
         }
+
+        public int? GetUserId(string token)
+        {
+            var payload = ValidateToken(token);
+            return payload?.UserId;
+        }
+
     }
 }

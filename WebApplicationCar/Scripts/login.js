@@ -27,14 +27,24 @@
         var $btn = $(this).prop('disabled', true).text('در حال ورود...');
 
         ApiClient.post('Login/Login',
-            { Mobile: mobile, Password: password, RememberMe: remember },
+            {
+                Mobile: mobile,
+                Password: password,
+                RememberMe: remember,
+                returnUrl: window.ReturnUrl || null   // 👈 اضافه شد
+            },
             function (res) {
                 if (res.success) {
                     showMessage('ورود موفق! در حال انتقال...', true);
-                    // ذخیره توکن برای درخواست‌های بعدی
                     localStorage.setItem('auth_token', res.token);
+
                     setTimeout(function () {
-                        window.location.href = '/';
+                        // 👇 اگر ReturnUrl داشت برمی‌گردیم، وگرنه Home
+                        if (res.redirectUrl) {
+                            window.location.href = res.redirectUrl;
+                        } else {
+                            window.location.href = '/';
+                        }
                     }, 800);
                 } else {
                     showMessage(res.message, false);

@@ -566,6 +566,7 @@
       <Column Name="ImageUrl" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
       <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="FK_UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="X_Resource_X_DigitalFile" Member="X_DigitalFiles" ThisKey="ResourceId" OtherKey="FK_ResourceId" Type="X_DigitalFile" />
       <Association Name="X_Resource_X_OrderItem" Member="X_OrderItems" ThisKey="ResourceId" OtherKey="FK_ResourceId" Type="X_OrderItem" />
       <Association Name="X_Resource_X_Product" Member="X_Products" ThisKey="ResourceId" OtherKey="FK_ResourceId" Type="X_Product" />
@@ -574,6 +575,7 @@
       <Association Name="X_Resource_X_ResourceImage" Member="X_ResourceImages" ThisKey="ResourceId" OtherKey="FK_ResourceId" Type="X_ResourceImage" />
       <Association Name="X_Resource_X_Review" Member="X_Reviews" ThisKey="ResourceId" OtherKey="FK_ResourceId" Type="X_Review" />
       <Association Name="X_Resource_X_Service" Member="X_Services" ThisKey="ResourceId" OtherKey="FK_ResourceId" Type="X_Service" />
+      <Association Name="X_User_X_Resource" Member="X_User" ThisKey="FK_UserId" OtherKey="UserId" Type="X_User" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="balabar1_Develop.X_Reviews" Member="X_Reviews">
@@ -746,6 +748,12 @@
       <Association Name="X_SubscriptionPlan_X_UserSubscription" Member="X_UserSubscriptions" ThisKey="SubscriptionPlanId" OtherKey="FK_SubscriptionPlanId" Type="X_UserSubscription" />
     </Type>
   </Table>
+  <Table Name="balabar1_Develop.x_tags" Member="x_tags">
+    <Type Name="x_tag">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
   <Table Name="balabar1_Develop.X_UserAddresses" Member="X_UserAddresses">
     <Type Name="X_UserAddress">
       <Column Name="UserAddressId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -796,6 +804,7 @@
       <Association Name="X_User_X_Cart" Member="X_Carts" ThisKey="UserId" OtherKey="FK_UserId" Type="X_Cart" />
       <Association Name="X_User_X_DigitalFileAccess" Member="X_DigitalFileAccesses" ThisKey="UserId" OtherKey="FK_UserId" Type="X_DigitalFileAccess" />
       <Association Name="X_User_X_Order" Member="X_Orders" ThisKey="UserId" OtherKey="FK_UserId" Type="X_Order" />
+      <Association Name="X_User_X_Resource" Member="X_Resources" ThisKey="UserId" OtherKey="FK_UserId" Type="X_Resource" />
       <Association Name="X_User_X_Review" Member="X_Reviews" ThisKey="UserId" OtherKey="FK_UserId" Type="X_Review" />
       <Association Name="X_User_X_ServiceAssignment" Member="X_ServiceAssignments" ThisKey="UserId" OtherKey="FK_UserId" Type="X_ServiceAssignment" />
       <Association Name="X_User_X_ServiceBooking" Member="X_ServiceBookings" ThisKey="UserId" OtherKey="FK_UserId" Type="X_ServiceBooking" />
@@ -832,12 +841,6 @@
       <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
       <Association Name="X_Wallet_X_WalletTransaction" Member="X_WalletTransactions" ThisKey="WalletId" OtherKey="FK_WalletId" Type="X_WalletTransaction" />
       <Association Name="X_User_X_Wallet" Member="X_User" ThisKey="FK_UserId" OtherKey="UserId" Type="X_User" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="balabar1_Develop.x_tags" Member="x_tags">
-    <Type Name="x_tag">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
 </Database>

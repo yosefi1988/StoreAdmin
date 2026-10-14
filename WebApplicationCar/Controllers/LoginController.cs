@@ -12,18 +12,18 @@ namespace WebApplicationCar.Controllers
 
         public LoginController()
         {
-            // 🔑 تنها جایی که پیاده‌سازی انتخاب میشه
             _tokenService = new SessionTokenService();
-            //_tokenService = new SessionTokenService();
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string returnUrl)
         {
+            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
+        [AllowAnonymous]
         [HttpPost]
-        public JsonResult Login(LoginViewModel model)
+        public JsonResult Login(LoginViewModel model, string returnUrl)
         {
             try
             {
@@ -45,31 +45,36 @@ namespace WebApplicationCar.Controllers
                         || !PasswordHasher.Verify(model.Password, user.PasswordHash))
                         return Json(new { success = false, message = "رمز عبور اشتباه" });
 
-                    // مدت اعتبار
                     var lifetime = model.RememberMe
                         ? TimeSpan.FromDays(30)
                         : TimeSpan.FromHours(8);
 
                     var token = _tokenService.IssueToken(user.UserId, user.MobileNumber, lifetime);
 
-                    // بروزرسانی LastLoginAt
                     user.LastLoginAt = DateTime.Now;
                     db.SubmitChanges();
 
-                    // ست کردن کوکی (اختیاری)
-                    Response.Cookies.Add(new System.Web.HttpCookie("auth_token", token)
+                    // 👇 کوکی با SameSite و HttpOnly
+                    var cookie = new System.Web.HttpCookie("auth_token", token)
                     {
                         HttpOnly = true,
                         Expires = DateTime.Now.Add(lifetime),
                         Secure = Request.IsSecureConnection
-                    });
+                    };
+                    Response.Cookies.Add(cookie);
+
+                    // 👇 اگر ReturnUrl امن بود، برگردان
+                    string redirectUrl = null;
+                    if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                        redirectUrl = returnUrl;
 
                     return Json(new
                     {
                         success = true,
                         message = "ورود موفق",
                         token = token,
-                        userId = user.UserId
+                        userId = user.UserId,
+                        redirectUrl = redirectUrl
                     });
                 }
             }
@@ -84,17 +89,14 @@ namespace WebApplicationCar.Controllers
         {
             var token = Request.Cookies["auth_token"]?.Value;
             if (!string.IsNullOrEmpty(token))
-            {
                 _tokenService.RevokeToken(token);
-            }
 
             if (Request.Cookies["auth_token"] != null)
             {
-                var cookie = new System.Web.HttpCookie("auth_token", "")
+                Response.Cookies.Add(new System.Web.HttpCookie("auth_token", "")
                 {
                     Expires = DateTime.Now.AddDays(-1)
-                };
-                Response.Cookies.Add(cookie);
+                });
             }
 
             return Json(new { success = true });

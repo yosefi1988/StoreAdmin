@@ -26,6 +26,10 @@ namespace WebApplicationCar.Controllers
                 ViewBag.TotalOrders = db.X_Orders.Count(o => o.FK_UserId == userId);
                 ViewBag.TotalReviews = db.X_Reviews.Count(r => r.FK_UserId == userId);
 
+                // آمار Resource هایی که خودم ثبت کردم
+                ViewBag.MyResourcesCount = db.X_Resources
+                    .Count(r => r.FK_UserId == userId);
+
                 // سبد خرید فعال
                 ViewBag.CartCount = db.X_Carts
                     .Where(c => c.FK_UserId == userId)// && c.IsActive)

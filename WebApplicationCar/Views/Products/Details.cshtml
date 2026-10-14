@@ -4,7 +4,7 @@
     ViewBag.Title = "جزئیات محصول";
 }
 
- <div class="container" style="margin-top:20px; max-width:1000px;">
+<div class="container" style="margin-top:20px; max-width:1000px;">
     <div class="text-center" style="margin-bottom:25px;">
         <h2 style="font-weight:bold;">جزئیات محصول</h2>
         <hr style="width:80px; border-top:2px solid #28a745; margin:10px auto;" />
@@ -76,8 +76,47 @@
                 </tr>
                 <tr>
                     <th style="background:#f9f9f9;">تاریخ ایجاد</th>
-                    <td>@Model.CreatedAt</td>
+                    <td>@Model.CreatedAt.ToString("yyyy/MM/dd HH:mm")</td>
                 </tr>
+
+                <tr>
+                    <th style="background:#f9f9f9;">ثبت‌کننده</th>
+                    <td>
+                        @if (Model.FK_UserId != null && !string.IsNullOrEmpty(Model.OwnerDisplayName))
+                        {
+                            <a href="@Url.Action("Scroll", "Products", new { userName = Model.OwnerUserName })"
+                               style="text-decoration:none;">
+                                <i class="fa fa-user text-primary"></i>
+                                <span>@Model.OwnerDisplayName</span>
+                                if (!string.IsNullOrEmpty(Model.OwnerUserName))
+                                {
+                                <small class="text-muted">(@Model.OwnerUserName)</small>
+                                }
+                            </a>
+
+                            if (!string.IsNullOrEmpty(Model.OwnerMobile))
+                            {
+                                <small class="text-muted" style="margin-right:8px;">
+                                    <i class="fa fa-mobile"></i> @Model.OwnerMobile
+                                </small>
+                            }
+
+                            if (!string.IsNullOrEmpty(Model.OwnerUserName))
+                            {
+                                <br />
+                                <a href="@Url.Action("Scroll", "Products", new { userName = Model.OwnerUserName })"
+                                   class="btn btn-xs btn-default" style="margin-top:5px;">
+                                    <i class="fa fa-list"></i> مشاهده همه محصولات این کاربر
+                                </a>
+                            }
+                        }
+                        else
+                        {
+                            <span class="text-muted">نامشخص</span>
+                        }
+                    </td>
+                </tr>
+
                 @if (!string.IsNullOrEmpty(Model.Description))
                 {
                     <tr>
@@ -88,7 +127,7 @@
             </table>
 
             <div class="text-center" style="margin-top:15px;">
-                <a href="@Url.Action("Index", "Products")" class="btn btn-default">
+                <a href="@Url.Action("Scroll", "Products")" class="btn btn-default">
                     <i class="fa fa-arrow-right"></i> بازگشت
                 </a>
             </div>
@@ -152,68 +191,68 @@
 
     <hr style="margin:35px 0;" />
 
-     <!-- واریانت‌ها -->
-     <div class="text-center">
-         <h4 style="font-weight:bold;">واریانت‌ها</h4>
-     </div>
+    <!-- واریانت‌ها -->
+    <div class="text-center">
+        <h4 style="font-weight:bold;">واریانت‌ها</h4>
+    </div>
 
-     @if (Model.Variants != null && Model.Variants.Any())
-     {
-         <table class="table table-bordered"
-                style="background:#fff; margin-top:15px; border-radius:8px; overflow:hidden;">
-             <thead>
-                 <tr style="background:#f1f1f1;">
-                     <th class="text-center">SKU</th>
-                     <th class="text-center">موجودی</th>
-                     <th class="text-center">قیمت</th>
-                     <th class="text-center">وضعیت</th>
-                 </tr>
-             </thead>
-             <tbody>
-                 @foreach (var v in Model.Variants)
-                 {
-                     <tr>
-                         <td class="text-center">@(v.SKU ?? "-")</td>
-                         <td class="text-center">@v.StockQuantity</td>
- 
-                         <td class="text-center">
-                             @(v.Price.HasValue ? v.Price.Value.ToString("N0") + " ریال" : "-")
-                         </td>
+    @if (Model.Variants != null && Model.Variants.Any())
+    {
+        <table class="table table-bordered"
+               style="background:#fff; margin-top:15px; border-radius:8px; overflow:hidden;">
+            <thead>
+                <tr style="background:#f1f1f1;">
+                    <th class="text-center">SKU</th>
+                    <th class="text-center">موجودی</th>
+                    <th class="text-center">قیمت</th>
+                    <th class="text-center">وضعیت</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var v in Model.Variants)
+                {
+                    <tr>
+                        <td class="text-center">@(v.SKU ?? "-")</td>
+                        <td class="text-center">@v.StockQuantity</td>
 
-                         <td class="text-center">
-                             @if (v.IsActive)
-                             {
-                                 <span class="label label-success">فعال</span>
-                             }
-                             else
-                             {
-                                 <span class="label label-default">غیرفعال</span>
-                             }
-                         </td>
-                     </tr>
+                        <td class="text-center">
+                            @(v.Price.HasValue ? v.Price.Value.ToString("N0") + " ریال" : "-")
+                        </td>
 
-                     if (v.Attributes != null && v.Attributes.Any())
-                     {
-                         <tr>
-                             <td colspan="4" style="background:#fafafa; padding:8px 15px;">
-                                 <strong style="font-size:12px; color:#666;">ویژگی‌ها:</strong>
-                                 @foreach (var a in v.Attributes)
-                                 {
-                                     <span class="label label-info"
-                                           style="margin:3px; display:inline-block; font-weight:normal;">
-                                         @a.AttributeNameFa:
-                                         @(!string.IsNullOrWhiteSpace(a.ValueFa) ? a.ValueFa : a.ValueCode)
-                                     </span>
-                                 }
-                             </td>
-                         </tr>
-                     }
-                 }
-             </tbody>
-         </table>
-     }
-     else
-     {
-         <p class="text-muted text-center">واریانتی ثبت نشده</p>
-     }
+                        <td class="text-center">
+                            @if (v.IsActive)
+                            {
+                                <span class="label label-success">فعال</span>
+                            }
+                            else
+                            {
+                                <span class="label label-default">غیرفعال</span>
+                            }
+                        </td>
+                    </tr>
+
+                    if (v.Attributes != null && v.Attributes.Any())
+                    {
+                        <tr>
+                            <td colspan="4" style="background:#fafafa; padding:8px 15px;">
+                                <strong style="font-size:12px; color:#666;">ویژگی‌ها:</strong>
+                                @foreach (var a in v.Attributes)
+                                {
+                                    <span class="label label-info"
+                                          style="margin:3px; display:inline-block; font-weight:normal;">
+                                        @a.AttributeNameFa:
+                                        @(!string.IsNullOrWhiteSpace(a.ValueFa) ? a.ValueFa : a.ValueCode)
+                                    </span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="text-muted text-center">واریانتی ثبت نشده</p>
+    }
 </div>

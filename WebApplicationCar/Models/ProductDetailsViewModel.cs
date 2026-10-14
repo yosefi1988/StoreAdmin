@@ -16,6 +16,24 @@ namespace WebApplicationCar.Models
         public string Description { get; set; }
         public string ImageUrl { get; set; }
 
+        // 👇 اطلاعات ثبت‌کننده
+        public int? FK_UserId { get; set; }
+        public string OwnerUserName { get; set; }
+        public string OwnerFirstName { get; set; }
+        public string OwnerLastName { get; set; }
+        public string OwnerMobile { get; set; }
+
+        public string OwnerDisplayName
+        {
+            get
+            {
+                var full = ((OwnerFirstName ?? "") + " " + (OwnerLastName ?? "")).Trim();
+                if (!string.IsNullOrEmpty(full)) return full;
+                if (!string.IsNullOrEmpty(OwnerUserName)) return OwnerUserName;
+                return OwnerMobile;
+            }
+        }
+
         public List<ImageDto> Images { get; set; }
         public List<AttributeDto> Attributes { get; set; }
         public List<VariantDto> Variants { get; set; }
@@ -38,7 +56,6 @@ namespace WebApplicationCar.Models
         public string DataType { get; set; }
         public string Value { get; set; }
     }
-
 
     public class CategoryDto
     {

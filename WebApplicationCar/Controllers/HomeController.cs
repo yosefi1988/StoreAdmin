@@ -22,6 +22,7 @@ using System.Threading.Tasks;
 
 namespace WebApplicationCar.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : BaseController
     {
         private readonly string _conn =

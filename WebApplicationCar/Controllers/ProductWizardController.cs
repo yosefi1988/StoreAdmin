@@ -4,11 +4,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebApplicationCar.Models;
-using WebApplicationCar.Models.ViewModels.Wizard;
+using WebApplicationCar.Models.ViewModels.Wizard; 
+using WebApplicationCar.Filters;    
+ 
 
 namespace WebApplicationCar.Controllers
 {
-      
+    [TokenAuthorize] 
     public class ProductWizardController : Controller
     {
         
@@ -75,6 +77,8 @@ namespace WebApplicationCar.Controllers
                 using (var db = new DataClassesDatabaseDataContextDataContext())
                 {
                     // ============ ۱. X_Resources ============
+                    var userId = HttpContext.Items["UserId"] as int?;
+
                     var resource = new X_Resource
                     {
                         NameFa = model.Step1.NameFa,
@@ -82,7 +86,8 @@ namespace WebApplicationCar.Controllers
                         Description = model.Step1.Description,
                         ImageUrl = model.Step1.ImageUrl,
                         IsActive = model.Step1.ResourceIsActive,
-                        CreatedAt = DateTime.Now
+                        CreatedAt = DateTime.Now,
+                        FK_UserId = userId
                     };
                     db.X_Resources.InsertOnSubmit(resource);
                     db.SubmitChanges(); // برای گرفتن ResourceId
@@ -94,7 +99,7 @@ namespace WebApplicationCar.Controllers
                         ProductCode = model.Step1.ProductCode,
                         Barcode = model.Step1.Barcode,
                         IsActive = model.Step1.ProductIsActive,
-                        CreatedAt = DateTime.Now
+                        CreatedAt = DateTime.Now,
                     };
                     db.X_Products.InsertOnSubmit(product);
                     db.SubmitChanges(); // برای گرفتن ProductId

@@ -18,5 +18,6 @@ namespace WebApplicationCar.Services
         string IssueToken(int userId, string mobile, TimeSpan lifetime);
         TokenPayload ValidateToken(string token);
         void RevokeToken(string token);
+        int? GetUserId(string token);
     }
 }

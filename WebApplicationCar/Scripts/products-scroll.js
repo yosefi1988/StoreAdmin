@@ -6,6 +6,10 @@
     var total = 0;
     var seed = 0;
 
+    // 👇 از View میاد
+    var mine = window.ProductsFilter ? window.ProductsFilter.mine : false;
+    var userName = window.ProductsFilter ? window.ProductsFilter.userName : '';
+
     function loadMore() {
         if (isLoading || !hasMore) return;
 
@@ -14,7 +18,7 @@
         $('#error').hide();
 
         $.get(ApiClient.baseUrl + 'Products/GetProductsScroll',
-              { skip: skip, take: take, seed: seed },
+              { skip: skip, take: take, seed: seed, mine: mine, userName: userName },
               function (res) {
             isLoading = false;
             $('#loading').hide();
@@ -53,6 +57,9 @@
         }
 
         $.each(products, function (i, p) {
+            // اگه ProductId نداره، نشونش نده
+            if (p.ProductId == null || p.ProductId === '') return;
+
             var imageHtml = p.ImageUrl
                 ? '<img src="' + p.ImageUrl + '" class="card-img" alt="' + (p.NameFa || '') + '" onerror="this.src=\'/Content/no-image.png\'" />'
                 : '<div class="card-img no-image">بدون تصویر</div>';
@@ -60,6 +67,14 @@
             var statusBadge = p.IsActive
                 ? '<span class="badge badge-success">فعال</span>'
                 : '<span class="badge badge-secondary">غیرفعال</span>';
+
+            var ownerName = (p.FirstName || p.LastName)
+                ? ((p.FirstName || '') + ' ' + (p.LastName || '')).trim()
+                : (p.UserName || p.MobileNumber || '');
+
+            var ownerHtml = ownerName
+                ? '<div class="card-meta"><i class="fa fa-user"></i> ' + ownerName + '</div>'
+                : '';
 
             var detailsUrl = ApiClient.baseUrl + 'Products/Details/' + p.ProductId;
 
@@ -72,6 +87,7 @@
                             '<p class="card-subtitle">' + (p.NameEn || '') + '</p>' +
                             '<div class="card-meta">کد محصول: ' + (p.ProductCode || '-') + '</div>' +
                             '<div class="card-meta">بارکد: ' + (p.Barcode || '-') + '</div>' +
+                            ownerHtml +
                         '</div>' +
                         '<div class="card-footer">' +
                             statusBadge +

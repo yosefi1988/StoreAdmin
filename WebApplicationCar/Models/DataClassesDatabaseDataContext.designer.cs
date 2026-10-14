@@ -165,6 +165,9 @@ namespace WebApplicationCar.Models
     partial void InsertX_SubscriptionPlan(X_SubscriptionPlan instance);
     partial void UpdateX_SubscriptionPlan(X_SubscriptionPlan instance);
     partial void DeleteX_SubscriptionPlan(X_SubscriptionPlan instance);
+    partial void Insertx_tag(x_tag instance);
+    partial void Updatex_tag(x_tag instance);
+    partial void Deletex_tag(x_tag instance);
     partial void InsertX_UserAddress(X_UserAddress instance);
     partial void UpdateX_UserAddress(X_UserAddress instance);
     partial void DeleteX_UserAddress(X_UserAddress instance);
@@ -180,9 +183,6 @@ namespace WebApplicationCar.Models
     partial void InsertX_Wallet(X_Wallet instance);
     partial void UpdateX_Wallet(X_Wallet instance);
     partial void DeleteX_Wallet(X_Wallet instance);
-    partial void Insertx_tag(x_tag instance);
-    partial void Updatex_tag(x_tag instance);
-    partial void Deletex_tag(x_tag instance);
     #endregion
 		
 		public DataClassesDatabaseDataContextDataContext() : 
@@ -583,6 +583,14 @@ namespace WebApplicationCar.Models
 			}
 		}
 		
+		public System.Data.Linq.Table<x_tag> x_tags
+		{
+			get
+			{
+				return this.GetTable<x_tag>();
+			}
+		}
+		
 		public System.Data.Linq.Table<X_UserAddress> X_UserAddresses
 		{
 			get
@@ -620,14 +628,6 @@ namespace WebApplicationCar.Models
 			get
 			{
 				return this.GetTable<X_Wallet>();
-			}
-		}
-		
-		public System.Data.Linq.Table<x_tag> x_tags
-		{
-			get
-			{
-				return this.GetTable<x_tag>();
 			}
 		}
 	}
@@ -13259,6 +13259,8 @@ namespace WebApplicationCar.Models
 		
 		private System.DateTime _CreatedAt;
 		
+		private System.Nullable<int> _FK_UserId;
+		
 		private EntitySet<X_DigitalFile> _X_DigitalFiles;
 		
 		private EntitySet<X_OrderItem> _X_OrderItems;
@@ -13274,6 +13276,8 @@ namespace WebApplicationCar.Models
 		private EntitySet<X_Review> _X_Reviews;
 		
 		private EntitySet<X_Service> _X_Services;
+		
+		private EntityRef<X_User> _X_User;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -13293,6 +13297,8 @@ namespace WebApplicationCar.Models
     partial void OnIsActiveChanged();
     partial void OnCreatedAtChanging(System.DateTime value);
     partial void OnCreatedAtChanged();
+    partial void OnFK_UserIdChanging(System.Nullable<int> value);
+    partial void OnFK_UserIdChanged();
     #endregion
 		
 		public X_Resource()
@@ -13305,6 +13311,7 @@ namespace WebApplicationCar.Models
 			this._X_ResourceImages = new EntitySet<X_ResourceImage>(new Action<X_ResourceImage>(this.attach_X_ResourceImages), new Action<X_ResourceImage>(this.detach_X_ResourceImages));
 			this._X_Reviews = new EntitySet<X_Review>(new Action<X_Review>(this.attach_X_Reviews), new Action<X_Review>(this.detach_X_Reviews));
 			this._X_Services = new EntitySet<X_Service>(new Action<X_Service>(this.attach_X_Services), new Action<X_Service>(this.detach_X_Services));
+			this._X_User = default(EntityRef<X_User>);
 			OnCreated();
 		}
 		
@@ -13448,6 +13455,30 @@ namespace WebApplicationCar.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FK_UserId", DbType="Int")]
+		public System.Nullable<int> FK_UserId
+		{
+			get
+			{
+				return this._FK_UserId;
+			}
+			set
+			{
+				if ((this._FK_UserId != value))
+				{
+					if (this._X_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnFK_UserIdChanging(value);
+					this.SendPropertyChanging();
+					this._FK_UserId = value;
+					this.SendPropertyChanged("FK_UserId");
+					this.OnFK_UserIdChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="X_Resource_X_DigitalFile", Storage="_X_DigitalFiles", ThisKey="ResourceId", OtherKey="FK_ResourceId")]
 		public EntitySet<X_DigitalFile> X_DigitalFiles
 		{
@@ -13549,6 +13580,40 @@ namespace WebApplicationCar.Models
 			set
 			{
 				this._X_Services.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="X_User_X_Resource", Storage="_X_User", ThisKey="FK_UserId", OtherKey="UserId", IsForeignKey=true)]
+		public X_User X_User
+		{
+			get
+			{
+				return this._X_User.Entity;
+			}
+			set
+			{
+				X_User previousValue = this._X_User.Entity;
+				if (((previousValue != value) 
+							|| (this._X_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._X_User.Entity = null;
+						previousValue.X_Resources.Remove(this);
+					}
+					this._X_User.Entity = value;
+					if ((value != null))
+					{
+						value.X_Resources.Add(this);
+						this._FK_UserId = value.UserId;
+					}
+					else
+					{
+						this._FK_UserId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("X_User");
+				}
 			}
 		}
 		
@@ -17556,6 +17621,92 @@ namespace WebApplicationCar.Models
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="balabar1_Develop.x_tags")]
+	public partial class x_tag : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _name;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnnameChanging(string value);
+    partial void OnnameChanged();
+    #endregion
+		
+		public x_tag()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
+		public string name
+		{
+			get
+			{
+				return this._name;
+			}
+			set
+			{
+				if ((this._name != value))
+				{
+					this.OnnameChanging(value);
+					this.SendPropertyChanging();
+					this._name = value;
+					this.SendPropertyChanged("name");
+					this.OnnameChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="balabar1_Develop.X_UserAddresses")]
 	public partial class X_UserAddress : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -18370,6 +18521,8 @@ namespace WebApplicationCar.Models
 		
 		private EntitySet<X_Order> _X_Orders;
 		
+		private EntitySet<X_Resource> _X_Resources;
+		
 		private EntitySet<X_Review> _X_Reviews;
 		
 		private EntitySet<X_ServiceAssignment> _X_ServiceAssignments;
@@ -18421,6 +18574,7 @@ namespace WebApplicationCar.Models
 			this._X_Carts = new EntitySet<X_Cart>(new Action<X_Cart>(this.attach_X_Carts), new Action<X_Cart>(this.detach_X_Carts));
 			this._X_DigitalFileAccesses = new EntitySet<X_DigitalFileAccess>(new Action<X_DigitalFileAccess>(this.attach_X_DigitalFileAccesses), new Action<X_DigitalFileAccess>(this.detach_X_DigitalFileAccesses));
 			this._X_Orders = new EntitySet<X_Order>(new Action<X_Order>(this.attach_X_Orders), new Action<X_Order>(this.detach_X_Orders));
+			this._X_Resources = new EntitySet<X_Resource>(new Action<X_Resource>(this.attach_X_Resources), new Action<X_Resource>(this.detach_X_Resources));
 			this._X_Reviews = new EntitySet<X_Review>(new Action<X_Review>(this.attach_X_Reviews), new Action<X_Review>(this.detach_X_Reviews));
 			this._X_ServiceAssignments = new EntitySet<X_ServiceAssignment>(new Action<X_ServiceAssignment>(this.attach_X_ServiceAssignments), new Action<X_ServiceAssignment>(this.detach_X_ServiceAssignments));
 			this._X_ServiceBookings = new EntitySet<X_ServiceBooking>(new Action<X_ServiceBooking>(this.attach_X_ServiceBookings), new Action<X_ServiceBooking>(this.detach_X_ServiceBookings));
@@ -18711,6 +18865,19 @@ namespace WebApplicationCar.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="X_User_X_Resource", Storage="_X_Resources", ThisKey="UserId", OtherKey="FK_UserId")]
+		public EntitySet<X_Resource> X_Resources
+		{
+			get
+			{
+				return this._X_Resources;
+			}
+			set
+			{
+				this._X_Resources.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="X_User_X_Review", Storage="_X_Reviews", ThisKey="UserId", OtherKey="FK_UserId")]
 		public EntitySet<X_Review> X_Reviews
 		{
@@ -18866,6 +19033,18 @@ namespace WebApplicationCar.Models
 		}
 		
 		private void detach_X_Orders(X_Order entity)
+		{
+			this.SendPropertyChanging();
+			entity.X_User = null;
+		}
+		
+		private void attach_X_Resources(X_Resource entity)
+		{
+			this.SendPropertyChanging();
+			entity.X_User = this;
+		}
+		
+		private void detach_X_Resources(X_Resource entity)
 		{
 			this.SendPropertyChanging();
 			entity.X_User = null;
@@ -19593,92 +19772,6 @@ namespace WebApplicationCar.Models
 		{
 			this.SendPropertyChanging();
 			entity.X_Wallet = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="balabar1_Develop.x_tags")]
-	public partial class x_tag : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private string _name;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void OnnameChanging(string value);
-    partial void OnnameChanged();
-    #endregion
-		
-		public x_tag()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
-		public string name
-		{
-			get
-			{
-				return this._name;
-			}
-			set
-			{
-				if ((this._name != value))
-				{
-					this.OnnameChanging(value);
-					this.SendPropertyChanging();
-					this._name = value;
-					this.SendPropertyChanged("name");
-					this.OnnameChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
 		}
 	}
 }

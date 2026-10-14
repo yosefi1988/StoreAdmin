@@ -168,6 +168,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ChangePasswordController.cs" />
     <Compile Include="Controllers\ForgotPasswordController.cs" />
@@ -177,6 +178,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Filter\TokenAuthorizeAttribute.cs" />
     <Compile Include="Controllers\RegisterWizardController.cs" />
     <Compile Include="Controllers\ProductWizardController.cs" />
     <Compile Include="Global.asax.cs">
@@ -190,6 +192,7 @@
     </Compile>
     <Compile Include="Models\DTO\VariantDto.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ProfileViewModel.cs" />
     <Compile Include="Models\ProductDetailsViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ViewModels\RegisterWizardViewModel.cs" />
@@ -214,22 +217,22 @@
     <None Include="Content\bootstrap.cssOLD" />
     <None Include="Content\bootstrap.min.cssOLD" />
     <Content Include="Content\images\logo.png" />
-    <Content Include="Content\trator-1.0.0\images\12.jpg" />
-    <Content Include="Content\trator-1.0.0\images\about-img.png" />
-    <Content Include="Content\trator-1.0.0\images\about-img0.png" />
-    <Content Include="Content\trator-1.0.0\images\banner-bg0.png" />
-    <Content Include="Content\trator-1.0.0\images\banner-img.png" />
-    <Content Include="Content\trator-1.0.0\images\client-img1.png" />
-    <Content Include="Content\trator-1.0.0\images\client-img2.png" />
-    <Content Include="Content\trator-1.0.0\images\banner-bg.png" />
-    <Content Include="Content\trator-1.0.0\images\icon-1.png" />
-    <Content Include="Content\trator-1.0.0\images\icon-2.png" />
-    <Content Include="Content\trator-1.0.0\images\icon-3.png" />
-    <Content Include="Content\trator-1.0.0\images\img-1.png" />
-    <Content Include="Content\trator-1.0.0\images\img-2.png" />
-    <Content Include="Content\trator-1.0.0\images\img-3.png" />
-    <Content Include="Content\trator-1.0.0\images\logo.png" />
-    <Content Include="Content\trator-1.0.0\images\quick-icon.png" />
+    <Content Include="Content\trator-1.0.0\imagesX\12.jpg" />
+    <Content Include="Content\trator-1.0.0\imagesX\about-img.png" />
+    <Content Include="Content\trator-1.0.0\imagesX\about-img0.png" />
+    <Content Include="Content\trator-1.0.0\imagesX\banner-bg0.png" />
+    <Content Include="Content\trator-1.0.0\imagesX\banner-img.png" />
+    <Content Include="Content\trator-1.0.0\imagesX\client-img1.png" />
+    <Content Include="Content\trator-1.0.0\imagesX\client-img2.png" />
+    <Content Include="Content\trator-1.0.0\imagesX\banner-bg.png" />
+    <Content Include="Content\trator-1.0.0\imagesX\icon-1.png" />
+    <Content Include="Content\trator-1.0.0\imagesX\icon-2.png" />
+    <Content Include="Content\trator-1.0.0\imagesX\icon-3.png" />
+    <Content Include="Content\trator-1.0.0\imagesX\img-1.png" />
+    <Content Include="Content\trator-1.0.0\imagesX\img-2.png" />
+    <Content Include="Content\trator-1.0.0\imagesX\img-3.png" />
+    <Content Include="Content\trator-1.0.0\imagesX\logo.png" />
+    <Content Include="Content\trator-1.0.0\imagesX\quick-icon.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -303,7 +306,6 @@
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Products\Scroll.cshtml" />
     <Content Include="Views\Products\Details.cshtml" />
-    <Content Include="Views\Shared\_Layout - Copy.cshtml" />
     <Content Include="Views\Products\ScrollOld.cshtml" />
     <Content Include="Views\Home\Client.cshtml" />
     <Content Include="Views\Home\Services.cshtml" />
@@ -314,6 +316,7 @@
     <Content Include="Views\ForgotPassword\Reset.cshtml" />
     <Content Include="Views\ForgotPassword\Invalid.cshtml" />
     <Content Include="Views\ChangePassword\Index.cshtml" />
+    <Content Include="Views\Profile\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
