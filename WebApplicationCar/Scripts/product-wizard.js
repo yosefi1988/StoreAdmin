@@ -16,7 +16,6 @@
     function goToStep(step) {
         if (step < 1 || step > totalSteps) return;
 
-        // قدم ۲: لود دسته‌بندی‌ها و صفت‌ها (اگه هنوز لود نشدن)
         if (step === 2) {
             if ($('#categoriesList').text().indexOf('در حال') > -1) {
                 loadCategories();
@@ -28,21 +27,17 @@
             }
         }
 
-        // قدم ۳: لود صفت‌ها (اگه لازم بود)
         if (step === 3 && allAttributes.length === 0) {
             loadAttributes();
         }
 
-        // قدم ۴: ساخت خلاصه
         if (step === 4) {
             buildSummary();
         }
 
-        // مخفی کردن همه
         $('.wizard-panel').hide();
         $('#step-' + step).show();
 
-        // آپدیت Progress
         $('.wizard-step').each(function () {
             var s = parseInt($(this).data('step'));
             $(this).removeClass('active done');
@@ -50,7 +45,6 @@
             if (s === step) $(this).addClass('active');
         });
 
-        // دکمه‌ها
         $('#btnPrev').prop('disabled', step === 1);
         if (step === totalSteps) {
             $('#btnNext').hide();
@@ -90,6 +84,73 @@
         return true;
     }
 
+    // ============ Upload Helper ============
+    function uploadFile(file, onSuccess, onError) {
+        if (!file) return;
+
+        var allowed = /\.(jpg|jpeg|png|gif|webp)$/i;
+        if (!allowed.test(file.name)) {
+            alert('فرمت فایل مجاز نیست. فقط jpg, jpeg, png, gif, webp');
+            if (onError) onError();
+            return;
+        }
+        if (file.size > 5 * 1024 * 1024) {
+            alert('حجم فایل نباید بیشتر از ۵ مگابایت باشد');
+            if (onError) onError();
+            return;
+        }
+
+        var fd = new FormData();
+        fd.append('file', file);
+
+        $.ajax({
+            url: ApiClient.baseUrl + 'ProductWizard/UploadImage',
+            type: 'POST',
+            data: fd,
+            processData: false,
+            contentType: false,
+            success: function (res) {
+                if (res && res.success) {
+                    onSuccess(res.url);
+                } else {
+                    alert('خطا: ' + (res && res.message ? res.message : 'آپلود ناموفق'));
+                    if (onError) onError();
+                }
+            },
+            error: function () {
+                alert('خطا در ارتباط با سرور هنگام آپلود');
+                if (onError) onError();
+            }
+        });
+    }
+
+    // ============ قدم ۱: آپلود تصویر اصلی ============
+    $('#btnUploadMainImage').click(function () {
+        $('#mainImageFile').click();
+    });
+
+    $('#mainImageFile').change(function () {
+        var file = this.files[0];
+        if (!file) return;
+
+        var $btn = $('#btnUploadMainImage').prop('disabled', true).text('در حال آپلود...');
+
+        uploadFile(file,
+            function (url) {
+                $('#ImageUrl').val(url);
+                $('#mainImagePreview').html(
+                    '<img src="' + url + '" style="max-height:120px;border:1px solid #ddd;padding:3px;border-radius:4px;" />'
+                );
+                $btn.prop('disabled', false).text('انتخاب و آپلود');
+                $('#mainImageFile').val('');
+            },
+            function () {
+                $btn.prop('disabled', false).text('انتخاب و آپلود');
+                $('#mainImageFile').val('');
+            }
+        );
+    });
+
     // ============ قدم ۱: Variants ============
     $('#btnAddVariant').click(function () {
         addVariantRow();
@@ -106,8 +167,6 @@
             '<td><button type="button" class="btn btn-sm btn-danger btn-remove-variant">×</button></td>' +
         '</tr>';
         $('#tblVariants tbody').append(row);
-
-        // ← بعد از اضافه کردن، اگه صفت‌ها لود شدن، رندر کن
         refreshVariants();
     }
 
@@ -245,16 +304,42 @@
         });
     });
 
-    // ============ قدم ۳: Images ============
+    // ============ قدم ۳: Images (input file دیده‌شدنی) ============
     $('#btnAddImage').click(function () {
         var row = '<tr>' +
-            '<td><input type="text" class="form-control img-url" /></td>' +
+            '<td>' +
+                '<input type="file" class="img-file form-control" accept="image/*" />' +
+                '<input type="text" class="form-control img-url" readonly placeholder="آدرس تصویر بعد از آپلود" style="margin-top:5px;" />' +
+                '<div class="img-preview" style="margin-top:5px;"></div>' +
+            '</td>' +
             '<td><input type="text" class="form-control img-title" /></td>' +
             '<td><input type="number" class="form-control img-sort" value="0" /></td>' +
             '<td><input type="checkbox" class="img-main" /></td>' +
             '<td><button type="button" class="btn btn-sm btn-danger btn-remove-row">×</button></td>' +
         '</tr>';
         $('#tblImages tbody').append(row);
+    });
+
+    // انتخاب فایل در هر ردیف -> آپلود خودکار
+    $(document).on('change', '.img-file', function () {
+        var file = this.files[0];
+        if (!file) return;
+
+        var $row = $(this).closest('tr');
+        var $fileInput = $(this).prop('disabled', true);
+
+        uploadFile(file,
+            function (url) {
+                $row.find('.img-url').val(url);
+                $row.find('.img-preview').html(
+                    '<img src="' + url + '" style="max-height:80px;border:1px solid #ddd;padding:3px;border-radius:4px;" />'
+                );
+                $fileInput.prop('disabled', false);
+            },
+            function () {
+                $fileInput.prop('disabled', false).val('');
+            }
+        );
     });
 
     // ============ قدم ۴: Summary ============

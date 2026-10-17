@@ -178,7 +178,7 @@
                                 </div>
                                 <h3 class="types_text">@car.NameFa</h3>
                                 <p class="looking_text">
-                                    @(car.Price.HasValue ? car.Price.Value.ToString("N0") + " تومان" : "تماس بگیرید")
+                                    @(car.Price.HasValue ? car.Price.Value.ToString("N0") + " ریال" : "تماس بگیرید")
                                 </p>
                                 <div class="read_bt">
                                     <a href="@Url.Action("Details", "Products", new { id = car.ProductId })">مشاهده</a>
