@@ -1,39 +1,24 @@
 ﻿$(function () {
-    // ============ State ============
     var currentStep = 1;
     var totalSteps = 4;
     var allAttributes = [];
     var variantCounter = 0;
+    var imageCounter = 0;
 
-    // ============ Refresh Variants ============
     function refreshVariants() {
-        if (allAttributes.length > 0) {
-            renderVariantAttributes();
-        }
+        if (allAttributes.length > 0) renderVariantAttributes();
     }
 
-    // ============ Navigation ============
     function goToStep(step) {
         if (step < 1 || step > totalSteps) return;
 
         if (step === 2) {
-            if ($('#categoriesList').text().indexOf('در حال') > -1) {
-                loadCategories();
-            }
-            if (allAttributes.length === 0) {
-                loadAttributes();
-            } else {
-                refreshVariants();
-            }
+            if ($('#categoriesDropdown option').length === 0) loadCategories();
+            if (allAttributes.length === 0) loadAttributes();
+            else refreshVariants();
         }
-
-        if (step === 3 && allAttributes.length === 0) {
-            loadAttributes();
-        }
-
-        if (step === 4) {
-            buildSummary();
-        }
+        if (step === 3 && allAttributes.length === 0) loadAttributes();
+        if (step === 4) buildSummary();
 
         $('.wizard-panel').hide();
         $('#step-' + step).show();
@@ -46,13 +31,8 @@
         });
 
         $('#btnPrev').prop('disabled', step === 1);
-        if (step === totalSteps) {
-            $('#btnNext').hide();
-            $('#btnSave').show();
-        } else {
-            $('#btnNext').show();
-            $('#btnSave').hide();
-        }
+        if (step === totalSteps) { $('#btnNext').hide(); $('#btnSave').show(); }
+        else { $('#btnNext').show(); $('#btnSave').hide(); }
 
         currentStep = step;
     }
@@ -61,44 +41,27 @@
         if (!validateStep(currentStep)) return;
         goToStep(currentStep + 1);
     });
+    $('#btnPrev').click(function () { goToStep(currentStep - 1); });
 
-    $('#btnPrev').click(function () {
-        goToStep(currentStep - 1);
-    });
-
-    // ============ Validation ============
     function validateStep(step) {
-        if (step === 1) {
-            if (!$('#NameFa').val().trim()) {
-                alert('نام فارسی الزامی است');
-                return false;
-            }
+        if (step === 1 && !$('#NameFa').val().trim()) {
+            alert('نام فارسی الزامی است');
+            return false;
         }
         if (step === 2) {
-            var any = $('#categoriesList input:checked').length > 0;
-            if (!any) {
-                if (!confirm('هیچ دسته‌بندی انتخاب نشده. ادامه می‌دهید؟'))
-                    return false;
+            var selected = $('#categoriesDropdown').val();
+            if (!selected || selected === '') {
+                if (!confirm('هیچ دسته‌بندی انتخاب نشده. ادامه می‌دهید؟')) return false;
             }
         }
         return true;
     }
 
-    // ============ Upload Helper ============
     function uploadFile(file, onSuccess, onError) {
         if (!file) return;
-
         var allowed = /\.(jpg|jpeg|png|gif|webp)$/i;
-        if (!allowed.test(file.name)) {
-            alert('فرمت فایل مجاز نیست. فقط jpg, jpeg, png, gif, webp');
-            if (onError) onError();
-            return;
-        }
-        if (file.size > 5 * 1024 * 1024) {
-            alert('حجم فایل نباید بیشتر از ۵ مگابایت باشد');
-            if (onError) onError();
-            return;
-        }
+        if (!allowed.test(file.name)) { alert('فرمت فایل مجاز نیست'); if (onError) onError(); return; }
+        if (file.size > 5 * 1024 * 1024) { alert('حجم بیش از ۵ مگابایت'); if (onError) onError(); return; }
 
         var fd = new FormData();
         fd.append('file', file);
@@ -110,51 +73,34 @@
             processData: false,
             contentType: false,
             success: function (res) {
-                if (res && res.success) {
-                    onSuccess(res.url);
-                } else {
-                    alert('خطا: ' + (res && res.message ? res.message : 'آپلود ناموفق'));
-                    if (onError) onError();
-                }
+                if (res && res.success) onSuccess(res.url);
+                else { alert('خطا: ' + (res && res.message ? res.message : 'ناموفق')); if (onError) onError(); }
             },
-            error: function () {
-                alert('خطا در ارتباط با سرور هنگام آپلود');
-                if (onError) onError();
-            }
+            error: function () { alert('خطا در آپلود'); if (onError) onError(); }
         });
     }
-
-    // ============ قدم ۱: آپلود تصویر اصلی ============
-    $('#btnUploadMainImage').click(function () {
-        $('#mainImageFile').click();
-    });
 
     $('#mainImageFile').change(function () {
         var file = this.files[0];
         if (!file) return;
-
-        var $btn = $('#btnUploadMainImage').prop('disabled', true).text('در حال آپلود...');
+        var $area = $('#mainImageCard .image-upload-area');
+        $area.addClass('uploading');
 
         uploadFile(file,
             function (url) {
                 $('#ImageUrl').val(url);
-                $('#mainImagePreview').html(
-                    '<img src="' + url + '" style="max-height:120px;border:1px solid #ddd;padding:3px;border-radius:4px;" />'
-                );
-                $btn.prop('disabled', false).text('انتخاب و آپلود');
-                $('#mainImageFile').val('');
+                $('#mainImagePreview').html('<img src="' + url + '" alt="preview" />').show();
+                $('#mainImageLabel').hide();
+                $area.removeClass('uploading');
             },
             function () {
-                $btn.prop('disabled', false).text('انتخاب و آپلود');
+                $area.removeClass('uploading');
                 $('#mainImageFile').val('');
             }
         );
     });
 
-    // ============ قدم ۱: Variants ============
-    $('#btnAddVariant').click(function () {
-        addVariantRow();
-    });
+    $('#btnAddVariant').click(function () { addVariantRow(); });
 
     function addVariantRow(data) {
         data = data || {};
@@ -175,27 +121,77 @@
         refreshVariants();
     });
 
-    // ============ قدم ۲: Categories ============
     function loadCategories() {
-        ApiClient.get('productwizard/GetCategories', null, function (data) {
-            var html = '';
+        ApiClient.get('ProductWizard/GetCategories', null, function (data) {
+            var $select = $('#categoriesDropdown').empty();
+
             if (!data || data.length === 0) {
-                html = '<em>دسته‌بندی‌ای یافت نشد</em>';
-            } else {
-                $.each(data, function (i, c) {
-                    html += '<div class="checkbox">' +
-                        '<label><input type="checkbox" class="cat-checkbox" value="' + c.CategoryId + '" /> ' +
-                        c.NameFa + ' <small class="text-muted">(' + c.CategoryType + ')</small></label>' +
-                    '</div>';
-                });
+                $select.append('<option value="">دسته‌بندی‌ای یافت نشد</option>');
+                return;
             }
-            $('#categoriesList').html(html);
+
+            $.each(data, function (i, c) {
+                if (c.Children && c.Children.length > 0) {
+                    var $group = $('<optgroup>').attr('label', '📁 ' + c.NameFa + ' (' + (c.CategoryType || '') + ')');
+                    $group.append($('<option>').attr('value', c.CategoryId).attr('data-parent', c.FK_ParentId || '').attr('data-is-parent', 'true').text('📁 ' + c.NameFa + ' (والد)'));
+
+                    $.each(c.Children, function (j, child) {
+                        $group.append($('<option>').attr('value', child.CategoryId).attr('data-parent', child.FK_ParentId || '').attr('data-is-parent', (child.Children && child.Children.length > 0) ? 'true' : 'false').text('└ ' + child.NameFa + ' (' + (child.CategoryType || '') + ')'));
+                        if (child.Children && child.Children.length > 0) {
+                            $.each(child.Children, function (k, sub) {
+                                $group.append($('<option>').attr('value', sub.CategoryId).attr('data-parent', sub.FK_ParentId || '').attr('data-is-parent', 'false').text('└── ' + sub.NameFa + ' (' + (sub.CategoryType || '') + ')'));
+                            });
+                        }
+                    });
+                    $select.append($group);
+                } else {
+                    $select.append($('<option>').attr('value', c.CategoryId).attr('data-parent', c.FK_ParentId || '').attr('data-is-parent', 'false').text(c.NameFa + ' (' + (c.CategoryType || '') + ')'));
+                }
+            });
+
+            $select.select2({
+                placeholder: 'جستجوی دسته‌بندی...', allowClear: true, dir: 'rtl', width: '100%',
+                language: { noResults: function () { return 'نتیجه‌ای یافت نشد'; }, searching: function () { return 'در حال جستجو...'; } },
+                templateResult: function (opt) {
+                    if (!opt.id) return opt.text;
+                    if ($(opt.element).attr('data-is-parent') === 'true') {
+                        return $('<span style="font-weight:bold;color:#0056b3;">' + opt.text + '</span>');
+                    }
+                    return $('<span>' + opt.text + '</span>');
+                }
+            });
         });
     }
 
-    // ============ قدم ۲: Attributes ============
+    $(document).on('change', '#categoriesDropdown', function () { showParentChain($(this).val()); });
+
+    function showParentChain(selectedId) {
+        var $info = $('#parentCategoriesInfo').empty();
+        if (!selectedId || selectedId === '') return;
+
+        var chain = [];
+        var $opt = $('#categoriesDropdown option[value="' + selectedId + '"]');
+        var parentId = $opt.attr('data-parent');
+
+        while (parentId && parentId !== '' && parentId != 1) {
+            var $parentOpt = $('#categoriesDropdown option[value="' + parentId + '"]');
+            if ($parentOpt.length === 0) break;
+            chain.unshift($parentOpt.text().replace('📁 ', '').replace(' (والد)', ''));
+            parentId = $parentOpt.attr('data-parent');
+        }
+
+        if (chain.length > 0) {
+            var html = '<small class="text-muted">📁 والدها: </small>';
+            $.each(chain, function (i, name) {
+                if (i > 0) html += '<span class="parent-arrow">←</span>';
+                html += '<span class="parent-chain">' + name + '</span>';
+            });
+            $info.html(html);
+        }
+    }
+
     function loadAttributes() {
-        ApiClient.get('productwizard/GetAttributes', null, function (data) {
+        ApiClient.get('ProductWizard/GetAttributes', null, function (data) {
             allAttributes = data || [];
             renderVariantAttributes();
         });
@@ -204,145 +200,145 @@
     function renderVariantAttributes() {
         var container = $('#variantAttributesContainer').empty();
         var variantRows = $('#tblVariants tbody tr');
-
-        if (variantRows.length === 0) {
-            container.html('<em class="text-muted">ابتدا در قدم ۱ واریانت اضافه کنید</em>');
-            return;
-        }
-
+        if (variantRows.length === 0) { container.html('<em class="text-muted">ابتدا در قدم ۱ واریانت اضافه کنید</em>'); return; }
         variantRows.each(function (i) {
             var sku = $(this).find('.v-sku').val() || 'بدون SKU';
-            var box = '<div class="panel panel-default">' +
+            container.append('<div class="panel panel-default">' +
                 '<div class="panel-heading"><b>واریانت ' + (i + 1) + ':</b> ' + sku + '</div>' +
                 '<div class="panel-body">' +
                     '<button type="button" class="btn btn-sm btn-success btn-add-var-attr" data-variant-idx="' + i + '">+ افزودن صفت</button>' +
-                    '<table class="table table-condensed" style="margin-top:10px;">' +
-                        '<thead><tr><th>صفت</th><th>مقدار</th><th></th></tr></thead>' +
-                        '<tbody class="var-attr-body" data-variant-idx="' + i + '"></tbody>' +
-                    '</table>' +
+                    '<div class="table-responsive" style="margin-top:10px;">' +
+                        '<table class="table table-condensed">' +
+                            '<thead><tr><th>صفت</th><th>مقدار</th><th></th></tr></thead>' +
+                            '<tbody class="var-attr-body" data-variant-idx="' + i + '"></tbody>' +
+                        '</table>' +
+                    '</div>' +
                 '</div>' +
-            '</div>';
-            container.append(box);
+            '</div>');
         });
     }
 
     $(document).on('click', '.btn-add-var-attr', function () {
         var variantIdx = $(this).data('variant-idx');
         var tbody = $('.var-attr-body[data-variant-idx="' + variantIdx + '"]');
-
         var attrOptions = '<option value="">انتخاب صفت...</option>';
-        $.each(allAttributes, function (i, a) {
-            attrOptions += '<option value="' + a.AttributeId + '">' + a.NameFa + '</option>';
-        });
-
-        var row = '<tr>' +
-            '<td><select class="form-control attr-select">' + attrOptions + '</select></td>' +
-            '<td><select class="form-control attr-value-select"><option value="">ابتدا صفت را انتخاب کنید</option></select></td>' +
-            '<td><button type="button" class="btn btn-sm btn-danger btn-remove-row">×</button></td>' +
-        '</tr>';
-        tbody.append(row);
+        $.each(allAttributes, function (i, a) { attrOptions += '<option value="' + a.AttributeId + '">' + a.NameFa + '</option>'; });
+        tbody.append('<tr><td><select class="form-control attr-select">' + attrOptions + '</select></td><td><select class="form-control attr-value-select"><option value="">ابتدا صفت را انتخاب کنید</option></select></td><td><button type="button" class="btn btn-sm btn-danger btn-remove-row">×</button></td></tr>');
     });
 
     $(document).on('change', '.attr-select', function () {
         var attrId = $(this).val();
         var valueSelect = $(this).closest('tr').find('.attr-value-select');
-
-        if (!attrId) {
-            valueSelect.html('<option value="">ابتدا صفت را انتخاب کنید</option>');
-            return;
-        }
-
+        if (!attrId) { valueSelect.html('<option value="">ابتدا صفت را انتخاب کنید</option>'); return; }
         valueSelect.html('<option value="">در حال بارگذاری...</option>');
-        ApiClient.get('productwizard/GetAttributeValues', { attributeId: attrId }, function (data) {
+        ApiClient.get('ProductWizard/GetAttributeValues', { attributeId: attrId }, function (data) {
             var html = '<option value="">انتخاب مقدار...</option>';
-            $.each(data, function (i, v) {
-                html += '<option value="' + v.AttributeValueId + '">' + v.ValueFa + '</option>';
-            });
+            $.each(data, function (i, v) { html += '<option value="' + v.AttributeValueId + '">' + v.ValueFa + '</option>'; });
             valueSelect.html(html);
         });
     });
 
-    $(document).on('click', '.btn-remove-row', function () {
-        $(this).closest('tr').remove();
-    });
+    $(document).on('click', '.btn-remove-row', function () { $(this).closest('tr').remove(); });
 
-    // ============ قدم ۳: Resource Attributes ============
     $('#btnAddResourceAttr').click(function () {
-        if (allAttributes.length === 0) {
-            alert('ابتدا صفت‌ها را بارگذاری کنید');
-            return;
-        }
+        if (allAttributes.length === 0) { alert('ابتدا صفت‌ها را بارگذاری کنید'); return; }
         var attrOptions = '<option value="">انتخاب صفت...</option>';
-        $.each(allAttributes, function (i, a) {
-            attrOptions += '<option value="' + a.AttributeId + '">' + a.NameFa + '</option>';
-        });
-
-        var row = '<tr>' +
-            '<td><select class="form-control ra-attr">' + attrOptions + '</select></td>' +
-            '<td><select class="form-control ra-value"><option value="">ابتدا صفت را انتخاب کنید</option></select></td>' +
-            '<td><button type="button" class="btn btn-sm btn-danger btn-remove-row">×</button></td>' +
-        '</tr>';
-        $('#tblResourceAttrs tbody').append(row);
+        $.each(allAttributes, function (i, a) { attrOptions += '<option value="' + a.AttributeId + '">' + a.NameFa + '</option>'; });
+        $('#tblResourceAttrs tbody').append('<tr><td><select class="form-control ra-attr">' + attrOptions + '</select></td><td><select class="form-control ra-value"><option value="">ابتدا صفت را انتخاب کنید</option></select></td><td><button type="button" class="btn btn-sm btn-danger btn-remove-row">×</button></td></tr>');
     });
 
     $(document).on('change', '.ra-attr', function () {
         var attrId = $(this).val();
         var valueSelect = $(this).closest('tr').find('.ra-value');
-
-        if (!attrId) {
-            valueSelect.html('<option value="">ابتدا صفت را انتخاب کنید</option>');
-            return;
-        }
-
+        if (!attrId) { valueSelect.html('<option value="">ابتدا صفت را انتخاب کنید</option>'); return; }
         valueSelect.html('<option value="">در حال بارگذاری...</option>');
-        ApiClient.get('productwizard/GetAttributeValues', { attributeId: attrId }, function (data) {
+        ApiClient.get('ProductWizard/GetAttributeValues', { attributeId: attrId }, function (data) {
             var html = '<option value="">انتخاب مقدار...</option>';
-            $.each(data, function (i, v) {
-                html += '<option value="' + v.AttributeValueId + '">' + v.ValueFa + '</option>';
-            });
+            $.each(data, function (i, v) { html += '<option value="' + v.AttributeValueId + '">' + v.ValueFa + '</option>'; });
             valueSelect.html(html);
         });
     });
 
-    // ============ قدم ۳: Images (input file دیده‌شدنی) ============
-    $('#btnAddImage').click(function () {
-        var row = '<tr>' +
-            '<td>' +
-                '<input type="file" class="img-file form-control" accept="image/*" />' +
-                '<input type="text" class="form-control img-url" readonly placeholder="آدرس تصویر بعد از آپلود" style="margin-top:5px;" />' +
-                '<div class="img-preview" style="margin-top:5px;"></div>' +
-            '</td>' +
-            '<td><input type="text" class="form-control img-title" /></td>' +
-            '<td><input type="number" class="form-control img-sort" value="0" /></td>' +
-            '<td><input type="checkbox" class="img-main" /></td>' +
-            '<td><button type="button" class="btn btn-sm btn-danger btn-remove-row">×</button></td>' +
-        '</tr>';
-        $('#tblImages tbody').append(row);
+    $('#btnAddImage').click(function () { addImageCard(); });
+
+    function addImageCard(data) {
+        data = data || {};
+        var idx = imageCounter++;
+        $('#noImagesMessage').hide();
+
+        var card = '<div class="image-card" data-img-idx="' + idx + '">' +
+            '<div class="image-card-header">' +
+                '<span class="image-card-title"><i class="fa fa-image"></i> تصویر</span>' +
+                '<button type="button" class="btn btn-sm btn-danger btn-remove-image" title="حذف">×</button>' +
+            '</div>' +
+            '<div class="image-card-body">' +
+                '<div class="image-upload-area">' +
+                    '<input type="file" class="img-file" accept="image/*" style="display:none;" id="img-file-' + idx + '" />' +
+                    '<label for="img-file-' + idx + '" class="upload-label">' +
+                        '<div class="upload-icon">📷</div>' +
+                        '<div class="upload-text">کلیک کنید یا فایل را بکشید</div>' +
+                        '<div class="upload-hint">JPG, PNG, GIF, WEBP — حداکثر ۵ مگابایت</div>' +
+                    '</label>' +
+                    '<div class="img-preview" style="display:none;"></div>' +
+                    '<input type="text" class="form-control img-url" readonly placeholder="آدرس تصویر بعد از آپلود" style="margin-top:8px; font-size:12px;" />' +
+                '</div>' +
+                '<div class="image-meta">' +
+                    '<div class="form-group" style="margin-bottom:10px;">' +
+                        '<label style="font-size:13px;">عنوان</label>' +
+                        '<input type="text" class="form-control img-title" value="' + (data.Title || '') + '" placeholder="مثلاً نمای جلو" />' +
+                    '</div>' +
+                    '<div class="row">' +
+                        '<div class="col-6">' +
+                            '<div class="form-group" style="margin-bottom:10px;">' +
+                                '<label style="font-size:13px;">ترتیب</label>' +
+                                '<input type="number" class="form-control img-sort" value="' + (data.SortOrder || 0) + '" min="0" />' +
+                            '</div>' +
+                        '</div>' +
+                        '<div class="col-6">' +
+                            '<div class="form-group" style="margin-bottom:10px;">' +
+                                '<label style="font-size:13px;">تصویر اصلی</label>' +
+                                '<div class="checkbox-wrapper">' +
+                                    '<input type="checkbox" class="img-main" id="img-main-' + idx + '" ' + (data.IsMain ? 'checked' : '') + ' />' +
+                                    '<label for="img-main-' + idx + '" class="main-checkbox-label">اصلی</label>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>' +
+            '</div>' +
+        '</div>';
+
+        $('#imagesContainer').prepend(card);
+    }
+
+    $(document).on('click', '.btn-remove-image', function () {
+        $(this).closest('.image-card').remove();
+        if ($('#imagesContainer .image-card').length === 0) $('#noImagesMessage').show();
     });
 
-    // انتخاب فایل در هر ردیف -> آپلود خودکار
     $(document).on('change', '.img-file', function () {
         var file = this.files[0];
         if (!file) return;
+        var $card = $(this).closest('.image-card');
+        var $preview = $card.find('.img-preview');
+        var $uploadArea = $card.find('.image-upload-area');
 
-        var $row = $(this).closest('tr');
-        var $fileInput = $(this).prop('disabled', true);
+        $uploadArea.addClass('uploading');
 
         uploadFile(file,
             function (url) {
-                $row.find('.img-url').val(url);
-                $row.find('.img-preview').html(
-                    '<img src="' + url + '" style="max-height:80px;border:1px solid #ddd;padding:3px;border-radius:4px;" />'
-                );
-                $fileInput.prop('disabled', false);
+                $card.find('.img-url').val(url);
+                $preview.html('<img src="' + url + '" alt="preview" />').show();
+                $card.find('.upload-label').hide();
+                $uploadArea.removeClass('uploading');
             },
             function () {
-                $fileInput.prop('disabled', false).val('');
+                $uploadArea.removeClass('uploading');
+                $card.find('.img-file').val('');
             }
         );
     });
 
-    // ============ قدم ۴: Summary ============
     function collectStep1() {
         var variants = [];
         $('#tblVariants tbody tr').each(function () {
@@ -353,25 +349,28 @@
                 IsActive: $(this).find('.v-active').is(':checked')
             });
         });
-
         return {
-            NameFa: $('#NameFa').val(),
-            NameEn: $('#NameEn').val(),
-            Description: $('#Description').val(),
-            ImageUrl: $('#ImageUrl').val(),
-            ResourceIsActive: true,
-            ProductCode: $('#ProductCode').val(),
-            Barcode: $('#Barcode').val(),
-            ProductIsActive: true,
-            Variants: variants
+            NameFa: $('#NameFa').val(), NameEn: $('#NameEn').val(),
+            Description: $('#Description').val(), ImageUrl: $('#ImageUrl').val(),
+            ResourceIsActive: true, ProductCode: $('#ProductCode').val(),
+            Barcode: $('#Barcode').val(), ProductIsActive: true, Variants: variants
         };
     }
 
     function collectStep2() {
         var categoryIds = [];
-        $('#categoriesList input:checked').each(function () {
-            categoryIds.push(parseInt($(this).val()));
-        });
+        var selected = $('#categoriesDropdown').val();
+        if (selected && selected !== '') {
+            categoryIds.push(parseInt(selected));
+            var $opt = $('#categoriesDropdown option[value="' + selected + '"]');
+            var parentId = $opt.attr('data-parent');
+            while (parentId && parentId !== '' && parentId != 1) {
+                categoryIds.push(parseInt(parentId));
+                var $parentOpt = $('#categoriesDropdown option[value="' + parentId + '"]');
+                if ($parentOpt.length === 0) break;
+                parentId = $parentOpt.attr('data-parent');
+            }
+        }
 
         var variantAttributes = [];
         $('.var-attr-body').each(function () {
@@ -380,25 +379,12 @@
             $(this).find('tr').each(function () {
                 var attrId = $(this).find('.attr-select').val();
                 var valueId = $(this).find('.attr-value-select').val();
-                if (attrId && valueId) {
-                    attrs.push({
-                        FK_AttributeId: parseInt(attrId),
-                        FK_AttributeValueId: parseInt(valueId)
-                    });
-                }
+                if (attrId && valueId) attrs.push({ FK_AttributeId: parseInt(attrId), FK_AttributeValueId: parseInt(valueId) });
             });
-            if (attrs.length > 0) {
-                variantAttributes.push({
-                    VariantIndex: variantIdx,
-                    Attributes: attrs
-                });
-            }
+            if (attrs.length > 0) variantAttributes.push({ VariantIndex: variantIdx, Attributes: attrs });
         });
 
-        return {
-            SelectedCategoryIds: categoryIds,
-            VariantAttributes: variantAttributes
-        };
+        return { SelectedCategoryIds: categoryIds, VariantAttributes: variantAttributes };
     }
 
     function collectStep3() {
@@ -406,20 +392,15 @@
         $('#tblResourceAttrs tbody tr').each(function () {
             var attrId = $(this).find('.ra-attr').val();
             var valueId = $(this).find('.ra-value').val();
-            if (attrId) {
-                resourceAttrs.push({
-                    FK_AttributeId: parseInt(attrId),
-                    FK_AttributeValueId: valueId ? parseInt(valueId) : null,
-                    ValueText: null,
-                    ValueNumber: null,
-                    ValueDate: null,
-                    ValueBoolean: null
-                });
-            }
+            if (attrId) resourceAttrs.push({
+                FK_AttributeId: parseInt(attrId),
+                FK_AttributeValueId: valueId ? parseInt(valueId) : null,
+                ValueText: null, ValueNumber: null, ValueDate: null, ValueBoolean: null
+            });
         });
 
         var images = [];
-        $('#tblImages tbody tr').each(function () {
+        $('#imagesContainer .image-card').each(function () {
             var url = $(this).find('.img-url').val();
             if (url) {
                 images.push({
@@ -432,84 +413,45 @@
             }
         });
 
-        return {
-            ResourceAttributes: resourceAttrs,
-            Images: images
-        };
+        return { ResourceAttributes: resourceAttrs, Images: images };
     }
 
     function buildSummary() {
-        var s1 = collectStep1();
-        var s2 = collectStep2();
-        var s3 = collectStep3();
-
-        var html = '<div class="panel panel-default">' +
-            '<div class="panel-heading"><b>اطلاعات پایه</b></div>' +
-            '<div class="panel-body">' +
-                '<p><b>نام فارسی:</b> ' + s1.NameFa + '</p>' +
-                '<p><b>نام انگلیسی:</b> ' + (s1.NameEn || '-') + '</p>' +
-                '<p><b>کد محصول:</b> ' + (s1.ProductCode || '-') + '</p>' +
-                '<p><b>بارکد:</b> ' + (s1.Barcode || '-') + '</p>' +
-                '<p><b>تعداد واریانت:</b> ' + s1.Variants.length + '</p>' +
-            '</div>' +
-        '</div>';
-
-        html += '<div class="panel panel-default">' +
-            '<div class="panel-heading"><b>دسته‌بندی‌ها</b></div>' +
-            '<div class="panel-body">' +
-                '<p>تعداد: ' + s2.SelectedCategoryIds.length + '</p>' +
-            '</div>' +
-        '</div>';
-
-        html += '<div class="panel panel-default">' +
-            '<div class="panel-heading"><b>صفت‌های واریانت</b></div>' +
-            '<div class="panel-body">' +
-                '<p>تعداد: ' + s2.VariantAttributes.length + ' واریانت دارای صفت</p>' +
-            '</div>' +
-        '</div>';
-
-        html += '<div class="panel panel-default">' +
-            '<div class="panel-heading"><b>ویژگی‌ها و تصاویر</b></div>' +
-            '<div class="panel-body">' +
-                '<p>ویژگی‌ها: ' + s3.ResourceAttributes.length + '</p>' +
-                '<p>تصاویر: ' + s3.Images.length + '</p>' +
-            '</div>' +
-        '</div>';
-
+        var s1 = collectStep1(), s2 = collectStep2(), s3 = collectStep3();
+        var html = '<div class="panel panel-default"><div class="panel-heading"><b>اطلاعات پایه</b></div><div class="panel-body">' +
+            '<p><b>نام فارسی:</b> ' + s1.NameFa + '</p>' +
+            '<p><b>نام انگلیسی:</b> ' + (s1.NameEn || '-') + '</p>' +
+            '<p><b>کد محصول:</b> ' + (s1.ProductCode || '-') + '</p>' +
+            '<p><b>بارکد:</b> ' + (s1.Barcode || '-') + '</p>' +
+            '<p><b>تعداد واریانت:</b> ' + s1.Variants.length + '</p>' +
+            '</div></div>' +
+            '<div class="panel panel-default"><div class="panel-heading"><b>دسته‌بندی‌ها</b></div><div class="panel-body">' +
+            '<p>تعداد: ' + s2.SelectedCategoryIds.length + ' (شامل والدها)</p>' +
+            '<p><small>IDها: ' + s2.SelectedCategoryIds.join(', ') + '</small></p>' +
+            '</div></div>' +
+            '<div class="panel panel-default"><div class="panel-heading"><b>صفت‌های واریانت</b></div><div class="panel-body">' +
+            '<p>تعداد: ' + s2.VariantAttributes.length + ' واریانت دارای صفت</p></div></div>' +
+            '<div class="panel panel-default"><div class="panel-heading"><b>ویژگی‌ها و تصاویر</b></div><div class="panel-body">' +
+            '<p>ویژگی‌ها: ' + s3.ResourceAttributes.length + '</p>' +
+            '<p>تصاویر: ' + s3.Images.length + '</p></div></div>';
         $('#summaryContainer').html(html);
     }
 
-    // ============ Save ============
     $('#btnSave').click(function () {
-        var model = {
-            Step1: collectStep1(),
-            Step2: collectStep2(),
-            Step3: collectStep3()
-        };
-
+        var model = { Step1: collectStep1(), Step2: collectStep2(), Step3: collectStep3() };
         $('#btnSave').prop('disabled', true).text('در حال ذخیره...');
-
         $.ajax({
             url: ApiClient.baseUrl + 'ProductWizard/Save',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(model),
             success: function (res) {
-                if (res.success) {
-                    alert(res.message);
-                    window.location.href = ApiClient.baseUrl + 'Products/Index';
-                } else {
-                    alert('خطا: ' + res.message);
-                    $('#btnSave').prop('disabled', false).text('ثبت نهایی');
-                }
+                if (res.success) { alert(res.message); window.location.href = ApiClient.baseUrl + 'Products/Index'; }
+                else { alert('خطا: ' + res.message); $('#btnSave').prop('disabled', false).text('ثبت نهایی'); }
             },
-            error: function (xhr) {
-                alert('خطا در ارتباط با سرور');
-                $('#btnSave').prop('disabled', false).text('ثبت نهایی');
-            }
+            error: function () { alert('خطا در سرور'); $('#btnSave').prop('disabled', false).text('ثبت نهایی'); }
         });
     });
 
-    // شروع
     goToStep(1);
 });

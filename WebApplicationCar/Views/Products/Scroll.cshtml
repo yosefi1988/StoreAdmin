@@ -2,37 +2,73 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     var mine = ViewBag.Mine == true;
     var filterUserName = ViewBag.FilterUserName as string ?? "";
+    var filterCategoryId = ViewBag.FilterCategoryId as int?;
+    var filterCategoryName = ViewBag.FilterCategoryName as string ?? "";
+    var hasAnyFilter = mine || !string.IsNullOrEmpty(filterUserName) || filterCategoryId.HasValue;
     ViewBag.Title = mine ? "محصولات من" : "لیست خودروها";
 }
-
 
 <div class="container" style="margin-top:20px;">
     <h2>@ViewBag.Title</h2>
     <hr />
 
-    <!-- فیلتر نام کاربر (فقط وقتی mine نیست) -->
-    @if (!mine)
-    {
-        <div class="row" style="margin-bottom:15px;">
-            <div class="col-md-8 text-left">
-                <a href="@Url.Action("Scroll", "Products", new { mine = true })"
-                   class="btn btn-info">
+    <!-- دکمه‌های فیلتر -->
+    <div class="row" style="margin-bottom:15px;">
+        <div class="col-md-12">
+            @if (!mine)
+            {
+                <a href="@Url.Action("Scroll", "Products", new { mine = true })" class="btn btn-info">
                     <i class="fa fa-user"></i> فقط محصولات من
                 </a>
-                <a href="@Url.Action("Scroll", "Products")"
-                   class="btn btn-default">همه</a>
-            </div>
-        </div>
-    }
-    else
-    {
-        <div class="row" style="margin-bottom:15px;">
-            <div class="col-md-12">
-                <a href="@Url.Action("Scroll", "Products")"
-                   class="btn btn-default">
+            }
+            else
+            {
+                <a href="@Url.Action("Scroll", "Products")" class="btn btn-default">
                     <i class="fa fa-list"></i> نمایش همه محصولات
                 </a>
-            </div>
+            }
+
+            <a href="@Url.Action("Scroll", "Products")" class="btn btn-default">
+                <i class="fa fa-list"></i> همه
+            </a>
+        </div>
+    </div>
+
+    <!-- نمایش فیلترهای فعال -->
+    @if (hasAnyFilter)
+    {
+        <div class="alert alert-info" style="margin-bottom:20px;">
+            <i class="fa fa-filter"></i>
+            <strong>فیلترهای فعال:</strong>
+
+            @if (!string.IsNullOrEmpty(filterUserName))
+            {
+                <span class="label label-primary" style="margin:0 5px;">
+                    <i class="fa fa-user"></i> کاربر: @filterUserName
+                    <a href="@Url.Action("Scroll", "Products", new {
+                        categoryId = filterCategoryId,
+                        mine = mine ? (bool?)true : null
+                    })" style="color:white; margin-right:5px;">×</a>
+                </span>
+            }
+
+            @if (filterCategoryId.HasValue)
+            {
+                <span class="label label-success" style="margin:0 5px;">
+                    <i class="fa fa-folder-open"></i> دسته: @filterCategoryName
+                    <a href="@Url.Action("Scroll", "Products", new {
+                        userName = filterUserName,
+                        mine = mine ? (bool?)true : null
+                    })" style="color:white; margin-right:5px;">×</a>
+                </span>
+            }
+
+            @if (!mine && (!string.IsNullOrEmpty(filterUserName) || filterCategoryId.HasValue))
+            {
+                <a href="@Url.Action("Scroll", "Products")" class="btn btn-xs btn-default" style="margin-right:10px;">
+                    <i class="fa fa-times"></i> حذف همه
+                </a>
+            }
         </div>
     }
 
@@ -123,7 +159,9 @@
         };
         window.ProductsFilter = {
             mine: @(mine ? "true" : "false"),
-            userName: '@Html.Raw(HttpUtility.JavaScriptStringEncode(filterUserName))'
+            userName: '@Html.Raw(HttpUtility.JavaScriptStringEncode(filterUserName))',
+            categoryId: @(filterCategoryId.HasValue ? filterCategoryId.Value.ToString() : "null"),
+            categoryName: '@Html.Raw(HttpUtility.JavaScriptStringEncode(filterCategoryName))'
         };
     </script>
     <script src="~/Scripts/products-scroll.js"></script>

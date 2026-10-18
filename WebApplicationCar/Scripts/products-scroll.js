@@ -9,6 +9,7 @@
     // 👇 از View میاد
     var mine = window.ProductsFilter ? window.ProductsFilter.mine : false;
     var userName = window.ProductsFilter ? window.ProductsFilter.userName : '';
+    var categoryId = window.ProductsFilter ? window.ProductsFilter.categoryId : null;
 
     function loadMore() {
         if (isLoading || !hasMore) return;
@@ -17,9 +18,20 @@
         $('#loading').show();
         $('#error').hide();
 
-        $.get(ApiClient.baseUrl + 'Products/GetProductsScroll',
-              { skip: skip, take: take, seed: seed, mine: mine, userName: userName },
-              function (res) {
+        var params = {
+            skip: skip,
+            take: take,
+            seed: seed,
+            mine: mine,
+            userName: userName
+        };
+
+        // ⭐ categoryId فقط اگه مقدار داشت
+        if (categoryId) {
+            params.categoryId = categoryId;
+        }
+
+        $.get(ApiClient.baseUrl + 'Products/GetProductsScroll', params, function (res) {
             isLoading = false;
             $('#loading').hide();
 
@@ -57,7 +69,6 @@
         }
 
         $.each(products, function (i, p) {
-            // اگه ProductId نداره، نشونش نده
             if (p.ProductId == null || p.ProductId === '') return;
 
             var imageHtml = p.ImageUrl

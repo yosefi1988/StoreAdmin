@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using WebApplicationCar.Models;
+using WebApplicationCar.Services;
 
 namespace WebApplicationCar.Controllers
 {
@@ -20,7 +22,7 @@ namespace WebApplicationCar.Controllers
         public JsonResult GetProducts(int page = 1, int pageSize = 20,
                                        string search = null,
                                        string userName = null,
-                                       bool mine = false)   // 👈 اضافه شد
+                                       bool mine = false)
         {
             try
             {
@@ -48,11 +50,9 @@ namespace WebApplicationCar.Controllers
                                     MobileNumber = r.X_User.MobileNumber
                                 };
 
-                    // فقط محصولات من
                     if (mine && currentUserId.HasValue)
                         query = query.Where(x => x.UserId == currentUserId.Value);
 
-                    // فیلتر نام کاربر
                     if (!string.IsNullOrWhiteSpace(userName))
                     {
                         userName = userName.Trim();
@@ -63,7 +63,6 @@ namespace WebApplicationCar.Controllers
                             x.MobileNumber.Contains(userName));
                     }
 
-                    // فیلتر جستجو
                     if (!string.IsNullOrEmpty(search))
                     {
                         search = search.Trim();
@@ -101,17 +100,35 @@ namespace WebApplicationCar.Controllers
         }
 
         // ==================== صفحه اسکرول ====================
-        public ActionResult Scroll(string userName = null, bool mine = false)
+        public ActionResult Scroll(string userName = null, bool mine = false, int? categoryId = null)
         {
             ViewBag.FilterUserName = userName;
             ViewBag.Mine = mine;
+
+            if (categoryId.HasValue && categoryId.Value > 0)
+            {
+                using (var db = new DataClassesDatabaseDataContextDataContext())
+                {
+                    ViewBag.FilterCategoryId = categoryId.Value;
+                    ViewBag.FilterCategoryName = db.X_Categories
+                        .Where(c => c.CategoryId == categoryId.Value)
+                        .Select(c => c.NameFa)
+                        .FirstOrDefault();
+                }
+            }
+            else
+            {
+                ViewBag.FilterCategoryId = null;
+                ViewBag.FilterCategoryName = null;
+            }
+
             return View();
         }
 
 
         // ==================== AJAX: لود محصولات (Scroll) ====================
         public JsonResult GetProductsScroll(int skip = 0, int take = 12, int seed = 0,
-                                             string userName = null, bool mine = false)
+                                             string userName = null, bool mine = false, int? categoryId = null)
         {
             if (seed == 0)
                 seed = new Random().Next(1, 1000000);
@@ -123,8 +140,20 @@ namespace WebApplicationCar.Controllers
                 var query = db.X_Products.Where(p => p.IsActive);
 
                 // فقط محصولات من
-                if (mine && currentUserId.HasValue)
+                if (mine)
                 {
+                    if (!currentUserId.HasValue)
+                    {
+                        return Json(new
+                        {
+                            Data = new List<object>(),
+                            Total = 0,
+                            HasMore = false,
+                            Seed = seed,
+                            Error = "کاربر لاگین نیست"
+                        }, JsonRequestBehavior.AllowGet);
+                    }
+
                     query = query.Where(p =>
                         db.X_Resources
                           .Where(r => r.ResourceId == p.FK_ResourceId
@@ -144,6 +173,17 @@ namespace WebApplicationCar.Controllers
                                     || r.X_User.FirstName.Contains(u)
                                     || r.X_User.LastName.Contains(u)
                                     || r.X_User.MobileNumber.Contains(u)))
+                          .Any());
+                }
+
+                // فیلتر دسته‌بندی (با زیردسته‌ها)
+                if (categoryId.HasValue && categoryId.Value > 0)
+                {
+                    var categoryIds = GetCategoryWithDescendants(categoryId.Value, db);
+                    query = query.Where(p =>
+                        db.X_ResourceCategories
+                          .Where(rc => rc.FK_ResourceId == p.FK_ResourceId
+                                    && categoryIds.Contains(rc.FK_CategoryId))
                           .Any());
                 }
 
@@ -181,6 +221,22 @@ namespace WebApplicationCar.Controllers
             }
         }
 
+
+        // تابع کمکی: گرفتن دسته و همه زیردسته‌ها به‌صورت بازگشتی
+        private List<int> GetCategoryWithDescendants(int categoryId, DataClassesDatabaseDataContextDataContext db)
+        {
+            var result = new List<int> { categoryId };
+            var children = db.X_Categories
+                .Where(c => c.FK_ParentId == categoryId && c.IsActive)
+                .Select(c => c.CategoryId)
+                .ToList();
+
+            foreach (var child in children)
+                result.AddRange(GetCategoryWithDescendants(child, db));
+
+            return result;
+        }
+
         // ==================== Details ====================
         public ActionResult Details(int id)
         {
@@ -202,7 +258,7 @@ namespace WebApplicationCar.Controllers
                                    Description = r.Description,
                                    ImageUrl = r.ImageUrl,
 
-                                   // 👇 اطلاعات ثبت‌کننده
+                                   // اطلاعات ثبت‌کننده
                                    FK_UserId = r.FK_UserId,
                                    OwnerUserName = r.X_User.UserName,
                                    OwnerFirstName = r.X_User.FirstName,
@@ -309,9 +365,34 @@ namespace WebApplicationCar.Controllers
         }
 
         // ==================== Helper ====================
+
         private int? GetCurrentUserId()
         {
-            return HttpContext.Items["UserId"] as int?;
+            if (HttpContext != null && HttpContext.Items != null && HttpContext.Items["UserId"] != null)
+            {
+                object item = HttpContext.Items["UserId"];
+                if (item is int)
+                    return (int)item;
+            }
+
+            if (Request != null && Request.Cookies != null && Request.Cookies["auth_token"] != null)
+            {
+                string authToken = Request.Cookies["auth_token"].Value;
+                if (!string.IsNullOrEmpty(authToken))
+                {
+                    try
+                    {
+                        var tokenService = new SessionTokenService();
+                        var currentUser = tokenService.ValidateToken(authToken);
+                        if (currentUser != null)
+                            return currentUser.UserId;
+                    }
+                    catch { }
+                }
+            }
+
+            return null;
         }
+
     }
 }

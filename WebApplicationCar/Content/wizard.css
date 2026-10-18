@@ -1,0 +1,15 @@
+﻿.wizard-steps { display: flex; justify-content: space-between; margin-bottom: 30px; }
+.wizard-step { flex: 1; text-align: center; padding: 15px; border-bottom: 3px solid #ddd; opacity: 0.5; }
+.wizard-step.active { border-bottom-color: #007bff; opacity: 1; }
+.wizard-step.done { border-bottom-color: #28a745; opacity: 1; }
+.step-number { display: inline-block; width: 35px; height: 35px; line-height: 35px; border-radius: 50%; background: #007bff; color: white; font-weight: bold; margin-bottom: 5px; }
+.step-title { display: block; font-size: 13px; }
+.wizard-nav { display: flex; justify-content: space-between; margin-top: 30px; }
+
+/* Select2 تک‌انتخابی */
+.select2-container--default .select2-selection--single { height: 38px; border: 1px solid #ddd; border-radius: 4px; }
+.select2-container--default .select2-selection--single .select2-selection__rendered { line-height: 36px; padding-right: 10px; }
+.select2-container--default .select2-selection--single .select2-selection__arrow { height: 36px; }
+.select2-container--default .select2-results__group { font-weight: bold; color: #333; background-color: #f5f5f5; padding: 5px 10px; }
+.select2-results__option--highlighted { background-color: #007bff !important; color: white !important; }
+.select2-container--default .select2-search--dropdown .select2-search__field { border: 1px solid #ddd; border-radius: 4px; padding: 5px; }
