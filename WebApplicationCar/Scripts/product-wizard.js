@@ -5,37 +5,55 @@
     var variantCounter = 0;
     var imageCounter = 0;
 
+ 
+     $(document).on('select2:opening', function () {
+        var scrollY = window.scrollY || window.pageYOffset;
+        $('html, body').css('overflow', 'hidden');
+        setTimeout(function () {
+            $('html, body').css('overflow', '');
+            window.scrollTo(0, scrollY);
+        }, 150);
+    });
+
+
     function refreshVariants() {
         if (allAttributes.length > 0) renderVariantAttributes();
     }
 
-    function goToStep(step) {
-        if (step < 1 || step > totalSteps) return;
+function goToStep(step) {
+    if (step < 1 || step > totalSteps) return;
 
+    $('.wizard-panel').hide();
+    $('#step-' + step).show();
+
+    // کمی تاخیر برای اینکه مرورگر لایه‌بندی DOM را آپدیت کند
+    setTimeout(function () {
         if (step === 2) {
             if ($('#categoriesDropdown option').length === 0) loadCategories();
             if (allAttributes.length === 0) loadAttributes();
             else refreshVariants();
+            if (!$('#CountryId').data('initialized')) {
+                initLocationSelectors();
+                $('#CountryId').data('initialized', true);
+            }
         }
         if (step === 3 && allAttributes.length === 0) loadAttributes();
         if (step === 4) buildSummary();
+    }, 10);
 
-        $('.wizard-panel').hide();
-        $('#step-' + step).show();
+    $('.wizard-step').each(function () {
+        var s = parseInt($(this).data('step'));
+        $(this).removeClass('active done');
+        if (s < step) $(this).addClass('done');
+        if (s === step) $(this).addClass('active');
+    });
 
-        $('.wizard-step').each(function () {
-            var s = parseInt($(this).data('step'));
-            $(this).removeClass('active done');
-            if (s < step) $(this).addClass('done');
-            if (s === step) $(this).addClass('active');
-        });
+    $('#btnPrev').prop('disabled', step === 1);
+    if (step === totalSteps) { $('#btnNext').hide(); $('#btnSave').show(); }
+    else { $('#btnNext').show(); $('#btnSave').hide(); }
 
-        $('#btnPrev').prop('disabled', step === 1);
-        if (step === totalSteps) { $('#btnNext').hide(); $('#btnSave').show(); }
-        else { $('#btnNext').show(); $('#btnSave').hide(); }
-
-        currentStep = step;
-    }
+    currentStep = step;
+}
 
     $('#btnNext').click(function () {
         if (!validateStep(currentStep)) return;
@@ -151,6 +169,7 @@
 
             $select.select2({
                 placeholder: 'جستجوی دسته‌بندی...', allowClear: true, dir: 'rtl', width: '100%',
+                dropdownParent: $('#step-2'),
                 language: { noResults: function () { return 'نتیجه‌ای یافت نشد'; }, searching: function () { return 'در حال جستجو...'; } },
                 templateResult: function (opt) {
                     if (!opt.id) return opt.text;
@@ -159,6 +178,66 @@
                     }
                     return $('<span>' + opt.text + '</span>');
                 }
+            });
+        });
+    }
+
+    // ====== کشور / استان / شهر ======
+    function initLocationSelectors() {
+        var $country  = $('#CountryId');
+        var $province = $('#ProvinceId');
+        var $city     = $('#CityId');
+        var $parent   = $('#step-2');
+
+        // تنظیمات مشترک
+        var select2Options = {
+            width: '100%', 
+            dir: 'rtl', 
+            allowClear: true, 
+            dropdownParent: $parent
+        };
+
+        $country.select2($.extend({}, select2Options, { placeholder: 'کشور را انتخاب کنید' }));
+        $province.select2($.extend({}, select2Options, { placeholder: 'ابتدا کشور را انتخاب کنید', disabled: true }));
+        $city.select2($.extend({}, select2Options, { placeholder: 'ابتدا استان را انتخاب کنید', disabled: true }));
+
+        ApiClient.get('ProductWizard/GetCountries', null, function (data) {
+            $country.empty().append('<option value=""></option>'); // آپشن خالی برای پلیس‌هولدر
+            $.each(data, function (i, item) { $country.append(new Option(item.text, item.id, false, false)); });
+            $country.trigger('change.select2');
+        });
+
+        $country.on('change', function () {
+            var countryId = $(this).val();
+            $province.val(null).trigger('change.select2');
+            $city.val(null).trigger('change.select2');
+
+            if (!countryId) {
+                $province.prop('disabled', true).empty().append('<option value=""></option>').trigger('change.select2');
+                $city.prop('disabled', true).empty().append('<option value=""></option>').trigger('change.select2');
+                return;
+            }
+
+            ApiClient.get('ProductWizard/GetProvinces', { countryId: countryId }, function (data) {
+                $province.empty().append('<option value=""></option>'); // آپشن خالی برای پلیس‌هولدر
+                $.each(data, function (i, item) { $province.append(new Option(item.text, item.id, false, false)); });
+                $province.prop('disabled', false).trigger('change.select2');
+            });
+        });
+
+        $province.on('change', function () {
+            var provinceId = $(this).val();
+            $city.val(null).trigger('change.select2');
+
+            if (!provinceId) {
+                $city.prop('disabled', true).empty().append('<option value=""></option>').trigger('change.select2');
+                return;
+            }
+
+            ApiClient.get('ProductWizard/GetCities', { provinceId: provinceId }, function (data) {
+                $city.empty().append('<option value=""></option>'); // آپشن خالی برای پلیس‌هولدر
+                $.each(data, function (i, item) { $city.append(new Option(item.text, item.id, false, false)); });
+                $city.prop('disabled', false).trigger('change.select2');
             });
         });
     }
@@ -384,7 +463,13 @@
             if (attrs.length > 0) variantAttributes.push({ VariantIndex: variantIdx, Attributes: attrs });
         });
 
-        return { SelectedCategoryIds: categoryIds, VariantAttributes: variantAttributes };
+        return {
+            SelectedCategoryIds: categoryIds,
+            VariantAttributes: variantAttributes,
+            CountryId:  $('#CountryId').val()  || null,
+            ProvinceId: $('#ProvinceId').val() || null,
+            CityId:     $('#CityId').val()     || null
+        };
     }
 
     function collectStep3() {
@@ -431,6 +516,11 @@
             '</div></div>' +
             '<div class="panel panel-default"><div class="panel-heading"><b>صفت‌های واریانت</b></div><div class="panel-body">' +
             '<p>تعداد: ' + s2.VariantAttributes.length + ' واریانت دارای صفت</p></div></div>' +
+            '<div class="panel panel-default"><div class="panel-heading"><b>محل تولید / انبار</b></div><div class="panel-body">' +
+            '<p><b>کشور:</b> ' + ($('#CountryId option:selected').text() || '-') + '</p>' +
+            '<p><b>استان:</b> ' + ($('#ProvinceId option:selected').text() || '-') + '</p>' +
+            '<p><b>شهر:</b> ' + ($('#CityId option:selected').text() || '-') + '</p>' +
+            '</div></div>' +
             '<div class="panel panel-default"><div class="panel-heading"><b>ویژگی‌ها و تصاویر</b></div><div class="panel-body">' +
             '<p>ویژگی‌ها: ' + s3.ResourceAttributes.length + '</p>' +
             '<p>تصاویر: ' + s3.Images.length + '</p></div></div>';

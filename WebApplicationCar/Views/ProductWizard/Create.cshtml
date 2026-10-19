@@ -112,6 +112,29 @@
         <hr />
         <h5>صفت‌های واریانت‌ها</h5>
         <div id="variantAttributesContainer"></div>
+        <hr />
+        <h5>محل تولید / انبار (کشور، استان، شهر)</h5>
+        <div id="locationAttributesContainer">
+            <div class="form-group">
+                <label>کشور</label>
+                <!-- نکته: تگ option اینجا خالی است تا Select2 از placeholder استفاده کند -->
+                <select id="CountryId" class="form-control location-select">
+                    <option value=""></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>استان</label>
+                <select id="ProvinceId" class="form-control location-select" disabled>
+                    <option value=""></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>شهر</label>
+                <select id="CityId" class="form-control location-select" disabled>
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
     </div>
 
     <div class="wizard-panel" id="step-3" style="display:none;">
@@ -152,6 +175,10 @@
 @section Styles {
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <style>
+        .wizard-panel {
+            position: relative; /* برای dropdownParent در Select2 ضروری است */
+        }
+
         .wizard-steps {
             display: flex;
             justify-content: space-between;
@@ -226,6 +253,8 @@
             display: block;
         }
 
+        /* ================= اصلاح استایل Select2 ================= */
+
         .select2-container--default .select2-selection--single {
             height: 44px !important;
             border: 1px solid #ccc !important;
@@ -233,6 +262,9 @@
             display: flex;
             align-items: center;
             padding: 0 10px;
+            direction: rtl;
+            position: relative;
+            background-color: #fff;
         }
 
             .select2-container--default .select2-selection--single .select2-selection__rendered {
@@ -241,13 +273,41 @@
                 padding-left: 30px !important;
                 font-size: 15px;
                 color: #333;
+                text-align: right;
+                width: 100%;
             }
 
+            .select2-container--default .select2-selection--single .select2-selection__placeholder {
+                color: #999;
+                line-height: 42px;
+            }
+
+            /* اصلاح آیکون فلش برای جلوگیری از دوبار رندر شدن */
             .select2-container--default .select2-selection--single .select2-selection__arrow {
                 height: 42px !important;
                 left: 6px !important;
                 right: auto !important;
+                position: absolute;
+                top: 0;
             }
+
+                .select2-container--default .select2-selection--single .select2-selection__arrow b {
+                    border-color: #888 transparent transparent transparent !important;
+                    border-style: solid !important;
+                    border-width: 5px 4px 0 4px !important;
+                    height: 0 !important;
+                    left: 50% !important;
+                    margin-left: -4px !important;
+                    margin-top: -2px !important;
+                    position: absolute !important;
+                    top: 50% !important;
+                    width: 0 !important;
+                }
+
+        .select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
+            border-color: transparent transparent #888 transparent !important;
+            border-width: 0 4px 5px 4px !important;
+        }
 
         .select2-container--default.select2-container--focus .select2-selection--single,
         .select2-container--default.select2-container--open .select2-selection--single {
@@ -260,6 +320,7 @@
             border-radius: 6px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             font-size: 15px;
+            direction: rtl;
         }
 
         .select2-container--default .select2-search--dropdown .select2-search__field {
@@ -270,12 +331,23 @@
             border-radius: 4px;
             margin: 5px;
             width: calc(100% - 10px);
+            direction: rtl;
+            text-align: right;
+        }
+
+        /* جلوگیری از اسکرول خودکار مرورگر به فیلد جستجو */
+        .select2-search__field {
+            scroll-margin: 0 !important;
+        }
+        body {
+            overflow-anchor: none;
         }
 
         .select2-results__option {
             padding: 10px 12px;
             font-size: 14px;
             line-height: 1.5;
+            text-align: right;
         }
 
         .select2-results__option--highlighted {
@@ -289,6 +361,7 @@
             background-color: #f0f6ff;
             padding: 8px 12px;
             font-size: 14px;
+            text-align: right;
         }
 
         .select2-results__option[data-is-parent="true"] {
@@ -296,6 +369,8 @@
             font-weight: bold;
             color: #0056b3;
         }
+
+        /* ================= پایان اصلاح Select2 ================= */
 
         #parentCategoriesInfo .parent-chain {
             display: inline-block;
@@ -620,4 +695,4 @@
         };
     </script>
     <script src="~/Scripts/product-wizard.js?v=@DateTime.Now.Ticks"></script>
-}   
+}

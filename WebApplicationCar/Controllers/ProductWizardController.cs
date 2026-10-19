@@ -191,7 +191,23 @@ namespace WebApplicationCar.Controllers
                         }
                     }
 
-                    // ۶. X_ResourceAttributes
+                    // ۶. X_Properties — محل تولید / انبار (کشور، استان، شهر)
+                    // این بلوک باید قبل از SubmitChanges نهایی باشه (نیازی به SubmitChanges جدا نداره)
+                    if (model.Step2 != null &&
+                        (model.Step2.CountryId.HasValue || model.Step2.ProvinceId.HasValue || model.Step2.CityId.HasValue))
+                    {
+                        db.X_Properties.InsertOnSubmit(new X_Property
+                        {
+                            FK_ProductId = product.ProductId,
+                            FK_CountryId = model.Step2.CountryId,
+                            FK_ProvinceId = model.Step2.ProvinceId,
+                            FK_CityId = model.Step2.CityId,
+                            IsActive = true,
+                            CreatedAt = DateTime.Now
+                        });
+                    }
+
+                    // ۷. X_ResourceAttributes
                     if (model.Step3 != null && model.Step3.ResourceAttributes != null)
                     {
                         foreach (var ra in model.Step3.ResourceAttributes)
@@ -209,7 +225,7 @@ namespace WebApplicationCar.Controllers
                         }
                     }
 
-                    // ۷. X_ResourceImages
+                    // ۸. X_ResourceImages
                     if (model.Step3 != null && model.Step3.Images != null)
                     {
                         foreach (var img in model.Step3.Images)
@@ -282,5 +298,50 @@ namespace WebApplicationCar.Controllers
                 return Json(new { success = false, message = ex.Message });
             }
         }
+
+
+        [HttpGet]
+        public JsonResult GetCountries()
+        {
+            using (var db = new DataClassesDatabaseDataContextDataContext())
+            {
+                var list = db.X_Countries
+                    .Where(c => c.IsActive)
+                    .OrderBy(c => c.NameFa)
+                    .Select(c => new { id = c.CountryId, text = c.NameFa })
+                    .ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        public JsonResult GetProvinces(int countryId)
+        {
+            using (var db = new DataClassesDatabaseDataContextDataContext())
+            {
+                var list = db.X_Provinces
+                    .Where(p => p.FK_CountryId == countryId && p.IsActive)
+                    .OrderBy(p => p.NameFa)
+                    .Select(p => new { id = p.ProvinceId, text = p.NameFa })
+                    .ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        public JsonResult GetCities(int provinceId)
+        {
+            using (var db = new DataClassesDatabaseDataContextDataContext())
+            {
+                var list = db.X_Cities
+                    .Where(c => c.FK_ProvinceId == provinceId && c.IsActive)
+                    .OrderBy(c => c.NameFa)
+                    .Select(c => new { id = c.CityId, text = c.NameFa })
+                    .ToList();
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
     }
 }
