@@ -215,6 +215,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Site.css" />
     <Content Include="Content\wizard.css" />
     <None Include="Content\bootstrap.cssOLD" />
     <None Include="Content\bootstrap.min.cssOLD" />
@@ -238,7 +239,6 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <None Include="Content\Site.cssیت" />
     <Content Include="Scripts\change-password.js" />
     <Content Include="Scripts\config.js" />
     <Content Include="Scripts\bootstrap.js" />
