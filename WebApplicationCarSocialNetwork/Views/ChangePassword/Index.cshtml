@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "تغییر رمز عبور";
+}
+
+<div class="container" style="margin-top:60px;">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
+                <div class="panel-heading text-center">
+                    <h3 class="panel-title">تغییر رمز عبور</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label>رمز فعلی *</label>
+                        <input type="password" id="CurrentPassword" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>رمز جدید *</label>
+                        <input type="password" id="NewPassword" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>تکرار رمز جدید *</label>
+                        <input type="password" id="ConfirmPassword" class="form-control" />
+                    </div>
+
+                    <button type="button" id="btnChange"
+                            class="btn btn-success btn-block">
+                        تغییر رمز
+                    </button>
+
+                    <hr />
+
+                    <div class="text-center">
+                        <a href="@Url.Action("Index", "Dashboard")">بازگشت به پنل</a>
+                    </div>
+
+                    <div id="msg" class="alert" style="display:none; margin-top:15px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/change-password.js"></script>
+}

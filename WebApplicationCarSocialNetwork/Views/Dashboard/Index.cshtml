@@ -1,0 +1,148 @@
+﻿@{
+    ViewBag.Title = "پنل کاربری";
+}
+
+<div class="container" style="margin-top:30px; margin-bottom:50px;">
+
+    <!-- خوش‌آمد -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <i class="fa fa-dashboard"></i>
+                        خوش آمدی، @ViewBag.DisplayName
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <p>
+                        <i class="fa fa-mobile"></i> @ViewBag.Mobile
+                        @if (!string.IsNullOrEmpty(ViewBag.Email))
+                        {
+                            <span style="margin-right:20px;">
+                                <i class="fa fa-envelope"></i> @ViewBag.Email
+                            </span>
+                        }
+                    </p>
+                    @if (ViewBag.LastLoginAt != null)
+                    {
+                        <p class="text-muted" style="font-size:12px;">
+                            آخرین ورود: @(((DateTime)ViewBag.LastLoginAt).ToString("yyyy/MM/dd HH:mm"))
+                        </p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- کارت‌های آمار -->
+    <div class="row">
+        <div class="col-md-3">
+            <div class="panel panel-info">
+                <div class="panel-body text-center">
+                    <i class="fa fa-shopping-bag" style="font-size:40px; color:#5bc0de;"></i>
+                    <h3>@ViewBag.TotalOrders</h3>
+                    <p>سفارشات</p>
+                    <a href="@Url.Action("MyOrders", "Order")" class="btn btn-info btn-sm">مشاهده</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="panel panel-success">
+                <div class="panel-body text-center">
+                    <i class="fa fa-shopping-cart" style="font-size:40px; color:#5cb85c;"></i>
+                    <h3>@ViewBag.CartCount</h3>
+                    <p>اقلام سبد خرید</p>
+                    <a href="@Url.Action("Index", "Cart")" class="btn btn-success btn-sm">مشاهده</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="panel panel-warning">
+                <div class="panel-body text-center">
+                    <i class="fa fa-money" style="font-size:40px; color:#f0ad4e;"></i>
+                    <h3>@(((decimal)ViewBag.WalletBalance).ToString("N0"))</h3>
+                    <p>موجودی کیف پول (تومان)</p>
+                    <a href="@Url.Action("Index", "Wallet")" class="btn btn-warning btn-sm">شارژ</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body text-center">
+                    <i class="fa fa-star" style="font-size:40px; color:#777;"></i>
+                    <h3>@ViewBag.TotalReviews</h3>
+                    <p>نظرات من</p>
+                    <a href="@Url.Action("MyReviews", "Review")" class="btn btn-default btn-sm">مشاهده</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="panel panel-primary">
+            <div class="panel-body text-center">
+                <i class="fa fa-car" style="font-size:40px; color:#337ab7;"></i>
+                <h3>@ViewBag.MyResourcesCount</h3>
+                <p>محصولات ثبت‌شده من</p>
+                <a href="@Url.Action("Scroll", "Products", new { mine = true })"
+                   class="btn btn-primary btn-sm">
+                    مشاهده لیست من
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- لینک‌های سریع -->
+    <div class="row" style="margin-top:20px;">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">دسترسی سریع</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row text-center">
+                        <div class="col-md-3">
+                            <a href="@Url.Action("Index", "Profile")" class="btn btn-lg btn-block btn-default">
+                                <i class="fa fa-user"></i><br />پروفایل من
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="@Url.Action("Index", "UserAddresses")" class="btn btn-lg btn-block btn-default">
+                                <i class="fa fa-map-marker"></i><br />آدرس‌های من
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="@Url.Action("ChangePassword", "Profile")" class="btn btn-lg btn-block btn-default">
+                                <i class="fa fa-lock"></i><br />تغییر رمز
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="javascript:void(0)" onclick="logoutUser()" class="btn btn-lg btn-block btn-danger">
+                                <i class="fa fa-sign-out"></i><br />خروج
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <script>
+    function logoutUser() {
+        if (!confirm('از حساب خارج می‌شوید؟')) return;
+        $.post('@Url.Action("Logout", "Login")', function (res) {
+            if (res.success) {
+                localStorage.removeItem('auth_token');
+                window.location.href = '/';
+            }
+        });
+    }
+    </script>
+}

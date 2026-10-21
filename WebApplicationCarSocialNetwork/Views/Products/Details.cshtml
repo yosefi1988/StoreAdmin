@@ -1,0 +1,263 @@
+﻿@model WebApplicationCar.Models.ProductDetailsViewModel
+
+@{
+    ViewBag.Title = "جزئیات محصول";
+}
+
+<div class="container" style="margin-top:20px; max-width:1000px;">
+    <div class="text-center" style="margin-bottom:25px;">
+        <h2 style="font-weight:bold;">جزئیات محصول</h2>
+        <hr style="width:80px; border-top:2px solid #28a745; margin:10px auto;" />
+    </div>
+
+    <div class="row">
+        <!-- تصویر -->
+        <div class="col-md-4 text-center">
+            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <img id="mainImage" src="@Model.ImageUrl" class="img-responsive img-thumbnail"
+                     alt="@Model.NameFa"
+                     style="width:100%; max-height:320px; object-fit:cover; border-radius:10px; box-shadow:0 3px 10px rgba(0,0,0,0.1);" />
+            }
+            else
+            {
+                <div class="text-center text-muted"
+                     style="padding:80px 0; background:#f5f5f5; border-radius:10px;">
+                    <i class="fa fa-image" style="font-size:32px;"></i>
+                    <p style="margin-top:8px;">بدون تصویر</p>
+                </div>
+            }
+
+            @if (Model.Images != null && Model.Images.Any())
+            {
+                <div class="row" style="margin-top:12px;">
+                    @foreach (var img in Model.Images)
+                    {
+                        <div class="col-xs-3" style="margin-bottom:8px;">
+                            <img src="@img.ImageUrl" class="img-responsive img-thumbnail"
+                                 alt="@img.Title"
+                                 style="cursor:pointer; height:60px; object-fit:cover; border-radius:6px;"
+                                 onclick="document.getElementById('mainImage').src='@img.ImageUrl';" />
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+
+        <!-- اطلاعات اصلی -->
+        <div class="col-md-8">
+            <h3 style="margin-top:0; font-weight:bold;">@Model.NameFa</h3>
+            @if (!string.IsNullOrEmpty(Model.NameEn))
+            {
+                <p class="text-muted" style="margin-bottom:15px;">@Model.NameEn</p>
+            }
+
+            <table class="table table-bordered" style="background:#fff; border-radius:8px; overflow:hidden;">
+                <tr>
+                    <th style="width:180px; background:#f9f9f9;">کد محصول</th>
+                    <td>@(Model.ProductCode ?? "-")</td>
+                </tr>
+                <tr>
+                    <th style="background:#f9f9f9;">بارکد</th>
+                    <td>@(Model.Barcode ?? "-")</td>
+                </tr>
+                <tr>
+                    <th style="background:#f9f9f9;">وضعیت</th>
+                    <td>
+                        @if (Model.IsActive)
+                        {
+                            <span class="label label-success">فعال</span>
+                        }
+                        else
+                        {
+                            <span class="label label-default">غیرفعال</span>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <th style="background:#f9f9f9;">تاریخ ایجاد</th>
+                    <td>@Model.CreatedAt.ToString("yyyy/MM/dd HH:mm")</td>
+                </tr>
+
+                 
+
+                <tr>
+                    <th style="background:#f9f9f9;">ثبت‌کننده</th>
+                    <td>
+                        @if (Model.FK_UserId != null && !string.IsNullOrEmpty(Model.OwnerDisplayName))
+                        {
+                            <a href="@Url.Action("Scroll", "Products", new { userName = Model.OwnerUserName })"
+                               style="text-decoration:none;">
+                                <i class="fa fa-user text-primary"></i>
+                                <span>@Model.OwnerDisplayName</span>
+                                @if (!string.IsNullOrEmpty(Model.OwnerUserName))
+                {
+                                    <small class="text-muted">(@Model.OwnerUserName)</small>
+                                }
+                            </a>
+
+                            if (!string.IsNullOrEmpty(Model.OwnerMobile))
+                            {
+                                <small class="text-muted" style="margin-right:8px;">
+                                    <i class="fa fa-mobile"></i> @Model.OwnerMobile
+                                </small>
+                            }
+
+                            if (!string.IsNullOrEmpty(Model.OwnerUserName))
+                            {
+                                <br />
+                                <a href="@Url.Action("Scroll", "Products", new { userName = Model.OwnerUserName })"
+                                   class="btn btn-xs btn-default" style="margin-top:5px;">
+                                    <i class="fa fa-list"></i> مشاهده همه محصولات این کاربر
+                                </a>
+                            }
+                        }
+                        else
+                        {
+                            <span class="text-muted">نامشخص</span>
+                        }
+                    </td>
+                </tr>
+
+                @if (!string.IsNullOrEmpty(Model.Description))
+                {
+                    <tr>
+                        <th style="background:#f9f9f9;">توضیحات</th>
+                        <td>@Model.Description</td>
+                    </tr>
+                }
+            </table>
+
+            <div class="text-center" style="margin-top:15px;">
+                <a href="@Url.Action("Scroll", "Products")" class="btn btn-default">
+                    <i class="fa fa-arrow-right"></i> بازگشت
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <hr style="margin:35px 0;" />
+
+    <!-- دسته‌بندی‌ها -->
+    <div class="text-center">
+        <h4 style="font-weight:bold;">دسته‌بندی‌ها</h4>
+        @if (Model.Categories != null && Model.Categories.Any())
+        {
+            <ul class="list-inline" style="margin-top:10px;">
+                @foreach (var c in Model.Categories)
+                {
+                    <li>
+                        <a href="@Url.Action("Scroll", "Products", new { categoryId = c.CategoryId })"
+                           class="label label-info"
+                           style="font-size:13px; padding:6px 10px; text-decoration:none; display:inline-block;">
+                            <i class="fa fa-folder-open"></i>
+                            @c.NameFa <small>(@c.CategoryType)</small>
+                        </a>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p class="text-muted">دسته‌بندی ثبت نشده</p>
+        }
+    </div>
+
+    <hr style="margin:35px 0;" />
+
+    <!-- ویژگی‌ها -->
+    <div class="text-center">
+        <h4 style="font-weight:bold;">ویژگی‌ها</h4>
+    </div>
+    @if (Model.Attributes != null && Model.Attributes.Any())
+    {
+        <table class="table table-striped" style="background:#fff; margin-top:15px; border-radius:8px; overflow:hidden;">
+            <thead>
+                <tr style="background:#f1f1f1;">
+                    <th class="text-center">ویژگی</th>
+                    <th class="text-center">مقدار</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var a in Model.Attributes)
+                {
+                    <tr>
+                        <td class="text-center">@a.NameFa</td>
+                        <td class="text-center">@a.Value</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="text-muted text-center">ویژگی ثبت نشده</p>
+    }
+
+    <hr style="margin:35px 0;" />
+
+    <!-- واریانت‌ها -->
+    <div class="text-center">
+        <h4 style="font-weight:bold;">واریانت‌ها</h4>
+    </div>
+
+    @if (Model.Variants != null && Model.Variants.Any())
+    {
+        <table class="table table-bordered"
+               style="background:#fff; margin-top:15px; border-radius:8px; overflow:hidden;">
+            <thead>
+                <tr style="background:#f1f1f1;">
+                    <th class="text-center">SKU</th>
+                    <th class="text-center">موجودی</th>
+                    <th class="text-center">قیمت</th>
+                    <th class="text-center">وضعیت</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var v in Model.Variants)
+                {
+                    <tr>
+                        <td class="text-center">@(v.SKU ?? "-")</td>
+                        <td class="text-center">@v.StockQuantity</td>
+
+                        <td class="text-center">
+                            @(v.Price.HasValue ? v.Price.Value.ToString("N0") + " ریال" : "-")
+                        </td>
+
+                        <td class="text-center">
+                            @if (v.IsActive)
+                            {
+                                <span class="label label-success">فعال</span>
+                            }
+                            else
+                            {
+                                <span class="label label-default">غیرفعال</span>
+                            }
+                        </td>
+                    </tr>
+
+                    if (v.Attributes != null && v.Attributes.Any())
+                    {
+                        <tr>
+                            <td colspan="4" style="background:#fafafa; padding:8px 15px;">
+                                <strong style="font-size:12px; color:#666;">ویژگی‌ها:</strong>
+                                @foreach (var a in v.Attributes)
+                                {
+                                    <span class="label label-info"
+                                          style="margin:3px; display:inline-block; font-weight:normal;">
+                                        @a.AttributeNameFa:
+                                        @(!string.IsNullOrWhiteSpace(a.ValueFa) ? a.ValueFa : a.ValueCode)
+                                    </span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="text-muted text-center">واریانتی ثبت نشده</p>
+    }
+</div>

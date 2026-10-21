@@ -1,0 +1,698 @@
+﻿@{
+    ViewBag.Title = "افزودن محصول جدید";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container" style="margin-top:20px; padding-bottom:40px;">
+    <h2>افزودن محصول جدید</h2>
+    <hr />
+
+    <div class="wizard-steps">
+        <div class="wizard-step active" data-step="1">
+            <span class="step-number">1</span>
+            <span class="step-title">اطلاعات پایه</span>
+        </div>
+        <div class="wizard-step" data-step="2">
+            <span class="step-number">2</span>
+            <span class="step-title">دسته‌بندی و صفت‌ها</span>
+        </div>
+        <div class="wizard-step" data-step="3">
+            <span class="step-number">3</span>
+            <span class="step-title">ویژگی‌ها و تصاویر</span>
+        </div>
+        <div class="wizard-step" data-step="4">
+            <span class="step-number">4</span>
+            <span class="step-title">خلاصه و ثبت</span>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="wizard-panel" id="step-1">
+        <h4>اطلاعات پایه</h4>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>نام فارسی *</label>
+                    <input type="text" id="NameFa" class="form-control" required />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>نام انگلیسی</label>
+                    <input type="text" id="NameEn" class="form-control" />
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>توضیحات</label>
+            <textarea id="Description" class="form-control" rows="3"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>آدرس تصویر اصلی</label>
+            <div id="mainImageContainer" class="images-grid">
+                <div class="image-card" id="mainImageCard">
+                    <div class="image-card-header">
+                        <span class="image-card-title"><i class="fa fa-star"></i> تصویر اصلی</span>
+                    </div>
+                    <div class="image-card-body">
+                        <div class="image-upload-area">
+                            <input type="file" id="mainImageFile" accept="image/*" style="display:none;" />
+                            <label for="mainImageFile" class="upload-label" id="mainImageLabel">
+                                <div class="upload-icon">📷</div>
+                                <div class="upload-text">کلیک کنید یا فایل را بکشید</div>
+                                <div class="upload-hint">JPG, PNG, GIF, WEBP — حداکثر ۵ مگابایت</div>
+                            </label>
+                            <div class="img-preview" id="mainImagePreview" style="display:none;"></div>
+                            <input type="text" id="ImageUrl" class="form-control" readonly placeholder="آدرس تصویر بعد از آپلود" style="margin-top:8px; font-size:12px;" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr />
+        <h5>اطلاعات محصول</h5>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>کد محصول</label>
+                    <input type="text" id="ProductCode" class="form-control" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>بارکد</label>
+                    <input type="text" id="Barcode" class="form-control" />
+                </div>
+            </div>
+        </div>
+        <hr />
+        <h5>واریانت‌ها (SKU)</h5>
+        <button type="button" class="btn btn-sm btn-success" id="btnAddVariant">+ افزودن واریانت</button>
+        <div class="table-responsive" style="margin-top:10px;">
+            <table class="table table-bordered" id="tblVariants">
+                <thead>
+                    <tr><th>SKU</th><th>موجودی</th><th>قیمت</th><th>فعال</th><th></th></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="wizard-panel" id="step-2" style="display:none;">
+        <h4>دسته‌بندی و صفت‌ها</h4>
+        <div class="form-group">
+            <label>دسته‌بندی</label>
+            <select id="categoriesDropdown" class="form-control" style="width:100%;"></select>
+            <small class="text-muted">با تایپ، جستجو کنید.</small>
+            <div id="parentCategoriesInfo" style="margin-top:10px;"></div>
+        </div>
+        <hr />
+        <h5>صفت‌های واریانت‌ها</h5>
+        <div id="variantAttributesContainer"></div>
+        <hr />
+        <h5>محل تولید / انبار (کشور، استان، شهر)</h5>
+        <div id="locationAttributesContainer">
+            <div class="form-group">
+                <label>کشور</label>
+                <!-- نکته: تگ option اینجا خالی است تا Select2 از placeholder استفاده کند -->
+                <select id="CountryId" class="form-control location-select">
+                    <option value=""></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>استان</label>
+                <select id="ProvinceId" class="form-control location-select" disabled>
+                    <option value=""></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>شهر</label>
+                <select id="CityId" class="form-control location-select" disabled>
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="wizard-panel" id="step-3" style="display:none;">
+        <h4>ویژگی‌ها و تصاویر</h4>
+        <h5>ویژگی‌های Resource</h5>
+        <button type="button" class="btn btn-sm btn-success" id="btnAddResourceAttr">+ افزودن ویژگی</button>
+        <div class="table-responsive" style="margin-top:10px;">
+            <table class="table table-bordered" id="tblResourceAttrs">
+                <thead><tr><th>صفت</th><th>مقدار</th><th></th></tr></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <hr />
+        <h5>تصاویر Resource</h5>
+        <button type="button" class="btn btn-success btn-block-mobile" id="btnAddImage">
+            <i class="fa fa-plus"></i> افزودن تصویر
+        </button>
+        <div id="imagesContainer" class="images-grid" style="margin-top:15px;"></div>
+        <div id="noImagesMessage" class="text-muted text-center" style="padding:20px; border:2px dashed #ddd; border-radius:8px; margin-top:15px;">
+            هنوز تصویری اضافه نشده. روی «افزودن تصویر» بزنید.
+        </div>
+    </div>
+
+    <div class="wizard-panel" id="step-4" style="display:none;">
+        <h4>خلاصه اطلاعات</h4>
+        <div id="summaryContainer"></div>
+    </div>
+
+    <hr />
+
+    <div class="wizard-nav">
+        <button type="button" class="btn btn-secondary" id="btnPrev" disabled>قبلی</button>
+        <button type="button" class="btn btn-primary" id="btnNext">بعدی</button>
+        <button type="button" class="btn btn-success" id="btnSave" style="display:none;">ثبت نهایی</button>
+    </div>
+</div>
+
+@section Styles {
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <style>
+        .wizard-panel {
+            position: relative; /* برای dropdownParent در Select2 ضروری است */
+        }
+
+        .wizard-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            gap: 5px;
+        }
+
+        .wizard-step {
+            flex: 1;
+            text-align: center;
+            padding: 12px 5px;
+            border-bottom: 3px solid #ddd;
+            opacity: 0.5;
+            transition: all 0.3s;
+        }
+
+            .wizard-step.active {
+                border-bottom-color: #007bff;
+                opacity: 1;
+            }
+
+            .wizard-step.done {
+                border-bottom-color: #28a745;
+                opacity: 1;
+            }
+
+        .step-number {
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            line-height: 35px;
+            border-radius: 50%;
+            background: #007bff;
+            color: white;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .step-title {
+            display: block;
+            font-size: 12px;
+        }
+
+        .wizard-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 10px;
+        }
+
+            .wizard-nav .btn {
+                padding: 10px 24px;
+                font-size: 15px;
+                border-radius: 6px;
+            }
+
+        .form-control {
+            height: 44px;
+            font-size: 15px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        textarea.form-control {
+            height: auto;
+            min-height: 80px;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        /* ================= اصلاح استایل Select2 ================= */
+
+        .select2-container--default .select2-selection--single {
+            height: 44px !important;
+            border: 1px solid #ccc !important;
+            border-radius: 6px !important;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            direction: rtl;
+            position: relative;
+            background-color: #fff;
+        }
+
+            .select2-container--default .select2-selection--single .select2-selection__rendered {
+                line-height: 42px !important;
+                padding-right: 0 !important;
+                padding-left: 30px !important;
+                font-size: 15px;
+                color: #333;
+                text-align: right;
+                width: 100%;
+            }
+
+            .select2-container--default .select2-selection--single .select2-selection__placeholder {
+                color: #999;
+                line-height: 42px;
+            }
+
+            /* اصلاح آیکون فلش برای جلوگیری از دوبار رندر شدن */
+            .select2-container--default .select2-selection--single .select2-selection__arrow {
+                height: 42px !important;
+                left: 6px !important;
+                right: auto !important;
+                position: absolute;
+                top: 0;
+            }
+
+                .select2-container--default .select2-selection--single .select2-selection__arrow b {
+                    border-color: #888 transparent transparent transparent !important;
+                    border-style: solid !important;
+                    border-width: 5px 4px 0 4px !important;
+                    height: 0 !important;
+                    left: 50% !important;
+                    margin-left: -4px !important;
+                    margin-top: -2px !important;
+                    position: absolute !important;
+                    top: 50% !important;
+                    width: 0 !important;
+                }
+
+        .select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
+            border-color: transparent transparent #888 transparent !important;
+            border-width: 0 4px 5px 4px !important;
+        }
+
+        .select2-container--default.select2-container--focus .select2-selection--single,
+        .select2-container--default.select2-container--open .select2-selection--single {
+            border-color: #007bff !important;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+        .select2-container--default .select2-dropdown {
+            border: 1px solid #007bff;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            font-size: 15px;
+            direction: rtl;
+        }
+
+        .select2-container--default .select2-search--dropdown .select2-search__field {
+            height: 40px;
+            padding: 8px 12px;
+            font-size: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin: 5px;
+            width: calc(100% - 10px);
+            direction: rtl;
+            text-align: right;
+        }
+
+        /* جلوگیری از اسکرول خودکار مرورگر به فیلد جستجو */
+        .select2-search__field {
+            scroll-margin: 0 !important;
+        }
+        body {
+            overflow-anchor: none;
+        }
+
+        .select2-results__option {
+            padding: 10px 12px;
+            font-size: 14px;
+            line-height: 1.5;
+            text-align: right;
+        }
+
+        .select2-results__option--highlighted {
+            background-color: #007bff !important;
+            color: white !important;
+        }
+
+        .select2-container--default .select2-results__group {
+            font-weight: bold;
+            color: #0056b3;
+            background-color: #f0f6ff;
+            padding: 8px 12px;
+            font-size: 14px;
+            text-align: right;
+        }
+
+        .select2-results__option[data-is-parent="true"] {
+            background-color: #f0f6ff;
+            font-weight: bold;
+            color: #0056b3;
+        }
+
+        /* ================= پایان اصلاح Select2 ================= */
+
+        #parentCategoriesInfo .parent-chain {
+            display: inline-block;
+            background: #e7f1ff;
+            color: #0056b3;
+            border: 1px solid #b8daff;
+            border-radius: 12px;
+            padding: 4px 12px;
+            margin: 3px 2px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        #parentCategoriesInfo .parent-arrow {
+            color: #888;
+            margin: 0 4px;
+            font-size: 12px;
+        }
+
+        .images-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 16px;
+        }
+
+        .btn-block-mobile {
+            padding: 10px 20px;
+            font-size: 15px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .image-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            background: #fff;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+            overflow: hidden;
+            transition: box-shadow 0.2s;
+        }
+
+            .image-card:hover {
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+
+        .image-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 14px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #eee;
+        }
+
+        .image-card-title {
+            font-weight: 600;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .image-card-body {
+            padding: 14px;
+        }
+
+        .image-upload-area {
+            margin-bottom: 12px;
+        }
+
+        .upload-label {
+            display: block;
+            border: 2px dashed #b8daff;
+            border-radius: 8px;
+            padding: 24px 16px;
+            text-align: center;
+            cursor: pointer;
+            background: #f0f7ff;
+            transition: all 0.2s;
+            margin: 0;
+        }
+
+            .upload-label:hover {
+                border-color: #007bff;
+                background: #e3f0ff;
+            }
+
+        .upload-icon {
+            font-size: 32px;
+            margin-bottom: 6px;
+        }
+
+        .upload-text {
+            font-size: 14px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .upload-hint {
+            font-size: 12px;
+            color: #888;
+            margin-top: 4px;
+        }
+
+        .image-upload-area.uploading .upload-label {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .img-preview {
+            text-align: center;
+            padding: 8px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #eee;
+        }
+
+            .img-preview img {
+                max-height: 140px;
+                max-width: 100%;
+                border-radius: 6px;
+                object-fit: cover;
+            }
+
+        .image-meta .form-control {
+            height: 40px;
+            font-size: 14px;
+        }
+
+        .image-meta label {
+            font-weight: 500;
+            color: #555;
+        }
+
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            height: 40px;
+            padding: 0 8px;
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+        }
+
+        .main-checkbox-label {
+            margin: 0 0 0 8px;
+            font-size: 13px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .checkbox-wrapper input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            margin: 0;
+        }
+
+        .panel {
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e5e5e5;
+        }
+
+        .panel-heading {
+            background: #f8f9fa;
+            border-radius: 8px 8px 0 0;
+            padding: 12px 16px;
+        }
+
+        .panel-body {
+            padding: 16px;
+        }
+
+        @@media (max-width: 767px) {
+            .wizard-steps {
+                flex-wrap: wrap;
+                margin-bottom: 20px;
+            }
+
+            .wizard-step {
+                flex: 1 1 48%;
+                padding: 8px 4px;
+                font-size: 12px;
+            }
+
+            .step-number {
+                width: 28px;
+                height: 28px;
+                line-height: 28px;
+                font-size: 13px;
+            }
+
+            .step-title {
+                font-size: 11px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            h4 {
+                font-size: 17px;
+            }
+
+            h5 {
+                font-size: 15px;
+            }
+
+            .wizard-nav {
+                flex-direction: column-reverse;
+                gap: 8px;
+                margin-top: 20px;
+            }
+
+                .wizard-nav .btn {
+                    width: 100%;
+                    padding: 12px;
+                    font-size: 16px;
+                }
+
+            .select2-container--default .select2-selection--single {
+                height: 48px !important;
+            }
+
+                .select2-container--default .select2-selection--single .select2-selection__rendered {
+                    line-height: 46px !important;
+                    font-size: 16px;
+                }
+
+                .select2-container--default .select2-selection--single .select2-selection__arrow {
+                    height: 46px !important;
+                }
+
+            .select2-results__option {
+                padding: 12px;
+                font-size: 15px;
+            }
+
+            .form-control {
+                height: 46px;
+                font-size: 16px;
+            }
+
+            .table-responsive {
+                border: 1px solid #ddd;
+                border-radius: 6px;
+            }
+
+            .input-group {
+                flex-wrap: nowrap;
+            }
+
+                .input-group .form-control {
+                    min-width: 0;
+                }
+
+            .input-group-btn .btn {
+                padding: 10px 12px;
+                font-size: 13px;
+                white-space: nowrap;
+            }
+
+            .images-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-block-mobile {
+                width: 100%;
+                padding: 12px;
+                font-size: 16px;
+            }
+
+            .image-card-body {
+                padding: 12px;
+            }
+
+            .upload-label {
+                padding: 20px 12px;
+            }
+
+            .upload-icon {
+                font-size: 28px;
+            }
+
+            .upload-text {
+                font-size: 13px;
+            }
+
+            .image-meta .form-control {
+                height: 44px;
+                font-size: 15px;
+            }
+
+            .img-preview img {
+                max-height: 180px;
+            }
+        }
+
+        @@media (min-width: 768px) and (max-width: 991px) {
+            .select2-container--default .select2-selection--single {
+                height: 46px !important;
+            }
+
+                .select2-container--default .select2-selection--single .select2-selection__rendered {
+                    line-height: 44px !important;
+                    font-size: 15px;
+                }
+        }
+    </style>
+}
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        window.ApiClient = {
+            baseUrl: '@Url.Content("~/")',
+            get: function (url, data, success, fail) {
+                return $.get(this.baseUrl + url, data, success).fail(fail);
+            },
+            post: function (url, data, success, fail) {
+                return $.post(this.baseUrl + url, data, success).fail(fail);
+            }
+        };
+    </script>
+    <script src="~/Scripts/product-wizard.js?v=@DateTime.Now.Ticks"></script>
+}

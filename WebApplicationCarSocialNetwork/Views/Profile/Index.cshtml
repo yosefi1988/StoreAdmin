@@ -1,0 +1,139 @@
+﻿@model WebApplicationCar.Models.ProfileViewModel
+@{
+    ViewBag.Title = "پروفایل من";
+}
+
+<div class="container" style="margin-top:30px; margin-bottom:50px;">
+
+    <!-- هدر -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <i class="fa fa-user"></i> پروفایل من
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-2 text-center">
+                            <img id="avatarPreview"
+                                 src="@(string.IsNullOrEmpty(Model.ProfileImageUrl) ? Url.Content("~/Content/images/no-avatar.png") : Model.ProfileImageUrl)"
+                                 class="img-circle" style="width:100px; height:100px; object-fit:cover;" />
+                        </div>
+                        <div class="col-md-10">
+                            <h4>@Model.DisplayName</h4>
+                            <p class="text-muted">
+                                <i class="fa fa-mobile"></i> @Model.MobileNumber
+                                @if (!string.IsNullOrEmpty(Model.Email))
+                                {
+                                    <span style="margin-right:20px;"><i class="fa fa-envelope"></i> @Model.Email</span>
+                                }
+                            </p>
+                            @if (Model.LastLoginAt != null)
+                            {
+                                <p class="text-muted" style="font-size:12px;">
+                                    آخرین ورود: @Model.LastLoginAt.Value.ToString("yyyy/MM/dd HH:mm")
+                                </p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+ 
+
+    <!-- ویرایش اطلاعات -->
+    <div class="row" style="margin-top:20px;">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <i class="fa fa-edit"></i> ویرایش اطلاعات
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    <div id="infoMessage" class="alert" style="display:none;"></div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>نام</label>
+                                <input type="text" id="FirstName" class="form-control" value="@Model.FirstName" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>نام خانوادگی</label>
+                                <input type="text" id="LastName" class="form-control" value="@Model.LastName" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>ایمیل</label>
+                        <input type="email" id="Email" class="form-control" value="@Model.Email" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>آدرس تصویر پروفایل</label>
+                        <input type="text" id="ProfileImageUrl" class="form-control" value="@Model.ProfileImageUrl" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>شماره موبایل</label>
+                        <input type="text" class="form-control" value="@Model.MobileNumber" disabled />
+                        <small class="text-muted">شماره موبایل قابل تغییر نیست</small>
+                    </div>
+
+                    <button type="button" id="btnSaveInfo" class="btn btn-primary">
+                        <i class="fa fa-save"></i> ذخیره تغییرات
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <script>
+        function showMsg($el, text, isSuccess) {
+            $el.removeClass('alert-danger alert-success')
+               .addClass(isSuccess ? 'alert-success' : 'alert-danger')
+               .text(text).show();
+            setTimeout(function () { $el.fadeOut(); }, 4000);
+        }
+
+        // پیش‌نمایش آواتار
+        $('#ProfileImageUrl').on('change blur', function () {
+            var url = $(this).val();
+            $('#avatarPreview').attr('src', url || '@Url.Content("~/Content/images/no-avatar.png")');
+        });
+
+        // ذخیره اطلاعات
+        $('#btnSaveInfo').on('click', function () {
+            var $btn = $(this).prop('disabled', true);
+            var $msg = $('#infoMessage');
+
+            $.post('@Url.Action("Update", "Profile")', {
+                FirstName: $('#FirstName').val(),
+                LastName: $('#LastName').val(),
+                Email: $('#Email').val(),
+                ProfileImageUrl: $('#ProfileImageUrl').val()
+            }, function (res) {
+                $btn.prop('disabled', false);
+                if (res.success) {
+                    showMsg($msg, res.message, true);
+                } else {
+                    showMsg($msg, res.message, false);
+                }
+            }).fail(function () {
+                $btn.prop('disabled', false);
+                showMsg($msg, 'خطای ارتباط با سرور', false);
+            });
+        });
+    </script>
+}

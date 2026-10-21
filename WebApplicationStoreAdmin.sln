@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGenerator", "ApiGenerato
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplicationCar", "WebApplicationCar\WebApplicationCar.csproj", "{157DC7E3-49C0-40AF-B15B-7F2FB2F57A17}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplicationCarSocialNetwork", "WebApplicationCarSocialNetwork\WebApplicationCarSocialNetwork.csproj", "{69656D12-6621-402D-8DB3-C5BEA749A6FF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{157DC7E3-49C0-40AF-B15B-7F2FB2F57A17}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{157DC7E3-49C0-40AF-B15B-7F2FB2F57A17}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{157DC7E3-49C0-40AF-B15B-7F2FB2F57A17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69656D12-6621-402D-8DB3-C5BEA749A6FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69656D12-6621-402D-8DB3-C5BEA749A6FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69656D12-6621-402D-8DB3-C5BEA749A6FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69656D12-6621-402D-8DB3-C5BEA749A6FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

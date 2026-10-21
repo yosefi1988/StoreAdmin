@@ -1,0 +1,303 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "فید";
+}
+
+<div class="feed-wrapper">
+
+    <!-- ========== باکس ارسال پست ========== -->
+    <div class="post-composer">
+        <h5 class="composer-title">
+            <i class="fa fa-pencil"></i> چه خبر؟
+        </h5>
+
+        <div id="composerAlert" class="alert alert-danger" style="display:none;"></div>
+
+        <input type="text" id="postTitle" class="form-control mb-2"
+               maxlength="400" placeholder="عنوان (اختیاری ولی توصیه‌شده)" />
+
+        <textarea id="postContent" class="form-control mb-2" rows="3"
+                  maxlength="2000" placeholder="متن پست..."></textarea>
+
+        <input type="text" id="postImageUrl" class="form-control mb-2"
+               placeholder="آدرس تصویر (اختیاری، با http شروع شود)" />
+
+        <div class="composer-footer">
+            <span id="charCount" class="text-muted small">0 / 2000</span>
+            <button type="button" class="btn btn-primary" id="btnSubmitPost">
+                <i class="fa fa-send"></i> ارسال
+            </button>
+        </div>
+    </div>
+
+    <!-- ========== فید ========== -->
+    <div id="feedContainer"></div>
+
+    <!-- ========== loading ========== -->
+    <div id="feedLoading" class="feed-loading" style="display:none;">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">در حال بارگذاری...</span>
+        </div>
+        <p class="mt-2 text-muted small">در حال بارگذاری...</p>
+    </div>
+
+    <!-- ========== پایان ========== -->
+    <div id="feedEnd" class="feed-end" style="display:none;">
+        — به پایان فید رسیدید —
+    </div>
+
+    <!-- ========== خطا ========== -->
+    <div id="feedError" class="alert alert-danger" style="display:none;"></div>
+
+</div>
+
+<!-- ============================================================ -->
+<!-- Modal: کامنت‌ها                                              -->
+<!-- ============================================================ -->
+<div class="modal fade" id="commentsModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fa fa-comments"></i> نظرات
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="بستن">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <!-- پست اصلی -->
+                <div id="modalPostPreview" class="modal-post-preview"></div>
+
+                <hr />
+
+                <!-- فرم کامنت -->
+                <div class="comment-form mb-3">
+                    <textarea id="newCommentText" class="form-control mb-2" rows="2"
+                              maxlength="4000" placeholder="نظر خود را بنویسید..."></textarea>
+                    <button type="button" class="btn btn-sm btn-primary" id="btnAddComment">
+                        <i class="fa fa-send"></i> ارسال نظر
+                    </button>
+                </div>
+
+                <!-- لیست کامنت‌ها -->
+                <div id="commentsList"></div>
+
+                <div id="commentsLoading" class="text-center py-3" style="display:none;">
+                    <div class="spinner-border spinner-border-sm text-primary"></div>
+                </div>
+
+                <div id="commentsEmpty" class="text-center text-muted py-3" style="display:none;">
+                    هنوز نظری ثبت نشده. اولین نفر باشید!
+                </div>
+
+                <div id="commentsEnd" class="text-center text-muted small py-2" style="display:none;">
+                    — به پایان نظرات رسیدید —
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+    /* ============ Layout ============ */
+    .feed-wrapper {
+        max-width: 680px;
+        margin: 20px auto;
+        padding: 0 10px;
+    }
+
+    /* ============ Composer ============ */
+    .post-composer {
+        background: #fff;
+        border: 1px solid #e5e5e5;
+        border-radius: 12px;
+        padding: 15px;
+        margin-bottom: 20px;
+        box-shadow: 0 1px 3px rgba(0,0,0,.04);
+    }
+    .composer-title {
+        margin: 0 0 12px 0;
+        color: #333;
+        font-size: 15px;
+        font-weight: 600;
+    }
+    .composer-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .post-composer textarea { resize: vertical; }
+
+    /* ============ Post Card ============ */
+    .post-card {
+        background: #fff;
+        border: 1px solid #e5e5e5;
+        border-radius: 12px;
+        padding: 15px;
+        margin-bottom: 15px;
+        transition: box-shadow .2s;
+    }
+    .post-card:hover { box-shadow: 0 3px 12px rgba(0,0,0,.08); }
+
+    .post-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    .post-avatar {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: #f0f0f0;
+        object-fit: cover;
+        margin-left: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #999;
+        font-weight: bold;
+        flex-shrink: 0;
+    }
+    .post-author-info { flex: 1; min-width: 0; }
+    .post-author {
+        font-weight: 600;
+        color: #222;
+        font-size: 14px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .post-username {
+        color: #888;
+        font-size: 12px;
+    }
+    .post-time {
+        color: #aaa;
+        font-size: 12px;
+        margin-right: 5px;
+        white-space: nowrap;
+    }
+
+    .post-title {
+        font-weight: 600;
+        color: #222;
+        margin: 8px 0 4px 0;
+        font-size: 15px;
+    }
+    .post-content {
+        color: #333;
+        line-height: 1.7;
+        margin: 6px 0;
+        white-space: pre-wrap;
+        word-break: break-word;
+    }
+    .post-image {
+        width: 100%;
+        border-radius: 8px;
+        margin-top: 10px;
+        max-height: 500px;
+        object-fit: cover;
+    }
+
+    .post-actions {
+        display: flex;
+        gap: 20px;
+        margin-top: 12px;
+        padding-top: 10px;
+        border-top: 1px solid #f0f0f0;
+    }
+    .post-action {
+        background: none;
+        border: none;
+        color: #666;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 8px;
+        font-size: 14px;
+        border-radius: 6px;
+        transition: background .15s;
+    }
+    .post-action:hover { background: #f5f5f5; }
+    .post-action.liked { color: #e0245e; }
+    .post-action.liked:hover { background: #fdeef4; }
+
+    /* ============ Loading/End ============ */
+    .feed-loading, .feed-end {
+        text-align: center;
+        padding: 30px 0;
+        color: #888;
+    }
+
+    /* ============ Comments Modal ============ */
+    .modal-post-preview {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 12px;
+    }
+    .modal-post-preview .post-header { margin-bottom: 6px; }
+    .modal-post-preview .post-content { font-size: 14px; }
+
+    .comment-item {
+        display: flex;
+        gap: 10px;
+        padding: 10px 0;
+        border-bottom: 1px solid #f0f0f0;
+    }
+    .comment-item:last-child { border-bottom: none; }
+    .comment-avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: #f0f0f0;
+        object-fit: cover;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #999;
+        font-weight: bold;
+        flex-shrink: 0;
+    }
+    .comment-body { flex: 1; min-width: 0; }
+    .comment-author {
+        font-weight: 600;
+        font-size: 13px;
+        color: #222;
+    }
+    .comment-time {
+        font-size: 11px;
+        color: #aaa;
+        margin-right: 6px;
+    }
+    .comment-text {
+        font-size: 13px;
+        color: #333;
+        margin-top: 4px;
+        white-space: pre-wrap;
+        word-break: break-word;
+    }
+
+    /* ============ Responsive ============ */
+    @@media (max-width: 576px) {
+        .feed-wrapper { margin: 10px auto; }
+        .post-card { padding: 12px; }
+        .post-actions { gap: 12px; }
+    }
+    </style>
+}
+
+@section Scripts {
+    <script>
+        // تنظیمات اولیه — قبل از feed.js
+        window.FeedConfig = {
+            baseUrl: '@Url.Content("~/")',
+            isLoggedIn: @(User.Identity.IsAuthenticated.ToString().ToLower()),
+            antiForgeryToken: '@Html.AntiForgeryToken()'
+        };
+    </script>
+    <script src="~/Scripts/feed.js"></script>
+}
