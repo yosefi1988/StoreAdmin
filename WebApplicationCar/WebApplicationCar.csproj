@@ -216,9 +216,40 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Site.css" />
+    <Content Include="Content\trator-1.0.0\css\animate.min.css" />
+    <Content Include="Content\trator-1.0.0\css\bootstrap-grid.css" />
+    <Content Include="Content\trator-1.0.0\css\bootstrap-grid.min.css" />
+    <Content Include="Content\trator-1.0.0\css\bootstrap-reboot.css" />
+    <Content Include="Content\trator-1.0.0\css\bootstrap-reboot.min.css" />
+    <Content Include="Content\trator-1.0.0\css\bootstrap.css" />
+    <Content Include="Content\trator-1.0.0\css\bootstrap.min.css" />
+    <Content Include="Content\trator-1.0.0\css\default-skin.css" />
+    <Content Include="Content\trator-1.0.0\css\font-awesome.min.css" />
+    <Content Include="Content\trator-1.0.0\css\icomoon.css" />
+    <Content Include="Content\trator-1.0.0\css\jquery-ui.css" />
+    <Content Include="Content\trator-1.0.0\css\jquery.fancybox.min.css" />
+    <Content Include="Content\trator-1.0.0\css\jquery.mCustomScrollbar.min.css" />
+    <Content Include="Content\trator-1.0.0\css\meanmenu.css" />
+    <Content Include="Content\trator-1.0.0\css\nice-select.css" />
+    <Content Include="Content\trator-1.0.0\css\normalize.css" />
+    <Content Include="Content\trator-1.0.0\css\owl.carousel.min.css" />
+    <Content Include="Content\trator-1.0.0\css\responsive.css" />
+    <Content Include="Content\trator-1.0.0\css\slick.css" />
+    <Content Include="Content\trator-1.0.0\css\style.css" />
+    <Content Include="Content\trator-1.0.0\js\bootstrap.bundle.js" />
+    <Content Include="Content\trator-1.0.0\js\bootstrap.bundle.min.js" />
+    <Content Include="Content\trator-1.0.0\js\bootstrap.js" />
+    <Content Include="Content\trator-1.0.0\js\bootstrap.min.js" />
+    <Content Include="Content\trator-1.0.0\js\custom.js" />
+    <Content Include="Content\trator-1.0.0\js\jquery-3.0.0.min.js" />
+    <Content Include="Content\trator-1.0.0\js\jquery.mCustomScrollbar.concat.min.js" />
+    <Content Include="Content\trator-1.0.0\js\jquery.min.js" />
+    <Content Include="Content\trator-1.0.0\js\jquery.validate.js" />
+    <Content Include="Content\trator-1.0.0\js\modernizer.js" />
+    <Content Include="Content\trator-1.0.0\js\plugin.js" />
+    <Content Include="Content\trator-1.0.0\js\popper.min.js" />
+    <Content Include="Content\trator-1.0.0\js\slider-setting.js" />
     <Content Include="Content\wizard.css" />
-    <None Include="Content\bootstrap.cssOLD" />
-    <None Include="Content\bootstrap.min.cssOLD" />
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\trator-1.0.0\imagesX\12.jpg" />
     <Content Include="Content\trator-1.0.0\imagesX\about-img.png" />
@@ -248,6 +279,18 @@
       <LastGenOutput>DataClassesDatabaseDataContext.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Content\trator-1.0.0\css\.DS_Store" />
+    <Content Include="Content\trator-1.0.0\css\bootstrap-grid.css.map" />
+    <Content Include="Content\trator-1.0.0\css\bootstrap-grid.min.css.map" />
+    <Content Include="Content\trator-1.0.0\css\bootstrap-reboot.css.map" />
+    <Content Include="Content\trator-1.0.0\css\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\trator-1.0.0\css\bootstrap.css.map" />
+    <Content Include="Content\trator-1.0.0\css\bootstrap.min.css.map" />
+    <Content Include="Content\trator-1.0.0\js\.DS_Store" />
+    <Content Include="Content\trator-1.0.0\js\bootstrap.bundle.js.map" />
+    <Content Include="Content\trator-1.0.0\js\bootstrap.bundle.min.js.map" />
+    <Content Include="Content\trator-1.0.0\js\bootstrap.js.map" />
+    <Content Include="Content\trator-1.0.0\js\bootstrap.min.js.map" />
     <None Include="Properties\PublishProfiles\car.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\reset-password.js" />
