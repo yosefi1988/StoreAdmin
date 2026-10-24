@@ -13,7 +13,7 @@
         skip: 0,
         hasMore: true,
         isLoading: false,
-        seenIds: {}   // جلوگیری از رندر تکراری
+        seenIds: {}
     };
 
     // State کامنت‌ها
@@ -23,6 +23,32 @@
         hasMore: true,
         isLoading: false
     };
+
+    // State تصاویر پست (چند فایل)
+    var postImageUrls = [];
+
+    // ============================================================
+    // Helper: هدایت به لاگین با returnUrl
+    // ============================================================
+    function redirectToLogin(returnUrl) {
+        if (!returnUrl) {
+            returnUrl = window.location.pathname + window.location.search;
+        }
+
+        var loginBase = (window.FeedConfig && window.FeedConfig.loginUrl) || '/Login';
+        var sep = loginBase.indexOf('?') >= 0 ? '&' : '?';
+        window.location.href = loginBase + sep + 'returnUrl=' + encodeURIComponent(returnUrl);
+    }
+
+    // اگه پاسخ requireLogin بود، هدایت کن و true برگردون
+    function handleRequireLogin(res) {
+        if (res && res.requireLogin) {
+            if (res.loginUrl) window.location.href = res.loginUrl;
+            else redirectToLogin(null);
+            return true;
+        }
+        return false;
+    }
 
     // ============================================================
     // Helpers
@@ -39,7 +65,6 @@
 
     function parseDate(iso) {
         if (!iso) return null;
-        // WCF format: "/Date(1699999999999)/"
         var m = /\/Date\((-?\d+)/.exec(iso);
         if (m) return new Date(parseInt(m[1], 10));
         var d = new Date(iso);
@@ -75,18 +100,34 @@
     }
 
     // ============================================================
-    // رندر کارت پست
+    // رندر کارت پست (پشتیبانی از چند تصویر + لینک به Detail)
     // ============================================================
     function buildPostCard(p, options) {
         options = options || {};
         var isPreview = options.isPreview === true;
+        var clickable = options.clickable === true;
 
         var name = authorDisplayName(p);
         var avatar = buildAvatar(p.AuthorProfileImage, name);
-        var image = p.ImageUrl
-            ? '<img class="post-image" src="' + escapeHtml(p.ImageUrl) +
-              '" alt="" loading="lazy" onerror="this.style.display=\'none\'">'
-            : '';
+
+        // ---- تصاویر ----
+        var urls = (p.ImageUrls && p.ImageUrls.length)
+            ? p.ImageUrls
+            : (p.ImageUrl ? [p.ImageUrl] : []);
+
+        var image = '';
+        if (urls.length === 1) {
+            image = '<img class="post-image" src="' + escapeHtml(urls[0]) + '" alt="" ' +
+                    'loading="lazy" onerror="this.style.display=\'none\'">';
+        } else if (urls.length > 1) {
+            image = '<div class="post-image-grid">';
+            urls.forEach(function (u) {
+                image += '<img src="' + escapeHtml(u) + '" alt="" loading="lazy" ' +
+                         'onerror="this.style.display=\'none\'">';
+            });
+            image += '</div>';
+        }
+
         var title = p.Title
             ? '<div class="post-title">' + escapeHtml(p.Title) + '</div>'
             : '';
@@ -114,8 +155,10 @@
                 '</div>';
         }
 
+        var cardClass = 'post-card' + (clickable ? ' post-card-clickable' : '');
+
         return '' +
-            '<div class="post-card" data-post-id="' + p.ResourceId + '">' +
+            '<div class="' + cardClass + '" data-post-id="' + p.ResourceId + '">' +
                 '<div class="post-header">' +
                     avatar +
                     '<div class="post-author-info">' +
@@ -214,9 +257,144 @@
         posts.forEach(function (p) {
             if (feedState.seenIds[p.ResourceId]) return;
             feedState.seenIds[p.ResourceId] = true;
-            html += buildPostCard(p);
+            html += buildPostCard(p, { clickable: true });
         });
         container.append(html);
+    }
+
+    // ============================================================
+    // کلیک روی کارت پست → صفحه جزئیات
+    // ============================================================
+    $(document).on('click', '.post-card-clickable', function (e) {
+        // اگه روی دکمه یا لینک کلیک شد، نرو
+        if ($(e.target).closest('button, a').length) return;
+
+        var id = $(this).data('post-id');
+        if (!id) return;
+
+        var base = API.replace(/\/$/, '');
+        window.location.href = base + '/Posts/Detail/' + id;
+    });
+
+    // ============================================================
+    // آپلود چند تصویر برای پست
+    // ============================================================
+    $('#postImagesInput').on('change', function () {
+        var files = this.files;
+        var $preview = $('#selectedFilesPreview').empty();
+
+        if (!files || files.length === 0) return;
+
+        Array.prototype.forEach.call(files, function (file) {
+            if (!file.type || file.type.indexOf('image/') !== 0) return;
+
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $preview.append(
+                    '<div style="width:70px;height:70px;">' +
+                        '<img src="' + e.target.result + '" ' +
+                             'style="width:100%;height:100%;object-fit:cover;' +
+                                    'border:1px solid #ddd;border-radius:6px;" />' +
+                    '</div>'
+                );
+            };
+            reader.readAsDataURL(file);
+        });
+    });
+
+    $('#btnUploadPostImages').on('click', function () {
+        var input = document.getElementById('postImagesInput');
+        var files = input.files;
+
+        if (!files || files.length === 0) {
+            showComposerAlert('لطفاً حداقل یک تصویر انتخاب کنید.');
+            return;
+        }
+
+        var $btn = $(this);
+        $btn.prop('disabled', true)
+            .html('<i class="fa fa-spinner fa-spin"></i> در حال آپلود...');
+
+        var fd = new FormData();
+        Array.prototype.forEach.call(files, function (file) {
+            fd.append('files', file);
+        });
+
+        $.ajax({
+            url: API + 'Posts/UploadImage',
+            type: 'POST',
+            data: fd,
+            processData: false,
+            contentType: false,
+            dataType: 'json'
+        })
+        .done(function (res) {
+            if (handleRequireLogin(res)) return;
+
+            if (!res || !res.success || !res.files || res.files.length === 0) {
+                showComposerAlert((res && res.message) || 'آپلود ناموفق بود');
+                if (res && res.errors && res.errors.length)
+                    console.warn('خطاها:', res.errors);
+                return;
+            }
+
+            res.files.forEach(function (f) {
+                addUploadedPostImage(f.url, f.fileName || '');
+            });
+
+            if (res.errors && res.errors.length)
+                showComposerAlert(res.message + ' | خطاها: ' + res.errors.join('، '));
+            else
+                hideComposerAlert();
+
+            input.value = '';
+            $('#selectedFilesPreview').empty();
+        })
+        .fail(function (xhr) {
+            showComposerAlert('خطا در ارتباط با سرور (' + xhr.status + ')');
+        })
+        .always(function () {
+            $btn.prop('disabled', false)
+                .html('<i class="fa fa-upload"></i> آپلود تصاویر');
+        });
+    });
+
+    function addUploadedPostImage(url, fileName) {
+        if (!url) return;
+        if (postImageUrls.indexOf(url) >= 0) return;
+        postImageUrls.push(url);
+
+        $('#uploadedImagesList').append(
+            '<div class="d-flex align-items-center mb-1 p-1 border rounded" ' +
+                 'data-url="' + escapeHtml(url) + '" style="background:#fafafa;">' +
+                '<img src="' + escapeHtml(url) + '" ' +
+                     'style="width:50px;height:50px;object-fit:cover;' +
+                            'border:1px solid #ddd;border-radius:4px;margin-left:6px;" />' +
+                '<div class="flex-grow-1 small text-truncate" title="' + escapeHtml(url) + '">' +
+                    escapeHtml(fileName || url) +
+                '</div>' +
+                '<button type="button" class="btn btn-danger btn-sm btn-remove-post-image">' +
+                    '<i class="fa fa-times"></i>' +
+                '</button>' +
+            '</div>'
+        );
+
+        syncPostImageUrls();
+    }
+
+    $(document).on('click', '.btn-remove-post-image', function () {
+        var $row = $(this).closest('[data-url]');
+        var url = $row.data('url');
+
+        var idx = postImageUrls.indexOf(url);
+        if (idx >= 0) postImageUrls.splice(idx, 1);
+
+        $row.remove();
+        syncPostImageUrls();
+    });
+
+    function syncPostImageUrls() {
+        $('#postImageUrls').val(postImageUrls.join(','));
     }
 
     // ============================================================
@@ -225,14 +403,9 @@
     function submitPost() {
         var title = $('#postTitle').val().trim();
         var content = $('#postContent').val().trim();
-        var imageUrl = $('#postImageUrl').val().trim();
 
         if (!content) {
             showComposerAlert('متن پست خالی است.');
-            return;
-        }
-        if (!window.FeedConfig.isLoggedIn) {
-            showComposerAlert('برای ارسال پست باید وارد شوید.');
             return;
         }
 
@@ -244,14 +417,16 @@
             url: API + 'Posts/Create',
             type: 'POST',
             data: {
-                title: title || content.substring(0, 100),  // اگر عنوان نبود، از متن
+                title: title || content.substring(0, 100),
                 content: content,
-                imageUrl: imageUrl || null
+                imageUrls: postImageUrls.join(',')
             },
             dataType: 'json'
         })
         .done(function (res) {
             $btn.prop('disabled', false).html('<i class="fa fa-send"></i> ارسال');
+
+            if (handleRequireLogin(res)) return;
 
             if (!res.success) {
                 showComposerAlert(res.message || 'خطا');
@@ -259,14 +434,18 @@
             }
 
             // پاک کردن فرم
-            $('#postTitle, #postContent, #postImageUrl').val('');
+            $('#postTitle, #postContent').val('');
             $('#charCount').text('0 / 2000');
+            $('#postImagesInput').val('');
+            $('#selectedFilesPreview').empty();
+            $('#uploadedImagesList').empty();
+            postImageUrls = [];
+            $('#postImageUrls').val('');
             hideComposerAlert();
 
             // اضافه کردن پست بالای فید
-            var cardHtml = buildPostCard(res.post);
+            var cardHtml = buildPostCard(res.post, { clickable: true });
             if (feedState.seenIds[res.post.ResourceId]) {
-                // قبلاً رندر شده — اسکرول کن بالا
                 $('html, body').animate({ scrollTop: 0 }, 200);
                 return;
             }
@@ -291,11 +470,6 @@
     // لایک
     // ============================================================
     function toggleLike($btn) {
-        if (!window.FeedConfig.isLoggedIn) {
-            alert('برای لایک باید وارد شوید.');
-            return;
-        }
-
         var postId = $btn.data('id');
 
         $.ajax({
@@ -305,10 +479,13 @@
             dataType: 'json'
         })
         .done(function (res) {
+            if (handleRequireLogin(res)) return;
+
             if (!res.success) {
                 alert(res.message || 'خطا');
                 return;
             }
+
             $btn.toggleClass('liked', res.isLiked);
             $btn.find('i')
                 .toggleClass('fa-heart', res.isLiked)
@@ -334,7 +511,6 @@
         $('#commentsEnd').hide();
         $('#newCommentText').val('');
 
-        // نمایش پست بالا
         $.ajax({
             url: API + 'Posts/GetPost',
             type: 'GET',
@@ -347,7 +523,6 @@
             }
         });
 
-        // لود کامنت‌ها
         loadComments();
 
         $('#commentsModal').modal('show');
@@ -373,9 +548,7 @@
             commentsState.isLoading = false;
             $('#commentsLoading').hide();
 
-            if (!res.success) {
-                return;
-            }
+            if (!res.success) return;
 
             commentsState.hasMore = res.HasMore;
             commentsState.skip += COMMENTS_PAGE_SIZE;
@@ -403,11 +576,6 @@
     }
 
     function addComment() {
-        if (!window.FeedConfig.isLoggedIn) {
-            alert('برای ثبت نظر باید وارد شوید.');
-            return;
-        }
-
         var text = $('#newCommentText').val().trim();
         if (!text) {
             alert('متن نظر خالی است.');
@@ -430,6 +598,8 @@
         .done(function (res) {
             $btn.prop('disabled', false).html('<i class="fa fa-send"></i> ارسال نظر');
 
+            if (handleRequireLogin(res)) return;
+
             if (!res.success) {
                 alert(res.message || 'خطا');
                 return;
@@ -437,11 +607,8 @@
 
             $('#newCommentText').val('');
             $('#commentsEmpty').hide();
-
-            // افزودن کامنت به بالای لیست
             $('#commentsList').prepend(buildCommentItem(res.comment));
 
-            // به‌روزرسانی شمارنده در کارت پشت
             $('.post-card[data-post-id="' + commentsState.postId + '"] .comment-count')
                 .text(res.commentCount);
         })
@@ -460,12 +627,10 @@
     }
 
     $(window).on('scroll', function () {
-        // اگر مودال باز است، اسکرول فید را trigger نکن
         if ($('#commentsModal').hasClass('show')) return;
         if (isNearBottom()) loadFeed();
     });
 
-    // اسکرول داخل مودال برای کامنت‌های بیشتر
     $('#commentsModal .modal-body').on('scroll', function () {
         var el = this;
         if (el.scrollTop + el.clientHeight >= el.scrollHeight - 100) {
@@ -476,29 +641,27 @@
     // ============================================================
     // Event Binding
     // ============================================================
-
-    // ارسال پست
     $('#btnSubmitPost').on('click', submitPost);
 
-    // شمارنده کاراکتر
     $('#postContent').on('input', function () {
         $('#charCount').text(this.value.length + ' / 2000');
     });
 
-    // لایک
     $(document).on('click', '.like-btn', function () {
         toggleLike($(this));
     });
 
-    // باز کردن مودال کامنت
-    $(document).on('click', '.comment-btn', function () {
-        openCommentsModal($(this).data('id'));
+    // کلیک روی کامنت → به صفحه جزئیات برو (به‌جای مودال)
+    $(document).on('click', '.comment-btn', function (e) {
+        e.stopPropagation();
+        var id = $(this).data('id');
+        if (!id) return;
+        var base = API.replace(/\/$/, '');
+        window.location.href = base + '/Posts/Detail/' + id;
     });
 
-    // ارسال کامنت
     $('#btnAddComment').on('click', addComment);
 
-    // Enter در textarea کامنت = ارسال (Ctrl+Enter)
     $('#newCommentText').on('keydown', function (e) {
         if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
             e.preventDefault();

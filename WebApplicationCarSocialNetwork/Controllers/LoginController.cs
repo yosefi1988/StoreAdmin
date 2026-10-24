@@ -6,6 +6,7 @@ using WebApplicationCar.Services;
 
 namespace WebApplicationCar.Controllers
 {
+    [AllowAnonymous]
     public class LoginController : Controller
     {
         private readonly ITokenService _tokenService;
@@ -15,13 +16,36 @@ namespace WebApplicationCar.Controllers
             _tokenService = new SessionTokenService();
         }
 
+        // ============================================================
+        // GET: صفحه لاگین
+        // ============================================================
+        [HttpGet]
         public ActionResult Index(string returnUrl)
         {
+            // اگر کاربر قبلاً لاگین است، مستقیم به returnUrl یا Feed برود
+            var token = Request.Cookies["auth_token"]?.Value;
+            if (!string.IsNullOrEmpty(token))
+            {
+                try
+                {
+                    var currentUser = _tokenService.ValidateToken(token);
+                    if (currentUser != null)
+                    {
+                        if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                            return Redirect(returnUrl);
+                        return RedirectToAction("Feed", "Posts");
+                    }
+                }
+                catch { /* ignore */ }
+            }
+
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
-        [AllowAnonymous]
+        // ============================================================
+        // POST: ورود
+        // ============================================================
         [HttpPost]
         public JsonResult Login(LoginViewModel model, string returnUrl)
         {
@@ -54,17 +78,17 @@ namespace WebApplicationCar.Controllers
                     user.LastLoginAt = DateTime.Now;
                     db.SubmitChanges();
 
-                    // 👇 کوکی با SameSite و HttpOnly
                     var cookie = new System.Web.HttpCookie("auth_token", token)
                     {
                         HttpOnly = true,
                         Expires = DateTime.Now.Add(lifetime),
-                        Secure = Request.IsSecureConnection
+                        Secure = Request.IsSecureConnection,
+                        //SameSite = System.Web.SameSiteMode.Lax   // ← اگر .NET 4.7.2+ هست
                     };
                     Response.Cookies.Add(cookie);
 
-                    // 👇 اگر ReturnUrl امن بود، برگردان
-                    string redirectUrl = null;
+                    // 👇 تعیین مقصد
+                    string redirectUrl = Url.Action("Feed", "Posts"); // پیش‌فرض
                     if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                         redirectUrl = returnUrl;
 
@@ -84,6 +108,9 @@ namespace WebApplicationCar.Controllers
             }
         }
 
+        // ============================================================
+        // POST: خروج
+        // ============================================================
         [HttpPost]
         public JsonResult Logout()
         {
@@ -95,7 +122,9 @@ namespace WebApplicationCar.Controllers
             {
                 Response.Cookies.Add(new System.Web.HttpCookie("auth_token", "")
                 {
-                    Expires = DateTime.Now.AddDays(-1)
+                    Expires = DateTime.Now.AddDays(-1),
+                    HttpOnly = true,
+                    Secure = Request.IsSecureConnection
                 });
             }
 

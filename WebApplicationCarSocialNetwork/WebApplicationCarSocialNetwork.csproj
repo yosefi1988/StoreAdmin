@@ -294,6 +294,7 @@
     <Content Include="Content\trator-1.0.0\js\bootstrap.min.js.map" />
     <None Include="Properties\PublishProfiles\car.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\post-detail.js" />
     <Content Include="Scripts\reset-password.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -364,6 +365,7 @@
     <Content Include="Views\ChangePassword\Index.cshtml" />
     <Content Include="Views\Profile\Index.cshtml" />
     <Content Include="Views\Posts\Feed.cshtml" />
+    <Content Include="Views\Posts\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

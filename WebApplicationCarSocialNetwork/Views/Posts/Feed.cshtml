@@ -19,8 +19,36 @@
         <textarea id="postContent" class="form-control mb-2" rows="3"
                   maxlength="2000" placeholder="متن پست..."></textarea>
 
-        <input type="text" id="postImageUrl" class="form-control mb-2"
-               placeholder="آدرس تصویر (اختیاری، با http شروع شود)" />
+        <!-- ========== بخش تصاویر (چند فایل) ========== -->
+        <div class="mb-2">
+            <label class="small text-muted mb-1">
+                <i class="fa fa-image"></i> تصاویر (اختیاری)
+            </label>
+
+            <input type="file" id="postImagesInput"
+                   class="form-control form-control-sm"
+                   accept="image/*" multiple />
+
+            <small class="text-muted d-block mt-1">
+                می‌توانید چند تصویر انتخاب کنید (jpg, png, gif, webp — حداکثر ۵MB هر فایل)
+            </small>
+
+            <!-- پیش‌نمایش فایل‌های انتخاب‌شده (قبل از آپلود) -->
+            <div id="selectedFilesPreview"
+                 class="d-flex flex-wrap gap-2 mt-2"></div>
+
+            <!-- لیست تصاویر آپلودشده -->
+            <div id="uploadedImagesList" class="mt-2"></div>
+
+            <!-- دکمه آپلود -->
+            <button type="button" id="btnUploadPostImages"
+                    class="btn btn-outline-secondary btn-sm mt-2">
+                <i class="fa fa-upload"></i> آپلود تصاویر
+            </button>
+
+            <!-- input مخفی برای ارسال URLها به سرور -->
+            <input type="hidden" id="postImageUrls" value="" />
+        </div>
 
         <div class="composer-footer">
             <span id="charCount" class="text-muted small">0 / 2000</span>
@@ -161,6 +189,20 @@
         font-weight: bold;
         flex-shrink: 0;
     }
+
+    .post-image-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 4px;
+        margin-top: 10px;
+    }
+    .post-image-grid img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 6px;
+    }
+
     .post-author-info { flex: 1; min-width: 0; }
     .post-author {
         font-weight: 600;
@@ -296,6 +338,7 @@
         window.FeedConfig = {
             baseUrl: '@Url.Content("~/")',
             isLoggedIn: @(User.Identity.IsAuthenticated.ToString().ToLower()),
+            loginUrl: '@Url.Action("Index", "Login")',   // 👈 این خط اضافه شد
             antiForgeryToken: '@Html.AntiForgeryToken()'
         };
     </script>

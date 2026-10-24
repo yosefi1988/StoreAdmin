@@ -20,22 +20,6 @@
       <Association Name="X_Category_X_Attribute" Member="X_Category" ThisKey="FK_CategoryId" OtherKey="CategoryId" Type="X_Category" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="balabar1_Develop.X_WalletTransactions" Member="X_WalletTransactions">
-    <Type Name="X_WalletTransaction">
-      <Column Name="WalletTransactionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="FK_WalletId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="TransactionType" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
-      <Column Name="Amount" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
-      <Column Name="BalanceBefore" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
-      <Column Name="BalanceAfter" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
-      <Column Name="FK_OrderId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Description" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
-      <Column Name="TransactionDate" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
-      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
-      <Association Name="X_Order_X_WalletTransaction" Member="X_Order" ThisKey="FK_OrderId" OtherKey="OrderId" Type="X_Order" IsForeignKey="true" />
-      <Association Name="X_Wallet_X_WalletTransaction" Member="X_Wallet" ThisKey="FK_WalletId" OtherKey="WalletId" Type="X_Wallet" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="balabar1_Develop.X_AttributeValueRelations" Member="X_AttributeValueRelations">
     <Type Name="X_AttributeValueRelation">
       <Column Name="AttributeValueRelationId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -308,7 +292,6 @@
       <Column Name="TotalAmount" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
       <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
       <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
-      <Association Name="X_Order_X_WalletTransaction" Member="X_WalletTransactions" ThisKey="OrderId" OtherKey="FK_OrderId" Type="X_WalletTransaction" />
       <Association Name="X_Order_X_InventoryTransaction" Member="X_InventoryTransactions" ThisKey="OrderId" OtherKey="FK_OrderId" Type="X_InventoryTransaction" />
       <Association Name="X_Order_X_OrderDiscount" Member="X_OrderDiscounts" ThisKey="OrderId" OtherKey="FK_OrderId" Type="X_OrderDiscount" />
       <Association Name="X_Order_X_OrderItem" Member="X_OrderItems" ThisKey="OrderId" OtherKey="FK_OrderId" Type="X_OrderItem" />
@@ -317,6 +300,7 @@
       <Association Name="X_Order_X_Payment" Member="X_Payments" ThisKey="OrderId" OtherKey="FK_OrderId" Type="X_Payment" />
       <Association Name="X_Order_X_ServiceBooking" Member="X_ServiceBookings" ThisKey="OrderId" OtherKey="FK_OrderId" Type="X_ServiceBooking" />
       <Association Name="X_Order_X_UserSubscription" Member="X_UserSubscriptions" ThisKey="OrderId" OtherKey="FK_OrderId" Type="X_UserSubscription" />
+      <Association Name="X_Order_X_WalletTransaction" Member="X_WalletTransactions" ThisKey="OrderId" OtherKey="FK_OrderId" Type="X_WalletTransaction" />
       <Association Name="X_Cart_X_Order" Member="X_Cart" ThisKey="FK_CartId" OtherKey="CartId" Type="X_Cart" IsForeignKey="true" />
       <Association Name="X_AttributeValue_X_Order" Member="X_AttributeValue" ThisKey="FK_StatusValueId" OtherKey="AttributeValueId" Type="X_AttributeValue" IsForeignKey="true" />
       <Association Name="X_User_X_Order" Member="X_User" ThisKey="FK_UserId" OtherKey="UserId" Type="X_User" IsForeignKey="true" />
@@ -557,6 +541,16 @@
       <Association Name="X_Resource_X_ResourceImage" Member="X_Resource" ThisKey="FK_ResourceId" OtherKey="ResourceId" Type="X_Resource" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="balabar1_Develop.X_ResourceLikes" Member="X_ResourceLikes">
+    <Type Name="X_ResourceLike">
+      <Column Name="ResourceLikeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_ResourceId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FK_UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Association Name="X_Resource_X_ResourceLike" Member="X_Resource" ThisKey="FK_ResourceId" OtherKey="ResourceId" Type="X_Resource" IsForeignKey="true" />
+      <Association Name="X_User_X_ResourceLike" Member="X_User" ThisKey="FK_UserId" OtherKey="UserId" Type="X_User" IsForeignKey="true" />
+    </Type>
+  </Table>
   <Table Name="balabar1_Develop.X_Resources" Member="X_Resources">
     <Type Name="X_Resource">
       <Column Name="ResourceId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -573,10 +567,21 @@
       <Association Name="X_Resource_X_ResourceAttribute" Member="X_ResourceAttributes" ThisKey="ResourceId" OtherKey="FK_ResourceId" Type="X_ResourceAttribute" />
       <Association Name="X_Resource_X_ResourceCategory" Member="X_ResourceCategories" ThisKey="ResourceId" OtherKey="FK_ResourceId" Type="X_ResourceCategory" />
       <Association Name="X_Resource_X_ResourceImage" Member="X_ResourceImages" ThisKey="ResourceId" OtherKey="FK_ResourceId" Type="X_ResourceImage" />
+      <Association Name="X_Resource_X_ResourceLike" Member="X_ResourceLikes" ThisKey="ResourceId" OtherKey="FK_ResourceId" Type="X_ResourceLike" />
       <Association Name="X_Resource_X_Review" Member="X_Reviews" ThisKey="ResourceId" OtherKey="FK_ResourceId" Type="X_Review" />
       <Association Name="X_Resource_X_Service" Member="X_Services" ThisKey="ResourceId" OtherKey="FK_ResourceId" Type="X_Service" />
-      <Association Name="X_Resource_X_ResourceLike" Member="X_ResourceLikes" ThisKey="ResourceId" OtherKey="FK_ResourceId" Type="X_ResourceLike" />
       <Association Name="X_User_X_Resource" Member="X_User" ThisKey="FK_UserId" OtherKey="UserId" Type="X_User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_ReviewImages" Member="X_ReviewImages">
+    <Type Name="X_ReviewImage">
+      <Column Name="ReviewImageId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_ReviewId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ImageUrl" Type="System.String" DbType="NVarChar(1000) NOT NULL" CanBeNull="false" />
+      <Column Name="SortOrder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Association Name="X_Review_X_ReviewImage" Member="X_Review" ThisKey="FK_ReviewId" OtherKey="ReviewId" Type="X_Review" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
   <Table Name="balabar1_Develop.X_Reviews" Member="X_Reviews">
@@ -591,6 +596,7 @@
       <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
       <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Association Name="X_Review_X_ReviewImage" Member="X_ReviewImages" ThisKey="ReviewId" OtherKey="FK_ReviewId" Type="X_ReviewImage" />
       <Association Name="X_Resource_X_Review" Member="X_Resource" ThisKey="FK_ResourceId" OtherKey="ResourceId" Type="X_Resource" IsForeignKey="true" />
       <Association Name="X_User_X_Review" Member="X_User" ThisKey="FK_UserId" OtherKey="UserId" Type="X_User" IsForeignKey="true" />
     </Type>
@@ -805,6 +811,7 @@
       <Association Name="X_User_X_Cart" Member="X_Carts" ThisKey="UserId" OtherKey="FK_UserId" Type="X_Cart" />
       <Association Name="X_User_X_DigitalFileAccess" Member="X_DigitalFileAccesses" ThisKey="UserId" OtherKey="FK_UserId" Type="X_DigitalFileAccess" />
       <Association Name="X_User_X_Order" Member="X_Orders" ThisKey="UserId" OtherKey="FK_UserId" Type="X_Order" />
+      <Association Name="X_User_X_ResourceLike" Member="X_ResourceLikes" ThisKey="UserId" OtherKey="FK_UserId" Type="X_ResourceLike" />
       <Association Name="X_User_X_Resource" Member="X_Resources" ThisKey="UserId" OtherKey="FK_UserId" Type="X_Resource" />
       <Association Name="X_User_X_Review" Member="X_Reviews" ThisKey="UserId" OtherKey="FK_UserId" Type="X_Review" />
       <Association Name="X_User_X_ServiceAssignment" Member="X_ServiceAssignments" ThisKey="UserId" OtherKey="FK_UserId" Type="X_ServiceAssignment" />
@@ -814,7 +821,6 @@
       <Association Name="X_User_X_UserRole" Member="X_UserRoles" ThisKey="UserId" OtherKey="FK_UserId" Type="X_UserRole" />
       <Association Name="X_User_X_UserSubscription" Member="X_UserSubscriptions" ThisKey="UserId" OtherKey="FK_UserId" Type="X_UserSubscription" />
       <Association Name="X_User_X_Wallet" Member="X_Wallets" ThisKey="UserId" OtherKey="FK_UserId" Type="X_Wallet" />
-      <Association Name="X_User_X_ResourceLike" Member="X_ResourceLikes" ThisKey="UserId" OtherKey="FK_UserId" Type="X_ResourceLike" />
     </Type>
   </Table>
   <Table Name="balabar1_Develop.X_UserSubscriptions" Member="X_UserSubscriptions">
@@ -845,14 +851,20 @@
       <Association Name="X_User_X_Wallet" Member="X_User" ThisKey="FK_UserId" OtherKey="UserId" Type="X_User" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="balabar1_Develop.X_ResourceLikes" Member="X_ResourceLikes">
-    <Type Name="X_ResourceLike">
-      <Column Name="ResourceLikeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="FK_ResourceId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="FK_UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+  <Table Name="balabar1_Develop.X_WalletTransactions" Member="X_WalletTransactions">
+    <Type Name="X_WalletTransaction">
+      <Column Name="WalletTransactionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_WalletId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TransactionType" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Amount" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="BalanceBefore" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="BalanceAfter" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="FK_OrderId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="TransactionDate" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
       <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
-      <Association Name="X_Resource_X_ResourceLike" Member="X_Resource" ThisKey="FK_ResourceId" OtherKey="ResourceId" Type="X_Resource" IsForeignKey="true" />
-      <Association Name="X_User_X_ResourceLike" Member="X_User" ThisKey="FK_UserId" OtherKey="UserId" Type="X_User" IsForeignKey="true" />
+      <Association Name="X_Order_X_WalletTransaction" Member="X_Order" ThisKey="FK_OrderId" OtherKey="OrderId" Type="X_Order" IsForeignKey="true" />
+      <Association Name="X_Wallet_X_WalletTransaction" Member="X_Wallet" ThisKey="FK_WalletId" OtherKey="WalletId" Type="X_Wallet" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
