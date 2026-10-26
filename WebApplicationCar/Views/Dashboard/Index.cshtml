@@ -1,0 +1,237 @@
+﻿@model WebApplicationCar.Models.ViewModels.UserDashboardViewModel
+@{
+    ViewBag.Title = "پنل کاربری";
+}
+
+<div class="container" style="margin-top:30px; margin-bottom:50px;">
+
+    <!-- خوش‌آمد -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <i class="fa fa-dashboard"></i>
+                        خوش آمدی، @Model.DisplayName
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <p>
+                        <i class="fa fa-mobile"></i> @Model.Mobile
+                        @if (!string.IsNullOrEmpty(Model.Email))
+                        {
+                            <span style="margin-right:20px;">
+                                <i class="fa fa-envelope"></i> @Model.Email
+                            </span>
+                        }
+                    </p>
+                    @if (Model.LastLoginAt.HasValue)
+                    {
+                        <p class="text-muted" style="font-size:12px;">
+                            آخرین ورود: @Model.LastLoginAt.Value.ToString("yyyy/MM/dd HH:mm")
+                        </p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- کارت‌های آمار -->
+    <div class="row">
+        <div class="col-md-3 col-sm-6">
+            <div class="panel panel-info">
+                <div class="panel-body text-center">
+                    <i class="fa fa-shopping-bag" style="font-size:40px; color:#5bc0de;"></i>
+                    <h3>@Model.TotalOrders</h3>
+                    <p>سفارشات</p>
+                    <a href="@Url.Action("MyOrders", "Order")" class="btn btn-info btn-sm">مشاهده</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+            <div class="panel panel-success">
+                <div class="panel-body text-center">
+                    <i class="fa fa-shopping-cart" style="font-size:40px; color:#5cb85c;"></i>
+                    <h3>@Model.CartCount</h3>
+                    <p>اقلام سبد خرید</p>
+                    <a href="@Url.Action("Index", "Cart")" class="btn btn-success btn-sm">مشاهده</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+            <div class="panel panel-warning">
+                <div class="panel-body text-center">
+                    <i class="fa fa-money" style="font-size:40px; color:#f0ad4e;"></i>
+                    <h3>@Model.WalletBalance.ToString("N0")</h3>
+                    <p>موجودی کیف پول (تومان)</p>
+                    <a href="@Url.Action("Index", "Wallet")" class="btn btn-warning btn-sm">شارژ</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-body text-center">
+                    <i class="fa fa-star" style="font-size:40px; color:#777;"></i>
+                    <h3>@Model.TotalReviews</h3>
+                    <p>نظرات من</p>
+                    <a href="@Url.Action("MyReviews", "Review")" class="btn btn-default btn-sm">مشاهده</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ردیف دوم: محصولات من + تغییر نقش -->
+    <div class="row" style="margin-top:10px;">
+        <div class="col-md-3 col-sm-6">
+            <div class="panel panel-primary">
+                <div class="panel-body text-center">
+                    <i class="fa fa-car" style="font-size:40px; color:#337ab7;"></i>
+                    <h3>@Model.MyResourcesCount</h3>
+                    <p>محصولات ثبت‌شده من</p>
+                    <a href="@Url.Action("Scroll", "Products", new { mine = true })"
+                       class="btn btn-primary btn-sm">مشاهده لیست من</a>
+                </div>
+            </div>
+        </div>
+
+        @if (Model.CanChangeRole)
+        {
+            <div class="col-md-3 col-sm-6">
+                <div class="panel panel-default">
+                    <div class="panel-body text-center">
+                        <i class="fa fa-exchange" style="font-size:40px; color:#5e5e5e;"></i>
+                        <h3 style="font-size:16px; margin-top:10px;">تغییر نقش فعال</h3>
+                        <p class="text-muted" style="font-size:12px;">
+                            نقش فعلی: <strong>@Model.AllRoles.FirstOrDefault(r => r.RoleId == Model.CurrentRoleId)?.Name</strong>
+                        </p>
+
+                        <select id="roleSelect" class="form-control" style="margin-bottom:10px;">
+                            @foreach (var r in Model.AllRoles)
+                            {
+                                <option value="@r.RoleId" @(r.RoleId == Model.CurrentRoleId ? "selected" : "")>
+                                    @r.Name
+                                </option>
+                            }
+                        </select>
+
+                        <button type="button" class="btn btn-default btn-sm btn-block" onclick="changeRole()">
+                            <i class="fa fa-check"></i> اعمال نقش
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- لینک‌های سریع -->
+    <div class="row" style="margin-top:20px;">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">دسترسی سریع</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row text-center">
+                        <div class="col-md-3 col-sm-6">
+                            <a href="@Url.Action("Index", "Profile")" class="btn btn-lg btn-block btn-default">
+                                <i class="fa fa-user"></i><br />پروفایل من
+                            </a>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <a href="@Url.Action("Index", "UserAddresses")" class="btn btn-lg btn-block btn-default">
+                                <i class="fa fa-map-marker"></i><br />آدرس‌های من
+                            </a>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <a href="@Url.Action("ChangePassword", "Profile")" class="btn btn-lg btn-block btn-default">
+                                <i class="fa fa-lock"></i><br />تغییر رمز
+                            </a>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <a href="javascript:void(0)" onclick="logoutUser()" class="btn btn-lg btn-block btn-danger">
+                                <i class="fa fa-sign-out"></i><br />خروج
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@Html.AntiForgeryToken()
+
+@section Scripts {
+    <script>
+        // گرفتن مطمئن توکن (فقط اولین توکن صفحه)
+        function getAntiForgeryToken() {
+            return $('input[name="__RequestVerificationToken"]').first().val();
+        }
+
+        function logoutUser() {
+            if (!confirm('از حساب خارج می‌شوید؟')) return;
+
+            var token = getAntiForgeryToken();
+            if (!token) { alert('توکن امنیتی یافت نشد. صفحه را رفرش کنید.'); return; }
+
+            $.ajax({
+                url: '@Url.Action("Logout", "Login")',
+                type: 'POST',
+                data: { __RequestVerificationToken: token },
+                success: function (res) {
+                    if (res && res.success) {
+                        try { localStorage.removeItem('auth_token'); } catch (e) { }
+                        window.location.href = '@Url.Action("Index", "Home")';
+                    } else {
+                        alert((res && res.message) || 'خطا در خروج از حساب.');
+                    }
+                },
+                error: function (xhr) {
+                    if (xhr.status === 500) {
+                        alert('توکن امنیتی نامعتبر است. صفحه را رفرش کنید.');
+                    } else {
+                        alert('خطای شبکه. لطفاً دوباره تلاش کنید.');
+                    }
+                }
+            });
+        }
+
+        function changeRole() {
+            var roleId = $('#roleSelect').val();
+            if (!roleId) return;
+
+            var token = getAntiForgeryToken();
+            if (!token) { alert('توکن امنیتی یافت نشد. صفحه را رفرش کنید.'); return; }
+
+            var $btn = $('button[onclick="changeRole()"]');
+            $btn.prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> در حال اعمال...');
+
+            $.ajax({
+                url: '@Url.Action("ChangeRole", "Dashboard")',
+                type: 'POST',
+                data: { roleId: roleId, __RequestVerificationToken: token },
+                success: function (res) {
+                    if (res && res.success) {
+                        alert(res.message || 'نقش با موفقیت تغییر کرد.');
+                        window.location.reload();
+                    } else {
+                        alert((res && res.message) || 'خطا در تغییر نقش.');
+                        $btn.prop('disabled', false).html('<i class="fa fa-check"></i> اعمال نقش');
+                    }
+                },
+                error: function (xhr) {
+                    if (xhr.status === 500) {
+                        alert('توکن امنیتی نامعتبر است. صفحه را رفرش کنید.');
+                    } else {
+                        alert('خطای شبکه.');
+                    }
+                    $btn.prop('disabled', false).html('<i class="fa fa-check"></i> اعمال نقش');
+                }
+            });
+        }
+    </script>
+}

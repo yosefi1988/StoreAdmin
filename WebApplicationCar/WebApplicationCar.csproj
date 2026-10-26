@@ -168,6 +168,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\PostsController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ChangePasswordController.cs" />
@@ -198,6 +199,7 @@
     <Compile Include="Models\ViewModels\RegisterWizardViewModel.cs" />
     <Compile Include="Models\ViewModels\Message.cs" />
     <Compile Include="Models\ViewModels\HomeViewModel.cs" />
+    <Compile Include="Models\ViewModels\UserDashboardViewModel.cs" />
     <Compile Include="Models\ViewModels\Wizard\CategoryNodeVM.cs" />
     <Compile Include="Models\ViewModels\Wizard\ProductWizardViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -362,6 +364,8 @@
     <Content Include="Views\ForgotPassword\Invalid.cshtml" />
     <Content Include="Views\ChangePassword\Index.cshtml" />
     <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\Posts\Detail.cshtml" />
+    <Content Include="Views\Posts\Feed.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

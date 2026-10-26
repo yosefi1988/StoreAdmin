@@ -18,7 +18,7 @@ using System.Data.Entity;  // به جای Microsoft.EntityFrameworkCore
 using System.Threading.Tasks;
 using System;
 using System.Threading.Tasks;
-
+using WebApplicationCar.Models;
 
 namespace WebApplicationCar.Controllers
 {

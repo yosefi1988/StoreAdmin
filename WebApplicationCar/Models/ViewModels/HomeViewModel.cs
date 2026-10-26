@@ -9,6 +9,7 @@ using WebApplicationCar.Models;
 using WebApplicationCar.Models.ViewModels.Wizard;
 using System;
 using System.Collections.Generic;
+using WebApplicationCar.Models;
 
 namespace WebApplicationCar.Models
 {

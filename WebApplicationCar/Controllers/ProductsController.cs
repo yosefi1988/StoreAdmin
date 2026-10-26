@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using WebApplicationCar.Models;
 using WebApplicationCar.Services;
+using WebApplicationCar.Models;
 
 namespace WebApplicationCar.Controllers
 {
@@ -98,6 +99,7 @@ namespace WebApplicationCar.Controllers
                             JsonRequestBehavior.AllowGet);
             }
         }
+
 
         // ==================== صفحه اسکرول ====================
         public ActionResult Scroll(string userName = null, bool mine = false, int? categoryId = null)

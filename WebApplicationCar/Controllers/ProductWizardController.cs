@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using WebApplicationCar.Models;
 using WebApplicationCar.Models.ViewModels.Wizard;
 using WebApplicationCar.Filters;
+using WebApplicationCar.Models;
 
 namespace WebApplicationCar.Controllers
 {
