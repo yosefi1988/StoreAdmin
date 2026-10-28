@@ -1,9 +1,9 @@
 ﻿/* ============================================================
-   login.js  —  نسخه‌ی نهایی
+   login.js  —  نسخه‌ی نهایی (با پشتیبانی از فروشگاه)
    منطبق با:
      - Login/Index.cshtml  (window.ApiClient, window.ReturnUrl)
-     - LoginController.Login  (پارامتر returnUrl، پاسخ redirectUrl)
-     - PostsController.NeedLoginResult  (loginUrl با returnUrl)
+     - LoginController.Login  (Mobile + Password + StoreCode)
+     - AuthFilter  (چک ActiveStoreSettingId)
    ============================================================ */
 
 (function ($) {
@@ -65,9 +65,9 @@
     }
 
     // ----------------------------------------------------------
-    // اعتبارسنجی
+    // اعتبارسنجی (شامل StoreCode)
     // ----------------------------------------------------------
-    function validate(mobile, password) {
+    function validate(mobile, password, storeCode) {
         if (!mobile) {
             showMessage('شماره موبایل را وارد کنید.', 'warning');
             $('#Mobile').focus();
@@ -88,6 +88,12 @@
             $('#Password').focus();
             return false;
         }
+        // ==== فیلد فروشگاه ====
+        if (!storeCode) {
+            showMessage('کد فروشگاه را وارد کنید.', 'warning');
+            $('#StoreCode').focus();
+            return false;
+        }
         return true;
     }
 
@@ -98,15 +104,17 @@
         hideMessage();
 
         var $btn = $('#btnLogin');
-        var mobile = ($('#Mobile').val() || '').trim();
-        var password = $('#Password').val() || '';
-        var remember = $('#RememberMe').is(':checked');
+        var mobile    = ($('#Mobile').val()    || '').trim();
+        var password  = $('#Password').val()   || '';
+        var storeCode = ($('#StoreCode').val() || '').trim();
+        var remember  = $('#RememberMe').is(':checked');
 
-        if (!validate(mobile, password)) return;
+        if (!validate(mobile, password, storeCode)) return;
 
         var payload = {
-            Mobile: mobile,
-            Password: password,
+            Mobile:    mobile,
+            Password:  password,
+            StoreCode: storeCode,          // ← فیلد جدید
             RememberMe: remember,
             returnUrl: window.ReturnUrl || null
         };
@@ -130,13 +138,21 @@
                 return;
             }
 
-            // ⚠️ توجه: auth_token در کوکی HttpOnly از سمت سرور ست می‌شود
-            // و عمداً در localStorage ذخیره نمی‌شود (جلوگیری از XSS)
+            // ⚠️ auth_token در کوکی HttpOnly از سمت سرور ست می‌شود
             showMessage(res.message || 'ورود موفق! در حال انتقال...', 'success');
+
+            // ذخیره نام فروشگاه برای نمایش در Header (اختیاری)
+            try {
+                if (res.storeName) {
+                    localStorage.setItem('active_store_name', res.storeName);
+                }
+                if (res.storeSettingId) {
+                    localStorage.setItem('active_store_id', res.storeSettingId);
+                }
+            } catch (e) { /* ignore */ }
 
             var target = res.redirectUrl || getFallbackUrl();
 
-            // کمی تأخیر تا کاربر پیام موفقیت را ببیند
             setTimeout(function () {
                 window.location.href = target;
             }, 700);
@@ -167,9 +183,10 @@
     // راه‌اندازی پس از لود DOM
     // ----------------------------------------------------------
     $(function () {
-        var $mobile = $('#Mobile');
-        var $password = $('#Password');
-        var $btn = $('#btnLogin');
+        var $mobile    = $('#Mobile');
+        var $password  = $('#Password');
+        var $storeCode = $('#StoreCode');    // ← فیلد جدید
+        var $btn       = $('#btnLogin');
 
         if (!$btn.length) return; // این صفحه، صفحه‌ی لاگین نیست
 
@@ -179,8 +196,8 @@
             doLogin();
         });
 
-        // Enter در فیلدها
-        $mobile.add($password).on('keypress', function (e) {
+        // Enter در همه فیلدها
+        $mobile.add($password).add($storeCode).on('keypress', function (e) {
             if (e.which === 13 || e.keyCode === 13) {
                 e.preventDefault();
                 doLogin();
@@ -188,18 +205,25 @@
         });
 
         // پاک‌کردن پیام هنگام تایپ
-        $mobile.add($password).on('input', hideMessage);
+        $mobile.add($password).add($storeCode).on('input', hideMessage);
 
         // فقط رقم در موبایل
         $mobile.on('input', function () {
             this.value = this.value.replace(/[^\d]/g, '').slice(0, 11);
         });
 
+        // فروشگاه: حذف فاصله‌های اضافی و تبدیل به uppercase (اختیاری)
+        $storeCode.on('blur', function () {
+            this.value = (this.value || '').trim();
+        });
+
         // فوکوس اولیه
         if (!$mobile.val()) {
             $mobile.focus();
-        } else {
+        } else if (!$password.val()) {
             $password.focus();
+        } else {
+            $storeCode.focus();
         }
     });
 

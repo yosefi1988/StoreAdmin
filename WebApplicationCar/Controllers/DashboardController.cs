@@ -2,9 +2,8 @@
 using System.Linq;
 using System.Web.Mvc;
 using WebApplicationCar.Models;
-using WebApplicationCar.Models.ViewModels; 
+using WebApplicationCar.Models.ViewModels;
 using WebApplicationCar.Services;
-using WebApplicationCar.Models;
 
 namespace WebApplicationCar.Controllers
 {
@@ -53,18 +52,6 @@ namespace WebApplicationCar.Controllers
                     vm.DisplayName = user.MobileNumber;
 
                 // ====== نقش‌ها ======
-                // نقش‌های فعلی کاربر
-                var currentRoleIds = db.X_UserRoles
-                    .Where(ur => ur.FK_UserId == userId)
-                    .Select(ur => ur.FK_RoleId)
-                    .ToList();
-
-                // نقش فعال فعلی (اولین نقش غیرفعال‌نشده)
-                vm.CurrentRoleId = db.X_UserRoles
-                    .Where(ur => ur.FK_UserId == userId && ur.X_Role.IsActive)
-                    .Select(ur => ur.FK_RoleId)
-                    .FirstOrDefault();
-
                 // لیست نقش‌های مجاز برای این کاربر (فقط نقش‌هایی که کاربر دارد و فعال هستند)
                 vm.AllRoles = db.X_UserRoles
                     .Where(ur => ur.FK_UserId == userId && ur.X_Role.IsActive)
@@ -77,6 +64,19 @@ namespace WebApplicationCar.Controllers
 
                 // Dropdown فقط وقتی نمایش داده می‌شود که بیش از یک نقش باشد
                 vm.CanChangeRole = vm.AllRoles.Count > 1;
+
+                // ==== نقش فعال: اول از Session، بعد اولین نقش ====
+                var activeFromSession = Session["ActiveRoleId"] as int?;
+                if (activeFromSession.HasValue &&
+                    vm.AllRoles.Any(r => r.RoleId == activeFromSession.Value))
+                {
+                    vm.CurrentRoleId = activeFromSession.Value;
+                }
+                else
+                {
+                    vm.CurrentRoleId = vm.AllRoles.FirstOrDefault()?.RoleId ?? 0;
+                    Session["ActiveRoleId"] = vm.CurrentRoleId;
+                }
 
                 return View(vm);
             }
@@ -102,11 +102,8 @@ namespace WebApplicationCar.Controllers
                     if (!hasRole)
                         return Json(new { success = false, message = "این نقش برای شما مجاز نیست." });
 
-                    // ذخیره نقش فعال در Session (چون جدول جداگانه‌ای برای CurrentRole نداریم)
+                    // ذخیره نقش فعال در Session
                     Session["ActiveRoleId"] = roleId;
-
-                    // اگر جدول X_Users ستون FK_RoleId داشت اینجا آپدیت می‌کردیم
-                    // مثال: user.FK_RoleId = roleId; db.SubmitChanges();
 
                     return Json(new { success = true, message = "نقش فعال با موفقیت تغییر کرد." });
                 }

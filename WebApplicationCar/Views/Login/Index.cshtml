@@ -23,6 +23,17 @@
                         <input type="password" id="Password" class="form-control" dir="ltr" />
                     </div>
 
+                    <!-- 👇 فیلد جدید: کد فروشگاه -->
+                    <div class="form-group">
+                        <label>کد فروشگاه *</label>
+                        <input type="text" id="StoreCode" class="form-control"
+                               placeholder="مثلاً STORE1 یا نام فروشگاه"
+                               dir="ltr" style="text-align:left;" />
+                        <small class="text-muted">
+                            کد فروشگاهی که می‌خواهید وارد آن شوید را وارد کنید.
+                        </small>
+                    </div>
+
                     <div class="checkbox">
                         <label>
                             <input type="checkbox" id="RememberMe" /> مرا به خاطر بسپار
@@ -50,7 +61,6 @@
 
 @section Scripts {
     <script>
-        // آدرس پایه و ReturnUrl را برای login.js ست می‌کنیم
         window.ApiClient = {
             baseUrl: '@Url.Content("~/")',
             loginUrl: '@Url.Action("Login", "Login")',

@@ -1,6 +1,12 @@
 ﻿@model WebApplicationCar.Models.ViewModels.UserDashboardViewModel
 @{
     ViewBag.Title = "پنل کاربری";
+
+    // ==== محاسبه‌ی نقش فعلی در بلوک C# (رفع مشکل چاپ شدن نام تایپ) ====
+    var currentRoleItem = (Model.AllRoles != null)
+        ? Model.AllRoles.FirstOrDefault(r => r.RoleId == Model.CurrentRoleId)
+        : null;
+    var currentRoleName = (currentRoleItem != null) ? currentRoleItem.Name : "—";
 }
 
 <div class="container" style="margin-top:30px; margin-bottom:50px;">
@@ -105,7 +111,7 @@
                         <i class="fa fa-exchange" style="font-size:40px; color:#5e5e5e;"></i>
                         <h3 style="font-size:16px; margin-top:10px;">تغییر نقش فعال</h3>
                         <p class="text-muted" style="font-size:12px;">
-                            نقش فعلی: <strong>@Model.AllRoles.FirstOrDefault(r => r.RoleId == Model.CurrentRoleId)?.Name</strong>
+                            نقش فعلی: <strong>@currentRoleName</strong>
                         </p>
 
                         <select id="roleSelect" class="form-control" style="margin-bottom:10px;">

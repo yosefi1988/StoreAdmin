@@ -76,16 +76,20 @@
 
     @Scripts.Render("~/bundles/modernizr")
     <style>
-        .header_section { position: relative; z-index: 99999; }
-        .header_section .navbar,
-        .header_section .navbar-collapse,
-        .header_section .navbar-nav,
-        .header_section .nav-item,
-        .header_section .nav-link {
-            pointer-events: auto !important;
+        .header_section {
             position: relative;
             z-index: 99999;
         }
+
+            .header_section .navbar,
+            .header_section .navbar-collapse,
+            .header_section .navbar-nav,
+            .header_section .nav-item,
+            .header_section .nav-link {
+                pointer-events: auto !important;
+                position: relative;
+                z-index: 99999;
+            }
     </style>
 
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
@@ -96,6 +100,8 @@
     </style>
 </head>
 <body>
+    @Html.AntiForgeryToken()
+
     <!-- header section start -->
     <div class="header_section">
         <div class="container">
@@ -146,7 +152,6 @@
                                     <i class="fa fa-user-plus"></i> ثبت‌نام
                                 </a>
                             </li>
-
                         }
                         @{
                             string currentController = ViewContext.RouteData.Values["controller"]?.ToString();
@@ -203,12 +208,7 @@
         </div>
     </div>
 
-
-
     @RenderBody()
-
-
-
 
     <!-- footer section start -->
     <div class="footer_section layout_padding">
@@ -354,24 +354,44 @@
     <!-- Javascript files-->
     <script src="~/Content/trator-1.0.0/js/jquery.min.js"></script>
     <script src="~/Content/trator-1.0.0/js/popper.min.js"></script>
-    <script src="~/Content/trator-1.0.0/js/bootstrap.bundle.min.js"></script> 
+    <script src="~/Content/trator-1.0.0/js/bootstrap.bundle.min.js"></script>
     <script src="~/Content/trator-1.0.0/js/plugin.js"></script>
     <script src="~/Content/trator-1.0.0/js/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="~/Content/trator-1.0.0/js/custom.js"></script>
+
     <script>
-    function logoutUser() {
-        if (!confirm('از حساب خارج می‌شوید؟')) return;
+        function logoutUser() {
+            if (!confirm('از حساب خارج می‌شوید؟')) return;
 
-        $.post('@Url.Action("Logout", "Login")', function (res) {
-            if (res.success) {
-                localStorage.removeItem('auth_token');
-                window.location.href = '/';
+            var token = $('input[name="__RequestVerificationToken"]').first().val();
+            if (!token) {
+                alert('توکن امنیتی یافت نشد. صفحه را رفرش کنید.');
+                return;
             }
-        });
-    }
+
+            $.ajax({
+                url: '@Url.Action("Logout", "Login")',
+                type: 'POST',
+                data: { __RequestVerificationToken: token },
+                success: function (res) {
+                    if (res && res.success) {
+                        try { localStorage.removeItem('auth_token'); } catch (e) { }
+                        window.location.href = '@Url.Action("Index", "Home")';
+                    } else {
+                        alert((res && res.message) || 'خطا در خروج از حساب.');
+                    }
+                },
+                error: function (xhr) {
+                    if (xhr.status === 500) {
+                        alert('توکن امنیتی نامعتبر است. صفحه را رفرش کنید.');
+                    } else {
+                        alert('خطای شبکه. لطفاً دوباره تلاش کنید.');
+                    }
+                }
+            });
+        }
     </script>
+
     @RenderSection("Scripts", required: false)
-
-
 </body>
 </html>

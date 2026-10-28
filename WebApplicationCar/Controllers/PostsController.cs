@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web.Mvc;
 using WebApplicationCar.Models;
 using WebApplicationCar.Services;
-using WebApplicationCar.Models;
 
 namespace WebApplicationCar.Controllers
 {
@@ -49,6 +48,71 @@ namespace WebApplicationCar.Controllers
         }
 
         // ============================================================
+        // Helper: گرفتن UserId از cookie auth_token
+        // ============================================================
+        private int? GetCurrentUserId()
+        {
+            if (HttpContext != null && HttpContext.Items != null
+                && HttpContext.Items["UserId"] != null)
+            {
+                object item = HttpContext.Items["UserId"];
+                if (item is int) return (int)item;
+            }
+
+            if (Request != null && Request.Cookies != null
+                && Request.Cookies["auth_token"] != null)
+            {
+                string authToken = Request.Cookies["auth_token"].Value;
+                if (!string.IsNullOrEmpty(authToken))
+                {
+                    try
+                    {
+                        var tokenService = new SessionTokenService();
+                        var currentUser = tokenService.ValidateToken(authToken);
+                        if (currentUser != null) return currentUser.UserId;
+                    }
+                    catch { /* ignore */ }
+                }
+            }
+
+            return null;
+        }
+
+        // ============================================================
+        // Helper: گرفتن فروشگاه فعال
+        // ============================================================
+        private int? GetCurrentStoreId()
+        {
+            // 1) Session
+            if (Session != null && Session["ActiveStoreSettingId"] != null)
+            {
+                object item = Session["ActiveStoreSettingId"];
+                if (item is int) return (int)item;
+            }
+
+            // 2) DB (fallback)
+            var userId = GetCurrentUserId();
+            if (userId.HasValue)
+            {
+                try
+                {
+                    using (var db = new DataClassesDatabaseDataContextDataContext())
+                    {
+                        var user = db.X_Users.FirstOrDefault(u => u.UserId == userId.Value);
+                        if (user != null && user.FK_ActiveStoreSettingId.HasValue)
+                        {
+                            Session["ActiveStoreSettingId"] = user.FK_ActiveStoreSettingId.Value;
+                            return user.FK_ActiveStoreSettingId.Value;
+                        }
+                    }
+                }
+                catch { /* ignore */ }
+            }
+
+            return null;
+        }
+
+        // ============================================================
         // صفحه فید
         // ============================================================
         public ActionResult Feed()
@@ -57,7 +121,7 @@ namespace WebApplicationCar.Controllers
         }
 
         // ============================================================
-        // AJAX: فید پیوسته
+        // AJAX: فید پیوسته (فیلتر بر اساس فروشگاه فعال)
         // ============================================================
         [HttpGet]
         public JsonResult GetFeed(int skip = 0, int take = DefaultPageSize)
@@ -69,13 +133,32 @@ namespace WebApplicationCar.Controllers
             try
             {
                 var currentUserId = GetCurrentUserId();
+                var currentStoreId = GetCurrentStoreId();
+
+                // اگر فروشگاه فعال ندارد → نیاز به لاگین
+                if (!currentStoreId.HasValue)
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        requireLogin = true,
+                        message = "برای مشاهده فید، لطفاً وارد شوید.",
+                        Data = new object[0],
+                        Total = 0,
+                        HasMore = false,
+                        Skip = skip
+                    }, JsonRequestBehavior.AllowGet);
+                }
+
                 int userIdValue = currentUserId.HasValue ? currentUserId.Value : -1;
+                int storeIdValue = currentStoreId.Value;
 
                 using (var db = new DataClassesDatabaseDataContextDataContext())
                 {
                     var baseQuery = from r in db.X_Resources
                                     join u in db.X_Users on r.FK_UserId equals u.UserId
                                     where r.IsActive
+                                       && r.FK_StoreSettingId == storeIdValue   // ← فیلتر فروشگاه
                                     orderby r.CreatedAt descending
                                     select new
                                     {
@@ -111,30 +194,7 @@ namespace WebApplicationCar.Controllers
                                     };
 
                     var total = baseQuery.Count();
-
-                    var rawData = baseQuery
-                        .Skip(skip)
-                        .Take(take)
-                        .ToList();
-
-                    var data = rawData
-                        .Select(p => new
-                        {
-                            p.ResourceId,
-                            p.Title,
-                            p.Content,
-                            p.CreatedAt,
-                            p.AuthorId,
-                            p.AuthorName,
-                            p.AuthorFirstName,
-                            p.AuthorLastName,
-                            p.AuthorProfileImage,
-                            p.ImageUrl,
-                            p.LikeCount,
-                            p.CommentCount,
-                            p.IsLikedByMe
-                        })
-                        .ToList();
+                    var data = baseQuery.Skip(skip).Take(take).ToList();
 
                     return Json(new
                     {
@@ -143,7 +203,8 @@ namespace WebApplicationCar.Controllers
                         Total = total,
                         HasMore = (skip + take) < total,
                         Skip = skip + take,
-                        CurrentUserId = currentUserId
+                        CurrentUserId = currentUserId,
+                        CurrentStoreId = currentStoreId
                     }, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -163,7 +224,7 @@ namespace WebApplicationCar.Controllers
         }
 
         // ============================================================
-        // AJAX: جزئیات یک پست
+        // AJAX: جزئیات یک پست (فقط از همان فروشگاه)
         // ============================================================
         [HttpGet]
         public JsonResult GetPost(int resourceId)
@@ -171,13 +232,16 @@ namespace WebApplicationCar.Controllers
             try
             {
                 var currentUserId = GetCurrentUserId();
-                int userIdValue = currentUserId.HasValue ? currentUserId.Value : -1;  // 👈
+                var currentStoreId = GetCurrentStoreId();
+                int userIdValue = currentUserId.HasValue ? currentUserId.Value : -1;
 
                 using (var db = new DataClassesDatabaseDataContextDataContext())
                 {
                     var post = (from r in db.X_Resources
                                 join u in db.X_Users on r.FK_UserId equals u.UserId
-                                where r.ResourceId == resourceId && r.IsActive
+                                where r.ResourceId == resourceId
+                                   && r.IsActive
+                                   && (!currentStoreId.HasValue || r.FK_StoreSettingId == currentStoreId.Value)
                                 select new
                                 {
                                     ResourceId = r.ResourceId,
@@ -198,7 +262,6 @@ namespace WebApplicationCar.Controllers
                                     CommentCount = db.X_Reviews
                                         .Count(c => c.FK_ResourceId == r.ResourceId
                                                  && c.IsActive && c.IsApproved),
-                                    // 👇 اصلاح
                                     IsLikedByMe = currentUserId.HasValue &&
                                         db.X_ResourceLikes.Any(l =>
                                             l.FK_ResourceId == r.ResourceId &&
@@ -206,7 +269,7 @@ namespace WebApplicationCar.Controllers
                                 }).FirstOrDefault();
 
                     if (post == null)
-                        return Json(new { success = false, message = "پست یافت نشد." },
+                        return Json(new { success = false, message = "پست یافت نشد یا دسترسی ندارید." },
                                     JsonRequestBehavior.AllowGet);
 
                     return Json(new { success = true, post = post },
@@ -221,7 +284,7 @@ namespace WebApplicationCar.Controllers
         }
 
         // ============================================================
-        // POST: ایجاد پست جدید (چند تصویر)
+        // POST: ایجاد پست جدید (با فروشگاه فعال)
         // ============================================================
         [HttpPost]
         public JsonResult Create(string title, string content, string imageUrls = null)
@@ -229,6 +292,10 @@ namespace WebApplicationCar.Controllers
             var userId = GetCurrentUserId();
             if (!userId.HasValue)
                 return NeedLoginResult();
+
+            var storeId = GetCurrentStoreId();
+            if (!storeId.HasValue)
+                return Json(new { success = false, message = "فروشگاه فعال تعیین نشده. لطفاً دوباره لاگین کنید." });
 
             if (string.IsNullOrWhiteSpace(title))
                 return Json(new { success = false, message = "عنوان الزامی است." });
@@ -265,6 +332,7 @@ namespace WebApplicationCar.Controllers
                         NameFa = title,
                         Description = content,
                         FK_UserId = userId.Value,
+                        FK_StoreSettingId = storeId.Value,   // ← فروشگاه فعال
                         IsActive = true,
                         CreatedAt = DateTime.Now
                     };
@@ -329,14 +397,14 @@ namespace WebApplicationCar.Controllers
         }
 
         // ============================================================
-        // POST: حذف پست
+        // POST: حذف پست (با چک فروشگاه)
         // ============================================================
         [HttpPost]
         public JsonResult Delete(int resourceId)
         {
             var userId = GetCurrentUserId();
             if (!userId.HasValue)
-                return NeedLoginResult();                 // ← اصلاح شد
+                return NeedLoginResult();
 
             try
             {
@@ -349,6 +417,11 @@ namespace WebApplicationCar.Controllers
 
                     if (resource.FK_UserId != userId.Value)
                         return Json(new { success = false, message = "دسترسی ندارید." });
+
+                    // چک فروشگاه فعال (اختیاری ولی توصیه‌شده)
+                    var storeId = GetCurrentStoreId();
+                    if (storeId.HasValue && resource.FK_StoreSettingId != storeId.Value)
+                        return Json(new { success = false, message = "این پست متعلق به فروشگاه دیگری است." });
 
                     resource.IsActive = false;
                     db.SubmitChanges();
@@ -375,7 +448,7 @@ namespace WebApplicationCar.Controllers
         {
             var userId = GetCurrentUserId();
             if (!userId.HasValue)
-                return NeedLoginResult();                 // ← اصلاح شد
+                return NeedLoginResult();
 
             try
             {
@@ -430,6 +503,9 @@ namespace WebApplicationCar.Controllers
             }
         }
 
+        // ============================================================
+        // AJAX: کامنت‌های یک پست
+        // ============================================================
         [HttpGet]
         public JsonResult GetComments(int resourceId, int skip = 0, int take = DefaultCommentsPageSize)
         {
@@ -459,7 +535,6 @@ namespace WebApplicationCar.Controllers
                                     AuthorLastName = u.LastName,
                                     AuthorProfileImage = u.ProfileImageUrl,
 
-                                    // 👇 تصاویر کامنت
                                     ImageUrls = db.X_ReviewImages
                                         .Where(i => i.FK_ReviewId == c.ReviewId && i.IsActive)
                                         .OrderBy(i => i.SortOrder)
@@ -511,6 +586,9 @@ namespace WebApplicationCar.Controllers
             }
         }
 
+        // ============================================================
+        // POST: افزودن کامنت
+        // ============================================================
         [HttpPost]
         public JsonResult AddComment(int resourceId, string comment, string imageUrls = null)
         {
@@ -563,7 +641,6 @@ namespace WebApplicationCar.Controllers
                     db.X_Reviews.InsertOnSubmit(review);
                     db.SubmitChanges();
 
-                    // 👇 ذخیره تصاویر کامنت
                     for (int i = 0; i < urlList.Count; i++)
                     {
                         db.X_ReviewImages.InsertOnSubmit(new X_ReviewImage
@@ -622,7 +699,7 @@ namespace WebApplicationCar.Controllers
         {
             var userId = GetCurrentUserId();
             if (!userId.HasValue)
-                return NeedLoginResult();                 // ← اصلاح شد
+                return NeedLoginResult();
 
             try
             {
@@ -638,7 +715,6 @@ namespace WebApplicationCar.Controllers
                     if (review.FK_UserId != userId.Value &&
                         (post == null || post.FK_UserId != userId.Value))
                         return Json(new { success = false, message = "دسترسی ندارید." });
-
 
                     var images = db.X_ReviewImages
                         .Where(i => i.FK_ReviewId == review.ReviewId);
@@ -673,38 +749,6 @@ namespace WebApplicationCar.Controllers
                 });
             }
         }
-
-        // ============================================================
-        // Helper: گرفتن UserId از cookie auth_token
-        // ============================================================
-        private int? GetCurrentUserId()
-        {
-            if (HttpContext != null && HttpContext.Items != null
-                && HttpContext.Items["UserId"] != null)
-            {
-                object item = HttpContext.Items["UserId"];
-                if (item is int) return (int)item;
-            }
-
-            if (Request != null && Request.Cookies != null
-                && Request.Cookies["auth_token"] != null)
-            {
-                string authToken = Request.Cookies["auth_token"].Value;
-                if (!string.IsNullOrEmpty(authToken))
-                {
-                    try
-                    {
-                        var tokenService = new SessionTokenService();
-                        var currentUser = tokenService.ValidateToken(authToken);
-                        if (currentUser != null) return currentUser.UserId;
-                    }
-                    catch { /* ignore */ }
-                }
-            }
-
-            return null;
-        }
-
 
         // ============================================================
         // POST: آپلود چند تصویر برای پست
@@ -775,20 +819,23 @@ namespace WebApplicationCar.Controllers
             }
         }
 
-
         // ============================================================
-        // GET: صفحه جزئیات پست
+        // GET: صفحه جزئیات پست (با چک فروشگاه)
         // ============================================================
         [HttpGet]
         public ActionResult Detail(int id)
         {
+            var storeId = GetCurrentStoreId();
+
             using (var db = new DataClassesDatabaseDataContextDataContext())
             {
                 var exists = db.X_Resources
-                    .Any(r => r.ResourceId == id && r.IsActive);
+                    .Any(r => r.ResourceId == id
+                           && r.IsActive
+                           && (!storeId.HasValue || r.FK_StoreSettingId == storeId.Value));
 
                 if (!exists)
-                    return HttpNotFound("پست یافت نشد.");
+                    return HttpNotFound("پست یافت نشد یا دسترسی ندارید.");
 
                 ViewBag.ResourceId = id;
                 return View();
@@ -804,13 +851,16 @@ namespace WebApplicationCar.Controllers
             try
             {
                 var currentUserId = GetCurrentUserId();
-                int userIdValue = currentUserId.HasValue ? currentUserId.Value : -1;  // 👈 اضافه شد
+                var currentStoreId = GetCurrentStoreId();
+                int userIdValue = currentUserId.HasValue ? currentUserId.Value : -1;
 
                 using (var db = new DataClassesDatabaseDataContextDataContext())
                 {
                     var post = (from r in db.X_Resources
                                 join u in db.X_Users on r.FK_UserId equals u.UserId
-                                where r.ResourceId == resourceId && r.IsActive
+                                where r.ResourceId == resourceId
+                                   && r.IsActive
+                                   && (!currentStoreId.HasValue || r.FK_StoreSettingId == currentStoreId.Value)
                                 select new
                                 {
                                     ResourceId = r.ResourceId,
@@ -836,7 +886,6 @@ namespace WebApplicationCar.Controllers
                                         .Count(c => c.FK_ResourceId == r.ResourceId
                                                  && c.IsActive && c.IsApproved),
 
-                                    // 👇 این خط اصلاح شد
                                     IsLikedByMe = currentUserId.HasValue &&
                                         db.X_ResourceLikes.Any(l =>
                                             l.FK_ResourceId == r.ResourceId &&
@@ -844,7 +893,7 @@ namespace WebApplicationCar.Controllers
                                 }).FirstOrDefault();
 
                     if (post == null)
-                        return Json(new { success = false, message = "پست یافت نشد." },
+                        return Json(new { success = false, message = "پست یافت نشد یا دسترسی ندارید." },
                                     JsonRequestBehavior.AllowGet);
 
                     return Json(new { success = true, post = post },
@@ -926,6 +975,5 @@ namespace WebApplicationCar.Controllers
                 return Json(new { success = false, message = "خطا: " + ex.Message });
             }
         }
-
     }
 }

@@ -1,21 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="balabar1_balabarkaran" Class="DataClassesDatabaseDataContextDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="WebSettings" ConnectionString="Data Source=185.55.224.101;Initial Catalog=balabar1_balabarkaran;Persist Security Info=True;User ID=balabar1_Develop" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="balabar1_balabarkaranConnectionString" Provider="System.Data.SqlClient" />
-  <Table Name="balabar1_Develop.X_WalletTransactions" Member="X_WalletTransactions">
-    <Type Name="X_WalletTransaction">
-      <Column Name="WalletTransactionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="FK_WalletId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="TransactionType" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
-      <Column Name="Amount" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
-      <Column Name="BalanceBefore" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
-      <Column Name="BalanceAfter" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
-      <Column Name="FK_OrderId" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Description" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
-      <Column Name="TransactionDate" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
-      <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
-      <Association Name="X_Order_X_WalletTransaction" Member="X_Order" ThisKey="FK_OrderId" OtherKey="OrderId" Type="X_Order" IsForeignKey="true" />
-      <Association Name="X_Wallet_X_WalletTransaction" Member="X_Wallet" ThisKey="FK_WalletId" OtherKey="WalletId" Type="X_Wallet" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="balabar1_Develop.X_Attributes" Member="X_Attributes">
     <Type Name="X_Attribute">
       <Column Name="AttributeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -36,8 +20,8 @@
       <Association Name="X_Category_X_Attribute" Member="X_Category" ThisKey="FK_CategoryId" OtherKey="CategoryId" Type="X_Category" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="balabar1_Develop.X_WalletTransactions" Member="X_WalletTransaction1s">
-    <Type Name="X_WalletTransaction1">
+  <Table Name="balabar1_Develop.X_WalletTransactions" Member="X_WalletTransactions">
+    <Type Name="X_WalletTransaction">
       <Column Name="WalletTransactionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="FK_WalletId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="TransactionType" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
@@ -48,8 +32,8 @@
       <Column Name="Description" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
       <Column Name="TransactionDate" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
       <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
-      <Association Name="X_Order_X_WalletTransaction1" Member="X_Order" ThisKey="FK_OrderId" OtherKey="OrderId" Type="X_Order" IsForeignKey="true" />
-      <Association Name="X_Wallet_X_WalletTransaction1" Member="X_Wallet" ThisKey="FK_WalletId" OtherKey="WalletId" Type="X_Wallet" IsForeignKey="true" />
+      <Association Name="X_Order_X_WalletTransaction" Member="X_Order" ThisKey="FK_OrderId" OtherKey="OrderId" Type="X_Order" IsForeignKey="true" />
+      <Association Name="X_Wallet_X_WalletTransaction" Member="X_Wallet" ThisKey="FK_WalletId" OtherKey="WalletId" Type="X_Wallet" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="balabar1_Develop.X_AttributeValueRelations" Member="X_AttributeValueRelations">
@@ -324,8 +308,8 @@
       <Column Name="TotalAmount" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
       <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
       <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="FK_StoreSettingId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="X_Order_X_WalletTransaction" Member="X_WalletTransactions" ThisKey="OrderId" OtherKey="FK_OrderId" Type="X_WalletTransaction" />
-      <Association Name="X_Order_X_WalletTransaction1" Member="X_WalletTransaction1s" ThisKey="OrderId" OtherKey="FK_OrderId" Type="X_WalletTransaction1" />
       <Association Name="X_Order_X_InventoryTransaction" Member="X_InventoryTransactions" ThisKey="OrderId" OtherKey="FK_OrderId" Type="X_InventoryTransaction" />
       <Association Name="X_Order_X_OrderDiscount" Member="X_OrderDiscounts" ThisKey="OrderId" OtherKey="FK_OrderId" Type="X_OrderDiscount" />
       <Association Name="X_Order_X_OrderItem" Member="X_OrderItems" ThisKey="OrderId" OtherKey="FK_OrderId" Type="X_OrderItem" />
@@ -336,6 +320,7 @@
       <Association Name="X_Order_X_UserSubscription" Member="X_UserSubscriptions" ThisKey="OrderId" OtherKey="FK_OrderId" Type="X_UserSubscription" />
       <Association Name="X_Cart_X_Order" Member="X_Cart" ThisKey="FK_CartId" OtherKey="CartId" Type="X_Cart" IsForeignKey="true" />
       <Association Name="X_AttributeValue_X_Order" Member="X_AttributeValue" ThisKey="FK_StatusValueId" OtherKey="AttributeValueId" Type="X_AttributeValue" IsForeignKey="true" />
+      <Association Name="X_StoreSetting_X_Order" Member="X_StoreSetting" ThisKey="FK_StoreSettingId" OtherKey="StoreSettingId" Type="X_StoreSetting" IsForeignKey="true" />
       <Association Name="X_User_X_Order" Member="X_User" ThisKey="FK_UserId" OtherKey="UserId" Type="X_User" IsForeignKey="true" />
     </Type>
   </Table>
@@ -594,6 +579,7 @@
       <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
       <Column Name="FK_UserId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FK_StoreSettingId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="X_Resource_X_DigitalFile" Member="X_DigitalFiles" ThisKey="ResourceId" OtherKey="FK_ResourceId" Type="X_DigitalFile" />
       <Association Name="X_Resource_X_OrderItem" Member="X_OrderItems" ThisKey="ResourceId" OtherKey="FK_ResourceId" Type="X_OrderItem" />
       <Association Name="X_Resource_X_Product" Member="X_Products" ThisKey="ResourceId" OtherKey="FK_ResourceId" Type="X_Product" />
@@ -603,6 +589,7 @@
       <Association Name="X_Resource_X_ResourceLike" Member="X_ResourceLikes" ThisKey="ResourceId" OtherKey="FK_ResourceId" Type="X_ResourceLike" />
       <Association Name="X_Resource_X_Review" Member="X_Reviews" ThisKey="ResourceId" OtherKey="FK_ResourceId" Type="X_Review" />
       <Association Name="X_Resource_X_Service" Member="X_Services" ThisKey="ResourceId" OtherKey="FK_ResourceId" Type="X_Service" />
+      <Association Name="X_StoreSetting_X_Resource" Member="X_StoreSetting" ThisKey="FK_StoreSettingId" OtherKey="StoreSettingId" Type="X_StoreSetting" IsForeignKey="true" />
       <Association Name="X_User_X_Resource" Member="X_User" ThisKey="FK_UserId" OtherKey="UserId" Type="X_User" IsForeignKey="true" />
     </Type>
   </Table>
@@ -769,7 +756,12 @@
       <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
       <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="Code" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Association Name="X_StoreSetting_X_Order" Member="X_Orders" ThisKey="StoreSettingId" OtherKey="FK_StoreSettingId" Type="X_Order" />
       <Association Name="X_StoreSetting_X_ProductVariantOtherSeller" Member="X_ProductVariantOtherSellers" ThisKey="StoreSettingId" OtherKey="FK_StoreSettingId" Type="X_ProductVariantOtherSeller" />
+      <Association Name="X_StoreSetting_X_Resource" Member="X_Resources" ThisKey="StoreSettingId" OtherKey="FK_StoreSettingId" Type="X_Resource" />
+      <Association Name="X_StoreSetting_X_User" Member="X_Users" ThisKey="StoreSettingId" OtherKey="FK_ActiveStoreSettingId" Type="X_User" />
+      <Association Name="X_StoreSetting_X_UserStoreSetting" Member="X_UserStoreSettings" ThisKey="StoreSettingId" OtherKey="FK_StoreSettingId" Type="X_UserStoreSetting" />
       <Association Name="X_City_X_StoreSetting" Member="X_City" ThisKey="FK_CityId" OtherKey="CityId" Type="X_City" IsForeignKey="true" />
       <Association Name="X_Country_X_StoreSetting" Member="X_Country" ThisKey="FK_CountryId" OtherKey="CountryId" Type="X_Country" IsForeignKey="true" />
       <Association Name="X_Province_X_StoreSetting" Member="X_Province" ThisKey="FK_ProvinceId" OtherKey="ProvinceId" Type="X_Province" IsForeignKey="true" />
@@ -843,6 +835,7 @@
       <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
       <Column Name="LastLoginAt" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
       <Column Name="FK_ActiveRoleId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FK_ActiveStoreSettingId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="X_User_X_Cart" Member="X_Carts" ThisKey="UserId" OtherKey="FK_UserId" Type="X_Cart" />
       <Association Name="X_User_X_DigitalFileAccess" Member="X_DigitalFileAccesses" ThisKey="UserId" OtherKey="FK_UserId" Type="X_DigitalFileAccess" />
       <Association Name="X_User_X_Order" Member="X_Orders" ThisKey="UserId" OtherKey="FK_UserId" Type="X_Order" />
@@ -854,9 +847,25 @@
       <Association Name="X_User_X_ServiceSchedule" Member="X_ServiceSchedules" ThisKey="UserId" OtherKey="FK_ProviderId" Type="X_ServiceSchedule" />
       <Association Name="X_User_X_UserAddress" Member="X_UserAddresses" ThisKey="UserId" OtherKey="FK_UserId" Type="X_UserAddress" />
       <Association Name="X_User_X_UserRole" Member="X_UserRoles" ThisKey="UserId" OtherKey="FK_UserId" Type="X_UserRole" />
+      <Association Name="X_User_X_UserStoreSetting" Member="X_UserStoreSettings" ThisKey="UserId" OtherKey="FK_UserId" Type="X_UserStoreSetting" />
       <Association Name="X_User_X_UserSubscription" Member="X_UserSubscriptions" ThisKey="UserId" OtherKey="FK_UserId" Type="X_UserSubscription" />
       <Association Name="X_User_X_Wallet" Member="X_Wallets" ThisKey="UserId" OtherKey="FK_UserId" Type="X_Wallet" />
       <Association Name="X_Role_X_User" Member="X_Role" ThisKey="FK_ActiveRoleId" OtherKey="RoleId" Type="X_Role" IsForeignKey="true" />
+      <Association Name="X_StoreSetting_X_User" Member="X_StoreSetting" ThisKey="FK_ActiveStoreSettingId" OtherKey="StoreSettingId" Type="X_StoreSetting" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="balabar1_Develop.X_UserStoreSettings" Member="X_UserStoreSettings">
+    <Type Name="X_UserStoreSetting">
+      <Column Name="UserStoreSettingId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FK_UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FK_StoreSettingId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RoleInStore" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="IsPrimary" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="JoinedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="LeftAt" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Association Name="X_StoreSetting_X_UserStoreSetting" Member="X_StoreSetting" ThisKey="FK_StoreSettingId" OtherKey="StoreSettingId" Type="X_StoreSetting" IsForeignKey="true" />
+      <Association Name="X_User_X_UserStoreSetting" Member="X_User" ThisKey="FK_UserId" OtherKey="UserId" Type="X_User" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="balabar1_Develop.X_UserSubscriptions" Member="X_UserSubscriptions">
@@ -884,7 +893,6 @@
       <Column Name="CreatedAt" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
       <Column Name="UpdatedAt" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
       <Association Name="X_Wallet_X_WalletTransaction" Member="X_WalletTransactions" ThisKey="WalletId" OtherKey="FK_WalletId" Type="X_WalletTransaction" />
-      <Association Name="X_Wallet_X_WalletTransaction1" Member="X_WalletTransaction1s" ThisKey="WalletId" OtherKey="FK_WalletId" Type="X_WalletTransaction1" />
       <Association Name="X_User_X_Wallet" Member="X_User" ThisKey="FK_UserId" OtherKey="UserId" Type="X_User" IsForeignKey="true" />
     </Type>
   </Table>

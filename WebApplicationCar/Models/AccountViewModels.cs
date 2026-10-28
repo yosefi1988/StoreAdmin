@@ -80,6 +80,9 @@ namespace WebApplicationCar.Models
 
         [Display(Name = "مرا به خاطر بسپار")]
         public bool RememberMe { get; set; }
+
+        public string StoreCode { get; set; }   // ← جدید: کد یا نام فروشگاه
+
     }
 
     public class RegisterViewModel

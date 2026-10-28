@@ -30,15 +30,12 @@ namespace WebApplicationCar.Models
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertX_WalletTransaction(X_WalletTransaction instance);
-    partial void UpdateX_WalletTransaction(X_WalletTransaction instance);
-    partial void DeleteX_WalletTransaction(X_WalletTransaction instance);
     partial void InsertX_Attribute(X_Attribute instance);
     partial void UpdateX_Attribute(X_Attribute instance);
     partial void DeleteX_Attribute(X_Attribute instance);
-    partial void InsertX_WalletTransaction1(X_WalletTransaction1 instance);
-    partial void UpdateX_WalletTransaction1(X_WalletTransaction1 instance);
-    partial void DeleteX_WalletTransaction1(X_WalletTransaction1 instance);
+    partial void InsertX_WalletTransaction(X_WalletTransaction instance);
+    partial void UpdateX_WalletTransaction(X_WalletTransaction instance);
+    partial void DeleteX_WalletTransaction(X_WalletTransaction instance);
     partial void InsertX_AttributeValueRelation(X_AttributeValueRelation instance);
     partial void UpdateX_AttributeValueRelation(X_AttributeValueRelation instance);
     partial void DeleteX_AttributeValueRelation(X_AttributeValueRelation instance);
@@ -186,6 +183,9 @@ namespace WebApplicationCar.Models
     partial void InsertX_User(X_User instance);
     partial void UpdateX_User(X_User instance);
     partial void DeleteX_User(X_User instance);
+    partial void InsertX_UserStoreSetting(X_UserStoreSetting instance);
+    partial void UpdateX_UserStoreSetting(X_UserStoreSetting instance);
+    partial void DeleteX_UserStoreSetting(X_UserStoreSetting instance);
     partial void InsertX_UserSubscription(X_UserSubscription instance);
     partial void UpdateX_UserSubscription(X_UserSubscription instance);
     partial void DeleteX_UserSubscription(X_UserSubscription instance);
@@ -224,14 +224,6 @@ namespace WebApplicationCar.Models
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<X_WalletTransaction> X_WalletTransactions
-		{
-			get
-			{
-				return this.GetTable<X_WalletTransaction>();
-			}
-		}
-		
 		public System.Data.Linq.Table<X_Attribute> X_Attributes
 		{
 			get
@@ -240,11 +232,11 @@ namespace WebApplicationCar.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<X_WalletTransaction1> X_WalletTransaction1s
+		public System.Data.Linq.Table<X_WalletTransaction> X_WalletTransactions
 		{
 			get
 			{
-				return this.GetTable<X_WalletTransaction1>();
+				return this.GetTable<X_WalletTransaction>();
 			}
 		}
 		
@@ -648,6 +640,14 @@ namespace WebApplicationCar.Models
 			}
 		}
 		
+		public System.Data.Linq.Table<X_UserStoreSetting> X_UserStoreSettings
+		{
+			get
+			{
+				return this.GetTable<X_UserStoreSetting>();
+			}
+		}
+		
 		public System.Data.Linq.Table<X_UserSubscription> X_UserSubscriptions
 		{
 			get
@@ -661,366 +661,6 @@ namespace WebApplicationCar.Models
 			get
 			{
 				return this.GetTable<X_Wallet>();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="balabar1_Develop.X_WalletTransactions")]
-	public partial class X_WalletTransaction : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _WalletTransactionId;
-		
-		private int _FK_WalletId;
-		
-		private string _TransactionType;
-		
-		private decimal _Amount;
-		
-		private decimal _BalanceBefore;
-		
-		private decimal _BalanceAfter;
-		
-		private System.Nullable<int> _FK_OrderId;
-		
-		private string _Description;
-		
-		private System.DateTime _TransactionDate;
-		
-		private System.DateTime _CreatedAt;
-		
-		private EntityRef<X_Order> _X_Order;
-		
-		private EntityRef<X_Wallet> _X_Wallet;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnWalletTransactionIdChanging(int value);
-    partial void OnWalletTransactionIdChanged();
-    partial void OnFK_WalletIdChanging(int value);
-    partial void OnFK_WalletIdChanged();
-    partial void OnTransactionTypeChanging(string value);
-    partial void OnTransactionTypeChanged();
-    partial void OnAmountChanging(decimal value);
-    partial void OnAmountChanged();
-    partial void OnBalanceBeforeChanging(decimal value);
-    partial void OnBalanceBeforeChanged();
-    partial void OnBalanceAfterChanging(decimal value);
-    partial void OnBalanceAfterChanged();
-    partial void OnFK_OrderIdChanging(System.Nullable<int> value);
-    partial void OnFK_OrderIdChanged();
-    partial void OnDescriptionChanging(string value);
-    partial void OnDescriptionChanged();
-    partial void OnTransactionDateChanging(System.DateTime value);
-    partial void OnTransactionDateChanged();
-    partial void OnCreatedAtChanging(System.DateTime value);
-    partial void OnCreatedAtChanged();
-    #endregion
-		
-		public X_WalletTransaction()
-		{
-			this._X_Order = default(EntityRef<X_Order>);
-			this._X_Wallet = default(EntityRef<X_Wallet>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WalletTransactionId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int WalletTransactionId
-		{
-			get
-			{
-				return this._WalletTransactionId;
-			}
-			set
-			{
-				if ((this._WalletTransactionId != value))
-				{
-					this.OnWalletTransactionIdChanging(value);
-					this.SendPropertyChanging();
-					this._WalletTransactionId = value;
-					this.SendPropertyChanged("WalletTransactionId");
-					this.OnWalletTransactionIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FK_WalletId", DbType="Int NOT NULL")]
-		public int FK_WalletId
-		{
-			get
-			{
-				return this._FK_WalletId;
-			}
-			set
-			{
-				if ((this._FK_WalletId != value))
-				{
-					if (this._X_Wallet.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnFK_WalletIdChanging(value);
-					this.SendPropertyChanging();
-					this._FK_WalletId = value;
-					this.SendPropertyChanged("FK_WalletId");
-					this.OnFK_WalletIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TransactionType", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
-		public string TransactionType
-		{
-			get
-			{
-				return this._TransactionType;
-			}
-			set
-			{
-				if ((this._TransactionType != value))
-				{
-					this.OnTransactionTypeChanging(value);
-					this.SendPropertyChanging();
-					this._TransactionType = value;
-					this.SendPropertyChanged("TransactionType");
-					this.OnTransactionTypeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Amount", DbType="Decimal(18,2) NOT NULL")]
-		public decimal Amount
-		{
-			get
-			{
-				return this._Amount;
-			}
-			set
-			{
-				if ((this._Amount != value))
-				{
-					this.OnAmountChanging(value);
-					this.SendPropertyChanging();
-					this._Amount = value;
-					this.SendPropertyChanged("Amount");
-					this.OnAmountChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BalanceBefore", DbType="Decimal(18,2) NOT NULL")]
-		public decimal BalanceBefore
-		{
-			get
-			{
-				return this._BalanceBefore;
-			}
-			set
-			{
-				if ((this._BalanceBefore != value))
-				{
-					this.OnBalanceBeforeChanging(value);
-					this.SendPropertyChanging();
-					this._BalanceBefore = value;
-					this.SendPropertyChanged("BalanceBefore");
-					this.OnBalanceBeforeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BalanceAfter", DbType="Decimal(18,2) NOT NULL")]
-		public decimal BalanceAfter
-		{
-			get
-			{
-				return this._BalanceAfter;
-			}
-			set
-			{
-				if ((this._BalanceAfter != value))
-				{
-					this.OnBalanceAfterChanging(value);
-					this.SendPropertyChanging();
-					this._BalanceAfter = value;
-					this.SendPropertyChanged("BalanceAfter");
-					this.OnBalanceAfterChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FK_OrderId", DbType="Int")]
-		public System.Nullable<int> FK_OrderId
-		{
-			get
-			{
-				return this._FK_OrderId;
-			}
-			set
-			{
-				if ((this._FK_OrderId != value))
-				{
-					if (this._X_Order.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnFK_OrderIdChanging(value);
-					this.SendPropertyChanging();
-					this._FK_OrderId = value;
-					this.SendPropertyChanged("FK_OrderId");
-					this.OnFK_OrderIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(1000)")]
-		public string Description
-		{
-			get
-			{
-				return this._Description;
-			}
-			set
-			{
-				if ((this._Description != value))
-				{
-					this.OnDescriptionChanging(value);
-					this.SendPropertyChanging();
-					this._Description = value;
-					this.SendPropertyChanged("Description");
-					this.OnDescriptionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TransactionDate", DbType="DateTime2 NOT NULL")]
-		public System.DateTime TransactionDate
-		{
-			get
-			{
-				return this._TransactionDate;
-			}
-			set
-			{
-				if ((this._TransactionDate != value))
-				{
-					this.OnTransactionDateChanging(value);
-					this.SendPropertyChanging();
-					this._TransactionDate = value;
-					this.SendPropertyChanged("TransactionDate");
-					this.OnTransactionDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedAt", DbType="DateTime2 NOT NULL")]
-		public System.DateTime CreatedAt
-		{
-			get
-			{
-				return this._CreatedAt;
-			}
-			set
-			{
-				if ((this._CreatedAt != value))
-				{
-					this.OnCreatedAtChanging(value);
-					this.SendPropertyChanging();
-					this._CreatedAt = value;
-					this.SendPropertyChanged("CreatedAt");
-					this.OnCreatedAtChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="X_Order_X_WalletTransaction", Storage="_X_Order", ThisKey="FK_OrderId", OtherKey="OrderId", IsForeignKey=true)]
-		public X_Order X_Order
-		{
-			get
-			{
-				return this._X_Order.Entity;
-			}
-			set
-			{
-				X_Order previousValue = this._X_Order.Entity;
-				if (((previousValue != value) 
-							|| (this._X_Order.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._X_Order.Entity = null;
-						previousValue.X_WalletTransactions.Remove(this);
-					}
-					this._X_Order.Entity = value;
-					if ((value != null))
-					{
-						value.X_WalletTransactions.Add(this);
-						this._FK_OrderId = value.OrderId;
-					}
-					else
-					{
-						this._FK_OrderId = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("X_Order");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="X_Wallet_X_WalletTransaction", Storage="_X_Wallet", ThisKey="FK_WalletId", OtherKey="WalletId", IsForeignKey=true)]
-		public X_Wallet X_Wallet
-		{
-			get
-			{
-				return this._X_Wallet.Entity;
-			}
-			set
-			{
-				X_Wallet previousValue = this._X_Wallet.Entity;
-				if (((previousValue != value) 
-							|| (this._X_Wallet.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._X_Wallet.Entity = null;
-						previousValue.X_WalletTransactions.Remove(this);
-					}
-					this._X_Wallet.Entity = value;
-					if ((value != null))
-					{
-						value.X_WalletTransactions.Add(this);
-						this._FK_WalletId = value.WalletId;
-					}
-					else
-					{
-						this._FK_WalletId = default(int);
-					}
-					this.SendPropertyChanged("X_Wallet");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
@@ -1477,7 +1117,7 @@ namespace WebApplicationCar.Models
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="balabar1_Develop.X_WalletTransactions")]
-	public partial class X_WalletTransaction1 : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class X_WalletTransaction : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -1532,7 +1172,7 @@ namespace WebApplicationCar.Models
     partial void OnCreatedAtChanged();
     #endregion
 		
-		public X_WalletTransaction1()
+		public X_WalletTransaction()
 		{
 			this._X_Order = default(EntityRef<X_Order>);
 			this._X_Wallet = default(EntityRef<X_Wallet>);
@@ -1747,7 +1387,7 @@ namespace WebApplicationCar.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="X_Order_X_WalletTransaction1", Storage="_X_Order", ThisKey="FK_OrderId", OtherKey="OrderId", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="X_Order_X_WalletTransaction", Storage="_X_Order", ThisKey="FK_OrderId", OtherKey="OrderId", IsForeignKey=true)]
 		public X_Order X_Order
 		{
 			get
@@ -1764,12 +1404,12 @@ namespace WebApplicationCar.Models
 					if ((previousValue != null))
 					{
 						this._X_Order.Entity = null;
-						previousValue.X_WalletTransaction1s.Remove(this);
+						previousValue.X_WalletTransactions.Remove(this);
 					}
 					this._X_Order.Entity = value;
 					if ((value != null))
 					{
-						value.X_WalletTransaction1s.Add(this);
+						value.X_WalletTransactions.Add(this);
 						this._FK_OrderId = value.OrderId;
 					}
 					else
@@ -1781,7 +1421,7 @@ namespace WebApplicationCar.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="X_Wallet_X_WalletTransaction1", Storage="_X_Wallet", ThisKey="FK_WalletId", OtherKey="WalletId", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="X_Wallet_X_WalletTransaction", Storage="_X_Wallet", ThisKey="FK_WalletId", OtherKey="WalletId", IsForeignKey=true)]
 		public X_Wallet X_Wallet
 		{
 			get
@@ -1798,12 +1438,12 @@ namespace WebApplicationCar.Models
 					if ((previousValue != null))
 					{
 						this._X_Wallet.Entity = null;
-						previousValue.X_WalletTransaction1s.Remove(this);
+						previousValue.X_WalletTransactions.Remove(this);
 					}
 					this._X_Wallet.Entity = value;
 					if ((value != null))
 					{
-						value.X_WalletTransaction1s.Add(this);
+						value.X_WalletTransactions.Add(this);
 						this._FK_WalletId = value.WalletId;
 					}
 					else
@@ -7769,9 +7409,9 @@ namespace WebApplicationCar.Models
 		
 		private System.Nullable<System.DateTime> _UpdatedAt;
 		
-		private EntitySet<X_WalletTransaction> _X_WalletTransactions;
+		private System.Nullable<int> _FK_StoreSettingId;
 		
-		private EntitySet<X_WalletTransaction1> _X_WalletTransaction1s;
+		private EntitySet<X_WalletTransaction> _X_WalletTransactions;
 		
 		private EntitySet<X_InventoryTransaction> _X_InventoryTransactions;
 		
@@ -7793,6 +7433,8 @@ namespace WebApplicationCar.Models
 		
 		private EntityRef<X_AttributeValue> _X_AttributeValue;
 		
+		private EntityRef<X_StoreSetting> _X_StoreSetting;
+		
 		private EntityRef<X_User> _X_User;
 		
     #region Extensibility Method Definitions
@@ -7813,12 +7455,13 @@ namespace WebApplicationCar.Models
     partial void OnCreatedAtChanged();
     partial void OnUpdatedAtChanging(System.Nullable<System.DateTime> value);
     partial void OnUpdatedAtChanged();
+    partial void OnFK_StoreSettingIdChanging(System.Nullable<int> value);
+    partial void OnFK_StoreSettingIdChanged();
     #endregion
 		
 		public X_Order()
 		{
 			this._X_WalletTransactions = new EntitySet<X_WalletTransaction>(new Action<X_WalletTransaction>(this.attach_X_WalletTransactions), new Action<X_WalletTransaction>(this.detach_X_WalletTransactions));
-			this._X_WalletTransaction1s = new EntitySet<X_WalletTransaction1>(new Action<X_WalletTransaction1>(this.attach_X_WalletTransaction1s), new Action<X_WalletTransaction1>(this.detach_X_WalletTransaction1s));
 			this._X_InventoryTransactions = new EntitySet<X_InventoryTransaction>(new Action<X_InventoryTransaction>(this.attach_X_InventoryTransactions), new Action<X_InventoryTransaction>(this.detach_X_InventoryTransactions));
 			this._X_OrderDiscounts = new EntitySet<X_OrderDiscount>(new Action<X_OrderDiscount>(this.attach_X_OrderDiscounts), new Action<X_OrderDiscount>(this.detach_X_OrderDiscounts));
 			this._X_OrderItems = new EntitySet<X_OrderItem>(new Action<X_OrderItem>(this.attach_X_OrderItems), new Action<X_OrderItem>(this.detach_X_OrderItems));
@@ -7829,6 +7472,7 @@ namespace WebApplicationCar.Models
 			this._X_UserSubscriptions = new EntitySet<X_UserSubscription>(new Action<X_UserSubscription>(this.attach_X_UserSubscriptions), new Action<X_UserSubscription>(this.detach_X_UserSubscriptions));
 			this._X_Cart = default(EntityRef<X_Cart>);
 			this._X_AttributeValue = default(EntityRef<X_AttributeValue>);
+			this._X_StoreSetting = default(EntityRef<X_StoreSetting>);
 			this._X_User = default(EntityRef<X_User>);
 			OnCreated();
 		}
@@ -7985,6 +7629,30 @@ namespace WebApplicationCar.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FK_StoreSettingId", DbType="Int")]
+		public System.Nullable<int> FK_StoreSettingId
+		{
+			get
+			{
+				return this._FK_StoreSettingId;
+			}
+			set
+			{
+				if ((this._FK_StoreSettingId != value))
+				{
+					if (this._X_StoreSetting.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnFK_StoreSettingIdChanging(value);
+					this.SendPropertyChanging();
+					this._FK_StoreSettingId = value;
+					this.SendPropertyChanged("FK_StoreSettingId");
+					this.OnFK_StoreSettingIdChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="X_Order_X_WalletTransaction", Storage="_X_WalletTransactions", ThisKey="OrderId", OtherKey="FK_OrderId")]
 		public EntitySet<X_WalletTransaction> X_WalletTransactions
 		{
@@ -7995,19 +7663,6 @@ namespace WebApplicationCar.Models
 			set
 			{
 				this._X_WalletTransactions.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="X_Order_X_WalletTransaction1", Storage="_X_WalletTransaction1s", ThisKey="OrderId", OtherKey="FK_OrderId")]
-		public EntitySet<X_WalletTransaction1> X_WalletTransaction1s
-		{
-			get
-			{
-				return this._X_WalletTransaction1s;
-			}
-			set
-			{
-				this._X_WalletTransaction1s.Assign(value);
 			}
 		}
 		
@@ -8183,6 +7838,40 @@ namespace WebApplicationCar.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="X_StoreSetting_X_Order", Storage="_X_StoreSetting", ThisKey="FK_StoreSettingId", OtherKey="StoreSettingId", IsForeignKey=true)]
+		public X_StoreSetting X_StoreSetting
+		{
+			get
+			{
+				return this._X_StoreSetting.Entity;
+			}
+			set
+			{
+				X_StoreSetting previousValue = this._X_StoreSetting.Entity;
+				if (((previousValue != value) 
+							|| (this._X_StoreSetting.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._X_StoreSetting.Entity = null;
+						previousValue.X_Orders.Remove(this);
+					}
+					this._X_StoreSetting.Entity = value;
+					if ((value != null))
+					{
+						value.X_Orders.Add(this);
+						this._FK_StoreSettingId = value.StoreSettingId;
+					}
+					else
+					{
+						this._FK_StoreSettingId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("X_StoreSetting");
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="X_User_X_Order", Storage="_X_User", ThisKey="FK_UserId", OtherKey="UserId", IsForeignKey=true)]
 		public X_User X_User
 		{
@@ -8244,18 +7933,6 @@ namespace WebApplicationCar.Models
 		}
 		
 		private void detach_X_WalletTransactions(X_WalletTransaction entity)
-		{
-			this.SendPropertyChanging();
-			entity.X_Order = null;
-		}
-		
-		private void attach_X_WalletTransaction1s(X_WalletTransaction1 entity)
-		{
-			this.SendPropertyChanging();
-			entity.X_Order = this;
-		}
-		
-		private void detach_X_WalletTransaction1s(X_WalletTransaction1 entity)
 		{
 			this.SendPropertyChanging();
 			entity.X_Order = null;
@@ -13898,6 +13575,8 @@ namespace WebApplicationCar.Models
 		
 		private System.Nullable<int> _FK_UserId;
 		
+		private System.Nullable<int> _FK_StoreSettingId;
+		
 		private EntitySet<X_DigitalFile> _X_DigitalFiles;
 		
 		private EntitySet<X_OrderItem> _X_OrderItems;
@@ -13915,6 +13594,8 @@ namespace WebApplicationCar.Models
 		private EntitySet<X_Review> _X_Reviews;
 		
 		private EntitySet<X_Service> _X_Services;
+		
+		private EntityRef<X_StoreSetting> _X_StoreSetting;
 		
 		private EntityRef<X_User> _X_User;
 		
@@ -13938,6 +13619,8 @@ namespace WebApplicationCar.Models
     partial void OnCreatedAtChanged();
     partial void OnFK_UserIdChanging(System.Nullable<int> value);
     partial void OnFK_UserIdChanged();
+    partial void OnFK_StoreSettingIdChanging(System.Nullable<int> value);
+    partial void OnFK_StoreSettingIdChanged();
     #endregion
 		
 		public X_Resource()
@@ -13951,6 +13634,7 @@ namespace WebApplicationCar.Models
 			this._X_ResourceLikes = new EntitySet<X_ResourceLike>(new Action<X_ResourceLike>(this.attach_X_ResourceLikes), new Action<X_ResourceLike>(this.detach_X_ResourceLikes));
 			this._X_Reviews = new EntitySet<X_Review>(new Action<X_Review>(this.attach_X_Reviews), new Action<X_Review>(this.detach_X_Reviews));
 			this._X_Services = new EntitySet<X_Service>(new Action<X_Service>(this.attach_X_Services), new Action<X_Service>(this.detach_X_Services));
+			this._X_StoreSetting = default(EntityRef<X_StoreSetting>);
 			this._X_User = default(EntityRef<X_User>);
 			OnCreated();
 		}
@@ -14119,6 +13803,30 @@ namespace WebApplicationCar.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FK_StoreSettingId", DbType="Int")]
+		public System.Nullable<int> FK_StoreSettingId
+		{
+			get
+			{
+				return this._FK_StoreSettingId;
+			}
+			set
+			{
+				if ((this._FK_StoreSettingId != value))
+				{
+					if (this._X_StoreSetting.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnFK_StoreSettingIdChanging(value);
+					this.SendPropertyChanging();
+					this._FK_StoreSettingId = value;
+					this.SendPropertyChanged("FK_StoreSettingId");
+					this.OnFK_StoreSettingIdChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="X_Resource_X_DigitalFile", Storage="_X_DigitalFiles", ThisKey="ResourceId", OtherKey="FK_ResourceId")]
 		public EntitySet<X_DigitalFile> X_DigitalFiles
 		{
@@ -14233,6 +13941,40 @@ namespace WebApplicationCar.Models
 			set
 			{
 				this._X_Services.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="X_StoreSetting_X_Resource", Storage="_X_StoreSetting", ThisKey="FK_StoreSettingId", OtherKey="StoreSettingId", IsForeignKey=true)]
+		public X_StoreSetting X_StoreSetting
+		{
+			get
+			{
+				return this._X_StoreSetting.Entity;
+			}
+			set
+			{
+				X_StoreSetting previousValue = this._X_StoreSetting.Entity;
+				if (((previousValue != value) 
+							|| (this._X_StoreSetting.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._X_StoreSetting.Entity = null;
+						previousValue.X_Resources.Remove(this);
+					}
+					this._X_StoreSetting.Entity = value;
+					if ((value != null))
+					{
+						value.X_Resources.Add(this);
+						this._FK_StoreSettingId = value.StoreSettingId;
+					}
+					else
+					{
+						this._FK_StoreSettingId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("X_StoreSetting");
+				}
 			}
 		}
 		
@@ -17220,7 +16962,17 @@ namespace WebApplicationCar.Models
 		
 		private System.Nullable<System.DateTime> _UpdatedAt;
 		
+		private string _Code;
+		
+		private EntitySet<X_Order> _X_Orders;
+		
 		private EntitySet<X_ProductVariantOtherSeller> _X_ProductVariantOtherSellers;
+		
+		private EntitySet<X_Resource> _X_Resources;
+		
+		private EntitySet<X_User> _X_Users;
+		
+		private EntitySet<X_UserStoreSetting> _X_UserStoreSettings;
 		
 		private EntityRef<X_City> _X_City;
 		
@@ -17312,11 +17064,17 @@ namespace WebApplicationCar.Models
     partial void OnCreatedAtChanged();
     partial void OnUpdatedAtChanging(System.Nullable<System.DateTime> value);
     partial void OnUpdatedAtChanged();
+    partial void OnCodeChanging(string value);
+    partial void OnCodeChanged();
     #endregion
 		
 		public X_StoreSetting()
 		{
+			this._X_Orders = new EntitySet<X_Order>(new Action<X_Order>(this.attach_X_Orders), new Action<X_Order>(this.detach_X_Orders));
 			this._X_ProductVariantOtherSellers = new EntitySet<X_ProductVariantOtherSeller>(new Action<X_ProductVariantOtherSeller>(this.attach_X_ProductVariantOtherSellers), new Action<X_ProductVariantOtherSeller>(this.detach_X_ProductVariantOtherSellers));
+			this._X_Resources = new EntitySet<X_Resource>(new Action<X_Resource>(this.attach_X_Resources), new Action<X_Resource>(this.detach_X_Resources));
+			this._X_Users = new EntitySet<X_User>(new Action<X_User>(this.attach_X_Users), new Action<X_User>(this.detach_X_Users));
+			this._X_UserStoreSettings = new EntitySet<X_UserStoreSetting>(new Action<X_UserStoreSetting>(this.attach_X_UserStoreSettings), new Action<X_UserStoreSetting>(this.detach_X_UserStoreSettings));
 			this._X_City = default(EntityRef<X_City>);
 			this._X_Country = default(EntityRef<X_Country>);
 			this._X_Province = default(EntityRef<X_Province>);
@@ -18135,6 +17893,39 @@ namespace WebApplicationCar.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Code", DbType="VarChar(50)")]
+		public string Code
+		{
+			get
+			{
+				return this._Code;
+			}
+			set
+			{
+				if ((this._Code != value))
+				{
+					this.OnCodeChanging(value);
+					this.SendPropertyChanging();
+					this._Code = value;
+					this.SendPropertyChanged("Code");
+					this.OnCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="X_StoreSetting_X_Order", Storage="_X_Orders", ThisKey="StoreSettingId", OtherKey="FK_StoreSettingId")]
+		public EntitySet<X_Order> X_Orders
+		{
+			get
+			{
+				return this._X_Orders;
+			}
+			set
+			{
+				this._X_Orders.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="X_StoreSetting_X_ProductVariantOtherSeller", Storage="_X_ProductVariantOtherSellers", ThisKey="StoreSettingId", OtherKey="FK_StoreSettingId")]
 		public EntitySet<X_ProductVariantOtherSeller> X_ProductVariantOtherSellers
 		{
@@ -18145,6 +17936,45 @@ namespace WebApplicationCar.Models
 			set
 			{
 				this._X_ProductVariantOtherSellers.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="X_StoreSetting_X_Resource", Storage="_X_Resources", ThisKey="StoreSettingId", OtherKey="FK_StoreSettingId")]
+		public EntitySet<X_Resource> X_Resources
+		{
+			get
+			{
+				return this._X_Resources;
+			}
+			set
+			{
+				this._X_Resources.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="X_StoreSetting_X_User", Storage="_X_Users", ThisKey="StoreSettingId", OtherKey="FK_ActiveStoreSettingId")]
+		public EntitySet<X_User> X_Users
+		{
+			get
+			{
+				return this._X_Users;
+			}
+			set
+			{
+				this._X_Users.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="X_StoreSetting_X_UserStoreSetting", Storage="_X_UserStoreSettings", ThisKey="StoreSettingId", OtherKey="FK_StoreSettingId")]
+		public EntitySet<X_UserStoreSetting> X_UserStoreSettings
+		{
+			get
+			{
+				return this._X_UserStoreSettings;
+			}
+			set
+			{
+				this._X_UserStoreSettings.Assign(value);
 			}
 		}
 		
@@ -18270,6 +18100,18 @@ namespace WebApplicationCar.Models
 			}
 		}
 		
+		private void attach_X_Orders(X_Order entity)
+		{
+			this.SendPropertyChanging();
+			entity.X_StoreSetting = this;
+		}
+		
+		private void detach_X_Orders(X_Order entity)
+		{
+			this.SendPropertyChanging();
+			entity.X_StoreSetting = null;
+		}
+		
 		private void attach_X_ProductVariantOtherSellers(X_ProductVariantOtherSeller entity)
 		{
 			this.SendPropertyChanging();
@@ -18277,6 +18119,42 @@ namespace WebApplicationCar.Models
 		}
 		
 		private void detach_X_ProductVariantOtherSellers(X_ProductVariantOtherSeller entity)
+		{
+			this.SendPropertyChanging();
+			entity.X_StoreSetting = null;
+		}
+		
+		private void attach_X_Resources(X_Resource entity)
+		{
+			this.SendPropertyChanging();
+			entity.X_StoreSetting = this;
+		}
+		
+		private void detach_X_Resources(X_Resource entity)
+		{
+			this.SendPropertyChanging();
+			entity.X_StoreSetting = null;
+		}
+		
+		private void attach_X_Users(X_User entity)
+		{
+			this.SendPropertyChanging();
+			entity.X_StoreSetting = this;
+		}
+		
+		private void detach_X_Users(X_User entity)
+		{
+			this.SendPropertyChanging();
+			entity.X_StoreSetting = null;
+		}
+		
+		private void attach_X_UserStoreSettings(X_UserStoreSetting entity)
+		{
+			this.SendPropertyChanging();
+			entity.X_StoreSetting = this;
+		}
+		
+		private void detach_X_UserStoreSettings(X_UserStoreSetting entity)
 		{
 			this.SendPropertyChanging();
 			entity.X_StoreSetting = null;
@@ -19461,6 +19339,8 @@ namespace WebApplicationCar.Models
 		
 		private System.Nullable<int> _FK_ActiveRoleId;
 		
+		private System.Nullable<int> _FK_ActiveStoreSettingId;
+		
 		private EntitySet<X_Cart> _X_Carts;
 		
 		private EntitySet<X_DigitalFileAccess> _X_DigitalFileAccesses;
@@ -19483,11 +19363,15 @@ namespace WebApplicationCar.Models
 		
 		private EntitySet<X_UserRole> _X_UserRoles;
 		
+		private EntitySet<X_UserStoreSetting> _X_UserStoreSettings;
+		
 		private EntitySet<X_UserSubscription> _X_UserSubscriptions;
 		
 		private EntitySet<X_Wallet> _X_Wallets;
 		
 		private EntityRef<X_Role> _X_Role;
+		
+		private EntityRef<X_StoreSetting> _X_StoreSetting;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -19519,6 +19403,8 @@ namespace WebApplicationCar.Models
     partial void OnLastLoginAtChanged();
     partial void OnFK_ActiveRoleIdChanging(System.Nullable<int> value);
     partial void OnFK_ActiveRoleIdChanged();
+    partial void OnFK_ActiveStoreSettingIdChanging(System.Nullable<int> value);
+    partial void OnFK_ActiveStoreSettingIdChanged();
     #endregion
 		
 		public X_User()
@@ -19534,9 +19420,11 @@ namespace WebApplicationCar.Models
 			this._X_ServiceSchedules = new EntitySet<X_ServiceSchedule>(new Action<X_ServiceSchedule>(this.attach_X_ServiceSchedules), new Action<X_ServiceSchedule>(this.detach_X_ServiceSchedules));
 			this._X_UserAddresses = new EntitySet<X_UserAddress>(new Action<X_UserAddress>(this.attach_X_UserAddresses), new Action<X_UserAddress>(this.detach_X_UserAddresses));
 			this._X_UserRoles = new EntitySet<X_UserRole>(new Action<X_UserRole>(this.attach_X_UserRoles), new Action<X_UserRole>(this.detach_X_UserRoles));
+			this._X_UserStoreSettings = new EntitySet<X_UserStoreSetting>(new Action<X_UserStoreSetting>(this.attach_X_UserStoreSettings), new Action<X_UserStoreSetting>(this.detach_X_UserStoreSettings));
 			this._X_UserSubscriptions = new EntitySet<X_UserSubscription>(new Action<X_UserSubscription>(this.attach_X_UserSubscriptions), new Action<X_UserSubscription>(this.detach_X_UserSubscriptions));
 			this._X_Wallets = new EntitySet<X_Wallet>(new Action<X_Wallet>(this.attach_X_Wallets), new Action<X_Wallet>(this.detach_X_Wallets));
 			this._X_Role = default(EntityRef<X_Role>);
+			this._X_StoreSetting = default(EntityRef<X_StoreSetting>);
 			OnCreated();
 		}
 		
@@ -19804,6 +19692,30 @@ namespace WebApplicationCar.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FK_ActiveStoreSettingId", DbType="Int")]
+		public System.Nullable<int> FK_ActiveStoreSettingId
+		{
+			get
+			{
+				return this._FK_ActiveStoreSettingId;
+			}
+			set
+			{
+				if ((this._FK_ActiveStoreSettingId != value))
+				{
+					if (this._X_StoreSetting.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnFK_ActiveStoreSettingIdChanging(value);
+					this.SendPropertyChanging();
+					this._FK_ActiveStoreSettingId = value;
+					this.SendPropertyChanged("FK_ActiveStoreSettingId");
+					this.OnFK_ActiveStoreSettingIdChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="X_User_X_Cart", Storage="_X_Carts", ThisKey="UserId", OtherKey="FK_UserId")]
 		public EntitySet<X_Cart> X_Carts
 		{
@@ -19947,6 +19859,19 @@ namespace WebApplicationCar.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="X_User_X_UserStoreSetting", Storage="_X_UserStoreSettings", ThisKey="UserId", OtherKey="FK_UserId")]
+		public EntitySet<X_UserStoreSetting> X_UserStoreSettings
+		{
+			get
+			{
+				return this._X_UserStoreSettings;
+			}
+			set
+			{
+				this._X_UserStoreSettings.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="X_User_X_UserSubscription", Storage="_X_UserSubscriptions", ThisKey="UserId", OtherKey="FK_UserId")]
 		public EntitySet<X_UserSubscription> X_UserSubscriptions
 		{
@@ -20003,6 +19928,40 @@ namespace WebApplicationCar.Models
 						this._FK_ActiveRoleId = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("X_Role");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="X_StoreSetting_X_User", Storage="_X_StoreSetting", ThisKey="FK_ActiveStoreSettingId", OtherKey="StoreSettingId", IsForeignKey=true)]
+		public X_StoreSetting X_StoreSetting
+		{
+			get
+			{
+				return this._X_StoreSetting.Entity;
+			}
+			set
+			{
+				X_StoreSetting previousValue = this._X_StoreSetting.Entity;
+				if (((previousValue != value) 
+							|| (this._X_StoreSetting.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._X_StoreSetting.Entity = null;
+						previousValue.X_Users.Remove(this);
+					}
+					this._X_StoreSetting.Entity = value;
+					if ((value != null))
+					{
+						value.X_Users.Add(this);
+						this._FK_ActiveStoreSettingId = value.StoreSettingId;
+					}
+					else
+					{
+						this._FK_ActiveStoreSettingId = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("X_StoreSetting");
 				}
 			}
 		}
@@ -20159,6 +20118,18 @@ namespace WebApplicationCar.Models
 			entity.X_User = null;
 		}
 		
+		private void attach_X_UserStoreSettings(X_UserStoreSetting entity)
+		{
+			this.SendPropertyChanging();
+			entity.X_User = this;
+		}
+		
+		private void detach_X_UserStoreSettings(X_UserStoreSetting entity)
+		{
+			this.SendPropertyChanging();
+			entity.X_User = null;
+		}
+		
 		private void attach_X_UserSubscriptions(X_UserSubscription entity)
 		{
 			this.SendPropertyChanging();
@@ -20181,6 +20152,318 @@ namespace WebApplicationCar.Models
 		{
 			this.SendPropertyChanging();
 			entity.X_User = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="balabar1_Develop.X_UserStoreSettings")]
+	public partial class X_UserStoreSetting : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _UserStoreSettingId;
+		
+		private int _FK_UserId;
+		
+		private int _FK_StoreSettingId;
+		
+		private string _RoleInStore;
+		
+		private bool _IsPrimary;
+		
+		private bool _IsActive;
+		
+		private System.DateTime _JoinedAt;
+		
+		private System.Nullable<System.DateTime> _LeftAt;
+		
+		private EntityRef<X_StoreSetting> _X_StoreSetting;
+		
+		private EntityRef<X_User> _X_User;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnUserStoreSettingIdChanging(int value);
+    partial void OnUserStoreSettingIdChanged();
+    partial void OnFK_UserIdChanging(int value);
+    partial void OnFK_UserIdChanged();
+    partial void OnFK_StoreSettingIdChanging(int value);
+    partial void OnFK_StoreSettingIdChanged();
+    partial void OnRoleInStoreChanging(string value);
+    partial void OnRoleInStoreChanged();
+    partial void OnIsPrimaryChanging(bool value);
+    partial void OnIsPrimaryChanged();
+    partial void OnIsActiveChanging(bool value);
+    partial void OnIsActiveChanged();
+    partial void OnJoinedAtChanging(System.DateTime value);
+    partial void OnJoinedAtChanged();
+    partial void OnLeftAtChanging(System.Nullable<System.DateTime> value);
+    partial void OnLeftAtChanged();
+    #endregion
+		
+		public X_UserStoreSetting()
+		{
+			this._X_StoreSetting = default(EntityRef<X_StoreSetting>);
+			this._X_User = default(EntityRef<X_User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserStoreSettingId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int UserStoreSettingId
+		{
+			get
+			{
+				return this._UserStoreSettingId;
+			}
+			set
+			{
+				if ((this._UserStoreSettingId != value))
+				{
+					this.OnUserStoreSettingIdChanging(value);
+					this.SendPropertyChanging();
+					this._UserStoreSettingId = value;
+					this.SendPropertyChanged("UserStoreSettingId");
+					this.OnUserStoreSettingIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FK_UserId", DbType="Int NOT NULL")]
+		public int FK_UserId
+		{
+			get
+			{
+				return this._FK_UserId;
+			}
+			set
+			{
+				if ((this._FK_UserId != value))
+				{
+					if (this._X_User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnFK_UserIdChanging(value);
+					this.SendPropertyChanging();
+					this._FK_UserId = value;
+					this.SendPropertyChanged("FK_UserId");
+					this.OnFK_UserIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FK_StoreSettingId", DbType="Int NOT NULL")]
+		public int FK_StoreSettingId
+		{
+			get
+			{
+				return this._FK_StoreSettingId;
+			}
+			set
+			{
+				if ((this._FK_StoreSettingId != value))
+				{
+					if (this._X_StoreSetting.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnFK_StoreSettingIdChanging(value);
+					this.SendPropertyChanging();
+					this._FK_StoreSettingId = value;
+					this.SendPropertyChanged("FK_StoreSettingId");
+					this.OnFK_StoreSettingIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RoleInStore", DbType="VarChar(50)")]
+		public string RoleInStore
+		{
+			get
+			{
+				return this._RoleInStore;
+			}
+			set
+			{
+				if ((this._RoleInStore != value))
+				{
+					this.OnRoleInStoreChanging(value);
+					this.SendPropertyChanging();
+					this._RoleInStore = value;
+					this.SendPropertyChanged("RoleInStore");
+					this.OnRoleInStoreChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsPrimary", DbType="Bit NOT NULL")]
+		public bool IsPrimary
+		{
+			get
+			{
+				return this._IsPrimary;
+			}
+			set
+			{
+				if ((this._IsPrimary != value))
+				{
+					this.OnIsPrimaryChanging(value);
+					this.SendPropertyChanging();
+					this._IsPrimary = value;
+					this.SendPropertyChanged("IsPrimary");
+					this.OnIsPrimaryChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsActive", DbType="Bit NOT NULL")]
+		public bool IsActive
+		{
+			get
+			{
+				return this._IsActive;
+			}
+			set
+			{
+				if ((this._IsActive != value))
+				{
+					this.OnIsActiveChanging(value);
+					this.SendPropertyChanging();
+					this._IsActive = value;
+					this.SendPropertyChanged("IsActive");
+					this.OnIsActiveChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JoinedAt", DbType="DateTime2 NOT NULL")]
+		public System.DateTime JoinedAt
+		{
+			get
+			{
+				return this._JoinedAt;
+			}
+			set
+			{
+				if ((this._JoinedAt != value))
+				{
+					this.OnJoinedAtChanging(value);
+					this.SendPropertyChanging();
+					this._JoinedAt = value;
+					this.SendPropertyChanged("JoinedAt");
+					this.OnJoinedAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LeftAt", DbType="DateTime2")]
+		public System.Nullable<System.DateTime> LeftAt
+		{
+			get
+			{
+				return this._LeftAt;
+			}
+			set
+			{
+				if ((this._LeftAt != value))
+				{
+					this.OnLeftAtChanging(value);
+					this.SendPropertyChanging();
+					this._LeftAt = value;
+					this.SendPropertyChanged("LeftAt");
+					this.OnLeftAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="X_StoreSetting_X_UserStoreSetting", Storage="_X_StoreSetting", ThisKey="FK_StoreSettingId", OtherKey="StoreSettingId", IsForeignKey=true)]
+		public X_StoreSetting X_StoreSetting
+		{
+			get
+			{
+				return this._X_StoreSetting.Entity;
+			}
+			set
+			{
+				X_StoreSetting previousValue = this._X_StoreSetting.Entity;
+				if (((previousValue != value) 
+							|| (this._X_StoreSetting.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._X_StoreSetting.Entity = null;
+						previousValue.X_UserStoreSettings.Remove(this);
+					}
+					this._X_StoreSetting.Entity = value;
+					if ((value != null))
+					{
+						value.X_UserStoreSettings.Add(this);
+						this._FK_StoreSettingId = value.StoreSettingId;
+					}
+					else
+					{
+						this._FK_StoreSettingId = default(int);
+					}
+					this.SendPropertyChanged("X_StoreSetting");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="X_User_X_UserStoreSetting", Storage="_X_User", ThisKey="FK_UserId", OtherKey="UserId", IsForeignKey=true)]
+		public X_User X_User
+		{
+			get
+			{
+				return this._X_User.Entity;
+			}
+			set
+			{
+				X_User previousValue = this._X_User.Entity;
+				if (((previousValue != value) 
+							|| (this._X_User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._X_User.Entity = null;
+						previousValue.X_UserStoreSettings.Remove(this);
+					}
+					this._X_User.Entity = value;
+					if ((value != null))
+					{
+						value.X_UserStoreSettings.Add(this);
+						this._FK_UserId = value.UserId;
+					}
+					else
+					{
+						this._FK_UserId = default(int);
+					}
+					this.SendPropertyChanged("X_User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 	
@@ -20581,8 +20864,6 @@ namespace WebApplicationCar.Models
 		
 		private EntitySet<X_WalletTransaction> _X_WalletTransactions;
 		
-		private EntitySet<X_WalletTransaction1> _X_WalletTransaction1s;
-		
 		private EntityRef<X_User> _X_User;
 		
     #region Extensibility Method Definitions
@@ -20606,7 +20887,6 @@ namespace WebApplicationCar.Models
 		public X_Wallet()
 		{
 			this._X_WalletTransactions = new EntitySet<X_WalletTransaction>(new Action<X_WalletTransaction>(this.attach_X_WalletTransactions), new Action<X_WalletTransaction>(this.detach_X_WalletTransactions));
-			this._X_WalletTransaction1s = new EntitySet<X_WalletTransaction1>(new Action<X_WalletTransaction1>(this.attach_X_WalletTransaction1s), new Action<X_WalletTransaction1>(this.detach_X_WalletTransaction1s));
 			this._X_User = default(EntityRef<X_User>);
 			OnCreated();
 		}
@@ -20748,19 +21028,6 @@ namespace WebApplicationCar.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="X_Wallet_X_WalletTransaction1", Storage="_X_WalletTransaction1s", ThisKey="WalletId", OtherKey="FK_WalletId")]
-		public EntitySet<X_WalletTransaction1> X_WalletTransaction1s
-		{
-			get
-			{
-				return this._X_WalletTransaction1s;
-			}
-			set
-			{
-				this._X_WalletTransaction1s.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="X_User_X_Wallet", Storage="_X_User", ThisKey="FK_UserId", OtherKey="UserId", IsForeignKey=true)]
 		public X_User X_User
 		{
@@ -20822,18 +21089,6 @@ namespace WebApplicationCar.Models
 		}
 		
 		private void detach_X_WalletTransactions(X_WalletTransaction entity)
-		{
-			this.SendPropertyChanging();
-			entity.X_Wallet = null;
-		}
-		
-		private void attach_X_WalletTransaction1s(X_WalletTransaction1 entity)
-		{
-			this.SendPropertyChanging();
-			entity.X_Wallet = this;
-		}
-		
-		private void detach_X_WalletTransaction1s(X_WalletTransaction1 entity)
 		{
 			this.SendPropertyChanging();
 			entity.X_Wallet = null;
