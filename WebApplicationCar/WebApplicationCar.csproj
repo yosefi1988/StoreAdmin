@@ -53,6 +53,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -169,6 +170,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\PostsController.cs" />
+    <Compile Include="Controllers\DentalServicesController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ChangePasswordController.cs" />
@@ -193,6 +195,7 @@
     </Compile>
     <Compile Include="Models\DTO\VariantDto.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\DentalServiceDetailsViewModel.cs" />
     <Compile Include="Models\ProfileViewModel.cs" />
     <Compile Include="Models\ProductDetailsViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -217,7 +220,11 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\post-detail.css" />
+    <Content Include="Content\feed.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\themes\theme-dark.css" />
+    <Content Include="Content\themes\theme-default.css" />
     <Content Include="Content\trator-1.0.0\css\animate.min.css" />
     <Content Include="Content\trator-1.0.0\css\bootstrap-grid.css" />
     <Content Include="Content\trator-1.0.0\css\bootstrap-grid.min.css" />
@@ -295,6 +302,9 @@
     <Content Include="Content\trator-1.0.0\js\bootstrap.min.js.map" />
     <None Include="Properties\PublishProfiles\car.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\dental-services-list.js" />
+    <Content Include="Scripts\feed.js" />
+    <Content Include="Scripts\post-detail.js" />
     <Content Include="Scripts\reset-password.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -366,6 +376,8 @@
     <Content Include="Views\Profile\Index.cshtml" />
     <Content Include="Views\Posts\Detail.cshtml" />
     <Content Include="Views\Posts\Feed.cshtml" />
+    <Content Include="Views\DentalServices\Index.cshtml" />
+    <Content Include="Views\DentalServices\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -38,7 +38,7 @@
 }
 
 <!DOCTYPE html>
-<html>
+<html dir="rtl" lang="fa">
 <head>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -48,9 +48,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- mobile metas -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
 
     <!-- site metas -->
     <title>BalabarKaran</title>
@@ -66,19 +63,25 @@
     <!-- Responsive-->
     <link rel="stylesheet" href="~/Content/trator-1.0.0/css/responsive.css">
     <!-- fevicon -->
-    <link rel="icon" href="images/fevicon.png" type="image/gif" />
-    <!-- font css -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Raleway:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="~/Content/images/fevicon.png" type="image/png" />
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="~/Content/trator-1.0.0/css/jquery.mCustomScrollbar.min.css">
     <!-- Tweaks for older IEs-->
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
 
-    @Scripts.Render("~/bundles/modernizr")
+    <!-- ========== فونت وزیرمتن ========== -->
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+
+    <!-- ========== تم سایت (برای تعویض تم فقط این خط را عوض کنید) ========== -->
+    <link href="~/Content/themes/theme-default.css" rel="stylesheet" id="themeStylesheet" />
+
+    <!-- ========== استایل صفحه فید ========== -->
+    <link href="~/Content/feed.css" rel="stylesheet" />
+
     <style>
         .header_section {
             position: relative;
-            z-index: 99999;
+            z-index: 1000;
         }
 
             .header_section .navbar,
@@ -88,15 +91,8 @@
             .header_section .nav-link {
                 pointer-events: auto !important;
                 position: relative;
-                z-index: 99999;
+                z-index: 1000;
             }
-    </style>
-
-    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
-    <style>
-        html, body, h1, h2, h3, h4, h5, h6, p, a, span, div, input, button, select, textarea, table {
-            font-family: 'Vazirmatn', Tahoma, sans-serif !important;
-        }
     </style>
 </head>
 <body>
@@ -107,7 +103,7 @@
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <a class="navbar-brand" href="/">
-                    <img src="~/Content/images/logo.png" />
+                    <img src="~/Content/images/logo.png" alt="لوگو" />
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -216,7 +212,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="footeer_logo">
-                        <img src="@(string.IsNullOrEmpty(settings.LogoUrl) ? Url.Content("~/Content/trator-1.0.0/imagesx/logo.png") : settings.LogoUrl)">
+                        <img src="@(string.IsNullOrEmpty(settings.LogoUrl) ? Url.Content("~/Content/trator-1.0.0/imagesx/logo.png") : settings.LogoUrl)" alt="لوگو" />
                     </div>
                 </div>
             </div>
@@ -243,10 +239,13 @@
                                 method: 'POST',
                                 body: data
                             })
-                            .then(r => r.json())
-                            .then(res => {
+                            .then(function (r) { return r.json(); })
+                            .then(function (res) {
                                 alert(res.message);
                                 if (res.success) document.getElementById('newsletterEmail').value = '';
+                            })
+                            .catch(function () {
+                                alert('خطای شبکه. لطفاً دوباره تلاش کنید.');
                             });
                         }
                     </script>
@@ -261,7 +260,7 @@
                         <a href="https://www.mimt.gov.ir/" style="color:#fff;">وزارت صنایع و معادن</a>
                         <p class="lorem_text"><a href="https://www.bazresi.ir/" style="color:#fff;">بازرسی کل کشور</a></p>
                         <p class="lorem_text"><a href="https://rrk.ir/home.htm" style="color:#fff;">روزنامه جمهوری اسلامی</a></p>
-                        <p class="lorem_text"><a href="http://ssaa.ir/" style="color:#fff;">سازمان ثبت و اسناد</a></p>
+                        <p class="lorem_text"><a href="https://ssaa.ir/" style="color:#fff;">سازمان ثبت و اسناد</a></p>
                     </div>
 
                     <div class="col">

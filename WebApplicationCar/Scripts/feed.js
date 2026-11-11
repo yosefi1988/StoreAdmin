@@ -131,6 +131,8 @@
         var title = p.Title
             ? '<div class="post-title">' + escapeHtml(p.Title) + '</div>'
             : '';
+
+		
         var content = p.Content
             ? '<div class="post-content">' + escapeHtml(p.Content) + '</div>'
             : '';

@@ -297,8 +297,8 @@ namespace WebApplicationCar.Controllers
             if (!storeId.HasValue)
                 return Json(new { success = false, message = "فروشگاه فعال تعیین نشده. لطفاً دوباره لاگین کنید." });
 
-            if (string.IsNullOrWhiteSpace(title))
-                return Json(new { success = false, message = "عنوان الزامی است." });
+            //if (string.IsNullOrWhiteSpace(title))
+            //    return Json(new { success = false, message = "عنوان الزامی است." });
 
             if (string.IsNullOrWhiteSpace(content))
                 return Json(new { success = false, message = "متن الزامی است." });

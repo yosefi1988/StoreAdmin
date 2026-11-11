@@ -119,10 +119,12 @@
     <script>
     window.ApiClient = {
         baseUrl: '@Url.Content("~/")',
+        dashboardUrl: '@Url.Action("Index", "Dashboard")',   // ← اضافه شد
         post: function (url, data, success, fail) {
             return $.post(this.baseUrl + url, data, success).fail(fail);
         }
     };
     </script>
+ 
     <script src="~/Scripts/register-wizard.js"></script>
 }

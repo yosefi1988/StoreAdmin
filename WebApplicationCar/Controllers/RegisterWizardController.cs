@@ -13,6 +13,7 @@ using System.Web.Mvc;
 using WebApplicationCar.Models;
 using WebApplicationCar.Services;
 using WebApplicationCar.Models;
+using System.Transactions;
 
 namespace WebApplicationCar.Controllers
 {
@@ -73,51 +74,140 @@ namespace WebApplicationCar.Controllers
         }
 
         // ========== قدم ۴: ثبت نهایی ==========
+        //[HttpPost]
+        //public JsonResult Save(RegisterWizardViewModel model)
+        //{
+        //    try
+        //    {
+        //        if (model == null || string.IsNullOrWhiteSpace(model.MobileNumber))
+        //            return Json(new { success = false, message = "اطلاعات ناقص" });
+
+        //        if (string.IsNullOrWhiteSpace(model.Password) || model.Password.Length < 6)
+        //            return Json(new { success = false, message = "رمز حداقل ۶ کاراکتر" });
+
+        //        using (var db = new DataClassesDatabaseDataContextDataContext())
+        //        {
+        //            if (db.X_Users.Any(u => u.MobileNumber == model.MobileNumber && u.IsActive))
+        //                return Json(new { success = false, message = "قبلاً ثبت‌نام کرده" });
+
+        //            var user = new X_User
+        //            {
+        //                UserName = model.UserName ?? model.MobileNumber,
+        //                MobileNumber = model.MobileNumber,
+        //                Email = model.Email,
+        //                //PasswordHash = BCrypt.Net.BCrypt.HashPassword(model.Password),
+        //                PasswordHash = PasswordHasher.Hash(model.Password), // ← اینجا
+        //                IsActive = true,
+        //                CreatedAt = DateTime.Now
+        //            };
+        //            db.X_Users.InsertOnSubmit(user);
+        //            db.SubmitChanges();
+
+        //            // نقش پیش‌فرض = User
+        //            db.X_UserRoles.InsertOnSubmit(new X_UserRole
+        //            {
+        //                FK_UserId = user.UserId,
+        //                FK_RoleId = 2
+        //            });
+        //            db.SubmitChanges();
+
+        //            return Json(new { success = true, userId = user.UserId });
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Json(new { success = false, message = "خطا: " + ex.Message });
+        //    }
+        //}
+
+ 
         [HttpPost]
         public JsonResult Save(RegisterWizardViewModel model)
         {
             try
             {
+                // ---------- اعتبارسنجی ورودی ----------
                 if (model == null || string.IsNullOrWhiteSpace(model.MobileNumber))
                     return Json(new { success = false, message = "اطلاعات ناقص" });
 
                 if (string.IsNullOrWhiteSpace(model.Password) || model.Password.Length < 6)
                     return Json(new { success = false, message = "رمز حداقل ۶ کاراکتر" });
 
+                model.StoreSettingId = 1;
+                if (model.StoreSettingId <= 0)
+                    return Json(new { success = false, message = "فروشگاه انتخاب نشده است" });
+
                 using (var db = new DataClassesDatabaseDataContextDataContext())
                 {
+                    // ---------- بررسی تکراری نبودن موبایل ----------
                     if (db.X_Users.Any(u => u.MobileNumber == model.MobileNumber && u.IsActive))
                         return Json(new { success = false, message = "قبلاً ثبت‌نام کرده" });
 
-                    var user = new X_User
-                    {
-                        UserName = model.UserName ?? model.MobileNumber,
-                        MobileNumber = model.MobileNumber,
-                        Email = model.Email,
-                        //PasswordHash = BCrypt.Net.BCrypt.HashPassword(model.Password),
-                        PasswordHash = PasswordHasher.Hash(model.Password), // ← اینجا
-                        IsActive = true,
-                        CreatedAt = DateTime.Now
-                    };
-                    db.X_Users.InsertOnSubmit(user);
-                    db.SubmitChanges();
+                    // ---------- بررسی وجود فروشگاه ----------
+                    var storeExists = db.X_StoreSettings.Any(s => s.StoreSettingId == model.StoreSettingId);
+                    if (!storeExists)
+                        return Json(new { success = false, message = "فروشگاه معتبر نیست" });
 
-                    // نقش پیش‌فرض = User
-                    db.X_UserRoles.InsertOnSubmit(new X_UserRole
+                    // ---------- تراکنش ----------
+                    using (var scope = new TransactionScope())
                     {
-                        FK_UserId = user.UserId,
-                        FK_RoleId = 2
-                    });
-                    db.SubmitChanges();
+                        // 1) ایجاد کاربر
+                        var user = new X_User
+                        {
+                            UserName = model.UserName ?? model.MobileNumber,
+                            MobileNumber = model.MobileNumber,
+                            Email = model.Email,
+                            PasswordHash = PasswordHasher.Hash(model.Password),
+                            IsActive = true,
+                            CreatedAt = DateTime.Now
+                        };
+                        db.X_Users.InsertOnSubmit(user);
 
-                    return Json(new { success = true, userId = user.UserId });
+                        // 2) نقش عمومی کاربر — با navigation property به جای FK دستی
+                        db.X_UserRoles.InsertOnSubmit(new X_UserRole
+                        {
+                            X_User = user,     // ← LINQ to SQL خودش FK را بعد از insert پر می‌کند
+                            FK_RoleId = 2
+                        });
+
+                        // 3) عضویت در فروشگاه
+                        db.X_UserStoreSettings.InsertOnSubmit(new X_UserStoreSetting
+                        {
+                            X_User = user,
+                            FK_StoreSettingId = model.StoreSettingId,
+                            RoleInStore = "Owner",
+                            IsPrimary = true,
+                            IsActive = true,
+                            JoinedAt = DateTime.Now,
+                            LeftAt = null
+                        });
+
+                        // 4) همه چیز در یک تراکنش ذخیره می‌شود
+                        db.SubmitChanges();
+
+                        scope.Complete();
+
+                        return Json(new
+                        {
+                            success = true,
+                            userId = user.UserId,
+                            storeSettingId = model.StoreSettingId
+                        });
+                    }
                 }
             }
             catch (Exception ex)
             {
-                return Json(new { success = false, message = "خطا: " + ex.Message });
-            }
-        }
+                // ⚠️ حتماً لاگ کنید
+                // Logger.Error("RegisterWizard.Save failed", ex);
 
+                return Json(new
+                {
+                    success = false,
+                    message = "خطا در ثبت‌نام"
+                });
+            }
+        
+        }
     }
 }

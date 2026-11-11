@@ -1,0 +1,122 @@
+﻿@model WebApplicationCar.Models.DentalServiceDetailsViewModel
+@{
+    ViewBag.Title = Model.NameFa;
+}
+
+<div class="container" style="margin-top:20px;">
+    <ol class="breadcrumb">
+        <li><a href="@Url.Action("Index")">خدمات دندانپزشکی</a></li>
+        <li class="active">@Model.NameFa</li>
+    </ol>
+
+    <div class="row">
+        <div class="col-md-5">
+            @if (Model.Images.Any())
+            {
+                var main = Model.Images.First();
+                <img src="@main.ImageUrl" class="img-fluid" alt="@Model.NameFa" style="max-height:400px;object-fit:cover;" />
+                if (Model.Images.Count > 1)
+                {
+                    <div class="row" style="margin-top:10px;">
+                        @foreach (var img in Model.Images.Skip(1))
+                        {
+                            <div class="col-3">
+                                <img src="@img.ImageUrl" class="img-thumbnail" alt="@img.Title" />
+                            </div>
+                        }
+                    </div>
+                }
+            }
+            else if (!string.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <img src="@Model.ImageUrl" class="img-fluid" alt="@Model.NameFa" />
+            }
+            else
+            {
+                <div class="alert alert-warning">تصویری برای این خدمت ثبت نشده است.</div>
+            }
+        </div>
+
+        <div class="col-md-7">
+            <h3>@Model.NameFa</h3>
+            <p class="text-muted">@Model.NameEn — کد: @Model.ServiceCode</p>
+            <p>@Model.Description</p>
+
+            <h4 class="text-success">
+                @(Model.Price.HasValue ? Model.Price.Value.ToString("N0") + " تومان" : "تماس بگیرید")
+                @if (!string.IsNullOrEmpty(Model.UnitName))
+                { <small>/ @Model.UnitName</small> }
+            </h4>
+
+            @if (Model.Attributes.Any())
+            {
+                <h5>ویژگی‌ها</h5>
+                <table class="table table-sm table-bordered">
+                    <tbody>
+                        @foreach (var a in Model.Attributes)
+                        {
+                            <tr><th style="width:35%;">@a.NameFa</th><td>@a.Value</td></tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+
+    <hr />
+    <h4>انتخاب نوبت</h4>
+
+    @if (!Model.ProviderGroups.Any())
+    {
+        <div class="alert alert-info">در حال حاضر نوبت آزادی برای این خدمت ثبت نشده است.</div>
+    }
+    else
+    {
+        foreach (var pg in Model.ProviderGroups)
+        {
+            <div class="panel panel-default" style="margin-bottom:15px;">
+                <div class="panel-heading"><strong>@pg.ProviderName</strong></div>
+                <div class="panel-body">
+                    @foreach (var sch in pg.Schedules)
+                    {
+                        <button type="button"
+                                class="btn btn-outline-primary schedule-btn"
+                                data-schedule-id="@sch.ScheduleId"
+                                data-start="@sch.StartDateTime.ToString("yyyy/MM/dd HH:mm")"
+                                style="margin:4px;"
+                                @(sch.RemainingCapacity <= 0 ? "disabled" : "")>
+                            @sch.StartDateTime.ToString("yyyy/MM/dd HH:mm")
+                            <small>(@sch.RemainingCapacity از @sch.Capacity)</small>
+                        </button>
+                    }
+                </div>
+            </div>
+        }
+        <div id="selectedSlot" class="alert alert-success" style="display:none;"></div>
+        <button id="btnBook" class="btn btn-success" style="display:none;">ثبت رزرو</button>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        (function () {
+            var selected = null;
+            $('.schedule-btn').on('click', function () {
+                $('.schedule-btn').removeClass('active btn-primary').addClass('btn-outline-primary');
+                $(this).removeClass('btn-outline-primary').addClass('active btn-primary');
+                selected = {
+                    scheduleId: $(this).data('schedule-id'),
+                    start: $(this).data('start')
+                };
+                $('#selectedSlot').show().text('نوبت انتخاب‌شده: ' + selected.start);
+                $('#btnBook').show();
+            });
+
+            $('#btnBook').on('click', function () {
+                if (!selected) return;
+                // TODO: ارسال به اکشن رزرو (POST) — در گام بعدی
+                alert('برای ثبت نهایی رزرو، اکشن Book پیاده‌سازی شود. ScheduleId=' + selected.scheduleId);
+            });
+        })();
+    </script>
+}

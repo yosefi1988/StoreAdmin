@@ -2,14 +2,14 @@
     ViewBag.Title = "ورود به حساب";
 }
 
-<div class="container" style="margin-top:60px;">
-    <div class="row">
-        <div class="col-md-4 col-md-offset-4">
+<div class="container" >
+    <div class="row" >
+        <div class="col-md-4 col-md-offset-4" style="margin-top:60px;">
             <div class="panel panel-default">
                 <div class="panel-heading text-center">
                     <h3 class="panel-title">ورود به حساب</h3>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body" dir="rtl" style="text-align:right;">
 
                     <div class="form-group">
                         <label>شماره موبایل *</label>
@@ -20,23 +20,23 @@
 
                     <div class="form-group">
                         <label>رمز عبور *</label>
-                        <input type="password" id="Password" class="form-control" dir="ltr" />
+                        <input type="password" id="Password" class="form-control" dir="ltr" style="text-align:left;" />
                     </div>
 
-                    <!-- 👇 فیلد جدید: کد فروشگاه -->
+                    <!-- 👇 فیلد جدید: کد سازمان -->
                     <div class="form-group">
-                        <label>کد فروشگاه *</label>
+                        <label>کد سازمان *</label>
                         <input type="text" id="StoreCode" class="form-control"
-                               placeholder="مثلاً STORE1 یا نام فروشگاه"
+                               placeholder="مثلاً bmi یا نام سازمان"
                                dir="ltr" style="text-align:left;" />
                         <small class="text-muted">
-                            کد فروشگاهی که می‌خواهید وارد آن شوید را وارد کنید.
+                            کد سازمانی که می‌خواهید وارد آن شوید را وارد کنید.
                         </small>
                     </div>
 
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" id="RememberMe" /> مرا به خاطر بسپار
+                    <div class="checkbox" style="padding-right:0;">
+                        <label style="padding-right:20px;">
+                            <input type="checkbox" id="RememberMe" style="margin-right:-20px; margin-left:0;" /> مرا به خاطر بسپار
                         </label>
                     </div>
 

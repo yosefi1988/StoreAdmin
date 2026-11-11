@@ -1,541 +1,322 @@
-﻿$(function () {
-    // ============ State ============
-    var currentStep = 1;
-    var totalSteps = 4;
-    var allAttributes = [];
-    var variantCounter = 0;
+﻿(function ($) {
+    'use strict';
 
-    // ============ Refresh Variants ============
-    function refreshVariants() {
-        if (allAttributes.length > 0) {
-            renderVariantAttributes();
+    // ========================
+    // وضعیت ویزارد
+    // ========================
+    var state = {
+        currentStep: 1,
+        totalSteps: 4,
+        otpTimerId: null,
+        otpSecondsLeft: 0,
+        otpResendEnabled: true
+    };
+
+    var OTP_RESEND_SECONDS = 120; // ۲ دقیقه
+
+    // ========================
+    // المان‌ها
+    // ========================
+    var $steps = $('.wizard-step');
+    var $panels = $('.wizard-panel');
+    var $btnPrev = $('#btnPrev');
+    var $btnNext = $('#btnNext');
+    var $btnSave = $('#btnSave');
+
+    // ========================
+    // ابزارها
+    // ========================
+    function showMessage(msg, isSuccess) {
+        // اگر SweetAlert دارید، اینجا استفاده کنید. در غیر این صورت alert
+        if (window.Swal) {
+            Swal.fire({
+                text: msg,
+                icon: isSuccess ? 'success' : 'error',
+                confirmButtonText: 'باشه'
+            });
+        } else {
+            alert(msg);
         }
     }
 
-    // ============ Navigation ============
+    function setLoading($btn, loading) {
+        if (loading) {
+            $btn.data('original-text', $btn.text());
+            $btn.prop('disabled', true).text('در حال ارسال...');
+        } else {
+            $btn.prop('disabled', false).text($btn.data('original-text') || $btn.text());
+        }
+    }
+
+    function validateMobile(mobile) {
+        return /^09\d{9}$/.test(mobile);
+    }
+
+    function maskMobile(mobile) {
+        if (!mobile || mobile.length < 11) return mobile;
+        return mobile.substring(0, 4) + '***' + mobile.substring(7);
+    }
+
+    // ========================
+    // ناوبری ویزارد
+    // ========================
     function goToStep(step) {
-        if (step < 1 || step > totalSteps) return;
+        if (step < 1 || step > state.totalSteps) return;
 
-        if (step === 2) {
-            if ($('#categoriesList').text().indexOf('در حال') > -1) {
-                loadCategories();
-            }
-            if (allAttributes.length === 0) {
-                loadAttributes();
-            } else {
-                refreshVariants();
-            }
-        }
+        state.currentStep = step;
 
-        if (step === 3 && allAttributes.length === 0) {
-            loadAttributes();
-        }
-
-        if (step === 4) {
-            buildSummary();
-        }
-
-        $('.wizard-panel').hide();
+        // پنل‌ها
+        $panels.hide();
         $('#step-' + step).show();
 
-        $('.wizard-step').each(function () {
-            var s = parseInt($(this).data('step'));
-            $(this).removeClass('active done');
-            if (s < step) $(this).addClass('done');
-            if (s === step) $(this).addClass('active');
+        // دکمه‌ها
+        $btnPrev.prop('disabled', step === 1);
+        $btnNext.toggle(step < state.totalSteps);
+        $btnSave.toggle(step === state.totalSteps);
+
+        // نوار مراحل
+        $steps.each(function () {
+            var $s = $(this);
+            var n = parseInt($s.data('step'), 10);
+            $s.removeClass('active done');
+            if (n === step) $s.addClass('active');
+            else if (n < step) $s.addClass('done');
         });
 
-        $('#btnPrev').prop('disabled', step === 1);
-        if (step === totalSteps) {
-            $('#btnNext').hide();
-            $('#btnSave').show();
-        } else {
-            $('#btnNext').show();
-            $('#btnSave').hide();
-        }
-
-        currentStep = step;
+        if (step === 4) buildSummary();
     }
 
-    $('#btnNext').click(function () {
-        if (!validateStep(currentStep)) return;
-        goToStep(currentStep + 1);
-    });
-
-    $('#btnPrev').click(function () {
-        goToStep(currentStep - 1);
-    });
-
-    // ============ Validation ============
-    function validateStep(step) {
-        if (step === 1) {
-            if (!$('#NameFa').val().trim()) {
-                alert('نام فارسی الزامی است');
-                return false;
-            }
-        }
-        if (step === 2) {
-            var any = $('#categoriesList input:checked').length > 0;
-            if (!any) {
-                if (!confirm('هیچ دسته‌بندی انتخاب نشده. ادامه می‌دهید؟'))
-                    return false;
-            }
+    // ========================
+    // اعتبارسنجی هر مرحله
+    // ========================
+    function validateStep1() {
+        var mobile = ($('#MobileNumber').val() || '').trim();
+        if (!validateMobile(mobile)) {
+            showMessage('شماره موبایل معتبر نیست (مثال: 09123456789)', false);
+            $('#MobileNumber').focus();
+            return false;
         }
         return true;
     }
 
-    // ============ Upload Helper ============
-    function uploadFile(file, onSuccess, onError) {
-        if (!file) return;
-
-        var allowed = /\.(jpg|jpeg|png|gif|webp)$/i;
-        if (!allowed.test(file.name)) {
-            alert('فرمت فایل مجاز نیست. فقط jpg, jpeg, png, gif, webp');
-            if (onError) onError();
-            return;
+    function validateStep2() {
+        var code = ($('#OtpCode').val() || '').trim();
+        if (!/^\d{4,6}$/.test(code)) {
+            showMessage('کد تأیید را به‌درستی وارد کنید', false);
+            $('#OtpCode').focus();
+            return false;
         }
-        if (file.size > 5 * 1024 * 1024) {
-            alert('حجم فایل نباید بیشتر از ۵ مگابایت باشد');
-            if (onError) onError();
-            return;
+        return true;
+    }
+
+    function validateStep3() {
+        var pwd = $('#Password').val() || '';
+        var confirm = $('#ConfirmPassword').val() || '';
+        if (pwd.length < 6) {
+            showMessage('رمز عبور حداقل ۶ کاراکتر باشد', false);
+            $('#Password').focus();
+            return false;
         }
-
-        var fd = new FormData();
-        fd.append('file', file);
-
-        $.ajax({
-            url: ApiClient.baseUrl + 'ProductWizard/UploadImage',
-            type: 'POST',
-            data: fd,
-            processData: false,
-            contentType: false,
-            success: function (res) {
-                if (res && res.success) {
-                    onSuccess(res.url);
-                } else {
-                    alert('خطا: ' + (res && res.message ? res.message : 'آپلود ناموفق'));
-                    if (onError) onError();
-                }
-            },
-            error: function () {
-                alert('خطا در ارتباط با سرور هنگام آپلود');
-                if (onError) onError();
-            }
-        });
-    }
-
-    // ============ قدم ۱: آپلود تصویر اصلی ============
-    $('#btnUploadMainImage').click(function () {
-        $('#mainImageFile').click();
-    });
-
-    $('#mainImageFile').change(function () {
-        var file = this.files[0];
-        if (!file) return;
-
-        var $btn = $('#btnUploadMainImage').prop('disabled', true).text('در حال آپلود...');
-
-        uploadFile(file,
-            function (url) {
-                $('#ImageUrl').val(url);
-                $('#mainImagePreview').html(
-                    '<img src="' + url + '" style="max-height:120px;border:1px solid #ddd;padding:3px;border-radius:4px;" />'
-                );
-                $btn.prop('disabled', false).text('انتخاب و آپلود');
-                $('#mainImageFile').val('');
-            },
-            function () {
-                $btn.prop('disabled', false).text('انتخاب و آپلود');
-                $('#mainImageFile').val('');
-            }
-        );
-    });
-
-    // ============ قدم ۱: Variants ============
-    $('#btnAddVariant').click(function () {
-        addVariantRow();
-    });
-
-    function addVariantRow(data) {
-        data = data || {};
-        var idx = variantCounter++;
-        var row = '<tr data-idx="' + idx + '">' +
-            '<td><input type="text" class="form-control v-sku" value="' + (data.SKU || '') + '" /></td>' +
-            '<td><input type="number" class="form-control v-stock" value="' + (data.StockQuantity || 0) + '" /></td>' +
-            '<td><input type="number" class="form-control v-price" value="' + (data.Price || '') + '" /></td>' +
-            '<td><input type="checkbox" class="v-active" ' + (data.IsActive !== false ? 'checked' : '') + ' /></td>' +
-            '<td><button type="button" class="btn btn-sm btn-danger btn-remove-variant">×</button></td>' +
-        '</tr>';
-        $('#tblVariants tbody').append(row);
-        refreshVariants();
-    }
-
-    $(document).on('click', '.btn-remove-variant', function () {
-        $(this).closest('tr').remove();
-        refreshVariants();
-    });
-
-    // ============ قدم ۲: Categories (درختی) ============
-    function loadCategories() {
-        ApiClient.get('ProductWizard/GetCategories', null, function (data) {
-            if (!data || data.length === 0) {
-                $('#categoriesList').html('<em>دسته‌بندی‌ای یافت نشد</em>');
-                return;
-            }
-            var html = renderCategoryTree(data, 0);
-            $('#categoriesList').html(html);
-        });
-    }
-
-    function renderCategoryTree(items, level) {
-        var html = '';
-        $.each(items, function (i, c) {
-            var arrow = level > 0 ? '└ ' : '';
-            html += '<div class="checkbox" style="margin-left:' + (level * 20) + 'px;">' +
-                '<label>' +
-                    arrow +
-                    '<input type="checkbox" class="cat-checkbox" data-parent="' + (c.FK_ParentId || '') + '" value="' + c.CategoryId + '" /> ' +
-                    c.NameFa +
-                    ' <small class="text-muted">(' + c.CategoryType + ')</small>' +
-                '</label>' +
-            '</div>';
-            if (c.Children && c.Children.length > 0) {
-                html += renderCategoryTree(c.Children, level + 1);
-            }
-        });
-        return html;
-    }
-
-    // انتخاب زنجیره‌ای والد -> فرزندان
-    $(document).on('change', '.cat-checkbox', function () {
-        var catId = $(this).val();
-        var checked = $(this).is(':checked');
-
-        function toggleChildren(parentId, state) {
-            $('.cat-checkbox[data-parent="' + parentId + '"]').each(function () {
-                $(this).prop('checked', state);
-                toggleChildren($(this).val(), state);
-            });
+        if (pwd !== confirm) {
+            showMessage('تکرار رمز با رمز یکسان نیست', false);
+            $('#ConfirmPassword').focus();
+            return false;
         }
-        toggleChildren(catId, checked);
-    });
-
-    // ============ قدم ۲: Attributes ============
-    function loadAttributes() {
-        ApiClient.get('ProductWizard/GetAttributes', null, function (data) {
-            allAttributes = data || [];
-            renderVariantAttributes();
-        });
+        return true;
     }
 
-    function renderVariantAttributes() {
-        var container = $('#variantAttributesContainer').empty();
-        var variantRows = $('#tblVariants tbody tr');
-
-        if (variantRows.length === 0) {
-            container.html('<em class="text-muted">ابتدا در قدم ۱ واریانت اضافه کنید</em>');
-            return;
-        }
-
-        variantRows.each(function (i) {
-            var sku = $(this).find('.v-sku').val() || 'بدون SKU';
-            var box = '<div class="panel panel-default">' +
-                '<div class="panel-heading"><b>واریانت ' + (i + 1) + ':</b> ' + sku + '</div>' +
-                '<div class="panel-body">' +
-                    '<button type="button" class="btn btn-sm btn-success btn-add-var-attr" data-variant-idx="' + i + '">+ افزودن صفت</button>' +
-                    '<table class="table table-condensed" style="margin-top:10px;">' +
-                        '<thead><tr><th>صفت</th><th>مقدار</th><th></th></tr></thead>' +
-                        '<tbody class="var-attr-body" data-variant-idx="' + i + '"></tbody>' +
-                    '</table>' +
-                '</div>' +
-            '</div>';
-            container.append(box);
-        });
-    }
-
-    $(document).on('click', '.btn-add-var-attr', function () {
-        var variantIdx = $(this).data('variant-idx');
-        var tbody = $('.var-attr-body[data-variant-idx="' + variantIdx + '"]');
-
-        var attrOptions = '<option value="">انتخاب صفت...</option>';
-        $.each(allAttributes, function (i, a) {
-            attrOptions += '<option value="' + a.AttributeId + '">' + a.NameFa + '</option>';
-        });
-
-        var row = '<tr>' +
-            '<td><select class="form-control attr-select">' + attrOptions + '</select></td>' +
-            '<td><select class="form-control attr-value-select"><option value="">ابتدا صفت را انتخاب کنید</option></select></td>' +
-            '<td><button type="button" class="btn btn-sm btn-danger btn-remove-row">×</button></td>' +
-        '</tr>';
-        tbody.append(row);
-    });
-
-    $(document).on('change', '.attr-select', function () {
-        var attrId = $(this).val();
-        var valueSelect = $(this).closest('tr').find('.attr-value-select');
-
-        if (!attrId) {
-            valueSelect.html('<option value="">ابتدا صفت را انتخاب کنید</option>');
-            return;
-        }
-
-        valueSelect.html('<option value="">در حال بارگذاری...</option>');
-        ApiClient.get('ProductWizard/GetAttributeValues', { attributeId: attrId }, function (data) {
-            var html = '<option value="">انتخاب مقدار...</option>';
-            $.each(data, function (i, v) {
-                html += '<option value="' + v.AttributeValueId + '">' + v.ValueFa + '</option>';
-            });
-            valueSelect.html(html);
-        });
-    });
-
-    $(document).on('click', '.btn-remove-row', function () {
-        $(this).closest('tr').remove();
-    });
-
-    // ============ قدم ۳: Resource Attributes ============
-    $('#btnAddResourceAttr').click(function () {
-        if (allAttributes.length === 0) {
-            alert('ابتدا صفت‌ها را بارگذاری کنید');
-            return;
-        }
-        var attrOptions = '<option value="">انتخاب صفت...</option>';
-        $.each(allAttributes, function (i, a) {
-            attrOptions += '<option value="' + a.AttributeId + '">' + a.NameFa + '</option>';
-        });
-
-        var row = '<tr>' +
-            '<td><select class="form-control ra-attr">' + attrOptions + '</select></td>' +
-            '<td><select class="form-control ra-value"><option value="">ابتدا صفت را انتخاب کنید</option></select></td>' +
-            '<td><button type="button" class="btn btn-sm btn-danger btn-remove-row">×</button></td>' +
-        '</tr>';
-        $('#tblResourceAttrs tbody').append(row);
-    });
-
-    $(document).on('change', '.ra-attr', function () {
-        var attrId = $(this).val();
-        var valueSelect = $(this).closest('tr').find('.ra-value');
-
-        if (!attrId) {
-            valueSelect.html('<option value="">ابتدا صفت را انتخاب کنید</option>');
-            return;
-        }
-
-        valueSelect.html('<option value="">در حال بارگذاری...</option>');
-        ApiClient.get('ProductWizard/GetAttributeValues', { attributeId: attrId }, function (data) {
-            var html = '<option value="">انتخاب مقدار...</option>';
-            $.each(data, function (i, v) {
-                html += '<option value="' + v.AttributeValueId + '">' + v.ValueFa + '</option>';
-            });
-            valueSelect.html(html);
-        });
-    });
-
-    // ============ قدم ۳: Images (input file دیده‌شدنی) ============
-    $('#btnAddImage').click(function () {
-        var row = '<tr>' +
-            '<td>' +
-                '<input type="file" class="img-file form-control" accept="image/*" />' +
-                '<input type="text" class="form-control img-url" readonly placeholder="آدرس تصویر بعد از آپلود" style="margin-top:5px;" />' +
-                '<div class="img-preview" style="margin-top:5px;"></div>' +
-            '</td>' +
-            '<td><input type="text" class="form-control img-title" /></td>' +
-            '<td><input type="number" class="form-control img-sort" value="0" /></td>' +
-            '<td><input type="checkbox" class="img-main" /></td>' +
-            '<td><button type="button" class="btn btn-sm btn-danger btn-remove-row">×</button></td>' +
-        '</tr>';
-        $('#tblImages tbody').append(row);
-    });
-
-    $(document).on('change', '.img-file', function () {
-        var file = this.files[0];
-        if (!file) return;
-
-        var $row = $(this).closest('tr');
-        var $fileInput = $(this).prop('disabled', true);
-
-        uploadFile(file,
-            function (url) {
-                $row.find('.img-url').val(url);
-                $row.find('.img-preview').html(
-                    '<img src="' + url + '" style="max-height:80px;border:1px solid #ddd;padding:3px;border-radius:4px;" />'
-                );
-                $fileInput.prop('disabled', false);
-            },
-            function () {
-                $fileInput.prop('disabled', false).val('');
-            }
-        );
-    });
-
-    // ============ قدم ۴: Summary ============
-    function collectStep1() {
-        var variants = [];
-        $('#tblVariants tbody tr').each(function () {
-            variants.push({
-                SKU: $(this).find('.v-sku').val(),
-                StockQuantity: parseInt($(this).find('.v-stock').val() || 0),
-                Price: parseFloat($(this).find('.v-price').val()) || null,
-                IsActive: $(this).find('.v-active').is(':checked')
-            });
-        });
-
-        return {
-            NameFa: $('#NameFa').val(),
-            NameEn: $('#NameEn').val(),
-            Description: $('#Description').val(),
-            ImageUrl: $('#ImageUrl').val(),
-            ResourceIsActive: true,
-            ProductCode: $('#ProductCode').val(),
-            Barcode: $('#Barcode').val(),
-            ProductIsActive: true,
-            Variants: variants
-        };
-    }
-
-    function collectStep2() {
-        var categoryIds = [];
-        $('#categoriesList input:checked').each(function () {
-            categoryIds.push(parseInt($(this).val()));
-        });
-
-        var variantAttributes = [];
-        $('.var-attr-body').each(function () {
-            var variantIdx = parseInt($(this).data('variant-idx'));
-            var attrs = [];
-            $(this).find('tr').each(function () {
-                var attrId = $(this).find('.attr-select').val();
-                var valueId = $(this).find('.attr-value-select').val();
-                if (attrId && valueId) {
-                    attrs.push({
-                        FK_AttributeId: parseInt(attrId),
-                        FK_AttributeValueId: parseInt(valueId)
-                    });
-                }
-            });
-            if (attrs.length > 0) {
-                variantAttributes.push({
-                    VariantIndex: variantIdx,
-                    Attributes: attrs
-                });
-            }
-        });
-
-        return {
-            SelectedCategoryIds: categoryIds,
-            VariantAttributes: variantAttributes
-        };
-    }
-
-    function collectStep3() {
-        var resourceAttrs = [];
-        $('#tblResourceAttrs tbody tr').each(function () {
-            var attrId = $(this).find('.ra-attr').val();
-            var valueId = $(this).find('.ra-value').val();
-            if (attrId) {
-                resourceAttrs.push({
-                    FK_AttributeId: parseInt(attrId),
-                    FK_AttributeValueId: valueId ? parseInt(valueId) : null,
-                    ValueText: null,
-                    ValueNumber: null,
-                    ValueDate: null,
-                    ValueBoolean: null
-                });
-            }
-        });
-
-        var images = [];
-        $('#tblImages tbody tr').each(function () {
-            var url = $(this).find('.img-url').val();
-            if (url) {
-                images.push({
-                    ImageUrl: url,
-                    Title: $(this).find('.img-title').val(),
-                    SortOrder: parseInt($(this).find('.img-sort').val() || 0),
-                    IsMain: $(this).find('.img-main').is(':checked'),
-                    IsActive: true
-                });
-            }
-        });
-
-        return {
-            ResourceAttributes: resourceAttrs,
-            Images: images
-        };
-    }
-
+    // ========================
+    // خلاصه مرحله ۴
+    // ========================
     function buildSummary() {
-        var s1 = collectStep1();
-        var s2 = collectStep2();
-        var s3 = collectStep3();
+        var mobile = $('#MobileNumber').val() || '';
+        var email = $('#Email').val() || '—';
+        var userName = $('#UserName').val() || mobile;
 
-        var html = '<div class="panel panel-default">' +
-            '<div class="panel-heading"><b>اطلاعات پایه</b></div>' +
-            '<div class="panel-body">' +
-                '<p><b>نام فارسی:</b> ' + s1.NameFa + '</p>' +
-                '<p><b>نام انگلیسی:</b> ' + (s1.NameEn || '-') + '</p>' +
-                '<p><b>کد محصول:</b> ' + (s1.ProductCode || '-') + '</p>' +
-                '<p><b>بارکد:</b> ' + (s1.Barcode || '-') + '</p>' +
-                '<p><b>تعداد واریانت:</b> ' + s1.Variants.length + '</p>' +
-            '</div>' +
-        '</div>';
-
-        html += '<div class="panel panel-default">' +
-            '<div class="panel-heading"><b>دسته‌بندی‌ها</b></div>' +
-            '<div class="panel-body">' +
-                '<p>تعداد: ' + s2.SelectedCategoryIds.length + '</p>' +
-            '</div>' +
-        '</div>';
-
-        html += '<div class="panel panel-default">' +
-            '<div class="panel-heading"><b>صفت‌های واریانت</b></div>' +
-            '<div class="panel-body">' +
-                '<p>تعداد: ' + s2.VariantAttributes.length + ' واریانت دارای صفت</p>' +
-            '</div>' +
-        '</div>';
-
-        html += '<div class="panel panel-default">' +
-            '<div class="panel-heading"><b>ویژگی‌ها و تصاویر</b></div>' +
-            '<div class="panel-body">' +
-                '<p>ویژگی‌ها: ' + s3.ResourceAttributes.length + '</p>' +
-                '<p>تصاویر: ' + s3.Images.length + '</p>' +
-            '</div>' +
-        '</div>';
+        var html = ''
+            + '<table class="table table-bordered">'
+            + '  <tbody>'
+            + '    <tr><th style="width:160px;">موبایل</th><td>' + $('<div>').text(mobile).html() + '</td></tr>'
+            + '    <tr><th>ایمیل</th><td>' + $('<div>').text(email).html() + '</td></tr>'
+            + '    <tr><th>نام کاربری</th><td>' + $('<div>').text(userName).html() + '</td></tr>'
+            + '  </tbody>'
+            + '</table>';
 
         $('#summaryContainer').html(html);
     }
 
-    // ============ Save ============
-    $('#btnSave').click(function () {
-        var model = {
-            Step1: collectStep1(),
-            Step2: collectStep2(),
-            Step3: collectStep3()
-        };
+    // ========================
+    // تماس با سرور
+    // ========================
+    function sendOtp() {
+        var mobile = ($('#MobileNumber').val() || '').trim();
+        var $btn = $('#btnResendOtp');
 
-        $('#btnSave').prop('disabled', true).text('در حال ذخیره...');
+        setLoading($btn, true);
 
-        $.ajax({
-            url: ApiClient.baseUrl + 'ProductWizard/Save',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(model),
-            success: function (res) {
-                if (res.success) {
-                    alert(res.message);
-                    window.location.href = ApiClient.baseUrl + 'Products/Index';
+        window.ApiClient.post(
+            'RegisterWizard/SendOtp',
+            { mobile: mobile },
+            function (res) {
+                setLoading($btn, false);
+                if (res && res.success) {
+                    $('#maskedMobile').text(maskMobile(mobile));
+                    startOtpTimer();
+                    showMessage(res.message || 'کد ارسال شد', true);
                 } else {
-                    alert('خطا: ' + res.message);
-                    $('#btnSave').prop('disabled', false).text('ثبت نهایی');
+                    showMessage((res && res.message) || 'ارسال کد ناموفق بود', false);
                 }
             },
-            error: function (xhr) {
-                alert('خطا در ارتباط با سرور');
-                $('#btnSave').prop('disabled', false).text('ثبت نهایی');
+            function () {
+                setLoading($btn, false);
+                showMessage('خطا در ارتباط با سرور', false);
             }
+        );
+    }
+
+    function verifyOtp(callback) {
+        var mobile = ($('#MobileNumber').val() || '').trim();
+        var code = ($('#OtpCode').val() || '').trim();
+
+        window.ApiClient.post(
+            'RegisterWizard/VerifyOtp',
+            { mobile: mobile, code: code },
+            function (res) {
+                if (res && res.success) {
+                    callback(true);
+                } else {
+                    showMessage((res && res.message) || 'کد نامعتبر است', false);
+                    callback(false);
+                }
+            },
+            function () {
+                showMessage('خطا در ارتباط با سرور', false);
+                callback(false);
+            }
+        );
+    }
+
+    function saveUser() {
+        var data = {
+            MobileNumber: ($('#MobileNumber').val() || '').trim(),
+            Email: ($('#Email').val() || '').trim(),
+            UserName: ($('#UserName').val() || '').trim(),
+            Password: $('#Password').val() || ''
+        };
+
+        setLoading($btnSave, true);
+
+        window.ApiClient.post(
+            'RegisterWizard/Save',
+            data,
+            function (res) {
+                setLoading($btnSave, false);
+                if (res && res.success) {
+                    showMessage('ثبت‌نام با موفقیت انجام شد', true);
+                    // در صورت نیاز، هدایت به صفحه ورود
+                    setTimeout(function () {
+						window.location.href = window.ApiClient.dashboardUrl;
+
+                    }, 1500);
+                } else {
+                    showMessage((res && res.message) || 'ثبت‌نام ناموفق بود', false);
+                }
+            },
+            function () {
+                setLoading($btnSave, false);
+                showMessage('خطا در ارتباط با سرور', false);
+            }
+        );
+    }
+
+    // ========================
+    // تایمر ارسال مجدد OTP
+    // ========================
+    function startOtpTimer() {
+        stopOtpTimer();
+        state.otpSecondsLeft = OTP_RESEND_SECONDS;
+        updateOtpTimerUi();
+
+        state.otpTimerId = setInterval(function () {
+            state.otpSecondsLeft--;
+            if (state.otpSecondsLeft <= 0) {
+                stopOtpTimer();
+                $('#otpTimer').text('');
+                $('#btnResendOtp').prop('disabled', false);
+            } else {
+                updateOtpTimerUi();
+            }
+        }, 1000);
+    }
+
+    function stopOtpTimer() {
+        if (state.otpTimerId) {
+            clearInterval(state.otpTimerId);
+            state.otpTimerId = null;
+        }
+    }
+
+    function updateOtpTimerUi() {
+        var m = Math.floor(state.otpSecondsLeft / 60);
+        var s = state.otpSecondsLeft % 60;
+        $('#otpTimer').text('ارسال مجدد تا ' + m + ':' + (s < 10 ? '0' + s : s));
+        $('#btnResendOtp').prop('disabled', state.otpSecondsLeft > 0);
+    }
+
+    // ========================
+    // رویدادها
+    // ========================
+    $(function () {
+        goToStep(1);
+
+        // بعدی
+        $btnNext.on('click', function () {
+            var step = state.currentStep;
+
+            if (step === 1) {
+                if (!validateStep1()) return;
+                // رفتن به قدم ۲ و ارسال OTP
+                //goToStep(2);
+                goToStep(3);
+                //sendOtp();
+            } else if (step === 2) {
+
+                if (!validateStep2()) return;
+                verifyOtp(function (ok) {
+                    if (ok) goToStep(3);
+                });
+            } else if (step === 3) {
+                if (!validateStep3()) return;
+                goToStep(4);
+            }
+        });
+
+        // قبلی
+        $btnPrev.on('click', function () {
+            if (state.currentStep > 1) {
+                goToStep(state.currentStep - 1);
+            }
+        });
+
+        // ارسال مجدد OTP
+        $('#btnResendOtp').on('click', function () {
+            if (state.otpSecondsLeft > 0) return;
+            sendOtp();
+        });
+
+        // ثبت نهایی
+        $btnSave.on('click', function () {
+            if (!validateStep3()) {
+                goToStep(3);
+                return;
+            }
+            saveUser();
+        });
+
+        // فقط عدد در موبایل و OTP
+        $('#MobileNumber, #OtpCode').on('input', function () {
+            this.value = this.value.replace(/\D/g, '');
         });
     });
 
-    // شروع
-    goToStep(1);
-});
+})(jQuery);
