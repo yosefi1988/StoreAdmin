@@ -1,0 +1,157 @@
+﻿/* ============================================================
+   theme-default.css — تم پیش‌فرض (روشن)
+   با تعویض این فایل با theme-dark.css ظاهر کل سایت عوض می‌شود
+   ============================================================ */
+
+:root {
+    /* ---- رنگ‌های پایه ---- */
+    --color-primary: #0d6efd;
+    --color-primary-hover: #0b5ed7;
+    --color-danger: #dc3545;
+    --color-success: #198754;
+    --color-like: #e0245e;
+
+    /* ---- پس‌زمینه‌ها ---- */
+    --bg-body: #f5f6f8;
+    --bg-card: #ffffff;
+    --bg-soft: #f8f9fa;
+    --bg-hover: #f5f5f5;
+    --bg-avatar: #f0f0f0;
+    --bg-like: #fdeef4;
+
+    /* ---- متن‌ها ---- */
+    --text-primary: #222222;
+    --text-secondary: #666666;
+    --text-muted: #999999;
+
+    /* ---- حاشیه‌ها ---- */
+    --border-color: #e5e5e5;
+    --border-light: #f0f0f0;
+
+    /* ---- سایه‌ها ---- */
+    --shadow-sm: 0 1px 3px rgba(0,0,0,.04);
+    --shadow-md: 0 3px 12px rgba(0,0,0,.08);
+    --shadow-lg: 0 8px 24px rgba(0,0,0,.12);
+
+    /* ---- گردی گوشه‌ها ---- */
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+
+    /* ---- فونت ---- */
+    --font-family: 'Vazirmatn', Tahoma, sans-serif;
+
+    /* ---- هدر و فوتر ---- */
+    --header-bg: #ffffff;
+    --header-text: #333333;
+    --footer-bg: #1a1a1a;
+    --footer-text: #ffffff;
+}
+
+/* ---- اعمال فونت و پس‌زمینه کلی ---- */
+html, body {
+    font-family: var(--font-family) !important;
+    background-color: var(--bg-body);
+    color: var(--text-primary);
+}
+
+h1, h2, h3, h4, h5, h6, p, a, span, div,
+input, button, select, textarea, table {
+    font-family: var(--font-family) !important;
+}
+
+
+
+
+/* ============================================================
+   RTL Overrides — راست‌به‌چپ
+   ============================================================ */
+
+/* جهت کلی */
+body {
+    direction: rtl;
+    text-align: right;
+}
+
+/* منوی ناوبری */
+.navbar-nav {
+    padding-right: 0;
+}
+.navbar-nav.ml-auto {
+    margin-left: 0 !important;
+    margin-right: auto !important;
+}
+
+/* دراپ‌داون */
+.dropdown-menu-right {
+    right: auto;
+    left: 0;
+}
+.dropdown-menu {
+    text-align: right;
+}
+
+/* هدر */
+.navbar-brand {
+    margin-right: 0;
+    margin-left: 1rem;
+}
+.navbar-toggler {
+    margin-right: auto;
+    margin-left: 0;
+}
+
+/* call_text (نوار تماس بالای صفحه) */
+.call_taital {
+    direction: rtl;
+}
+.call_text .padding_left_15 {
+    padding-left: 0;
+    padding-right: 15px;
+}
+
+/* فوتر */
+.footer_section {
+    direction: rtl;
+    text-align: right;
+}
+.location_text .padding_left_15 {
+    padding-left: 0;
+    padding-right: 15px;
+}
+.social_icon ul {
+    padding-right: 0;
+}
+
+/* فید */
+.feed-wrapper {
+    direction: rtl;
+}
+.post-avatar {
+    margin-left: 0;
+    margin-right: 10px;
+}
+.post-time {
+    margin-right: 0;
+    margin-left: 5px;
+}
+.comment-time {
+    margin-right: 0;
+    margin-left: 6px;
+}
+
+/* مودال */
+.modal-header .close {
+    margin: -1rem auto -1rem -1rem;
+    padding: 1rem 1rem;
+}
+
+/* فرم‌ها */
+.form-control {
+    text-align: right;
+}
+
+/* اسپینر */
+.spinner-border {
+    margin-left: 0;
+}

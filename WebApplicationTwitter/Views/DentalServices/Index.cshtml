@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.Title = "خدمات دندانپزشکی";
+    string search = ViewBag.Search as string ?? "";
+}
+
+<div class="container" style="margin-top:20px;">
+    <h2>خدمات دندانپزشکی</h2>
+    <hr />
+
+    <div class="row" style="margin-bottom:15px;">
+        <div class="col-md-6">
+            <input type="text" id="txtSearch" class="form-control"
+                   placeholder="جستجو (نام، کد خدمت)..."
+                   value="@search" />
+        </div>
+        <div class="col-md-2">
+            <select id="ddlPageSize" class="form-control">
+                <option value="12">12</option>
+                <option value="20" selected>20</option>
+                <option value="50">50</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <button id="btnSearch" class="btn btn-primary">جستجو</button>
+        </div>
+    </div>
+
+    <div id="loading" style="display:none;" class="text-center">
+        <p>در حال بارگذاری...</p>
+    </div>
+
+    <div id="error" class="alert alert-danger" style="display:none;"></div>
+
+    <div class="row" id="cardsContainer"></div>
+
+    <nav>
+        <ul class="pagination" id="pagination"></ul>
+    </nav>
+
+    <div class="text-muted" id="paginationInfo"></div>
+</div>
+
+@section Scripts {
+    <script>
+        window.INITIAL_SEARCH = '@search';
+        window.ApiClient = { baseUrl: '@Url.Content("~/")' };
+    </script>
+    <script src="~/Scripts/dental-services-list.js"></script>
+}

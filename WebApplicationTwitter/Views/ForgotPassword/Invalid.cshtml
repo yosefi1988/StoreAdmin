@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "لینک نامعتبر";
+}
+
+<div class="container" style="margin-top:100px; text-align:center;">
+    <div class="alert alert-danger" style="display:inline-block; padding:30px;">
+        <i class="fa fa-exclamation-triangle" style="font-size:40px;"></i>
+        <h3>@ViewBag.Error</h3>
+        <a href="@Url.Action("Index", "ForgotPassword")" class="btn btn-primary">
+            درخواست لینک جدید
+        </a>
+    </div>
+</div>

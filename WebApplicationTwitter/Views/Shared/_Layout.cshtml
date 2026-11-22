@@ -1,0 +1,236 @@
+﻿@using System.Linq
+@using WebApplicationTwitter.Models
+@using WebApplicationTwitter.Services
+@{
+    var settings = ViewBag.StoreSettings as WebApplicationTwitter.Models.StoreSettingVM
+                   ?? new WebApplicationTwitter.Models.StoreSettingVM();
+
+    // ====== بررسی لاگین ======
+    var authToken = Context.Request.Cookies["auth_token"]?.Value;
+    var tokenService = new SessionTokenService();
+    var currentUser = tokenService.ValidateToken(authToken);
+    var isLoggedIn = currentUser != null;
+
+    // نام کاربر
+    string displayName = null;
+    if (isLoggedIn)
+    {
+        using (var db = new DataClassesDatabaseDataContextDataContext())
+        {
+            var u = db.X_Users.FirstOrDefault(x => x.UserId == currentUser.UserId);
+            if (u != null)
+            {
+                if (!string.IsNullOrEmpty(u.FirstName))
+                {
+                    displayName = u.FirstName + " " + u.LastName;
+                }
+                else if (!string.IsNullOrEmpty(u.UserName))
+                {
+                    displayName = u.UserName;
+                }
+                else
+                {
+                    displayName = u.MobileNumber;
+                }
+            }
+        }
+    }
+}
+
+<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+<head>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("Styles", required: false)
+
+    <!-- basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- site metas -->
+    <title>BalabarKaran</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- bootstrap css -->
+    <link rel="stylesheet" type="text/css" href="~/Content/trator-1.0.0/css/bootstrap.min.css">
+
+    <!-- style css -->
+    <link rel="stylesheet" type="text/css" href="~/Content/trator-1.0.0/css/style.css">
+    <!-- Responsive-->
+    <link rel="stylesheet" href="~/Content/trator-1.0.0/css/responsive.css">
+    <!-- fevicon -->
+    <link rel="icon" href="~/Content/images/fevicon.png" type="image/png" />
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="~/Content/trator-1.0.0/css/jquery.mCustomScrollbar.min.css">
+    <!-- Tweaks for older IEs-->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+
+    <!-- ========== فونت وزیرمتن ========== -->
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+
+    <!-- ========== تم سایت (برای تعویض تم فقط این خط را عوض کنید) ========== -->
+    <link href="~/Content/themes/theme-default.css" rel="stylesheet" id="themeStylesheet" />
+
+    <!-- ========== استایل صفحه فید ========== -->
+    <link href="~/Content/feed.css" rel="stylesheet" />
+
+    <style>
+        .header_section {
+            position: relative;
+            z-index: 1000;
+        }
+
+            .header_section .navbar,
+            .header_section .navbar-collapse,
+            .header_section .navbar-nav,
+            .header_section .nav-item,
+            .header_section .nav-link {
+                pointer-events: auto !important;
+                position: relative;
+                z-index: 1000;
+            }
+    </style>
+</head>
+<body>
+    @Html.AntiForgeryToken()
+
+    <!-- header section start -->
+    <div class="header_section">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="/">
+                    <img src="~/Content/images/logo.png" alt="لوگو" />
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto">
+                        @if (isLoggedIn)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown"
+                                   role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-user-circle"></i>
+                                    @displayName
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                                    <a class="dropdown-item" href="@Url.Action("Index", "Dashboard")">
+                                        <i class="fa fa-dashboard"></i> پنل کاربری
+                                    </a>
+                                    @*<a class="dropdown-item" href="@Url.Action("MyOrders", "Order")">
+                                        <i class="fa fa-shopping-bag"></i> سفارشات من
+                                    </a>*@
+                                    <a class="dropdown-item" href="@Url.Action("Index", "Profile")">
+                                        <i class="fa fa-user"></i> پروفایل
+                                    </a>
+
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item text-danger" href="javascript:void(0)" onclick="logoutUser()">
+                                        <i class="fa fa-sign-out"></i> خروج
+                                    </a>
+                                </div>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("Index", "Login")">
+                                    <i class="fa fa-sign-in"></i> ورود
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("Index", "RegisterWizard")">
+                                    <i class="fa fa-user-plus"></i> ثبت‌نام
+                                </a>
+                            </li>
+                        }
+                        @{
+                            string currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+                            string currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+                        }
+                        <li class="nav-item @(currentController == "Home" && currentAction == "Index" ? "active" : "")">
+                            <a class="nav-link" href="@Url.Action("Feed", "Posts")">صفحه اصلی</a>
+                        </li>
+                        <li class="nav-item @(currentController == "Home" && currentAction == "About" ? "active" : "")">
+                            <a class="nav-link" href="@Url.Action("About", "Home")">درباره ما</a>
+                        </li>
+                        @*<li class="nav-item @(currentController == "Products" ? "active" : "")">
+                            <a class="nav-link" href="@Url.Action("Scroll", "Products")">لیست خودروها</a>
+                        </li>*@
+                        <li class="nav-item @(currentController == "Home" && currentAction == "Contact" ? "active" : "")">
+                            <a class="nav-link" href="@Url.Action("Contact", "Home")">تماس با ما</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- header section end -->
+
+    @RenderBody()
+
+ 
+    <!-- copyright section start -->
+    <div class="copyright_section">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <p class="copyright_text">
+                        © @DateTime.Now.Year - تمامی حقوق برای @(string.IsNullOrEmpty(settings.StoreNameFa) ? "فروشگاه" : settings.StoreNameFa) محفوظ است.
+                        <br />
+                        طراحی و تولید توسط <a href="tel:+989999816652">یوسفی</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- copyright section end -->
+    <!-- Javascript files-->
+    <script src="~/Content/trator-1.0.0/js/jquery.min.js"></script>
+    <script src="~/Content/trator-1.0.0/js/popper.min.js"></script>
+    <script src="~/Content/trator-1.0.0/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/trator-1.0.0/js/plugin.js"></script>
+    <script src="~/Content/trator-1.0.0/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="~/Content/trator-1.0.0/js/custom.js"></script>
+
+    <script>
+        function logoutUser() {
+            if (!confirm('از حساب خارج می‌شوید؟')) return;
+
+            var token = $('input[name="__RequestVerificationToken"]').first().val();
+            if (!token) {
+                alert('توکن امنیتی یافت نشد. صفحه را رفرش کنید.');
+                return;
+            }
+
+            $.ajax({
+                url: '@Url.Action("Logout", "Login")',
+                type: 'POST',
+                data: { __RequestVerificationToken: token },
+                success: function (res) {
+                    if (res && res.success) {
+                        try { localStorage.removeItem('auth_token'); } catch (e) { }
+                        window.location.href = '@Url.Action("Index", "Home")';
+                    } else {
+                        alert((res && res.message) || 'خطا در خروج از حساب.');
+                    }
+                },
+                error: function (xhr) {
+                    if (xhr.status === 500) {
+                        alert('توکن امنیتی نامعتبر است. صفحه را رفرش کنید.');
+                    } else {
+                        alert('خطای شبکه. لطفاً دوباره تلاش کنید.');
+                    }
+                }
+            });
+        }
+    </script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

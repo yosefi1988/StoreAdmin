@@ -1,0 +1,239 @@
+﻿/* ============================================================
+   post-detail.css — استایل صفحه جزئیات پست
+   نسخه تم‌پذیر (رنگ‌ها از متغیرهای theme-*.css می‌آیند)
+   ============================================================ */
+
+/* ============ Layout ============ */
+.post-detail-wrapper {
+    max-width: 720px;
+    margin: 20px auto;
+    padding: 0 10px;
+}
+
+/* ============ Post Card ============ */
+.post-detail-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 18px;
+    box-shadow: var(--shadow-sm);
+}
+
+.post-detail-card .post-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.post-detail-card .post-avatar {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: var(--bg-avatar);
+    object-fit: cover;
+    margin-left: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.post-detail-card .post-author-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.post-detail-card .post-author {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 15px;
+}
+
+.post-detail-card .post-username {
+    color: var(--text-secondary);
+    font-size: 12px;
+}
+
+.post-detail-card .post-time {
+    color: var(--text-muted);
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.post-detail-card .post-title {
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 10px 0 6px 0;
+    font-size: 18px;
+}
+
+.post-detail-card .post-content {
+    color: var(--text-primary);
+    line-height: 1.8;
+    margin: 8px 0;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    font-size: 15px;
+}
+
+/* ---- تصاویر پست ---- */
+.post-detail-card .post-image-single {
+    width: 100%;
+    border-radius: 8px;
+    margin-top: 12px;
+    max-height: 600px;
+    object-fit: contain;
+    background: var(--bg-soft);
+}
+
+.post-detail-card .post-image-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+    margin-top: 12px;
+}
+
+.post-detail-card .post-image-grid img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: zoom-in;
+}
+
+.post-detail-card .post-image-grid img:hover {
+    opacity: .92;
+}
+
+/* ---- Actions ---- */
+.post-detail-card .post-actions {
+    display: flex;
+    gap: 20px;
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border-light);
+}
+
+.post-detail-card .post-action {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    font-size: 14px;
+    border-radius: 6px;
+    transition: background .15s;
+}
+
+.post-detail-card .post-action:hover {
+    background: var(--bg-hover);
+}
+
+.post-detail-card .post-action.liked {
+    color: var(--color-like);
+}
+
+.post-detail-card .post-action.liked:hover {
+    background: var(--bg-like);
+}
+
+/* ============ Comment Form ============ */
+.comment-form-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 15px;
+}
+
+.comment-form-card textarea {
+    resize: vertical;
+}
+
+/* ============ Comments ============ */
+.comments-section {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 15px;
+}
+
+.comment-item {
+    display: flex;
+    gap: 10px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.comment-item:last-child {
+    border-bottom: none;
+}
+
+.comment-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--bg-avatar);
+    object-fit: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.comment-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.comment-author {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--text-primary);
+}
+
+.comment-time {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-right: 6px;
+}
+
+.comment-text {
+    font-size: 14px;
+    color: var(--text-primary);
+    margin-top: 4px;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.comment-images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+.comment-images img {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid var(--border-light);
+    cursor: zoom-in;
+}
+
+/* ============ Responsive ============ */
+@media (max-width: 576px) {
+    .post-detail-wrapper {
+        margin: 10px auto;
+    }
+    .post-detail-card .post-image-grid img {
+        height: 150px;
+    }
+}

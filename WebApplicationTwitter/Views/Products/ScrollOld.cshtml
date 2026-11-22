@@ -1,0 +1,97 @@
+﻿@{
+    ViewBag.Title = "لیست خودروها";
+}
+
+<div class="container" style="margin-top:20px;">
+    <h2>لیست خودروها</h2>
+    <hr />
+
+    <!-- کارت‌ها -->
+    <div class="row" id="productsContainer">
+        <!-- اینجا کارت‌ها داینامیک اضافه می‌شن -->
+    </div>
+
+    <!-- Loading -->
+    <div id="loading" style="display:none; text-align:center; padding:30px;">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">در حال بارگذاری...</span>
+        </div>
+        <p>در حال بارگذاری...</p>
+    </div>
+
+    <!-- End Message -->
+    <div id="endMessage" style="display:none; text-align:center; padding:30px; color:#888;">
+        <p>— به پایان لیست رسیدید —</p>
+    </div>
+
+    <!-- Error -->
+    <div id="error" class="alert alert-danger" style="display:none;"></div>
+</div>
+
+@section Styles {
+    <style>
+        .product-card {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+            .product-card:hover {
+                box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+                transform: translateY(-3px);
+            }
+
+            .product-card .card-img {
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+                background: #f5f5f5;
+            }
+
+            .product-card .card-body {
+                padding: 15px;
+            }
+
+            .product-card .card-title {
+                font-size: 16px;
+                font-weight: bold;
+                margin: 0 0 8px 0;
+                color: #333;
+            }
+
+            .product-card .card-subtitle {
+                font-size: 13px;
+                color: #888;
+                margin: 0 0 10px 0;
+            }
+
+            .product-card .card-meta {
+                font-size: 12px;
+                color: #666;
+                margin: 5px 0;
+            }
+
+            .product-card .card-footer {
+                padding: 10px 15px;
+                background: #f9f9f9;
+                border-top: 1px solid #eee;
+            }
+
+        .no-image {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f0f0f0;
+            color: #aaa;
+            font-size: 14px;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script src="~/Scripts/products-scroll.js"></script>
+}

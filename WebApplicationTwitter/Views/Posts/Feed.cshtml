@@ -1,0 +1,156 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "فید";
+}
+
+<div class="feed-wrapper">
+
+    <!-- ========== باکس ارسال پست ========== -->
+    <div class="post-composer" >
+        <h5 class="composer-title" style="margin-top:80px;">
+            <i class="fa fa-pencil"></i> چه خبر؟
+        </h5>
+
+        <div id="composerAlert" class="alert alert-danger" style="display:none;"></div>
+
+        <input style="display:none"  type="text" id="postTitle" class="form-control mb-2"
+               maxlength="400" placeholder="عنوان (اختیاری ولی توصیه‌شده)" />
+
+        <textarea id="postContent" class="form-control mb-2" rows="3"
+                  maxlength="2000" placeholder="متن پست..."></textarea>
+
+        <!-- ========== بخش تصاویر (چند فایل) ========== -->
+        <div class="mb-2">
+            <label class="small text-muted mb-1">
+                <i class="fa fa-image"></i> تصاویر (اختیاری)
+            </label>
+
+            <input type="file" id="postImagesInput"
+                   class="form-control form-control-sm"
+                   accept="image/*" multiple />
+
+            <small class="text-muted d-block mt-1">
+                می‌توانید چند تصویر انتخاب کنید (jpg, png, gif, webp — حداکثر ۵MB هر فایل)
+            </small>
+
+            <!-- پیش‌نمایش فایل‌های انتخاب‌شده (قبل از آپلود) -->
+            <div id="selectedFilesPreview"
+                 class="d-flex flex-wrap gap-2 mt-2"></div>
+
+            <!-- لیست تصاویر آپلودشده -->
+            <div id="uploadedImagesList" class="mt-2"></div>
+
+            <!-- دکمه آپلود -->
+            <button type="button" id="btnUploadPostImages"
+                    class="btn btn-outline-secondary btn-sm mt-2">
+                <i class="fa fa-upload"></i> آپلود تصاویر
+            </button>
+
+            <!-- input مخفی برای ارسال URLها به سرور -->
+            <input type="hidden" id="postImageUrls" value="" />
+        </div>
+
+        <div class="composer-footer">
+            <span id="charCount" class="text-muted small">0 / 2000</span>
+            <button type="button" class="btn btn-primary" id="btnSubmitPost">
+                <i class="fa fa-send"></i> ارسال
+            </button>
+        </div>
+    </div>
+
+    <!-- ========== فید ========== -->
+    <div id="feedContainer"></div>
+
+    <!-- ========== loading ========== -->
+    <div id="feedLoading" class="feed-loading" style="display:none;">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">در حال بارگذاری...</span>
+        </div>
+        <p class="mt-2 text-muted small">در حال بارگذاری...</p>
+    </div>
+
+    <!-- ========== پایان ========== -->
+    <div id="feedEnd" class="feed-end" style="display:none;">
+        — به پایان فید رسیدید —
+    </div>
+
+    <!-- ========== خطا ========== -->
+    <div id="feedError" class="alert alert-danger" style="display:none;"></div>
+
+</div>
+
+<!-- ============================================================ -->
+<!-- Modal: کامنت‌ها                                              -->
+<!-- ============================================================ -->
+<div class="modal fade" id="commentsModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <i class="fa fa-comments"></i> نظرات
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="بستن">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <!-- پست اصلی -->
+                <div id="modalPostPreview" class="modal-post-preview"></div>
+
+                <hr />
+
+                <!-- فرم کامنت -->
+                <div class="comment-form mb-3">
+                    <textarea id="newCommentText" class="form-control mb-2" rows="2"
+                              maxlength="4000" placeholder="نظر خود را بنویسید..."></textarea>
+                    <button type="button" class="btn btn-sm btn-primary" id="btnAddComment">
+                        <i class="fa fa-send"></i> ارسال نظر
+                    </button>
+                </div>
+
+                <!-- لیست کامنت‌ها -->
+                <div id="commentsList"></div>
+
+                <div id="commentsLoading" class="text-center py-3" style="display:none;">
+                    <div class="spinner-border spinner-border-sm text-primary"></div>
+                </div>
+
+                <div id="commentsEmpty" class="text-center text-muted py-3" style="display:none;">
+                    هنوز نظری ثبت نشده. اولین نفر باشید!
+                </div>
+
+                <div id="commentsEnd" class="text-center text-muted small py-2" style="display:none;">
+                    — به پایان نظرات رسیدید —
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        (function () {
+            // ---- گرفتن توکن ضدجعل به روش مطمئن (بدون وابستگی به jQuery) ----
+            var tokenInput = document.querySelector('input[name="__RequestVerificationToken"]');
+            var token = tokenInput ? tokenInput.value : '';
+
+            // fallback: اگر توکن پیدا نشد، از یک تگ موقت استفاده کن
+            if (!token) {
+                var temp = document.createElement('div');
+                temp.innerHTML = '@Html.AntiForgeryToken()';
+                var hidden = temp.querySelector('input[name="__RequestVerificationToken"]');
+                if (hidden) token = hidden.value;
+            }
+
+            // ---- تنظیمات اولیه — قبل از feed.js ----
+            window.FeedConfig = {
+                baseUrl: '@Url.Content("~/")',
+                isLoggedIn: @(User.Identity.IsAuthenticated.ToString().ToLower()),
+                loginUrl: '@Url.Action("Index", "Login")',
+                antiForgeryToken: token
+            };
+        })();
+    </script>
+    <script src="~/Scripts/feed.js"></script>
+}
