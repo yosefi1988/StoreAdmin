@@ -220,8 +220,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\post-detail.css" />
-    <Content Include="Content\feed.css" />
+    <Content Include="Content\auth-dashboard.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\themes\theme-dark.css" />
     <Content Include="Content\themes\theme-default.css" />
@@ -318,12 +317,12 @@
     <Content Include="Scripts\login.js" />
     <Content Include="Scripts\forgot-password.js" />
     <Content Include="Scripts\register-wizard.js" />
-    <Content Include="Scripts\products-scroll.js" />
     <Content Include="Scripts\products-list.js" />
     <Content Include="Scripts\product.js" />
     <Content Include="Scripts\product-wizard.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\posts-scroll.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -363,7 +362,6 @@
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Products\Scroll.cshtml" />
     <Content Include="Views\Products\Details.cshtml" />
-    <Content Include="Views\Products\ScrollOld.cshtml" />
     <Content Include="Views\Home\Client.cshtml" />
     <Content Include="Views\Home\Services.cshtml" />
     <Content Include="Views\RegisterWizard\Index.cshtml" />

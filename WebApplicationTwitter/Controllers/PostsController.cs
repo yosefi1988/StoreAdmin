@@ -124,7 +124,7 @@ namespace WebApplicationTwitter.Controllers
         // AJAX: فید پیوسته (فیلتر بر اساس فروشگاه فعال)
         // ============================================================
         [HttpGet]
-        public JsonResult GetFeed(int skip = 0, int take = DefaultPageSize)
+        public JsonResult GetFeed(int skip = 0, int take = DefaultPageSize, string search = null, string sort = null)
         {
             if (take < 1) take = DefaultPageSize;
             if (take > MaxPageSize) take = MaxPageSize;
@@ -135,7 +135,6 @@ namespace WebApplicationTwitter.Controllers
                 var currentUserId = GetCurrentUserId();
                 var currentStoreId = GetCurrentStoreId();
 
-                // اگر فروشگاه فعال ندارد → نیاز به لاگین
                 if (!currentStoreId.HasValue)
                 {
                     return Json(new
@@ -158,8 +157,7 @@ namespace WebApplicationTwitter.Controllers
                     var baseQuery = from r in db.X_Resources
                                     join u in db.X_Users on r.FK_UserId equals u.UserId
                                     where r.IsActive
-                                       && r.FK_StoreSettingId == storeIdValue   // ← فیلتر فروشگاه
-                                    orderby r.CreatedAt descending
+                                       && r.FK_StoreSettingId == storeIdValue
                                     select new
                                     {
                                         ResourceId = r.ResourceId,
@@ -193,6 +191,30 @@ namespace WebApplicationTwitter.Controllers
                                                 l.FK_UserId == userIdValue)
                                     };
 
+                    // ==== اعمال جستجو ====
+                    if (!string.IsNullOrWhiteSpace(search))
+                    {
+                        search = search.Trim();
+                        baseQuery = baseQuery.Where(p =>
+                            p.Title.Contains(search) ||
+                            p.Content.Contains(search) ||
+                            p.AuthorName.Contains(search) ||
+                            p.AuthorFirstName.Contains(search) ||
+                            p.AuthorLastName.Contains(search));
+                    }
+
+                    // ==== اعمال مرتب‌سازی ====
+                    if (sort == "likes")
+                    {
+                        baseQuery = baseQuery.OrderByDescending(p => p.LikeCount)
+                                             .ThenByDescending(p => p.CreatedAt);
+                    }
+                    else
+                    {
+                        baseQuery = baseQuery.OrderByDescending(p => p.CreatedAt);
+                    }
+
+                  
                     var total = baseQuery.Count();
                     var data = baseQuery.Skip(skip).Take(take).ToList();
 

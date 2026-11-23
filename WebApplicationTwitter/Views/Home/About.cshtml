@@ -35,17 +35,17 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1 class="search_taital">بهترین خودروی خود را جستجو کنید</h1>
-                <p class="search_text">با جستجوی سریع و آسان، خودروی موردنظرتان را پیدا کنید و از خرید مطمئن لذت ببرید.</p>
+                <h1 class="search_taital">پست ها را جستجو کنید</h1>
+                <p class="search_text">با جستجوی سریع و آسان، موضوع موردنظرتان را پیدا کنید.</p>
                 <!-- select box section start -->
                 <div class="container">
                     <div class="select_box_section">
                         <div class="select_box_main">
                             <div class="row">
-                                @using (Html.BeginForm("Index", "Products", FormMethod.Get))
+                                @using (Html.BeginForm("Scroll", "Products", FormMethod.Get))
                                 {
                                     <div class="col-md-3 select-outline">
-                                        <input type="text" name="search" placeholder="جستجوی ماشین..."
+                                        <input type="text" name="search" placeholder="جستجو..."
                                                style="padding:10px; width:400px; border:1px solid #ccc; border-radius:5px;" />
                                     </div>
                                     <div class="col-md-3 select-outline">
@@ -53,6 +53,7 @@
                                             <button type="submit">
                                                 جستجو
                                             </button>
+
                                         </div>
 
                                     </div>
@@ -94,15 +95,3 @@
 </div>
 
  
-<div class="row">
-    <div class="col-md-12">
-        <div style="text-align:center; margin:30px 0;">
-            <div class="read_bt">
-                <a href="@Url.Action("Scroll", "Products")">
-                    مشاهده همه ماشین‌ها
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-

@@ -487,14 +487,17 @@ button {
     width: 100%;
     float: left;
     font-size: 40px;
-    color: #fefefd;
+    color: #363636;
     font-weight: bold;
 }
+
+
 .search_text{
     width: 100%;
     float: left;
     font-size: 16px;
-    color: #fefefd;
+    
+    color: #363636;
     margin: 0px;
 }
 

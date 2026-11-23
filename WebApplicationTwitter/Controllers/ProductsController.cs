@@ -100,11 +100,13 @@ namespace WebApplicationTwitter.Controllers
             }
         }
 
+     
 
         // ==================== صفحه اسکرول ====================
-        public ActionResult Scroll(string userName = null, bool mine = false, int? categoryId = null)
+        public ActionResult Scroll(string userName = null, string search = null, bool mine = false, int? categoryId = null)
         {
             ViewBag.FilterUserName = userName;
+            ViewBag.Search = search;
             ViewBag.Mine = mine;
 
             if (categoryId.HasValue && categoryId.Value > 0)
@@ -130,7 +132,7 @@ namespace WebApplicationTwitter.Controllers
 
         // ==================== AJAX: لود محصولات (Scroll) ====================
         public JsonResult GetProductsScroll(int skip = 0, int take = 12, int seed = 0,
-                                             string userName = null, bool mine = false, int? categoryId = null)
+                                             string userName = null,   bool mine = false, int? categoryId = null)
         {
             if (seed == 0)
                 seed = new Random().Next(1, 1000000);
