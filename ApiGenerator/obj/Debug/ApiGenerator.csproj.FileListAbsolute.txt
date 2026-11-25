@@ -1,0 +1,12 @@
+C:\Users\S.yousefi\Source\Repos\StoreAdmin\ApiGenerator\obj\Debug\ApiGenerator.csprojAssemblyReference.cache
+C:\Users\S.yousefi\Source\Repos\StoreAdmin\ApiGenerator\obj\Debug\ApiGenerator.csproj.CoreCompileInputs.cache
+C:\Users\S.yousefi\Source\Repos\StoreAdmin\ApiGenerator\bin\Debug\appsettings.json
+C:\Users\S.yousefi\Source\Repos\StoreAdmin\ApiGenerator\bin\Debug\ApiGenerator.exe.config
+C:\Users\S.yousefi\Source\Repos\StoreAdmin\ApiGenerator\bin\Debug\ApiGenerator.exe
+C:\Users\S.yousefi\Source\Repos\StoreAdmin\ApiGenerator\bin\Debug\ApiGenerator.pdb
+C:\Users\S.yousefi\Source\Repos\StoreAdmin\ApiGenerator\bin\Debug\Newtonsoft.Json.dll
+C:\Users\S.yousefi\Source\Repos\StoreAdmin\ApiGenerator\bin\Debug\Newtonsoft.Json.pdb
+C:\Users\S.yousefi\Source\Repos\StoreAdmin\ApiGenerator\bin\Debug\Newtonsoft.Json.xml
+C:\Users\S.yousefi\Source\Repos\StoreAdmin\ApiGenerator\obj\Debug\ApiGenerator.csproj.CopyComplete
+C:\Users\S.yousefi\Source\Repos\StoreAdmin\ApiGenerator\obj\Debug\ApiGenerator.exe
+C:\Users\S.yousefi\Source\Repos\StoreAdmin\ApiGenerator\obj\Debug\ApiGenerator.pdb

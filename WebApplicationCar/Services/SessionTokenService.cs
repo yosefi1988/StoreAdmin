@@ -2,7 +2,9 @@
 using System.Linq;
 using System.Security.Cryptography;
 using WebApplicationCar.Models;
+#pragma warning disable CS0105 // The using directive for 'WebApplicationCar.Models' appeared previously in this namespace
 using WebApplicationCar.Models;
+#pragma warning restore CS0105 // The using directive for 'WebApplicationCar.Models' appeared previously in this namespace
 
 namespace WebApplicationCar.Services
 {

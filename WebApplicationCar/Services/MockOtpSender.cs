@@ -6,7 +6,9 @@ using Newtonsoft.Json;
 using System.Threading.Tasks;
 
 using System.Diagnostics;
+#pragma warning disable CS0105 // The using directive for 'System.Threading.Tasks' appeared previously in this namespace
 using System.Threading.Tasks;
+#pragma warning restore CS0105 // The using directive for 'System.Threading.Tasks' appeared previously in this namespace
 
 namespace WebApplicationCar.Services
 {

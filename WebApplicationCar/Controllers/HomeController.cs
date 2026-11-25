@@ -3,22 +3,44 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+#pragma warning disable CS0105 // The using directive for 'System' appeared previously in this namespace
 using System;
+#pragma warning restore CS0105 // The using directive for 'System' appeared previously in this namespace
+#pragma warning disable CS0105 // The using directive for 'System.Collections.Generic' appeared previously in this namespace
 using System.Collections.Generic;
+#pragma warning restore CS0105 // The using directive for 'System.Collections.Generic' appeared previously in this namespace
 using System.Configuration;
 using System.Data.SqlClient;
+#pragma warning disable CS0105 // The using directive for 'System.Linq' appeared previously in this namespace
 using System.Linq;
+#pragma warning restore CS0105 // The using directive for 'System.Linq' appeared previously in this namespace
+#pragma warning disable CS0105 // The using directive for 'System.Web.Mvc' appeared previously in this namespace
 using System.Web.Mvc;
+#pragma warning restore CS0105 // The using directive for 'System.Web.Mvc' appeared previously in this namespace
 using WebApplicationCar.Models;
 using System.Threading.Tasks;
+#pragma warning disable CS0105 // The using directive for 'System' appeared previously in this namespace
 using System;
+#pragma warning restore CS0105 // The using directive for 'System' appeared previously in this namespace
+#pragma warning disable CS0105 // The using directive for 'System.Linq' appeared previously in this namespace
 using System.Linq;
+#pragma warning restore CS0105 // The using directive for 'System.Linq' appeared previously in this namespace
+#pragma warning disable CS0105 // The using directive for 'System.Web.Mvc' appeared previously in this namespace
 using System.Web.Mvc;      // به جای Microsoft.AspNetCore.Mvc
+#pragma warning restore CS0105 // The using directive for 'System.Web.Mvc' appeared previously in this namespace
 using System.Data.Entity;  // به جای Microsoft.EntityFrameworkCore
+#pragma warning disable CS0105 // The using directive for 'System.Threading.Tasks' appeared previously in this namespace
 using System.Threading.Tasks;
+#pragma warning restore CS0105 // The using directive for 'System.Threading.Tasks' appeared previously in this namespace
+#pragma warning disable CS0105 // The using directive for 'System' appeared previously in this namespace
 using System;
+#pragma warning restore CS0105 // The using directive for 'System' appeared previously in this namespace
+#pragma warning disable CS0105 // The using directive for 'System.Threading.Tasks' appeared previously in this namespace
 using System.Threading.Tasks;
+#pragma warning restore CS0105 // The using directive for 'System.Threading.Tasks' appeared previously in this namespace
+#pragma warning disable CS0105 // The using directive for 'WebApplicationCar.Models' appeared previously in this namespace
 using WebApplicationCar.Models;
+#pragma warning restore CS0105 // The using directive for 'WebApplicationCar.Models' appeared previously in this namespace
 
 namespace WebApplicationCar.Controllers
 {
@@ -107,7 +129,9 @@ namespace WebApplicationCar.Controllers
 
 
 
+#pragma warning disable CS0108 // 'HomeController.GetSettings()' hides inherited member 'BaseController.GetSettings()'. Use the new keyword if hiding was intended.
         private StoreSettingVM GetSettings()
+#pragma warning restore CS0108 // 'HomeController.GetSettings()' hides inherited member 'BaseController.GetSettings()'. Use the new keyword if hiding was intended.
         {
             return base.GetSettings();
         }

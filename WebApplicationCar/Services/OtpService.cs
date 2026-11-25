@@ -5,10 +5,14 @@ using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
 
+#pragma warning disable CS0105 // The using directive for 'System' appeared previously in this namespace
 using System;
+#pragma warning restore CS0105 // The using directive for 'System' appeared previously in this namespace
 using System.Linq;
 using WebApplicationCar.Models;
+#pragma warning disable CS0105 // The using directive for 'WebApplicationCar.Models' appeared previously in this namespace
 using WebApplicationCar.Models;
+#pragma warning restore CS0105 // The using directive for 'WebApplicationCar.Models' appeared previously in this namespace
 
 namespace WebApplicationCar.Services
 {

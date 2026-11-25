@@ -300,6 +300,7 @@
     <Content Include="Content\trator-1.0.0\js\bootstrap.js.map" />
     <Content Include="Content\trator-1.0.0\js\bootstrap.min.js.map" />
     <None Include="Properties\PublishProfiles\car.pubxml" />
+    <None Include="Properties\PublishProfiles\ftp.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\dental-services-list.js" />
     <Content Include="Scripts\feed.js" />

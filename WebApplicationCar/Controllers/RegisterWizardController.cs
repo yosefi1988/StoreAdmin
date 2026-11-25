@@ -6,13 +6,23 @@ using System.Web.Mvc;
 using WebApplicationCar.Models;
 using WebApplicationCar.Models.ViewModels.Wizard;
 
+#pragma warning disable CS0105 // The using directive for 'System' appeared previously in this namespace
 using System;
+#pragma warning restore CS0105 // The using directive for 'System' appeared previously in this namespace
+#pragma warning disable CS0105 // The using directive for 'System.Linq' appeared previously in this namespace
 using System.Linq;
+#pragma warning restore CS0105 // The using directive for 'System.Linq' appeared previously in this namespace
 using System.Threading.Tasks;
+#pragma warning disable CS0105 // The using directive for 'System.Web.Mvc' appeared previously in this namespace
 using System.Web.Mvc;
+#pragma warning restore CS0105 // The using directive for 'System.Web.Mvc' appeared previously in this namespace
+#pragma warning disable CS0105 // The using directive for 'WebApplicationCar.Models' appeared previously in this namespace
 using WebApplicationCar.Models;
+#pragma warning restore CS0105 // The using directive for 'WebApplicationCar.Models' appeared previously in this namespace
 using WebApplicationCar.Services;
+#pragma warning disable CS0105 // The using directive for 'WebApplicationCar.Models' appeared previously in this namespace
 using WebApplicationCar.Models;
+#pragma warning restore CS0105 // The using directive for 'WebApplicationCar.Models' appeared previously in this namespace
 using System.Transactions;
 
 namespace WebApplicationCar.Controllers
@@ -196,7 +206,9 @@ namespace WebApplicationCar.Controllers
                     }
                 }
             }
+#pragma warning disable CS0168 // The variable 'ex' is declared but never used
             catch (Exception ex)
+#pragma warning restore CS0168 // The variable 'ex' is declared but never used
             {
                 // ⚠️ حتماً لاگ کنید
                 // Logger.Error("RegisterWizard.Save failed", ex);

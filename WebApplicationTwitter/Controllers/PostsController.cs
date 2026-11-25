@@ -81,16 +81,40 @@ namespace WebApplicationTwitter.Controllers
         // ============================================================
         // Helper: گرفتن فروشگاه فعال
         // ============================================================
+        // ============================================================
+        // Helper: گرفتن فروشگاه فعال (با اعتبارسنجی عضویت)
+        // ============================================================
         private int? GetCurrentStoreId()
         {
-            // 1) Session
-            if (Session != null && Session["ActiveStoreSettingId"] != null)
+            int? candidate = null;
+
+            // 1) Session (اگر مقدار معتبر int دارد) 
+
+            if (Session != null && Session["ActiveStoreSettingId"] is int)
+                candidate = (int)Session["ActiveStoreSettingId"];
+
+            // 2) DB fallback: اگر سشن مقدار نداشت، از کاربر بخوان
+            if (!candidate.HasValue)
             {
-                object item = Session["ActiveStoreSettingId"];
-                if (item is int) return (int)item;
+                var uid = GetCurrentUserId();
+                if (uid.HasValue)
+                {
+                    try
+                    {
+                        using (var db = new DataClassesDatabaseDataContextDataContext())
+                        {
+                            var user = db.X_Users.FirstOrDefault(u => u.UserId == uid.Value);
+                            if (user != null && user.FK_ActiveStoreSettingId.HasValue)
+                                candidate = user.FK_ActiveStoreSettingId.Value;
+                        }
+                    }
+                    catch { /* ignore */ }
+                }
             }
 
-            // 2) DB (fallback)
+            if (!candidate.HasValue) return null;
+
+            // 3) اعتبارسنجی عضویت: کاربر باید در این فروشگاه عضو فعال باشد
             var userId = GetCurrentUserId();
             if (userId.HasValue)
             {
@@ -98,20 +122,28 @@ namespace WebApplicationTwitter.Controllers
                 {
                     using (var db = new DataClassesDatabaseDataContextDataContext())
                     {
-                        var user = db.X_Users.FirstOrDefault(u => u.UserId == userId.Value);
-                        if (user != null && user.FK_ActiveStoreSettingId.HasValue)
+                        bool stillMember = db.X_UserStoreSettings.Any(us =>
+                            us.FK_UserId == userId.Value &&
+                            us.FK_StoreSettingId == candidate.Value &&
+                            us.IsActive &&
+                            us.LeftAt == null);
+
+                        // اگر عضو نیست، سشن را پاک کن و null برگردان
+                        if (!stillMember)
                         {
-                            Session["ActiveStoreSettingId"] = user.FK_ActiveStoreSettingId.Value;
-                            return user.FK_ActiveStoreSettingId.Value;
+                            if (Session != null) Session["ActiveStoreSettingId"] = null;
+                            return null;
                         }
                     }
                 }
                 catch { /* ignore */ }
             }
 
-            return null;
-        }
+            // 4) کش در سشن برای درخواست‌های بعدی
+            if (Session != null) Session["ActiveStoreSettingId"] = candidate.Value;
 
+            return candidate.Value;
+        }
         // ============================================================
         // صفحه فید
         // ============================================================
@@ -995,6 +1027,106 @@ namespace WebApplicationTwitter.Controllers
             catch (Exception ex)
             {
                 return Json(new { success = false, message = "خطا: " + ex.Message });
+            }
+        }
+
+        // ============================================================
+        // GET: لیست فروشگاه‌های کاربر جاری
+        // ============================================================
+        [HttpGet]
+        public JsonResult GetMyStores()
+        {
+            var userId = GetCurrentUserId();
+            if (!userId.HasValue)
+                return NeedLoginResult();
+
+            try
+            {
+                using (var db = new DataClassesDatabaseDataContextDataContext())
+                {
+                    var activeStoreId = GetCurrentStoreId();
+
+                    var stores = (from us in db.X_UserStoreSettings
+                                  join s in db.X_StoreSettings on us.FK_StoreSettingId equals s.StoreSettingId
+                                  where us.FK_UserId == userId.Value
+                                     && us.IsActive
+                                     && us.LeftAt == null
+                                     && s.IsActive
+                                  orderby us.IsPrimary descending,
+                                          s.StoreNameFa
+                                  select new
+                                  {
+                                      StoreSettingId = s.StoreSettingId,
+                                      StoreNameFa = s.StoreNameFa,
+                                      StoreNameEn = s.StoreNameEn,
+                                      LogoUrl = s.LogoUrl,
+                                      IsPrimary = us.IsPrimary,
+                                      RoleInStore = us.RoleInStore
+                                  }).ToList();
+
+                    return Json(new
+                    {
+                        success = true,
+                        ActiveStoreId = activeStoreId,
+                        Data = stores
+                    }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "خطا در بارگذاری فروشگاه‌ها: " + ex.Message,
+                    detail = ex.ToString()
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        // ============================================================
+        // POST: تغییر فروشگاه فعال
+        // ============================================================
+        [HttpPost]
+        public JsonResult SwitchStore(int storeSettingId)
+        {
+            var userId = GetCurrentUserId();
+            if (!userId.HasValue)
+                return NeedLoginResult();
+
+            try
+            {
+                using (var db = new DataClassesDatabaseDataContextDataContext())
+                {
+                    var isMember = db.X_UserStoreSettings
+                        .Any(us => us.FK_UserId == userId.Value
+                                && us.FK_StoreSettingId == storeSettingId
+                                && us.IsActive
+                                && us.LeftAt == null);
+
+                    if (!isMember)
+                        return Json(new { success = false, message = "شما عضو این فروشگاه نیستید." });
+
+                    var user = db.X_Users.FirstOrDefault(u => u.UserId == userId.Value);
+                    if (user == null)
+                        return Json(new { success = false, message = "کاربر یافت نشد." });
+
+                    user.FK_ActiveStoreSettingId = storeSettingId;
+                    db.SubmitChanges();
+
+                    if (Session != null)
+                        Session["ActiveStoreSettingId"] = storeSettingId;
+
+                    return Json(new { success = true, message = "فروشگاه فعال تغییر کرد." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "خطا در تغییر فروشگاه: " + ex.Message,
+                    detail = ex.ToString()
+                });
             }
         }
     }

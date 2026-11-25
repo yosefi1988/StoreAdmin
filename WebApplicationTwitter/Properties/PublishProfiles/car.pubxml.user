@@ -1,0 +1,576 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>D:\Documents\Desktop\tmp</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="bin/Antlr3.Runtime.dll">
+      <publishTime>11/22/2026 12:34:38</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.dll">
+      <publishTime>11/22/2026 12:34:38</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.SqlServer.dll">
+      <publishTime>11/22/2026 12:34:38</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.Identity.Core.dll">
+      <publishTime>11/22/2026 12:34:38</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.Identity.EntityFramework.dll">
+      <publishTime>11/22/2026 12:34:38</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.Identity.Owin.dll">
+      <publishTime>11/22/2026 12:34:38</publishTime>
+    </File>
+    <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
+      <publishTime>11/22/2026 12:34:38</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.dll">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Host.SystemWeb.dll">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.Cookies.dll">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.dll">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.Facebook.dll">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.Google.dll">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.MicrosoftAccount.dll">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.OAuth.dll">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.Twitter.dll">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>11/22/2026 12:38:48</publishTime>
+    </File>
+    <File Include="bin/Owin.dll">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="bin/roslyn/csc.exe">
+      <publishTime>11/22/2026 12:34:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.Build.Tasks.CodeAnalysis.dll">
+      <publishTime>11/22/2026 12:34:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.CSharp.dll">
+      <publishTime>11/22/2026 12:34:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.dll">
+      <publishTime>11/22/2026 12:34:38</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.VisualBasic.dll">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CSharp.Core.targets">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.VisualBasic.Core.targets">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Collections.Immutable.dll">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Reflection.Metadata.dll">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="bin/roslyn/vbc.exe">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe.config">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.dll">
+      <publishTime>11/22/2026 12:34:38</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>11/22/2026 12:34:38</publishTime>
+    </File>
+    <File Include="bin/System.Web.Optimization.dll">
+      <publishTime>11/22/2026 12:34:38</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>11/22/2026 12:34:38</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Deployment.dll">
+      <publishTime>11/22/2026 12:34:38</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.dll">
+      <publishTime>11/22/2026 12:34:38</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Razor.dll">
+      <publishTime>11/22/2026 12:34:38</publishTime>
+    </File>
+    <File Include="bin/WebApplicationTwitter.dll">
+      <publishTime>11/23/2026 15:43:41</publishTime>
+    </File>
+    <File Include="bin/WebGrease.dll">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/auth-dashboard.css">
+      <publishTime>11/23/2026 08:32:04</publishTime>
+    </File>
+    <File Include="Content/images/logo.png">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/Site.css">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/themes/theme-dark.css">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/themes/theme-default.css">
+      <publishTime>11/23/2026 08:02:03</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/css/.DS_Store">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/css/animate.min.css">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/css/bootstrap-grid.css">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/css/bootstrap-grid.css.map">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/css/bootstrap-grid.min.css">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/css/bootstrap-grid.min.css.map">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/css/bootstrap-reboot.css">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/css/bootstrap-reboot.css.map">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/css/bootstrap-reboot.min.css">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/css/bootstrap-reboot.min.css.map">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/css/bootstrap.css">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/css/bootstrap.css.map">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/css/bootstrap.min.css">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/css/bootstrap.min.css.map">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/css/default-skin.css">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/css/font-awesome.min.css">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/css/icomoon.css">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/css/jquery-ui.css">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/css/jquery.fancybox.min.css">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/css/jquery.mCustomScrollbar.min.css">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/css/meanmenu.css">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/css/nice-select.css">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/css/normalize.css">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/css/owl.carousel.min.css">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/css/responsive.css">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/css/slick.css">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/css/style.css">
+      <publishTime>11/23/2026 13:35:12</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/imagesX/12.jpg">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/imagesX/about-img.png">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/imagesX/about-img0.png">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/imagesX/banner-bg.png">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/imagesX/banner-bg0.png">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/imagesX/banner-img.png">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/imagesX/client-img1.png">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/imagesX/client-img2.png">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/imagesX/icon-1.png">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/imagesX/icon-2.png">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/imagesX/icon-3.png">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/imagesX/img-1.png">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/imagesX/img-2.png">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/imagesX/img-3.png">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/imagesX/logo.png">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/imagesX/quick-icon.png">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/js/.DS_Store">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/js/bootstrap.bundle.js">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/js/bootstrap.bundle.js.map">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/js/bootstrap.bundle.min.js">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/js/bootstrap.bundle.min.js.map">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/js/bootstrap.js">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/js/bootstrap.js.map">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/js/bootstrap.min.js">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/js/bootstrap.min.js.map">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/js/custom.js">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/js/jquery-3.0.0.min.js">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/js/jquery.mCustomScrollbar.concat.min.js">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/js/jquery.min.js">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/js/jquery.validate.js">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/js/modernizer.js">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/js/plugin.js">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/js/popper.min.js">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/trator-1.0.0/js/slider-setting.js">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Content/wizard.css">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="favicon.ico">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.eot">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.svg">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.ttf">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="fonts/glyphicons-halflings-regular.woff">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>11/22/2026 13:44:18</publishTime>
+    </File>
+    <File Include="Models/DataClassesDatabaseDataContext.dbml">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Scripts/api-client.js">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Scripts/bootstrap.js">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Scripts/bootstrap.min.js">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Scripts/change-password.js">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Scripts/config.js">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Scripts/dental-services-list.js">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Scripts/feed.js">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Scripts/forgot-password.js">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.js">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.min.js">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.min.map">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.js">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.min.js">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.unobtrusive.js">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Scripts/jquery.validate.unobtrusive.min.js">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Scripts/login.js">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Scripts/modernizr-2.6.2.js">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Scripts/post-detail.js">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Scripts/posts-scroll.js">
+      <publishTime>11/23/2026 13:28:07</publishTime>
+    </File>
+    <File Include="Scripts/product-wizard.js">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Scripts/product.js">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Scripts/products-list.js">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Scripts/register-wizard.js">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Scripts/reset-password.js">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Scripts/respond.js">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Scripts/respond.min.js">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Scripts/_references.js">
+      <publishTime>11/23/2026 10:41:59</publishTime>
+    </File>
+    <File Include="Views/Account/ConfirmEmail.cshtml">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Views/Account/ExternalLoginConfirmation.cshtml">
+      <publishTime>11/22/2026 13:44:18</publishTime>
+    </File>
+    <File Include="Views/Account/ExternalLoginFailure.cshtml">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Views/Account/ForgotPassword.cshtml">
+      <publishTime>11/22/2026 13:44:18</publishTime>
+    </File>
+    <File Include="Views/Account/ForgotPasswordConfirmation.cshtml">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Views/Account/Login.cshtml">
+      <publishTime>11/22/2026 13:44:18</publishTime>
+    </File>
+    <File Include="Views/Account/Register.cshtml">
+      <publishTime>11/22/2026 13:44:18</publishTime>
+    </File>
+    <File Include="Views/Account/ResetPassword.cshtml">
+      <publishTime>11/22/2026 13:44:18</publishTime>
+    </File>
+    <File Include="Views/Account/ResetPasswordConfirmation.cshtml">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Views/Account/SendCode.cshtml">
+      <publishTime>11/22/2026 13:44:18</publishTime>
+    </File>
+    <File Include="Views/Account/VerifyCode.cshtml">
+      <publishTime>11/22/2026 13:44:18</publishTime>
+    </File>
+    <File Include="Views/Account/_ExternalLoginsListPartial.cshtml">
+      <publishTime>11/22/2026 13:44:18</publishTime>
+    </File>
+    <File Include="Views/ChangePassword/Index.cshtml">
+      <publishTime>11/22/2026 15:54:10</publishTime>
+    </File>
+    <File Include="Views/Dashboard/Index.cshtml">
+      <publishTime>11/23/2026 07:28:15</publishTime>
+    </File>
+    <File Include="Views/DentalServices/Details.cshtml">
+      <publishTime>11/22/2026 13:44:18</publishTime>
+    </File>
+    <File Include="Views/DentalServices/Index.cshtml">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Views/ForgotPassword/Index.cshtml">
+      <publishTime>11/22/2026 15:54:10</publishTime>
+    </File>
+    <File Include="Views/ForgotPassword/Invalid.cshtml">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Views/ForgotPassword/Reset.cshtml">
+      <publishTime>11/22/2026 15:54:10</publishTime>
+    </File>
+    <File Include="Views/Home/About.cshtml">
+      <publishTime>11/23/2026 13:35:38</publishTime>
+    </File>
+    <File Include="Views/Home/Client.cshtml">
+      <publishTime>11/22/2026 13:44:18</publishTime>
+    </File>
+    <File Include="Views/Home/Contact.cshtml">
+      <publishTime>11/22/2026 13:44:18</publishTime>
+    </File>
+    <File Include="Views/Home/Index.cshtml">
+      <publishTime>11/22/2026 13:44:18</publishTime>
+    </File>
+    <File Include="Views/Home/Services.cshtml">
+      <publishTime>11/22/2026 13:44:18</publishTime>
+    </File>
+    <File Include="Views/Login/Index.cshtml">
+      <publishTime>11/22/2026 15:54:10</publishTime>
+    </File>
+    <File Include="Views/Manage/AddPhoneNumber.cshtml">
+      <publishTime>11/22/2026 13:44:18</publishTime>
+    </File>
+    <File Include="Views/Manage/ChangePassword.cshtml">
+      <publishTime>11/22/2026 13:44:18</publishTime>
+    </File>
+    <File Include="Views/Manage/Index.cshtml">
+      <publishTime>11/22/2026 13:44:18</publishTime>
+    </File>
+    <File Include="Views/Manage/ManageLogins.cshtml">
+      <publishTime>11/22/2026 13:44:18</publishTime>
+    </File>
+    <File Include="Views/Manage/SetPassword.cshtml">
+      <publishTime>11/22/2026 13:44:18</publishTime>
+    </File>
+    <File Include="Views/Manage/VerifyPhoneNumber.cshtml">
+      <publishTime>11/22/2026 13:44:18</publishTime>
+    </File>
+    <File Include="Views/Posts/Detail.cshtml">
+      <publishTime>11/23/2026 08:25:43</publishTime>
+    </File>
+    <File Include="Views/Posts/Feed.cshtml">
+      <publishTime>11/23/2026 11:17:03</publishTime>
+    </File>
+    <File Include="Views/Products/Details.cshtml">
+      <publishTime>11/23/2026 09:00:01</publishTime>
+    </File>
+    <File Include="Views/Products/Index.cshtml">
+      <publishTime>11/23/2026 09:03:20</publishTime>
+    </File>
+    <File Include="Views/Products/Scroll.cshtml">
+      <publishTime>11/23/2026 13:14:59</publishTime>
+    </File>
+    <File Include="Views/ProductWizard/Create.cshtml">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Views/Profile/Index.cshtml">
+      <publishTime>11/22/2026 14:20:13</publishTime>
+    </File>
+    <File Include="Views/RegisterWizard/Index.cshtml">
+      <publishTime>11/23/2026 07:58:27</publishTime>
+    </File>
+    <File Include="Views/Shared/Error.cshtml">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Views/Shared/Lockout.cshtml">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Views/Shared/_Layout.cshtml">
+      <publishTime>11/23/2026 08:11:31</publishTime>
+    </File>
+    <File Include="Views/Shared/_LoginPartial.cshtml">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Views/Web.config">
+      <publishTime>11/22/2026 13:44:18</publishTime>
+    </File>
+    <File Include="Views/_ViewStart.cshtml">
+      <publishTime>11/22/2026 12:34:39</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>11/23/2026 15:43:41</publishTime>
+    </File>
+  </ItemGroup>
+</Project>
