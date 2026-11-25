@@ -64,8 +64,8 @@ C:\Users\S.yousefi\Source\Repos\StoreAdmin\WebApplicationTwitter\bin\Microsoft.O
 C:\Users\S.yousefi\Source\Repos\StoreAdmin\WebApplicationTwitter\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\S.yousefi\Source\Repos\StoreAdmin\WebApplicationTwitter\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\S.yousefi\Source\Repos\StoreAdmin\WebApplicationTwitter\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\S.yousefi\Source\Repos\StoreAdmin\WebApplicationTwitter\obj\Debug\WebApplicationTwitter.dll
+C:\Users\S.yousefi\Source\Repos\StoreAdmin\WebApplicationTwitter\obj\Debug\WebApplicationTwitter.pdb
 C:\Users\S.yousefi\Source\Repos\StoreAdmin\WebApplicationTwitter\obj\Debug\WebApplicationTwitter.csprojAssemblyReference.cache
 C:\Users\S.yousefi\Source\Repos\StoreAdmin\WebApplicationTwitter\obj\Debug\WebApplicationTwitter.csproj.CoreCompileInputs.cache
 C:\Users\S.yousefi\Source\Repos\StoreAdmin\WebApplicationTwitter\obj\Debug\WebApplicationTwitter.csproj.CopyComplete
-C:\Users\S.yousefi\Source\Repos\StoreAdmin\WebApplicationTwitter\obj\Debug\WebApplicationTwitter.dll
-C:\Users\S.yousefi\Source\Repos\StoreAdmin\WebApplicationTwitter\obj\Debug\WebApplicationTwitter.pdb
