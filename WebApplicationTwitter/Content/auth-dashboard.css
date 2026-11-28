@@ -229,10 +229,20 @@ a {
     font-weight: 600;
 }
 
+/* 🔴 اصلاحیه: flex-wrap و gap برای جلوگیری از سرریز */
 .composer-footer {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 
 .post-composer textarea {
@@ -253,7 +263,11 @@ a {
     }
 
 .post-header {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     margin-bottom: 10px;
 }
@@ -265,11 +279,18 @@ a {
     background: var(--bg-avatar);
     object-fit: cover;
     margin-left: 10px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
     color: var(--text-muted);
     font-weight: bold;
+    -ms-flex-negative: 0;
     flex-shrink: 0;
 }
 
@@ -287,8 +308,11 @@ a {
         border-radius: 6px;
     }
 
+/* 🔴 اصلاحیه: flex-basis صریح 0% برای Chrome */
 .post-author-info {
-    flex: 1;
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 0%;
+    flex: 1 1 0%;
     min-width: 0;
 }
 
@@ -306,11 +330,14 @@ a {
     font-size: 12px;
 }
 
+/* 🔴 اصلاحیه: flex-shrink: 0 برای جلوگیری از فشردگی زمان */
 .post-time {
     color: var(--text-muted);
     font-size: 12px;
     margin-right: 5px;
     white-space: nowrap;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
 }
 
 .post-title {
@@ -336,9 +363,14 @@ a {
     object-fit: cover;
 }
 
+/* 🔴 اصلاحیه: flex-wrap برای جلوگیری از سرریز اکشن‌ها */
 .post-actions {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     gap: 20px;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
     margin-top: 12px;
     padding-top: 10px;
     border-top: 1px solid var(--border-light);
@@ -349,7 +381,11 @@ a {
     border: none;
     color: var(--text-secondary);
     cursor: pointer;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     gap: 6px;
     padding: 4px 8px;
@@ -392,6 +428,8 @@ a {
 
 /* کامنت‌های مودال فید */
 .comment-item {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     gap: 10px;
     padding: 10px 0;
@@ -408,16 +446,26 @@ a {
     border-radius: 50%;
     background: var(--bg-avatar);
     object-fit: cover;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
     color: var(--text-muted);
     font-weight: bold;
+    -ms-flex-negative: 0;
     flex-shrink: 0;
 }
 
+/* 🔴 اصلاحیه: flex-basis صریح 0% برای Chrome */
 .comment-body {
-    flex: 1;
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 0%;
+    flex: 1 1 0%;
     min-width: 0;
 }
 
@@ -473,7 +521,11 @@ a {
 }
 
     .post-detail-card .post-header {
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
         align-items: center;
         margin-bottom: 14px;
     }
@@ -485,16 +537,26 @@ a {
         background: var(--bg-avatar);
         object-fit: cover;
         margin-left: 12px;
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
         align-items: center;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
         justify-content: center;
         color: var(--text-muted);
         font-weight: bold;
+        -ms-flex-negative: 0;
         flex-shrink: 0;
     }
 
+    /* 🔴 اصلاحیه: flex-basis صریح 0% */
     .post-detail-card .post-author-info {
-        flex: 1;
+        -webkit-box-flex: 1;
+        -ms-flex: 1 1 0%;
+        flex: 1 1 0%;
         min-width: 0;
     }
 
@@ -509,10 +571,13 @@ a {
         font-size: 12px;
     }
 
+    /* 🔴 اصلاحیه: flex-shrink: 0 */
     .post-detail-card .post-time {
         color: var(--text-muted);
         font-size: 12px;
         white-space: nowrap;
+        -ms-flex-negative: 0;
+        flex-shrink: 0;
     }
 
     .post-detail-card .post-title {
@@ -559,9 +624,14 @@ a {
                 opacity: .92;
             }
 
+    /* 🔴 اصلاحیه: flex-wrap */
     .post-detail-card .post-actions {
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
         gap: 20px;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
         margin-top: 14px;
         padding-top: 12px;
         border-top: 1px solid var(--border-light);
@@ -572,7 +642,11 @@ a {
         border: none;
         color: var(--text-secondary);
         cursor: pointer;
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
         align-items: center;
         gap: 6px;
         padding: 6px 10px;
@@ -612,6 +686,8 @@ a {
 }
 
 .post-detail-wrapper .comment-item {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     gap: 10px;
     padding: 12px 0;
@@ -628,16 +704,26 @@ a {
     border-radius: 50%;
     background: var(--bg-avatar);
     object-fit: cover;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
     color: var(--text-muted);
     font-weight: bold;
+    -ms-flex-negative: 0;
     flex-shrink: 0;
 }
 
+/* 🔴 اصلاحیه: flex-basis صریح 0% */
 .post-detail-wrapper .comment-body {
-    flex: 1;
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 0%;
+    flex: 1 1 0%;
     min-width: 0;
 }
 
@@ -662,7 +748,10 @@ a {
 }
 
 .post-detail-wrapper .comment-images {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     gap: 6px;
     margin-top: 8px;
@@ -693,6 +782,7 @@ a {
    ============================================================ */
 
 .feed-layout {
+    max-width: 80% !important;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -701,10 +791,15 @@ a {
     align-items: flex-start;
     direction: rtl;
     gap: 20px;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
 }
 
+/* 🔴 اصلاحیه: عرض و max-width صریح برای جلوگیری از فشردگی در Chrome */
 .feed-sidebar {
     width: 260px !important;
+    max-width: 260px;
+    min-width: 0;
     -webkit-box-flex: 0;
     -ms-flex: 0 0 260px;
     flex: 0 0 260px;
@@ -713,26 +808,41 @@ a {
     top: 90px;
 }
 
+/* 🔴 اصلاحیه: flex-basis: 0% به‌جای auto — کلید رفع مشکل Chrome */
 .feed-main {
     -webkit-box-flex: 1;
-    -ms-flex: 1 1 auto;
-    flex: 1 1 auto;
+    -ms-flex: 1 1 0%;
+    flex: 1 1 0%;
     min-width: 0;
-    width: 100%;
-    max-width: calc(100% - 280px); /* محاسبه دقیق عرض برای جلوگیری از فشردگی */
+    width: auto;
+    max-width: none;
 }
 
 /* استایل‌های داخلی سوییچر فروشگاه */
 .store-switcher .card-header {
     font-weight: 600;
     background: #f8f9fa;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     gap: 6px;
 }
 
+    /* 🔴 اصلاحیه: min-width: 0 برای فرزندان متنی */
+    .store-switcher .card-header > *,
+    .store-switcher .current-store-row > * {
+        min-width: 0;
+    }
+
 .store-switcher .current-store-row {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     gap: 6px;
     padding: 6px 8px;
@@ -743,10 +853,14 @@ a {
 
     .store-switcher .current-store-row .fa-check-circle {
         color: #28a745;
+        -ms-flex-negative: 0;
+        flex-shrink: 0;
     }
 
 .store-switcher .store-primary-star {
     color: #f5b301;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
 }
 
 .store-switcher .store-logo {
@@ -756,11 +870,15 @@ a {
     border-radius: 4px;
     border: 1px solid #ddd;
     margin-left: 4px;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
 }
 
 /* حالت موبایل برای چیدمان فید */
+/* 🔴 اصلاحیه: flex: 0 0 auto + width: 100% در حالت ستونی */
 @media (max-width: 768px) {
     .feed-layout {
+        max-width: 100% !important;
         -webkit-box-orient: vertical;
         -webkit-box-direction: normal;
         -ms-flex-direction: column;
@@ -769,16 +887,47 @@ a {
 
     .feed-sidebar {
         width: 100% !important;
-        -ms-flex: 1 1 auto;
-        flex: 1 1 auto;
+        max-width: 100%;
+        -ms-flex: 0 0 auto;
+        flex: 0 0 auto;
         position: static;
     }
 
     .feed-main {
+        max-width: 80% !important;
+        -ms-flex: 0 0 auto;
+        flex: 0 0 auto;
+        width: 100%;
         max-width: 100%;
     }
 
     .store-switcher {
         margin-bottom: 12px;
     }
+}
+/* مخفی کردن دراپ‌داون تقلبی nice-select در داشبورد */
+.nice-select {
+    display: none !important;
+}
+
+/* برگرداندن نمایش به تگ select اصلی */
+select.form-control {
+    display: block !important;
+}
+
+
+/* ============================================================
+   محدود کردن متن پست‌ها به ۵ خط در صفحه فید
+   ============================================================ */
+
+/* فقط روی صفحه فید (کارت‌های پست) اعمال می‌شود، نه صفحه جزئیات */
+.post-card .post-content {
+    display: -webkit-box !important;
+    -webkit-line-clamp: 5 !important; /* تعداد خطوط مجاز */
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    /* اطمینان از اعمال درست در همه مرورگرها */
+    line-height: 1.7 !important;
+    max-height: calc(1.7em * 5) !important; /* ۵ خط ضربدر ارتفاع هر خط */
 }

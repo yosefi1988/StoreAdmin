@@ -246,9 +246,30 @@ namespace WebApplicationTwitter.Controllers
                         baseQuery = baseQuery.OrderByDescending(p => p.CreatedAt);
                     }
 
-                  
                     var total = baseQuery.Count();
-                    var data = baseQuery.Skip(skip).Take(take).ToList();
+
+                    // دیتای خام را از دیتابیس می‌گیریم
+                    var rawData = baseQuery.Skip(skip).Take(take).ToList();
+
+                    // 🔴 کوتاه کردن متن سمت سرور (حداکثر ۳۰۰ کاراکتر)
+                    var data = rawData.Select(p => new
+                    {
+                        p.ResourceId,
+                        p.Title,
+                        Content = !string.IsNullOrEmpty(p.Content) && p.Content.Length > 300
+                                  ? p.Content.Substring(0, 300) + "..."
+                                  : p.Content,
+                        p.CreatedAt,
+                        p.AuthorId,
+                        p.AuthorName,
+                        p.AuthorFirstName,
+                        p.AuthorLastName,
+                        p.AuthorProfileImage,
+                        p.ImageUrl,
+                        p.LikeCount,
+                        p.CommentCount,
+                        p.IsLikedByMe
+                    }).ToList();
 
                     return Json(new
                     {
@@ -276,7 +297,6 @@ namespace WebApplicationTwitter.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-
         // ============================================================
         // AJAX: جزئیات یک پست (فقط از همان فروشگاه)
         // ============================================================

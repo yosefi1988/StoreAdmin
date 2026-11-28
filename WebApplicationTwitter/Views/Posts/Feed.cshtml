@@ -3,102 +3,69 @@
     ViewBag.Title = "خط فرمان";
 }
 
+<!--
+    توجه: استایل‌های چیدمان فید در auth-dashboard.css تعریف شده‌اند.
+    اینجا فقط overrideهای امن و مخصوص همین صفحه نگه داشته شده.
+-->
 <style>
-    /* ===== چیدمان فید ===== */
-    .feed-wrapper {
-        max-width: 1200px !important;
-        margin: 20px auto !important;
-        padding: 0 15px !important;
-    }
-
-    .feed-layout {
-        display: flex !important;
-        gap: 20px !important;
-        align-items: flex-start !important;
-        direction: rtl !important;
-    }
-
-    .feed-sidebar {
-        width: 260px !important;
-        flex-shrink: 0 !important;
-        position: sticky !important;
-        top: 90px !important;
-    }
-
-    .feed-main {
-        flex: 1 !important;
-        min-width: 0 !important;
-        width: 100% !important;
-    }
-
-    /* ===== اصلاح باکس ارسال پست ===== */
+    /* فاصله بالای کامپوزر (فقط همین صفحه) */
     .post-composer {
-        margin-top: 0 !important;
+        margin-top: 0;
     }
 
     .composer-title {
-        margin-top: 0 !important;
-        margin-bottom: 12px !important;
-    }
-
-    /* ===== موبایل ===== */
-    @@media (max-width: 768px) {
-        .feed-layout {
-            flex-direction: column !important;
-        }
-
-        .feed-sidebar {
-            width: 100% !important;
-            position: static !important;
-        }
+        margin-top: 0;
+        margin-bottom: 12px;
     }
 </style>
+
 <div class="feed-wrapper">
 
     <div class="feed-layout">
 
-        <!-- ========== سایدبار: سوئیچر فروشگاه ========== -->
         <aside class="feed-sidebar">
-            <div class="store-switcher card">
-                <div class="card-header">
-                    <i class="fa fa-store"></i>
+            <div class="card store-switcher" style="border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <div class="card-header" style="background-color: #f8f9fa; border-bottom: 1px solid #eee; padding: 12px 15px; border-radius: 8px 8px 0 0; font-weight: bold;">
+                    <i class="fa fa-store text-muted"></i>
                     <span>فروشگاه فعال</span>
                 </div>
 
-                <div id="storeSwitcherBody" class="card-body p-2">
-                    <div id="storeLoading" class="text-center py-2" style="display:none;">
+                <div id="storeSwitcherBody" class="card-body" style="padding: 15px;">
+                    
+                    <div id="storeLoading" class="text-center py-2" style="display: none;">
                         <div class="spinner-border spinner-border-sm text-primary"></div>
                     </div>
 
-                    <div id="storeCurrent" class="mb-2"></div>
+                    <!-- باکس فروشگاه فعلی -->
+                    <div id="storeCurrent" class="mb-3"></div>
 
-                    <select id="storeSelect" class="form-control form-control-sm" style="display:none;"></select>
+                    <!-- دراپ‌داون انتخاب فروشگاه -->
+                    <select id="storeSelect" class="form-control" style="height: 42px !important; border-radius: 6px !important; border: 1px solid #ced4da !important; padding: 0 10px !important; font-size: 14px !important; color: #333 !important; background-color: #fff !important; cursor: pointer; width: 100%; display: none;">
+                        <!-- گزینه‌ها توسط جاوااسکریپت پر می‌شوند -->
+                    </select>
 
-                    <!-- 🔴 هیچ دکمه‌ای اینجا نباید باشد -->
-
-                    <div id="storeError" class="text-danger small mt-2" style="display:none;"></div>
+                    <!-- 🔴 باکس خطا: کاملاً مخفی شد تا باکس قرمز خالی نمایش داده نشود -->
+                    <div id="storeError" class="text-danger small mt-2" style="display: none !important;"></div>
+                    
                 </div>
             </div>
         </aside>
 
-        <!-- ========== محتوای اصلی ========== -->
         <main class="feed-main">
 
-            <!-- باکس ارسال پست -->
             <div class="post-composer">
-                <h5 class="composer-title" >
+                <h5 class="composer-title">
                     <i class="fa fa-pencil"></i> چه خبر؟
                 </h5>
 
-                <div id="composerAlert" class="alert alert-danger" style="display:none;"></div>
+                <div id="composerAlert" class="alert alert-danger d-none"></div>
 
-                <input style="display:none" type="text" id="postTitle" class="form-control mb-2"
+                <input type="text" id="postTitle" class="form-control mb-2 d-none"
                        maxlength="400" placeholder="عنوان (اختیاری ولی توصیه‌شده)" />
 
                 <textarea id="postContent" class="form-control mb-2" rows="3"
                           maxlength="2000" placeholder="متن پست..."></textarea>
 
-                <!-- بخش تصاویر -->
                 <div class="mb-2">
                     <label class="small text-muted mb-1">
                         <i class="fa fa-image"></i> تصاویر (اختیاری)
@@ -112,9 +79,7 @@
                         می‌توانید چند تصویر انتخاب کنید (jpg, png, gif, webp — حداکثر ۵MB هر فایل)
                     </small>
 
-                    <div id="selectedFilesPreview"
-                         class="d-flex flex-wrap gap-2 mt-2"></div>
-
+                    <div id="selectedFilesPreview" class="d-flex flex-wrap gap-2 mt-2"></div>
                     <div id="uploadedImagesList" class="mt-2"></div>
 
                     <button type="button" id="btnUploadPostImages"
@@ -138,24 +103,20 @@
                 </div>
             </div>
 
-            <!-- فید -->
             <div id="feedContainer"></div>
 
-            <!-- loading -->
-            <div id="feedLoading" class="feed-loading" style="display:none;">
+            <div id="feedLoading" class="feed-loading d-none">
                 <div class="spinner-border text-primary" role="status">
                     <span class="sr-only">در حال بارگذاری...</span>
                 </div>
                 <p class="mt-2 text-muted small">در حال بارگذاری...</p>
             </div>
 
-            <!-- پایان -->
-            <div id="feedEnd" class="feed-end" style="display:none;">
+            <div id="feedEnd" class="feed-end d-none">
                 — به پایان فید رسیدید —
             </div>
 
-            <!-- خطا -->
-            <div id="feedError" class="alert alert-danger" style="display:none;"></div>
+            <div id="feedError" class="alert alert-danger d-none"></div>
 
         </main>
 
@@ -163,9 +124,7 @@
 
 </div>
 
-<!-- ============================================================ -->
-<!-- Modal: کامنت‌ها (بدون تغییر)                                  -->
-<!-- ============================================================ -->
+<!-- Modal: نظرات -->
 <div class="modal fade" id="commentsModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
         <div class="modal-content">
@@ -188,13 +147,13 @@
                     </button>
                 </div>
                 <div id="commentsList"></div>
-                <div id="commentsLoading" class="text-center py-3" style="display:none;">
+                <div id="commentsLoading" class="text-center py-3 d-none">
                     <div class="spinner-border spinner-border-sm text-primary"></div>
                 </div>
-                <div id="commentsEmpty" class="text-center text-muted py-3" style="display:none;">
+                <div id="commentsEmpty" class="text-center text-muted py-3 d-none">
                     هنوز نظری ثبت نشده. اولین نفر باشید!
                 </div>
-                <div id="commentsEnd" class="text-center text-muted small py-2" style="display:none;">
+                <div id="commentsEnd" class="text-center text-muted small py-2 d-none">
                     — به پایان نظرات رسیدید —
                 </div>
             </div>

@@ -1,54 +1,147 @@
 ﻿@model WebApplicationTwitter.Models.HomeViewModel
- 
 
- 
+@{
+    ViewBag.Title = "تماس با ما";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    /* ===== استایل اختصاصی صفحه تماس ===== */
+    .contact_section {
+        padding: 60px 0;
+        background-color: #f9f9f9;
+        min-height: calc(100vh - 200px);
+    }
+
+    .contact_taital {
+        text-align: center;
+        font-size: 32px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 40px;
+    }
+
+    /* باکس اصلی فرم */
+    .contact_form_box {
+        background: #ffffff;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        padding: 40px;
+        max-width: 600px;
+        margin: 0 auto;
+        border-top: 5px solid #fe5b29; /* خط نارنجی بالای فرم */
+    }
+
+    .mail_text {
+        width: 100%;
+        padding: 15px 20px;
+        margin-bottom: 20px;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        font-family: 'Vazirmatn', sans-serif;
+        font-size: 14px;
+        transition: all 0.3s ease;
+        background-color: #fdfdfd;
+    }
+
+    .mail_text:focus, .massage-bt:focus {
+        border-color: #fe5b29;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(254, 91, 41, 0.1);
+        background-color: #fff;
+    }
+
+    .massage-bt {
+        width: 100%;
+        padding: 15px 20px;
+        margin-bottom: 25px;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        font-family: 'Vazirmatn', sans-serif;
+        font-size: 14px;
+        resize: vertical;
+        transition: all 0.3s ease;
+        background-color: #fdfdfd;
+    }
+
+    .send_bt {
+        text-align: center;
+    }
+
+    .send_bt a {
+        display: inline-block;
+        width: 100%;
+        padding: 15px;
+        background-color: #fe5b29;
+        color: #fff;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .send_bt a:hover {
+        background-color: #e04a1d;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(254, 91, 41, 0.3);
+    }
+</style>
+
 <!-- contact section start -->
-<div class="contact_section layout_padding">
+<div class="contact_section">
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
                 <h1 class="contact_taital">ارتباط مستقیم با @Model.Settings.StoreNameFa</h1>
             </div>
         </div>
-    </div>
-    <div class="container">
-        <div class="contact_section_2">
-            <div class="row">
-                <div class="col-md-12">
-
-
-                    <div class="mail_section_1">
-                        <form id="contactForm">
-                            <input type="text" class="mail_text" placeholder="نام و نام خانوادگی" name="Name" required>
-                            <input type="email" class="mail_text" placeholder="آدرس ایمیل" name="Email">
-                            <input type="text" class="mail_text" placeholder="شماره موبایل" name="PhoneNumber">
-                            <textarea class="massage-bt" placeholder="پیام یا درخواست" rows="5" name="Massage"></textarea>
-                            <div class="send_bt">
-                                <a href="javascript:void(0)" onclick="submitContact()">ارسال به @Model.Settings.StoreNameFa</a>
-                            </div>
-                        </form> 
-                    </div>
-
-                    <script>
-                        function submitContact() {
-                            var f = document.getElementById('contactForm');
-                            var data = new FormData(f);
-                            fetch('@Url.Action("SendContactMessage", "Home")', {
-                                method: 'POST',
-                                body: data
-                            })
-                            .then(r => r.json())
-                            .then(res => {
-                                alert(res.message);
-                                if (res.success) f.reset();
-                            });
-                        }
-                    </script>
-                     
+        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="contact_form_box">
+                    <form id="contactForm">
+                        <input type="text" class="mail_text" placeholder="نام و نام خانوادگی" name="Name" required>
+                        <input type="email" class="mail_text" placeholder="آدرس ایمیل" name="Email">
+                        <input type="text" class="mail_text" placeholder="شماره موبایل" name="PhoneNumber">
+                        <textarea class="massage-bt" placeholder="پیام یا درخواست" rows="5" name="Massage"></textarea>
+                        
+                        <div class="send_bt">
+                            <a href="javascript:void(0)" onclick="submitContact()">
+                                ارسال به @Model.Settings.StoreNameFa <i class="fa fa-paper-plane"></i>
+                            </a>
+                        </div>
+                    </form> 
                 </div>
+
+                <script>
+                    function submitContact() {
+                        var f = document.getElementById('contactForm');
+                        var data = new FormData(f);
+                        
+                        // اعتبارسنجی ساده سمت کلاینت
+                        if(!data.get('Name') || !data.get('Massage')) {
+                            alert('لطفا نام و متن پیام را وارد کنید.');
+                            return;
+                        }
+
+                        fetch('@Url.Action("SendContactMessage", "Home")', {
+                            method: 'POST',
+                            body: data
+                        })
+                        .then(r => r.json())
+                        .then(res => {
+                            alert(res.message);
+                            if (res.success) f.reset();
+                        })
+                        .catch(err => {
+                            alert('خطا در ارتباط با سرور');
+                        });
+                    }
+                </script>
+                 
             </div>
         </div>
     </div>
 </div>
 <!-- contact section end -->
- 
